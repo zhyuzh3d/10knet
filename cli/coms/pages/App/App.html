@@ -1,0 +1,123 @@
+<script src="./App.js"></script>
+
+<template>
+    <div id='App' xid='App'>
+        <nav-bar id='NavBar' xid='NavBar' v-bind:bg-color='barBg' style='position:absolute;z-index:1'></nav-bar>
+        <component id='App_mainView' :is="mainView" xid='App_mainView' style='position:absolute;z-index:0' v-bind:class='(barBg!="inherit")?"padbar":""'></component>
+    </div>
+</template>
+
+<style scoped>
+    .padbar {
+        margin-top: 60px;
+    }
+
+    #NavBar {
+        position: absolute;
+        z-index: 1
+    }
+
+    #App_mainView {
+        position: absolute;
+        z-index: 0
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .sec {
+        width: 100%;
+        color: white;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        padding-top: 40px
+    }
+
+    .topbarbox {
+        flex: none;
+        height: 60px;
+    }
+
+    .tc {
+        text-align: center
+    }
+
+    .qcodebox {
+        cursor: pointer;
+    }
+
+    .qcode {
+        max-width: 18%;
+        min-width: 200px;
+    }
+
+    .qmaskbg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #1c758a;
+        opacity: 0.66;
+    }
+
+    .qbtn {
+        position: absolute;
+        width: 120px;
+        height: 36px;
+        left: 50%;
+        margin-left: -60px;
+        top: 50%;
+        margin-top: -18px;
+    }
+
+    .qmaskout {
+        max-width: 18%;
+        min-width: 200px;
+        height: 100%;
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        opacity: 1;
+        overflow: visible
+    }
+
+    .qmaskin:hover {
+        opacity: 1;
+    }
+
+    .qmaskin {
+        height: 100%;
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        opacity: 0;
+        margin-left: -100%
+    }
+
+    .full {
+        width: 100%;
+        height: 100%;
+    }
+
+    .abs {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .rel {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .hand {
+        cursor: pointer
+    }
+
+</style>

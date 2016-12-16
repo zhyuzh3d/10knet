@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10knet(alpha)</title>
+    <meta name="description" content="面向下一代的在线编程环境">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <div style="margin-top:10%;text-align:center">
+        <h1>访问异常:404</h1>
+        <p>找不到您要访问的页面,<span id='tick'>3</span>秒后自动跳转到首页</p>
+    </div>
+    <script>
+        var tick = 3;
+        var n = setInterval(function() {
+            tick -= 1;
+            document.getElementById('tick').innerHTML = tick;
+            if (tick <= 0) {
+                clearInterval(n);
+                location.href = '//10knet.com/';
+            }
+        }, 1000)
+
+    </script>
+</body>

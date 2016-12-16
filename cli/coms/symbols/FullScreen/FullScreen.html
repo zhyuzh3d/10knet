@@ -1,0 +1,30 @@
+<script src="./FullScreen.js"></script>
+
+<template>
+    <div id='fullScreen' class="fixed">
+        <div id='clrBg' class="abs full" v-bind:style='{width:wid,height:hei,"background-color":bgColor,opacity:colorAlpha}'></div>
+        <img id='imgBg' v-if='imgUrl' class='abs' v-bind:style='{"background-color":bgColor,opacity:imgAlpha}' />
+        <div class="abs full fixed">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+    .abs {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .fixed{
+        position: fixed;
+    }
+
+    .full {
+        width: 100%;
+        height: 100%;
+        overflow-y: hidden;
+    }
+
+</style>
