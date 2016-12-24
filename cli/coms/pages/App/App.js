@@ -10,11 +10,13 @@ import NavBar from '../../blocks/NavBar/NavBar.html';
 import Welcome from '../../pages/Welcome/Welcome.html';
 import Dashboard from '../../pages/Dashboard/Dashboard.html';
 import Ide from '../../pages/Ide/Ide.html';
+import Keke from '../../pages/Keke/Keke.html';
 com.components = {
     NavBar,
     Welcome,
     Dashboard,
     Ide,
+    Keke,
 };
 
 

@@ -1,34 +1,39 @@
 {
-    "name": "10knet",
-    "description": "A Vue.js project",
-    "author": "zhyuzh",
-    "private": true,
-    "scripts": {
-        "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --content-base pub/",
-        "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
-    },
-    "dependencies": {
-        "lodash": "^4.17.2"
-    },
-    "devDependencies": {
-        "element-theme-default": "^1.0.4",
-        "element-ui": "^1.0.0",
-        "vue": "^2.0.5",
-        "vue-router": "^2.1.1",
-        "babel-core": "^6.0.0",
-        "babel-loader": "^6.0.0",
-        "babel-preset-es2015": "^6.13.2",
-        "bootstrap": "^3.3.7",
-        "cross-env": "^1.0.6",
-        "css-loader": "^0.23.1",
-        "element-theme": "^0.2.0",
-        "element-theme-default": "^1.0.4",
-        "file-loader": "^0.8.5",
-        "jquery": "^3.1.1",
-        "style-loader": "^0.13.1",
-        "vue-loader": "^9.8.0",
-        "vuex": "^2.0.0",
-        "webpack": "^2.1.0-beta.27",
-        "webpack-dev-server": "^2.1.0-beta.12"
-    }
+  "name": "10knet",
+  "description": "A Vue.js project",
+  "author": "zhyuzh",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --content-base pub/",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.18.0",
+    "koa": "^2.0.0-alpha.7",
+    "koa-router": "^7.0.1",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "element-theme-default": "^1.0.4",
+    "element-ui": "^1.0.0",
+    "vue": "^2.0.5",
+    "vue-router": "^2.1.1",
+    "bootstrap": "^3.3.7",
+    "cross-env": "^1.0.6",
+    "css-loader": "^0.23.1",
+    "element-theme": "^0.2.0",
+    "file-loader": "^0.8.5",
+    "jquery": "^3.1.1",
+    "style-loader": "^0.13.1",
+    "vue-loader": "^9.8.0",
+    "vuex": "^2.0.0",
+    "webpack": "^2.1.0-beta.27",
+    "webpack-dev-server": "^2.1.0-beta.12"
+  }
 }

@@ -1,7 +1,7 @@
 /*全局路由函数文件，将被xglobal插件载入到每个component的this.$xrouter备用
 每个可路由切换的组件必须有prop属性xid传入或$el上面有xid属性，类似<top-bar xid='topbar'>,没有xid的将被忽略无法被路由调动
  */
-import _ from 'lodash';
+//import _ from 'lodash';
 import $ from 'jquery';
 
 let xrouter = {};
@@ -138,7 +138,7 @@ xrouter.xset = function (xid, keyValObj, unsave) {
         orgval = JSON.safeParse(orgval);
 
         var addval = keyValObj;
-        var newval = _.assign({}, orgval, addval);
+        var newval = Object.assign({}, orgval, addval);
         newval = JSON.stringify(newval);
         localStorage.setItem(lskey, newval);
     };

@@ -94,9 +94,9 @@ function handleSelect(key, path) {
                 mainView: 'welcome'
             });
             break;
-        case 'dashboard':
+        case 'keke':
             vc.$xrouter.go('App', {
-                mainView: 'dashboard'
+                mainView: 'Keke'
             });
             break;
         case 'ide':
