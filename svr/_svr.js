@@ -1,5 +1,6 @@
 /*后端服务程序入口,初始化babel，支持ES7
  */
+'use strict';
 
 //所有通用库，包含node_modules和my_modules
 const $babel = global.$babel = require("babel-core/register");

@@ -5,7 +5,8 @@
 const _app = global._app = new $Koa();
 
 //创建其他全局变量
-const _txts = global._txts = require('./conf/_txts.js')
+const _txts = global._txts = require('./base_modules/_txts.js')
+const _zrouter = global._zrouter = require('./base_modules/_zrouter.js')
 
 
 //全部api的容器对象
@@ -15,7 +16,7 @@ _app.apis = {};
 _app.use(require('./mdwr/alogger.js'));
 
 //路由分发到_app.apis对象
-_app.use(require('./mdwr/arouter.js'));
+_app.use(_zrouter.mdwr);
 
 
 
