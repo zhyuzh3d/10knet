@@ -1,0 +1,184 @@
+{"time":"2016-12-25 06:46:55:4655","data":">>>>"}
+{"time":"2016-12-25 06:46:55:4655","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25 06:50:18:5018","data":">>>>"}
+{"time":"2016-12-25 06:50:18:5018","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:51:28.581Z","data":">>>>"}
+{"time":"2016-12-25T10:51:28.588Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:52:09.389Z","data":">>>>"}
+{"time":"2016-12-25T10:52:09.396Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:52:22.484Z","data":">>>>"}
+{"time":"2016-12-25T10:52:22.489Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:52:30.312Z","data":">>>>"}
+{"time":"2016-12-25T10:52:30.319Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:53:18.445Z","data":">>>>"}
+{"time":"2016-12-25T10:53:18.451Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:53:50.707Z","data":">>>>"}
+{"time":"2016-12-25T10:53:50.715Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:55:04.654Z","data":">>>>"}
+{"time":"2016-12-25T10:55:04.660Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T10:55:38.740Z","data":">>>>"}
+{"time":"2016-12-25T10:55:38.746Z","data":{"haah":{"dd":333,"vv":"ddd\nff"}}}
+{"time":"2016-12-25T11:04:25.612Z","type":"show","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:04:25.619Z","type":"show","data":"GET : /test?uid=33&name=haha -> 8ms"}
+{"time":"2016-12-25T11:04:25.739Z","type":"show","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:04:25.748Z","type":"show","data":"GET : /favicon.ico -> 8ms"}
+{"time":"2016-12-25T11:06:23.867Z","type":"info","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:06:23.963Z","type":"info","data":"GET : /favicon.ico -> 2ms"}
+{"time":"2016-12-25T11:08:11.220Z","type":"info","data":"GET : /test?uid=33&name=haha -> 8ms"}
+{"time":"2016-12-25T11:08:11.336Z","type":"info","data":"GET : /favicon.ico -> 3ms"}
+{"time":"2016-12-25T11:15:16.836Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:15:16.847Z","type":"info","data":"GET : /test?uid=33&name=haha -> 11ms"}
+{"time":"2016-12-25T11:15:16.959Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:16:16.552Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:16:16.561Z","type":"info","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:16:16.651Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:17:02.862Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:17:02.871Z","type":"info","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:17:02.968Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:18:14.815Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:18:14.824Z","type":"info","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:18:14.917Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:18:29.188Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:18:29.270Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:19:10.983Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:19:10.995Z","type":"info","data":"GET : /test?uid=33&name=haha -> 13ms"}
+{"time":"2016-12-25T11:19:11.105Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:19:47.476Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:19:47.484Z","type":"info","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:19:47.588Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:20:08.496Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:20:08.507Z","type":"info","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:20:08.590Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:20:08.607Z","type":"info","data":{}}
+{"time":"2016-12-25T11:20:08.609Z","type":"info","data":"GET : /favicon.ico -> 20ms"}
+{"time":"2016-12-25T11:21:21.947Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:21:21.949Z","type":"info","data":"GET : /test?uid=33&name=haha -> 1ms"}
+{"time":"2016-12-25T11:21:22.043Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:21:22.044Z","type":"info","data":{}}
+{"time":"2016-12-25T11:21:22.045Z","type":"info","data":"GET : /favicon.ico -> 3ms"}
+{"time":"2016-12-25T11:22:18.710Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:22:18.718Z","type":"info","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:22:18.825Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:22:18.828Z","type":"info","data":{}}
+{"time":"2016-12-25T11:22:18.830Z","type":"info","data":"GET : /favicon.ico -> 4ms"}
+{"time":"2016-12-25T11:22:24.011Z","type":"info","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:22:24.012Z","type":"info","data":"GET : /test?uid=33&name=haha -> 1ms"}
+{"time":"2016-12-25T11:22:24.097Z","type":"info","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:22:24.098Z","type":"info","data":{}}
+{"time":"2016-12-25T11:22:24.098Z","type":"info","data":"GET : /favicon.ico -> 2ms"}
+{"time":"2016-12-25T11:24:40.386Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:24:40.396Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:24:40.490Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:24:40.506Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:24:40.507Z","type":"INFO","data":"GET : /favicon.ico -> 18ms"}
+{"time":"2016-12-25T11:25:14.524Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:25:14.533Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:25:14.637Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:25:14.639Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:25:14.641Z","type":"INFO","data":"GET : /favicon.ico -> 3ms"}
+{"time":"2016-12-25T11:25:19.686Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:25:19.687Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 1ms"}
+{"time":"2016-12-25T11:25:19.772Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:25:19.772Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:25:19.773Z","type":"INFO","data":"GET : /favicon.ico -> 1ms"}
+{"time":"2016-12-25T11:26:04.346Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:26:04.356Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 11ms"}
+{"time":"2016-12-25T11:26:04.452Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:26:04.455Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:26:04.456Z","type":"INFO","data":"GET : /favicon.ico -> 5ms"}
+{"time":"2016-12-25T11:26:18.918Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:26:18.927Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:26:19.006Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:26:19.007Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:26:19.009Z","type":"INFO","data":"GET : /favicon.ico -> 2ms"}
+{"time":"2016-12-25T11:26:36.099Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:26:36.108Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:26:36.203Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:26:36.218Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:26:36.219Z","type":"INFO","data":"GET : /favicon.ico -> 16ms"}
+{"time":"2016-12-25T11:27:04.214Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:27:04.231Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 18ms"}
+{"time":"2016-12-25T11:27:04.323Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:27:04.340Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:27:04.342Z","type":"INFO","data":"GET : /favicon.ico -> 19ms"}
+{"time":"2016-12-25T11:27:44.564Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:27:44.573Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:27:44.668Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:27:44.683Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/favicon.ico\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke [as _invoke] (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:355:22)\n    at Generator.prototype.(anonymous function) [as next] (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:116:21)\n    at step (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:164:191)\n    at /Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:164:437\n    at /Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:164:99\n    at koaMiddleWare (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:160:22)\n    at dispatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.3.2.1@koa-compose/index.js:44:32)\n    at next (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.3.2.1@koa-compose/index.js:45:18)"}
+{"time":"2016-12-25T11:27:44.684Z","type":"INFO","data":"GET : /favicon.ico -> 16ms"}
+{"time":"2016-12-25T11:28:09.890Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:28:09.899Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:28:10.011Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:28:10.037Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/favicon.ico\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n  "}
+{"time":"2016-12-25T11:28:10.038Z","type":"INFO","data":"GET : /favicon.ico -> 27ms"}
+{"time":"2016-12-25T11:28:41.214Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:28:41.223Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:28:41.318Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:28:41.339Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/favicon.ico\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator"}
+{"time":"2016-12-25T11:28:41.340Z","type":"INFO","data":"GET : /favicon.ico -> 23ms"}
+{"time":"2016-12-25T11:35:41.009Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:35:41.017Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:35:41.120Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:35:41.150Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:35:41.151Z","type":"INFO","data":"GET : /favicon.ico -> 32ms"}
+{"time":"2016-12-25T11:36:10.952Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:36:10.962Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:36:11.052Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:36:11.071Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:36:11.072Z","type":"INFO","data":"GET : /favicon.ico -> 20ms"}
+{"time":"2016-12-25T11:36:33.165Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:36:33.174Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 11ms"}
+{"time":"2016-12-25T11:36:33.265Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:36:33.282Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:36:33.283Z","type":"INFO","data":"GET : /favicon.ico -> 18ms"}
+{"time":"2016-12-25T11:37:03.417Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:37:03.425Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:37:03.515Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:37:03.534Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:37:03.535Z","type":"INFO","data":"GET : /favicon.ico -> 20ms"}
+{"time":"2016-12-25T11:37:35.318Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:37:35.328Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 11ms"}
+{"time":"2016-12-25T11:37:35.421Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:37:35.442Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:37:35.443Z","type":"INFO","data":"GET : /favicon.ico -> 22ms"}
+{"time":"2016-12-25T11:37:54.654Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:37:54.666Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 12ms"}
+{"time":"2016-12-25T11:37:54.737Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:37:54.755Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:37:54.757Z","type":"INFO","data":"GET : /favicon.ico -> 20ms"}
+{"time":"2016-12-25T11:38:00.334Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:38:00.342Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:38:00.421Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:38:00.442Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:38:00.443Z","type":"INFO","data":"GET : /favicon.ico -> 22ms"}
+{"time":"2016-12-25T11:40:08.829Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:40:08.838Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:40:08.937Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:40:08.960Z","type":"INFO","data":"GET : /favicon.ico -> 24ms"}
+{"time":"2016-12-25T11:40:08.958Z","type":"ERR","data":{}}
+{"time":"2016-12-25T11:41:08.913Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:41:08.922Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:41:09.024Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:41:09.028Z","type":"ERR","data":"找不到您所请求的API路径:/favicon.ico"}
+{"time":"2016-12-25T11:41:09.032Z","type":"INFO","data":"GET : /favicon.ico -> 7ms"}
+{"time":"2016-12-25T11:41:27.010Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:41:27.011Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 1ms"}
+{"time":"2016-12-25T11:41:27.092Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:41:27.092Z","type":"ERR","data":"找不到您所请求的API路径:/favicon.ico"}
+{"time":"2016-12-25T11:41:27.093Z","type":"INFO","data":"GET : /favicon.ico -> 2ms"}
+{"time":"2016-12-25T11:42:30.250Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:42:30.260Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 11ms"}
+{"time":"2016-12-25T11:42:30.367Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:42:49.472Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:42:49.482Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 12ms"}
+{"time":"2016-12-25T11:42:49.555Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:43:06.379Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:43:06.387Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 10ms"}
+{"time":"2016-12-25T11:43:06.477Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:43:06.479Z","type":"ERR","data":"undefined"}
+{"time":"2016-12-25T11:43:06.480Z","type":"INFO","data":"GET : /favicon.ico -> 2ms"}
+{"time":"2016-12-25T11:43:28.607Z","type":"INFO","data":"GET : /test?uid=33&name=haha"}
+{"time":"2016-12-25T11:43:28.615Z","type":"INFO","data":"GET : /test?uid=33&name=haha -> 9ms"}
+{"time":"2016-12-25T11:43:28.706Z","type":"INFO","data":"GET : /favicon.ico"}
+{"time":"2016-12-25T11:43:28.723Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/favicon.ico\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator"}
+{"time":"2016-12-25T11:43:28.724Z","type":"INFO","data":"GET : /favicon.ico -> 18ms"}

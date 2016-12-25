@@ -5,6 +5,9 @@
 //所有通用库，包含node_modules和my_modules
 const $babel = global.$babel = require("babel-core/register");
 const $polyFill = global.$polyFill = require("babel-polyfill");
+
+const $fs = global.$fs = require('fs');
+const $path = global.$path = require('path');
 const $Koa = global.$Koa = require('koa');
 const $_ = global.$_ = require('lodash');
 const $moment = global.$moment = require('moment');
@@ -12,3 +15,4 @@ const $moment = global.$moment = require('moment');
 
 //服务程序真正的入口
 require("./_app.js");
+
