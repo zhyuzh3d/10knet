@@ -2,10 +2,11 @@
  */
 'use strict';
 
-//所有通用库，包含node_modules和my_modules
+//ES6/ES7转译
 const $babel = global.$babel = require("babel-core/register");
 const $polyFill = global.$polyFill = require("babel-polyfill");
 
+//导入全局插件
 const $fs = global.$fs = require('fs');
 const $path = global.$path = require('path');
 const $Koa = global.$Koa = require('koa');

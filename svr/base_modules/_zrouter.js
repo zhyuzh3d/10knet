@@ -95,8 +95,6 @@ async function koaMiddleWare(ctx, next) {
 };
 
 
-
-
 //-----------------------------
 /**
  * 仅供测试的test接口范例
@@ -107,14 +105,14 @@ _zrouter.addApi('/test', {
     },
 
     validator: {
-        uid: /^(undefined|\d{1,3})$/, //正则表达式验证
-        name: function (ipt, ctx) {
-            return ipt == 'haha'; //函数验证必须返回真假
+        uid: /^(undefined|\d{1,3})$/, //正则表达式验证，可选undefined
+        name: function (ipt, ctx) {//函数验证必须返回真假，须返回真假值
+            return ipt == 'admin';
         }
     },
 
     validate2: function (ctx) { //同名覆盖默认validate，须手工处理异常
-        console.log('>>>validate');
-        if (ctx.query.uid == 3) throw Error('...');
+        _zloger.log('_zrouter:api:test,validate.');
+        if (ctx.query.uid == 3) throw Error('用户ID格式非法');
     },
 })

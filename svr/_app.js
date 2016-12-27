@@ -1,13 +1,19 @@
-/*服务端程序的真正起始文件
+/*服务端程序的真正起始文件,导出_app对象
  */
 'use strict';
 
 const _app = global._app = new $Koa();
+module.exports = _app;
+
 
 //创建其他全局变量
+const _xconf = global._xconf = require('../xconf/secret/_xconf.js')
 const _txts = global._txts = require('./base_modules/_txts.js')
-const _zrouter = global._zrouter = require('./base_modules/_zrouter.js')
 const _zloger = global._zloger = require('./base_modules/_zloger.js')
+const _zprms = global._zprms = require('./base_modules/_zprms.js')
+const _zrouter = global._zrouter = require('./base_modules/_zrouter.js')
+
+const _qn = global._qn = require('./app_modules/_qn.js')
 
 
 //全部api的容器对象
