@@ -1,0 +1,70 @@
+{"time":"2016-12-27T16:00:08.215Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:00:08.581Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:00:09.787Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:00:09.811Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:00:09.815Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 29ms"}
+{"time":"2016-12-27T16:02:13.650Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:02:13.664Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:02:15.054Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:02:15.073Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:02:15.077Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 23ms"}
+{"time":"2016-12-27T16:03:03.023Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:03:03.041Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:03:04.928Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:03:04.948Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:03:33.079Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:03:33.094Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:03:33.835Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:03:33.852Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:03:33.855Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 21ms"}
+{"time":"2016-12-27T16:04:16.320Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:04:16.335Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:04:16.660Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:04:16.680Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:04:16.688Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 27ms"}
+{"time":"2016-12-27T16:04:43.762Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:04:43.777Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:04:44.873Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:04:44.895Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:04:44.901Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 28ms"}
+{"time":"2016-12-27T16:05:19.162Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:05:19.177Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:05:20.042Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:05:20.063Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:05:20.069Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 28ms"}
+{"time":"2016-12-27T16:07:24.407Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:07:24.425Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:07:25.261Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:07:25.280Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:07:25.287Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 27ms"}
+{"time":"2016-12-27T16:07:50.555Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:07:50.570Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:07:51.189Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:07:51.208Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:08:39.302Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:08:39.318Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:08:53.945Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:08:53.959Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:08:54.925Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:08:54.944Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:08:54.952Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 28ms"}
+{"time":"2016-12-27T16:10:22.783Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:10:22.802Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:10:50.229Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:10:50.249Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:10:50.257Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 29ms"}
+{"time":"2016-12-27T16:11:03.948Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:11:03.963Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:11:04.685Z","type":"INFO","data":"GET : /test?uid=33&name=admin2"}
+{"time":"2016-12-27T16:11:04.703Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:11:04.707Z","type":"INFO","data":"GET : /test?uid=33&name=admin2 -> 23ms"}
+{"time":"2016-12-27T16:11:11.932Z","type":"INFO","data":"GET : /test?uid=33&name=admin"}
+{"time":"2016-12-27T16:11:11.935Z","type":"INFO","data":"GET : /test?uid=33&name=admin -> 4ms"}
+{"time":"2016-12-27T16:11:17.135Z","type":"INFO","data":"GET : /tes4t?uid=33&name=admin"}
+{"time":"2016-12-27T16:11:17.137Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/tes4t\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:11:17.138Z","type":"INFO","data":"GET : /tes4t?uid=33&name=admin -> 3ms"}
+{"time":"2016-12-27T16:11:29.654Z","type":"INFO","data":"GET : /test?uid=33&name=admin"}
+{"time":"2016-12-27T16:11:29.655Z","type":"INFO","data":"GET : /test?uid=33&name=admin -> 2ms"}
+{"time":"2016-12-27T16:11:32.806Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin"}
+{"time":"2016-12-27T16:11:32.807Z","type":"ERR","data":"Error: 您提交的数据格式错误:name:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.in"}
+{"time":"2016-12-27T16:11:32.808Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin -> 3ms"}

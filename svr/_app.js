@@ -8,8 +8,8 @@ module.exports = _app;
 //统一引入其他模块
 const _conf = global._xconf = require('../xconf/secret/_xconf.js');
 const _xconf = global._conf = require('./base_modules/_conf.js');
+const _msg = global._msg = require('./base_modules/_msg.js');
 
-const _txts = global._txts = require('./base_modules/_txts.js');
 const _zloger = global._zloger = require('./base_modules/_zloger.js');
 const _zprms = global._zprms = require('./base_modules/_zprms.js');
 const _zrouter = global._zrouter = require('./base_modules/_zrouter.js');

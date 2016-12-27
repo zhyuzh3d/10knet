@@ -12,6 +12,7 @@ const _qn = {
         ACCESS_KEY: _xconf.QINIU.ACCESS_KEY,
         SECRET_KEY: _xconf.QINIU.SECRET_KEY,
     },
+    genUploadToken: genUploadToken,
 };
 
 (function () {
@@ -21,4 +22,18 @@ const _qn = {
 
 module.exports = _qn;
 
-//-------------------functions--------------------
+//-------------------apis--------------------
+_zrouter.addApi('/qn/uploadToken', {
+    method: async function (ctx) {
+        ctx.body = genUploadToken();
+    },
+});
+
+
+//-------------------functions----------------
+function genUploadToken() {
+    var pubPutPolicy = new $qiniu.rs.PutPolicy(_qn.conf.BucketName);
+    pubPutPolicy.returnBody = '{"name": $(fname),"size": $(fsize),"type": $(mimeType),"color": $(exif.ColorSpace.val),"key":$(key),"w": $(imageInfo.width),"h": $(imageInfo.height),"hash": $(etag)}';
+    var token = pubPutPolicy.token();
+    return token;
+};

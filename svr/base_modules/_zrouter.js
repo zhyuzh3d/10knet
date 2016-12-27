@@ -58,7 +58,7 @@ async function apiValidate(ctx) {
         };
 
         if (!legal) {
-            throw Error(`${_txts.err.routerReqDataFormatErr}:${key}`);
+            throw Error().zbind(_msg.Errs.routerReqDataFormatErr, `:${key}`);
             break;
         } else {
             ctx.xdata[key] = inputValue;
@@ -76,19 +76,19 @@ async function koaMiddleWare(ctx, next) {
 
         var path = ctx.path;
         var api = _zrouter.apis[path];
-        if (!api) throw Error(`${_txts.err.routerPathNotFound}:${path}`);
+        if (!api) throw Error().zbind(_msg.Errs.RouterPathNotFound, `:${path}`);
 
         await api.validate(ctx); //验证数据
 
         if (api.method) { //业务处理
             await api.method(ctx);
         } else {
-            throw Error(`${_txts.err.routerMethodNotFound}:${path}`);
+            throw Error().zbind(_msg.Errs.routerMethodNotFound, `:${path}`);
         };
     } catch (err) {
         //捕获异常，输出到控制台,只返回信息部分，
         _zloger.log(err.stack.toString().substr(0, 256), 'ERR');
-        ctx.body = err.message;
+        ctx.body = new _msg.Msg(err.zmini(), ctx);
     };
 
     await next();
