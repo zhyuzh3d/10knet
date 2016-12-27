@@ -7,7 +7,7 @@
 'use strict';
 
 const _zprms = {
-    info: _zloger.log('_zprms:.zprms & .zpromise method has added to Function.'),
+    info: _zloger.info('_zprms:.zprms & .zpromise method has added to Function.'),
 };
 
 (function () {

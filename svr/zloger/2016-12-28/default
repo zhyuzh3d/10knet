@@ -68,3 +68,101 @@
 {"time":"2016-12-27T16:11:32.806Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin"}
 {"time":"2016-12-27T16:11:32.807Z","type":"ERR","data":"Error: 您提交的数据格式错误:name:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.in"}
 {"time":"2016-12-27T16:11:32.808Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin -> 3ms"}
+{"time":"2016-12-27T16:25:03.126Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:25:03.391Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:25:05.795Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin"}
+{"time":"2016-12-27T16:25:05.818Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:25:05.822Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin -> 27ms"}
+{"time":"2016-12-27T16:25:12.264Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin"}
+{"time":"2016-12-27T16:25:12.266Z","type":"ERR","data":"Error: 您提交的数据格式错误:name:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.in"}
+{"time":"2016-12-27T16:25:12.267Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin -> 4ms"}
+{"time":"2016-12-27T16:25:19.469Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:25:19.471Z","type":"ERR","data":"Error: 您提交的数据格式错误:name:name:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generat"}
+{"time":"2016-12-27T16:25:19.472Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin&id=99 -> 2ms"}
+{"time":"2016-12-27T16:25:43.799Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:25:43.811Z","type":"ERR","data":"Error: 您提交的数据格式错误:name:name:name:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Ge"}
+{"time":"2016-12-27T16:25:43.812Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin&id=99 -> 14ms"}
+{"time":"2016-12-27T16:26:32.743Z","type":"INFO","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:26:32.759Z","type":"INFO","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:26:34.635Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:26:34.655Z","type":"ERR","data":"Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:26:34.660Z","type":"INFO","data":"GET : /test?uid=33&nam2e=admin&id=99 -> 25ms"}
+{"time":"2016-12-27T16:26:51.583Z","type":"INFO","data":"GET : /te2st?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:26:51.593Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:26:51.595Z","type":"INFO","data":"GET : /te2st?uid=33&nam2e=admin&id=99 -> 11ms"}
+{"time":"2016-12-27T16:32:38.239Z","type":"INFO"}
+{"time":"2016-12-27T16:32:38.254Z","type":"INFO"}
+{"time":"2016-12-27T16:33:22.011Z","type":"LOG","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:33:22.025Z","type":"LOG","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:33:54.132Z","type":"LOG","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:33:54.145Z","type":"LOG","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:36:09.943Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:36:10.147Z","type":"LOG","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:36:23.413Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:36:23.619Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:36:36.802Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:36:36.814Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:37:42.668Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:37:42.685Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:37:47.640Z","type":"LOG","data":"GET : /te2st?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:37:47.662Z","type":"LOG","data":"GET : /te2st?uid=33&nam2e=admin&id=99 -> 23ms"}
+{"time":"2016-12-27T16:38:30.350Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:38:30.365Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:39:42.444Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:39:42.460Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:40:01.345Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:40:01.360Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:40:02.514Z","type":"LOG","data":"GET : /te2st?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:40:02.535Z","type":"LOG","data":"Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:40:02.540Z","type":"LOG","data":"GET : /te2st?uid=33&nam2e=admin&id=99 -> 27ms"}
+{"time":"2016-12-27T16:40:15.670Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:40:16.043Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:40:17.943Z","type":"LOG","data":"GET : /te2st?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:40:17.962Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:40:17.968Z","type":"LOG","data":"GET : /te2st?uid=33&nam2e=admin&id=99 -> 26ms"}
+{"time":"2016-12-27T16:41:40.629Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:41:40.643Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:41:41.458Z","type":"INF","data":"GET : /te2st?uid=33&nam2e=admin&id=99"}
+{"time":"2016-12-27T16:41:41.473Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:41:41.477Z","type":"INF","data":"GET : /te2st?uid=33&nam2e=admin&id=99 -> 20ms"}
+{"time":"2016-12-27T16:41:52.934Z","type":"INF","data":"GET : /te2st?uid=33&name=admin&id=99"}
+{"time":"2016-12-27T16:41:52.936Z","type":"ERR","data":"Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:41:52.938Z","type":"INF","data":"GET : /te2st?uid=33&name=admin&id=99 -> 4ms"}
+{"time":"2016-12-27T16:42:04.836Z","type":"INF","data":"GET : /test?uid=33&name=admin&id=99"}
+{"time":"2016-12-27T16:42:04.839Z","type":"INF","data":"GET : /test?uid=33&name=admin&id=99 -> 6ms"}
+{"time":"2016-12-27T16:43:21.098Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:43:21.111Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:43:22.608Z","type":"INF","data":"_zloger:koaMiddleWare:GET : /test?uid=33&name=admin&id=99"}
+{"time":"2016-12-27T16:43:22.616Z","type":"INF","data":"_zloger:koaMiddleWare:GET : /test?uid=33&name=admin&id=99 -> 9ms"}
+{"time":"2016-12-27T16:44:00.242Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:44:00.255Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:44:01.095Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99"}
+{"time":"2016-12-27T16:44:01.103Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 -> 8ms"}
+{"time":"2016-12-27T16:44:22.846Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:44:22.860Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:44:24.447Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 <-"}
+{"time":"2016-12-27T16:44:24.456Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 -> 9ms"}
+{"time":"2016-12-27T16:46:31.902Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:46:32.282Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:47:29.341Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 <-"}
+{"time":"2016-12-27T16:47:29.351Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 -> 11ms"}
+{"time":"2016-12-27T16:48:56.462Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:48:56.479Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:49:00.533Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 <-"}
+{"time":"2016-12-27T16:49:00.545Z","type":"INF","data":"_zloger:koaMiddleWare: GET : /test?uid=33&name=admin&id=99 -> 13ms"}
+{"time":"2016-12-27T16:50:28.046Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:50:28.245Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:50:29.640Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&name=admin&id=99 <-"}
+{"time":"2016-12-27T16:50:29.649Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&name=admin&id=99 -> 9ms"}
+{"time":"2016-12-27T16:50:43.773Z","type":"INF","data":"_zloger:koaMdWr: GET : /te2st?uid=33&name=admin&id=99 <-"}
+{"time":"2016-12-27T16:50:43.784Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
+{"time":"2016-12-27T16:50:43.786Z","type":"INF","data":"_zloger:koaMdWr: GET : /te2st?uid=33&name=admin&id=99 -> 13ms"}
+{"time":"2016-12-27T16:50:58.509Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 <-"}
+{"time":"2016-12-27T16:50:58.521Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:50:58.522Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 -> 14ms"}
+{"time":"2016-12-27T16:51:14.653Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 <-"}
+{"time":"2016-12-27T16:51:14.655Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:51:14.655Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 -> 3ms"}
+{"time":"2016-12-27T16:51:32.022Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 <-"}
+{"time":"2016-12-27T16:51:32.024Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:51:32.025Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 -> 4ms"}

@@ -6,7 +6,18 @@ const _zloger = {
     koaMiddleWare: koaMiddleWare,
     folderPath: process.cwd() + '/zloger/', //日志存放的目录
     todayPath: '', //今天的日志目录，自动更改
-    log: log,
+    log: (data, dosave, filename) => {
+        logFn(data, 'LOG', dosave, filename);
+    },
+    info: (data, dosave, filename) => {
+        logFn(data, 'INF', dosave, filename);
+    },
+    err: (data, dosave, filename) => {
+        logFn(data, 'ERR', dosave, filename);
+    },
+    warn: (data, dosave, filename) => {
+        logFn(data, 'WRN', dosave, filename);
+    },
     save: save,
 };
 
@@ -23,10 +34,10 @@ async function koaMiddleWare(ctx, next) {
     const start = new Date();
     const stm = $moment(start).format('YYYY/MM/DD hh:mm:ss');
     var str = `${ctx.method} : ${ctx.url}`;
-    _zloger.log(str);
+    _zloger.info(`_zloger:koaMdWr: ${str} <-`);
     await next();
     const ms = new Date() - start;
-    _zloger.log(`${str} -> ${ms}ms`);
+    _zloger.info(`_zloger:koaMdWr: ${str} -> ${ms}ms`);
 };
 
 /**
@@ -46,7 +57,7 @@ function save(data, type = 'INFO', filename = 'default') {
 
     var file = $path.join(_zloger.todayPath, filename); //当天文件夹内文件
     $fs.appendFile(file, str, (err) => {
-        if (err) _zloger.log(`_loger:logToFile failed:${file}`, 'ERR', false);
+        if (err) _zloger.err(`_loger:save:logToFile failed:${file}`, 'ERR', false);
     });
 };
 
@@ -58,11 +69,13 @@ function save(data, type = 'INFO', filename = 'default') {
  * @param {boolean} type 自定义类型，INFO,ERR,WARN都应大写
  * @param {string} filename  保存的文件名,默认default
  */
-function log(data, type = 'INFO', dosave = true, filename = 'default') {
+function logFn(data, type = 'INFO', dosave = true, filename = 'default') {
     var nowstr = $moment().format('YY-MM-DD hh:mm:ss');
-    console.log('[', type, ']', nowstr, data);
+    console.log(`[${type}] ${nowstr} ${data}`);
     if (dosave) _zloger.save(data, type.toUpperCase(), filename);
 };
+
+
 
 /**
  * 自动设置todayFolder，如果没有就创建

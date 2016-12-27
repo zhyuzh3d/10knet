@@ -17,7 +17,7 @@ const _qn = {
 
 (function () {
     _app.listen(_qn.conf.Port);
-    _zloger.log(`_qn:Server is listening on ${_qn.conf.Port}.`);
+    _zloger.info(`_qn:Server is listening on ${_qn.conf.Port}.`);
 })();
 
 module.exports = _qn;

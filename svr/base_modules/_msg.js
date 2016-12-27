@@ -1,6 +1,11 @@
 /*通用的返回的信息格式，提供msg类
  */
 
+//---------------classes-----------------------
+/**
+ * 基本的Err信息类
+ * {tip:'xxx',id:-1}
+ */
 class Err {
     constructor(tip, id = -1) {
         this.id = id;
@@ -8,6 +13,11 @@ class Err {
     };
 };
 
+/**
+ * 基本的Msg信息类
+ * {err:{tip:'xxx',id:-1},res:{data:xxx,id:0,time:xxx}}
+ * 其中id从ctx中的request中提取得到，默认为0
+ */
 class Msg {
     constructor(err = {}, ctx, data) {
         this.err = {
@@ -23,6 +33,7 @@ class Msg {
     }
 };
 
+//--------------------导出模块------------------------
 const _msg = {
     Msg: Msg,
     Errs: {
@@ -33,24 +44,31 @@ const _msg = {
     }
 };
 
-//导出模块
 module.exports = _msg;
 
 
-//---------------classes-----------------------
-
-
-
-
-//--------------扩展Error------------------------
-Error.prototype.zbind = function (err, str) {
-    if (err.constructor != Err) return this;
-    if (str) err.tip += str;
-    this.message = err.tip || this.message;
-    this.info = err;
+//--------------扩展Error类的方法------------------------
+/**
+ * 绑定Err对象到Error.info格式{tip:'xxx',id:-1}
+ * @param   {object}   err 信息对象应包含tip和id两个字段
+ * @param   {string} str 附加到message和info.tip的额外字符串
+ * @returns {object} 被绑定的Error对象
+ */
+Error.prototype.zbind = function (err = {}, str) {
+    var tip = err.tip || this.message || '未知错误';
+    if (str) tip += str;
+    this.message = tip;
+    this.info = {
+        tip: tip,
+        id: err.id || -1,
+    };
     return this;
 };
 
+/**
+ * 获取Error/Err对象绑定的info对象
+ * @returns {object} {tip:'xxx',id:-1}
+ */
 Error.prototype.zmini = function () {
     return {
         id: this.info ? (this.info.id || -1) : -1,

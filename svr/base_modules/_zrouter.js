@@ -87,7 +87,7 @@ async function koaMiddleWare(ctx, next) {
         };
     } catch (err) {
         //捕获异常，输出到控制台,只返回信息部分，
-        _zloger.log(err.stack.toString().substr(0, 256), 'ERR');
+        _zloger.err(`_zrouter:koaMdWr: ${err.stack.toString().substr(0, 256)}`);
         ctx.body = new _msg.Msg(err.zmini(), ctx);
     };
 
@@ -112,7 +112,7 @@ _zrouter.addApi('/test', {
     },
 
     validate2: function (ctx) { //同名覆盖默认validate，须手工处理异常
-        _zloger.log('_zrouter:api:test,validate.');
+        _zloger.info('_zrouter:api:test,validate.');
         if (ctx.query.uid == 3) throw Error('用户ID格式非法');
     },
 })
