@@ -5,33 +5,34 @@
 const _app = global._app = new $Koa();
 module.exports = _app;
 
+//统一引入其他模块
+const _conf = global._xconf = require('../xconf/secret/_xconf.js');
+const _xconf = global._conf = require('./base_modules/_conf.js');
 
-//创建其他全局变量
-const _xconf = global._xconf = require('../xconf/secret/_xconf.js')
-const _txts = global._txts = require('./base_modules/_txts.js')
-const _zloger = global._zloger = require('./base_modules/_zloger.js')
-const _zprms = global._zprms = require('./base_modules/_zprms.js')
-const _zrouter = global._zrouter = require('./base_modules/_zrouter.js')
+const _txts = global._txts = require('./base_modules/_txts.js');
+const _zloger = global._zloger = require('./base_modules/_zloger.js');
+const _zprms = global._zprms = require('./base_modules/_zprms.js');
+const _zrouter = global._zrouter = require('./base_modules/_zrouter.js');
 
-const _qn = global._qn = require('./app_modules/_qn.js')
+const _qn = global._qn = require('./app_modules/_qn.js');
 
+(async function () {
+    //全部api的容器对象
+    _app.apis = {};
 
-//全部api的容器对象
-_app.apis = {};
+    //控制台日志输出
+    _app.use(_zloger.koaMiddleWare);
 
-//控制台日志输出
-_app.use(_zloger.koaMiddleWare);
+    //解析body数据
+    _app.use($KoaBody());
 
-//解析body数据
-_app.use(require('koa-body')());
+    //路由分发到_app.apis对象
+    _app.use(_zrouter.koaMiddleWare);
 
-//路由分发到_app.apis对象
-_app.use(_zrouter.koaMiddleWare);
+    //启动服务器，打印分割线
+    _app.listen(8000);
+})();
 
-
-
-_app.listen(8000);
-console.info(`==========${$moment().format('YYYY-MM-DD hh:mm:ss')}==========`);
 
 
 

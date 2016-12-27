@@ -17,7 +17,7 @@ const _zloger = {
 module.exports = _zloger;
 
 
-//--------------------------------------
+//--------------------functions------------------
 
 async function koaMiddleWare(ctx, next) {
     const start = new Date();

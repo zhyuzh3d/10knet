@@ -11,7 +11,7 @@ const _zrouter = {
 module.exports = _zrouter;
 
 
-//-----------------------------
+//------------------functions---------------
 /**
  * Api类定义
  * @param {string} path request请求路径，如/api/getMyInfo
@@ -87,7 +87,7 @@ async function koaMiddleWare(ctx, next) {
         };
     } catch (err) {
         //捕获异常，输出到控制台,只返回信息部分，
-        _zloger.log(err.stack.toString().substr(0,256), 'ERR');
+        _zloger.log(err.stack.toString().substr(0, 256), 'ERR');
         ctx.body = err.message;
     };
 
@@ -95,7 +95,7 @@ async function koaMiddleWare(ctx, next) {
 };
 
 
-//-----------------------------
+//---------------samples--------------
 /**
  * 仅供测试的test接口范例
  */
@@ -106,7 +106,7 @@ _zrouter.addApi('/test', {
 
     validator: {
         uid: /^(undefined|\d{1,3})$/, //正则表达式验证，可选undefined
-        name: function (ipt, ctx) {//函数验证必须返回真假，须返回真假值
+        name: function (ipt, ctx) { //函数验证必须返回真假，须返回真假值
             return ipt == 'admin';
         }
     },
