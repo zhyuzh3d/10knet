@@ -4,6 +4,23 @@
     <div id='App' xid='App'>
         <nav-bar id='NavBar' xid='NavBar' v-bind:bg-color='barBg' style='position:absolute;z-index:1'></nav-bar>
         <component id='App_mainView' :is="mainView" xid='App_mainView' style='position:absolute;z-index:0' v-bind:class='(barBg!="inherit")?"padbar":""'></component>
+
+        <!--  通用permit提示窗口,数据模型来自xglobal引入的dialog-->
+        <el-dialog v-bind:title="dialogPermit.title" size="dialogPermit.size" v-model="dialogPermit.visible" class='dialogBox'>
+            <p>{{dialogPermit.text}}</p>
+            <p slot="footer" class="dialog-footer">
+                <el-button @click="dialogPermit.visible = false">{{dialogPermit.cancelBtnText}}</el-button>
+                <el-button type="primary" @click="dialogPermit.visible = false;dialogPermit.okHandler()">{{dialogPermit.okBtnText}}</el-button>
+            </p>
+        </el-dialog>
+
+        <!--  通用warn提示窗口,数据模型来自xglobal引入的dialog-->
+        <el-dialog v-bind:title="dialogWarn.title" size="dialogWarn.size" v-model="dialogWarn.visible" class='dialogBox'>
+            <p>{{dialogWarn.text}}</p>
+            <p slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="dialogWarn.visible = false;dialogWarn.okHandler()">{{dialogWarn.okBtnText}}</el-button>
+            </p>
+        </el-dialog>
     </div>
 </template>
 
@@ -118,6 +135,11 @@
 
     .hand {
         cursor: pointer
+    }
+
+    .dialogBox p {
+        /*限制弹窗最小值*/
+        min-width: 200px;
     }
 
 </style>

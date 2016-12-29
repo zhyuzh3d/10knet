@@ -9,14 +9,18 @@ let jo; //此元素对应的jquery对象,mounted函数内设定
 import NavBar from '../../blocks/NavBar/NavBar.html';
 import Welcome from '../../pages/Welcome/Welcome.html';
 import Dashboard from '../../pages/Dashboard/Dashboard.html';
-import Ide from '../../pages/Ide/Ide.html';
-import Keke from '../../pages/Keke/Keke.html';
+import Kk from '../../pages/Kk/Kk.html';
+import Nn from '../../pages/Nn/Nn.html';
+import Ee from '../../pages/Ee/Ee.html';
+import Tt from '../../pages/Tt/Tt.html';
 com.components = {
     NavBar,
     Welcome,
     Dashboard,
-    Ide,
-    Keke,
+    Kk,
+    Nn,
+    Ee,
+    Tt,
 };
 
 
@@ -26,8 +30,10 @@ com.data = function data() {
     return {
         mainView: '',
         barBg: '', //inherit 透明
-        urls: this.$xglobal.conf.urls,
-        apis: this.$xglobal.conf.apis,
+        urls: this.$xglobal.conf.urls, //全部素材地址
+        apis: this.$xglobal.conf.apis, //全部api接口路径
+        dialogPermit: this.$xglobal.dialogs.permit.options, //通用确认弹窗
+        dialogWarn: this.$xglobal.dialogs.warn.options, //通用警告弹窗
     };
 };
 

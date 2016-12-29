@@ -14,8 +14,8 @@ const $polyFill = global.$polyFill = require("babel-polyfill");
 //导入全局插件
 const $fs = global.$fs = require('fs');
 const $path = global.$path = require('path');
-const $Koa = global.$Koa = require('koa');
-const $KoaBody = global.$KoaBody = require('koa-body');
+const $koa = global.$koa = require('koa');
+const $koaBody = global.$koaBody = require('koa-body');
 const $_ = global.$_ = require('lodash');
 const $moment = global.$moment = require('moment');
 const $qiniu = global.$qiniu = require('qiniu');

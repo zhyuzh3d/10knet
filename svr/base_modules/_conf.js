@@ -3,6 +3,7 @@
 */
 
 const _conf = {
+    Domain: '10knet.com',
     SvrPort: 8000,
     Domains: ['10knet.com', 'www.10knet.com'],
     Qiniu: {
@@ -19,7 +20,7 @@ module.exports = _conf;
 //-----------外层xconf.js参考-----------------------
 /*
 var _xconf = {
-    QINIU: {
+    Qiniu: {
         ACCESS_KEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         SECRET_KEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     },

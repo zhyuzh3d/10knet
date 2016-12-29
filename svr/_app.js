@@ -2,7 +2,7 @@
  */
 'use strict';
 
-const _app = global._app = new $Koa();
+const _app = global._app = new $koa();
 module.exports = _app;
 
 //统一引入其他模块
@@ -24,7 +24,7 @@ const _qn = global._qn = require('./app_modules/_qn.js');
     _app.use(_zloger.koaMiddleWare);
 
     //解析body数据
-    _app.use($KoaBody());
+    _app.use($koaBody());
 
     //路由分发到_app.apis对象
     _app.use(_zrouter.koaMiddleWare);
@@ -37,3 +37,4 @@ const _qn = global._qn = require('./app_modules/_qn.js');
 
 
 //--------------------------------------
+

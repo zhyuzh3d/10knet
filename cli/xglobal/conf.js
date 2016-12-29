@@ -10,4 +10,8 @@ conf.urls = {};
 conf.imgs = {}
 
 //所有接口，原则上元素内不使用任何字符串格式的接口url地址
-conf.apis = {};
+conf.apis = {
+    qnRandKeyUploadToken: `//${location.host}/api/qnRandKeyUploadToken`,
+};
+
+

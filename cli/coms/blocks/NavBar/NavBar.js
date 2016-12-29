@@ -1,4 +1,4 @@
-var $ = () => System.import('jquery');
+import $ from 'jquery';
 
 var com = {};
 export default com;
@@ -22,9 +22,7 @@ com.data = function data() {
         urls: this.$xglobal.conf.urls,
         apis: this.$xglobal.conf.apis,
         imgs: this.$xglobal.conf.imgs,
-        permitDlgShow: false,
         activeMenu: '',
-        permitDlg: {},
         myProfile: {},
     };
 };
@@ -94,14 +92,24 @@ function handleSelect(key, path) {
                 mainView: 'welcome'
             });
             break;
-        case 'keke':
+        case 'kk':
             vc.$xrouter.go('App', {
-                mainView: 'Keke'
+                mainView: 'kk'
             });
             break;
-        case 'ide':
+        case 'nn':
             vc.$xrouter.go('App', {
-                mainView: 'ide'
+                mainView: 'nn'
+            });
+            break;
+        case 'ee':
+            vc.$xrouter.go('App', {
+                mainView: 'ee'
+            });
+            break;
+        case 'tt':
+            vc.$xrouter.go('App', {
+                mainView: 'tt'
             });
             break;
         case 'login':

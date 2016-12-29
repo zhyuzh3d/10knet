@@ -1,34 +1,31 @@
-var $ = () => System.import('jquery');
+import $ from 'jquery';
 
 let com = {};
 export default com;
 let vc; //此元素vueComponent对象
 let jo; //此元素对应的jquery对象,mounted函数内设定
 
-//所有直接用到的组件在这里导入
-com.components = {};
+//所有要用的元素都写在这里
+import Editor from '../../blocks/Editor/Editor.html';
+com.components = {
+    Editor
+};
 
-//所有数据写在这里
+
+
 com.data = function data() {
     vc = this;
     return {
-        msg: 'Hello from blocks/Keke/Keke.js'
+        msg: 'Hello from blocks/Ee/Ee.js'
     };
 };
 
-//所有直接使用的方法写在这里
-com.methods = {};
-
-//加载到页面前执行的函数
-com.beforeMount = function () {
-    jo = $(this.$el);
-};
-
 com.mounted = function () {
+    jo = $(this.$el);
 
     //激活顶部导航栏菜单
     vc.$xrouter.xset('NavBar', {
-        activeMenu: 'keke',
+        activeMenu: 'ee',
     });
 
     //使用导航栏背景

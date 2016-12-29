@@ -2,4 +2,3 @@
  */
 let fns = {};
 export default fns;
-

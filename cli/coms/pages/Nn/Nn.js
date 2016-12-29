@@ -5,27 +5,29 @@ export default com;
 let vc; //此元素vueComponent对象
 let jo; //此元素对应的jquery对象,mounted函数内设定
 
-//所有要用的元素都写在这里
-import Editor from '../../blocks/Editor/Editor.html';
-com.components = {
-    Editor
-};
+com.components = {};
 
-
-
+//所有数据写在这里
 com.data = function data() {
     vc = this;
     return {
-        msg: 'Hello from blocks/Ide/Ide.jsX'
+        msg: 'Hello from blocks/Nn/Nn.js'
     };
 };
 
-com.mounted = function () {
+//所有直接使用的方法写在这里
+com.methods = {};
+
+//加载到页面前执行的函数
+com.beforeMount = function () {
     jo = $(this.$el);
+};
+
+com.mounted = function () {
 
     //激活顶部导航栏菜单
     vc.$xrouter.xset('NavBar', {
-        activeMenu: 'ide',
+        activeMenu: 'nn',
     });
 
     //使用导航栏背景

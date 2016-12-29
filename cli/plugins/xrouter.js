@@ -7,7 +7,7 @@ import $ from 'jquery';
 let xrouter = {};
 export default xrouter;
 
-let xcoms = {}; //用于路由的全部具有xid属性的组件
+let xcoms = xrouter.xcoms = {}; //用于路由的全部具有xid属性的组件
 
 /**
  * 初始化路由，将路由注入到全局，组件内如需使用可以自由添加
@@ -110,6 +110,7 @@ xrouter.restore = function (xid) {
  * 即使找不到父层com也会存储，等待载入时候自动恢复
  * @param   {string} xid       元件的xid
  * @param   {object} keyValObj 修改$data的键值对
+ * @param   {boolean} unsave 是否保存
  * @returns {boolean}  成功返回com真失败undefined
  */
 xrouter.xset = function (xid, keyValObj, unsave) {
@@ -141,10 +142,14 @@ xrouter.xset = function (xid, keyValObj, unsave) {
         var newval = Object.assign({}, orgval, addval);
         newval = JSON.stringify(newval);
         localStorage.setItem(lskey, newval);
+
+        //测试输出
+        console.info(`xrouter:xset:${lskey},${newval}`);
     };
 
     return com;
 };
+
 
 /**
  * 监听地址栏导航，执行利用xset实现router路由

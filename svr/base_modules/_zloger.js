@@ -32,7 +32,6 @@ module.exports = _zloger;
 
 async function koaMiddleWare(ctx, next) {
     const start = new Date();
-    const stm = $moment(start).format('YYYY/MM/DD hh:mm:ss');
     var str = `${ctx.method} : ${ctx.url}`;
     _zloger.info(`_zloger:koaMdWr: ${str} <-`);
     await next();
@@ -74,8 +73,6 @@ function logFn(data, type = 'INFO', dosave = true, filename = 'default') {
     console.log(`[${type}] ${nowstr} ${data}`);
     if (dosave) _zloger.save(data, type.toUpperCase(), filename);
 };
-
-
 
 /**
  * 自动设置todayFolder，如果没有就创建

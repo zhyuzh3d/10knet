@@ -166,3 +166,77 @@
 {"time":"2016-12-27T16:51:32.022Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 <-"}
 {"time":"2016-12-27T16:51:32.024Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
 {"time":"2016-12-27T16:51:32.025Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 -> 4ms"}
+{"time":"2016-12-27T16:54:51.876Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:54:52.131Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:55:19.207Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-27T16:55:19.222Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-27T16:55:19.448Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 <-"}
+{"time":"2016-12-27T16:55:19.474Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-27T16:55:19.478Z","type":"INF","data":"_zloger:koaMdWr: GET : /test?uid=33&na2me=admin&id=99 -> 29ms"}
+{"time":"2016-12-28T05:39:53.047Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T05:40:18.679Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T05:40:18.890Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T05:40:28.857Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T05:40:28.892Z","type":"ERR","data":"_zrouter:koaMdWr: TypeError: Cannot read property 'info' of null\n    at new Msg (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_msg.js:24:19)\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/app_modules/_qn.js:29:20)\n    at tryCatch (/Users/zhyuzh/Des"}
+{"time":"2016-12-28T05:40:28.896Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 39ms"}
+{"time":"2016-12-28T05:42:25.287Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T05:42:25.301Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T05:42:26.986Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T05:42:26.997Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 11ms"}
+{"time":"2016-12-28T05:45:28.898Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T05:45:29.108Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T05:45:29.284Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T05:45:29.298Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 14ms"}
+{"time":"2016-12-28T06:15:40.062Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:15:40.314Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:15:44.381Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T06:15:44.391Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 9ms"}
+{"time":"2016-12-28T06:19:01.575Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:19:01.805Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:19:02.674Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T06:19:02.683Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 10ms"}
+{"time":"2016-12-28T06:26:19.434Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:26:19.652Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:26:40.516Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:26:40.724Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:29:33.045Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:29:33.258Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:31:26.814Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T06:31:26.824Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 10ms"}
+{"time":"2016-12-28T06:43:36.590Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:43:36.758Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:43:37.391Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken <-"}
+{"time":"2016-12-28T06:43:37.407Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 找不到您所请求的API路径:/qn/uploadToken\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Genera"}
+{"time":"2016-12-28T06:43:37.411Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/uploadToken -> 20ms"}
+{"time":"2016-12-28T06:43:41.980Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/randKeyUploadToken <-"}
+{"time":"2016-12-28T06:43:41.987Z","type":"ERR","data":"_zrouter:koaMdWr: ReferenceError: putPolicy is not defined\n    at genUploadToken (/Users/zhyuzh/Desktop/Projects/10knet/svr/app_modules/_qn.js:60:5)\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/app_modules/_qn.js:41:20)\n    at tryCatch (/Users/zhyuzh/Deskt"}
+{"time":"2016-12-28T06:43:41.988Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/randKeyUploadToken -> 8ms"}
+{"time":"2016-12-28T06:44:01.590Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T06:44:01.813Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T06:44:02.488Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/randKeyUploadToken <-"}
+{"time":"2016-12-28T06:44:02.498Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/randKeyUploadToken -> 10ms"}
+{"time":"2016-12-28T10:09:31.581Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:09:31.607Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:15:03.400Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/randKeyUploadToken <-"}
+{"time":"2016-12-28T10:15:03.494Z","type":"INF","data":"_zloger:koaMdWr: GET : /qn/randKeyUploadToken -> 99ms"}
+{"time":"2016-12-28T10:15:25.255Z","type":"INF","data":"_zloger:koaMdWr: GET : /test <-"}
+{"time":"2016-12-28T10:15:25.301Z","type":"ERR","data":"_zrouter:koaMdWr: Error: 您提交的数据格式错误:name\n    at Api._callee$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:61:19)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invoke "}
+{"time":"2016-12-28T10:15:25.302Z","type":"INF","data":"_zloger:koaMdWr: GET : /test -> 47ms"}
+{"time":"2016-12-28T10:19:16.628Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:19:16.641Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:20:18.194Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:20:18.208Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:26:00.888Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:26:00.904Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:29:53.998Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:29:54.015Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:30:49.957Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:30:49.973Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:31:28.582Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:31:28.597Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:32:26.183Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:32:26.200Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:33:26.440Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:33:26.455Z","type":"INF","data":"_qn:Server is listening on 19110."}
+{"time":"2016-12-28T10:43:54.869Z","type":"INF","data":"_zprms:.zprms & .zpromise method has added to Function."}
+{"time":"2016-12-28T10:43:54.884Z","type":"INF","data":"_qn:Server is listening on 19110."}

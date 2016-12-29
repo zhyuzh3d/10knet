@@ -19,10 +19,14 @@ class Err {
  * 其中id从ctx中的request中提取得到，默认为0
  */
 class Msg {
-    constructor(err = {}, ctx, data) {
-        this.err = {
-            tip: (err.info && err.info.tip) || err.tip || err.message || '未知错误',
-            id: (err.info && err.info.id) || err.id || -1,
+    constructor(err, ctx, data) {
+        if (err) {
+            this.err = {
+                tip: (err.info && err.info.tip) || err.tip || err.message || '未知错误',
+                id: (err.info && err.info.id) || err.id || -1,
+            };
+        } else {
+            this.err = undefined;
         };
 
         this.res = {
