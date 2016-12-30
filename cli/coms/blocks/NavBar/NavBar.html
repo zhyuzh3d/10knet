@@ -3,10 +3,10 @@
     <div id='NavBar'>
         <el-menu theme="dark" default-active="1" class="el-menu fixed flexbox" mode="horizontal" @select="handleSelect" v-bind:style='{"background-color":bgColor}'>
             <el-menu-item class='NavBarMenu' index="welcome" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="welcome")}'>&nbsp;10KNET&nbsp;</el-menu-item>
-            <el-menu-item class='NavBarMenu' index="kk" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="kk")}'>KK</el-menu-item>
-            <el-menu-item class='NavBarMenu' index="nn" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="nn")}'>NN</el-menu-item>
-            <el-menu-item class='NavBarMenu' index="ee" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="ee")}'>EE</el-menu-item>
-            <el-menu-item class='NavBarMenu' index="tt" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="tt")}'>TT</el-menu-item>
+            <el-menu-item class='NavBarMenu' index="kk" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="kk")}'>Kk</el-menu-item>
+            <el-menu-item class='NavBarMenu' index="nn" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="nn")}'>Nn</el-menu-item>
+            <el-menu-item class='NavBarMenu' index="ee" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="ee")}'>Ee</el-menu-item>
+            <el-menu-item class='NavBarMenu' index="tt" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="tt")}'>Tt</el-menu-item>
             <div style="flex:1"></div>
 
             <el-menu-item index="login" class='rf' v-if='!myProfile.name' v-bind:class='(bgColor=="inherit")?"wt":""'>登录</el-menu-item>

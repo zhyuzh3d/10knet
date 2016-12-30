@@ -1,4 +1,4 @@
-var $ = () => System.import('jquery');
+import $ from 'jquery';
 
 let com = {};
 export default com;
@@ -32,11 +32,6 @@ com.data = function data() {
         barBg: '', //inherit 透明
         urls: this.$xglobal.conf.urls, //全部素材地址
         apis: this.$xglobal.conf.apis, //全部api接口路径
-        //dialogPermit: this.dialogs.permit.options, //通用确认弹窗
-        //dialogWarn: this.dialogs.warn.options, //通用警告弹窗
-
-        //dialogPermit: this.$xglobal.dialogs.permit.options, //通用确认弹窗
-        //dialogWarn: this.$xglobal.dialogs.warn.options, //通用警告弹窗
     };
 };
 

@@ -11,7 +11,7 @@ Vue.use(ElementUI);
 import conf from './xglobal/conf.js';
 import fns from './xglobal/fns.js';
 import dialogs from './xglobal/dialogs.js';
-import rmtrun from './xglobal/rmtrun.js';
+import rRun from './xglobal/rRun.js';
 import xglobal from './plugins/xglobal.js';
 Vue.use(xglobal, {
     xglobal: {
@@ -22,7 +22,7 @@ Vue.use(xglobal, {
     xcomponent: {
         //将附着到每个组件，可以使用data，methods等字段
         methods: {
-            rmtrun,
+            rRun,
         },
         data: function () {
             return {

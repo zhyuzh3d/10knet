@@ -30,6 +30,7 @@ com.data = function () {
 
 com.methods = {
     fileSelected,
+    test,
 };
 
 
@@ -40,10 +41,43 @@ com.mounted = function () {
 };
 
 //----------------functions-----------------------
-function fileSelected() {
-    getUploadToken(function (token) {
-        startUpload(token);
-    });
+
+function test() {
+    try {
+        test2();
+    } catch (err) {
+        console.log('err>>', err);
+    }
+};
+
+async function test2() {
+    try {
+        //var api = conf.apis.qnRandKeyUploadToken;
+        var api = '/122233/22';
+        var data = {
+            tag: 'none'
+        };
+        console.log('>>>>vc.$methods', vc);
+        var res = await vc.rRun(api, data);
+        console.log('>>>>res', res);
+    } catch (err) {
+        console.log('err>>', err);
+    };
+};
+
+
+
+
+
+
+async function fileSelected() {
+
+
+
+
+    //    getUploadToken(function (token) {
+    //        startUpload(token);
+    //    });
 };
 
 function getUploadToken(okfn) {

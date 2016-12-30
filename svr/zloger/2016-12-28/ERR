@@ -1,1 +1,0 @@
-{"time":"2016-12-27T16:37:47.657Z","type":"LOG","data":"Error: 找不到您所请求的API路径:/te2st\n    at _callee2$ (/Users/zhyuzh/Desktop/Projects/10knet/svr/base_modules/_zrouter.js:79:25)\n    at tryCatch (/Users/zhyuzh/Desktop/Projects/10knet/node_modules/.0.10.1@regenerator-runtime/runtime.js:64:40)\n    at Generator.invok"}
