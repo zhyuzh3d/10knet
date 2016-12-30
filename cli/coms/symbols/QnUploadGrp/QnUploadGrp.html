@@ -5,8 +5,6 @@
         <ul v-for='(k,v) in uploadedFiles'>
             <li>{{k}},{{v}}</li>
         </ul>
-
-
         <el-button v-bind:type='type' @click='inputBtnJo.click()'>上传文件</el-button>
         <input type="file" @change='fileSelected' v-bind:accept='accept' style="display:none">
     </div>

@@ -18,7 +18,7 @@ com.created = function () {
     conf = this.$xglobal.conf;
 }
 
-com.data = function data() {
+com.data = function () {
     vc = this;
     return {
         uploadedFiles: {},
@@ -30,9 +30,6 @@ com.data = function data() {
 
 com.methods = {
     fileSelected,
-    lala: function () {
-        console.log('>>>>>lala');
-    },
 };
 
 
@@ -60,6 +57,7 @@ function getUploadToken(okfn) {
         if (!msg.err) {
             startUpload(msg.res.data.token);
         } else {
+
             console.log('>>>msg err', msg)
         }
     });

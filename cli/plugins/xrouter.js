@@ -144,7 +144,7 @@ xrouter.xset = function (xid, keyValObj, unsave) {
         localStorage.setItem(lskey, newval);
 
         //测试输出
-        console.info(`xrouter:xset:${lskey},${newval}`);
+        //console.info(`xrouter:xset:${lskey},${newval}`);
     };
 
     return com;

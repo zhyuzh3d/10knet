@@ -12,12 +12,15 @@ com.data = function data() {
     vc = this;
     return {
         msg: 'Hello from blocks/Tt/Tt.js',
-        dialogs: vc.$xglobal.dialogs,
     };
 };
 
 //所有直接使用的方法写在这里
-com.methods = {};
+com.methods = {
+    logTest: function () {
+        console.log('Tt:logTest.');
+    },
+};
 
 //加载到页面前执行的函数
 com.beforeMount = function () {

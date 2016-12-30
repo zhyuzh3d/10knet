@@ -6,21 +6,25 @@
         <component id='App_mainView' :is="mainView" xid='App_mainView' style='position:absolute;z-index:0' v-bind:class='(barBg!="inherit")?"padbar":""'></component>
 
         <!--  通用permit提示窗口,数据模型来自xglobal引入的dialog-->
-        <el-dialog v-bind:title="dialogPermit.title" size="dialogPermit.size" v-model="dialogPermit.visible" class='dialogBox'>
-            <p>{{dialogPermit.text}}</p>
+        <el-dialog v-bind:title="dialogs.permit.options.title" size="dialogs.permit.options.size" v-model="dialogs.permit.options.visible" class='dialogBox'>
+            <p>{{dialogs.permit.options.text}}</p>
             <p slot="footer" class="dialog-footer">
-                <el-button @click="dialogPermit.visible = false">{{dialogPermit.cancelBtnText}}</el-button>
-                <el-button type="primary" @click="dialogPermit.visible = false;dialogPermit.okHandler()">{{dialogPermit.okBtnText}}</el-button>
+                <el-button @click="dialogs.permit.options.visible = false">{{dialogs.permit.options.cancelBtnText}}</el-button>
+                <el-button type="primary" @click="dialogs.permit.options.visible = false;dialogs.permit.options.okHandler()">{{dialogs.permit.options.okBtnText}}</el-button>
             </p>
         </el-dialog>
 
+
         <!--  通用warn提示窗口,数据模型来自xglobal引入的dialog-->
-        <el-dialog v-bind:title="dialogWarn.title" size="dialogWarn.size" v-model="dialogWarn.visible" class='dialogBox'>
-            <p>{{dialogWarn.text}}</p>
+        <el-dialog v-bind:title="dialogs.warn.options.title" size="dialogs.warn.options.size" v-model="dialogs.warn.options.visible" class='dialogBox'>
+            <p>{{dialogs.warn.options.text}}</p>
             <p slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="dialogWarn.visible = false;dialogWarn.okHandler()">{{dialogWarn.okBtnText}}</el-button>
+                <el-button type="primary" @click="dialogs.warn.options.visible = false;dialogs.warn.options.okHandler()">{{dialogs.warn.options.okBtnText}}</el-button>
             </p>
         </el-dialog>
+
+
+
     </div>
 </template>
 

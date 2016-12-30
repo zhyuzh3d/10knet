@@ -11,16 +11,24 @@ Vue.use(ElementUI);
 import conf from './xglobal/conf.js';
 import fns from './xglobal/fns.js';
 import dialogs from './xglobal/dialogs.js';
+import rmtrun from './xglobal/rmtrun.js';
 import xglobal from './plugins/xglobal.js';
 Vue.use(xglobal, {
     xglobal: {
         //将通过beforCreate附着到组件的this，任意字段
         conf,
         fns,
-        dialogs,
     },
     xcomponent: {
         //将附着到每个组件，可以使用data，methods等字段
+        methods: {
+            rmtrun,
+        },
+        data: function () {
+            return {
+                dialogs
+            }
+        },
     },
 });
 
