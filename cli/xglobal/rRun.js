@@ -42,7 +42,7 @@ function remoteRun(api, data, opt) {
                 //重组err,合成标准的err格式
                 var zerr = {
                     id: xhr.status,
-                    tip: `rRun:${xhr.statusText}:${api},${data}`
+                    tip: `rRun:${xhr.statusText}:${api}`
                 };
                 reject(zerr);
             },

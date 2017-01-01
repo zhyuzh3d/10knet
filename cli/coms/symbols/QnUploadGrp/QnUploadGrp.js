@@ -57,11 +57,10 @@ async function test2() {
         var data = {
             tag: 'none'
         };
-        console.log('>>>>vc.$methods', vc);
         var res = await vc.rRun(api, data);
         console.log('>>>>res', res);
     } catch (err) {
-        console.log('err>>', err);
+        vc.$message.error(err.tip);
     };
 };
 
