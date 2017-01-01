@@ -6,6 +6,9 @@
 <template>
     <div id='Kk' xid='Kk'>
         <p>{{msg}}!</p>
-        <qn-upload-grp type='warning' accept='image/*'></qn-upload-grp>
+        <qn-upload-grp type='warning' accept='image/*' multiple='true' v-bind:uploadFiles='uploadFiles'></qn-upload-grp>
+        <ul v-for='(v,k) in uploadFiles'>
+            <li>{{v.url}}</li>
+        </ul>
     </div>
 </template>

@@ -18,38 +18,51 @@ export default rRun;
 function remoteRun(api, data, opt) {
 
     var prms = new Promise(function (resolve, reject) {
-
-        var ajaxObj = {
-            type: "POST",
-            url: api,
-            data: data,
-            dataType: 'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (msg) {
-                //测试输出
-                console.log(`rRun:${api}:${msg}`);
-
-                //解析msg格式,判断msg.err
-                if (!msg.err) {
-                    resolve(msg.res);
-                } else {
-                    reject(err);
-                };
-            },
-            error: function (xhr, err) {
-                //重组err,合成标准的err格式
-                var zerr = {
-                    id: xhr.status,
-                    tip: `rRun:${xhr.statusText}:${api}`
-                };
-                reject(zerr);
-            },
+        var apistr = (api.constructor == String) ? api : api.url;
+        var ajaxObj;
+        if (api.constructor == String) {
+            //第一个参数为url字符串
+            ajaxObj = {
+                type: "POST",
+                url: api,
+                data: data,
+                dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+            };
+            if (opt) ajaxObj = Object.assign(ajaxObj, opt);
+        } else {
+            //第一个参数为设置对象，忽略后面的参数
+            ajaxObj = api;
         };
 
-        if (opt) ajaxObj = Object.assign(ajaxObj, opt);
+        //补足完成事件和出错处理,使用异步处理，不使用回调
+        ajaxObj.success = function (msg) {
+            //测试输出
+            console.log(`rRun:${apistr}:`, msg);
 
+            //解析msg格式,判断msg.err
+            if (!msg.err) {
+                msg.res ? resolve(msg.res) : resolve(msg); //输出整个返回，兼容外部站点
+            } else {
+                msg.err.tip = '服务端提示:' + msg.err.tip;
+                reject(msg.err);
+            };
+        };
+        ajaxObj.error = function (xhr, err) {
+            //重组err,合成标准的err格式
+            var zerr = {
+                id: xhr.status,
+                tip: `服务端提示:${apistr}:ERR${xhr.status}:${xhr.statusText}.`,
+                err: err,
+                xhr: xhr,
+            };
+
+            reject(zerr);
+        };
+
+        //启动请求
         $.ajax(ajaxObj);
     });
 

@@ -16,7 +16,8 @@ com.components = {
 com.data = function data() {
     vc = this;
     return {
-        msg: 'Hello from blocks/Kk/Kk.js'
+        msg: 'Hello from blocks/Kk/Kk.js',
+        uploadFiles: {},
     };
 };
 

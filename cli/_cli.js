@@ -10,7 +10,6 @@ Vue.use(ElementUI);
 //xglobal全局插件及载入设置
 import conf from './xglobal/conf.js';
 import fns from './xglobal/fns.js';
-import dialogs from './xglobal/dialogs.js';
 import rRun from './xglobal/rRun.js';
 import xglobal from './plugins/xglobal.js';
 Vue.use(xglobal, {
@@ -25,9 +24,7 @@ Vue.use(xglobal, {
             rRun,
         },
         data: function () {
-            return {
-                dialogs
-            }
+            return {}
         },
     },
 });

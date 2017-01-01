@@ -8,7 +8,7 @@ const _conf = {
     Domains: ['10knet.com', 'www.10knet.com'],
     Qiniu: {
         BucketName: "app10knet",
-        BucketDomain: "http://app.10knet.com/",
+        BucketDomain: "http://app.10knet.com",
     },
 
 };
