@@ -9,20 +9,22 @@
             <el-menu-item class='NavBarMenu' index="tt" v-bind:class='{wt:(bgColor=="inherit"),"actbg":(activeMenu=="tt")}'>Tt</el-menu-item>
             <div style="flex:1"></div>
 
-            <el-menu-item index="login" class='rf' v-if='!myProfile.name' v-bind:class='(bgColor=="inherit")?"wt":""'>登录</el-menu-item>
-            <el-menu-item index="reg" class='rf' v-if='!myProfile.name' v-bind:class='(bgColor=="inherit")?"wt":""'>注册</el-menu-item>
+            <div v-if='false' desc='临时屏蔽登录和注册'>
+                <el-menu-item index="login" class='rf' v-if='!myProfile.name' v-bind:class='(bgColor=="inherit")?"wt":""'>登录</el-menu-item>
+                <el-menu-item index="reg" class='rf' v-if='!myProfile.name' v-bind:class='(bgColor=="inherit")?"wt":""'>注册</el-menu-item>
 
-            <el-submenu index="user" class='rf' v-if='myProfile.name'>
-                <template slot="title">
-                    <div class="disib" v-bind:class='(bgColor=="inherit")?"wt":""'>
-                        <img class='avatar' v-bind:src="myProfile.thum?myProfile.thum:imgs.avatarDefault" width="32px" style='margin-top:12px'>
-                        <div class='disib uname'>{{myProfile.name}}</div>
-                    </div>
-                </template>
-                <el-menu-item index="home">我的首页</el-menu-item>
-                <el-menu-item index="profile">资料设置</el-menu-item>
-                <el-menu-item index="logout">注销账号</el-menu-item>
-            </el-submenu>
+                <el-submenu index="user" class='rf' v-if='myProfile.name'>
+                    <template slot="title">
+                        <div class="disib" v-bind:class='(bgColor=="inherit")?"wt":""'>
+                            <img class='avatar' v-bind:src="myProfile.thum?myProfile.thum:imgs.avatarDefault" width="32px" style='margin-top:12px'>
+                            <div class='disib uname'>{{myProfile.name}}</div>
+                        </div>
+                    </template>
+                    <el-menu-item index="home">我的首页</el-menu-item>
+                    <el-menu-item index="profile">资料设置</el-menu-item>
+                    <el-menu-item index="logout">注销账号</el-menu-item>
+                </el-submenu>
+            </div>
         </el-menu>
     </div>
 </template>

@@ -8,7 +8,7 @@
         <p>{{msg}}!</p>
         <a v-bind:href='url' download='testDown.html'>download blob</a>
         <hr>
-        <qn-upload-btn type='warning' v-bind:blob='blob' acceptx='image/*' multiple='true' v-bind:uploadFiles='uploadFiles'></qn-upload-btn>
+        <qn-upload-btn type='warning' v-bind:blob2='blob' accept='image/*' multiple='false' v-bind:uploadFiles='uploadFiles'></qn-upload-btn>
         <ul v-for='(v,k) in uploadFiles'>
             <li @click='v.uploadInfo.abort'>{{v.uploadInfo.percent}}||{{v.uploadInfo.url}}</li>
         </ul>

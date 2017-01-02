@@ -5,7 +5,7 @@
         <ul v-for='(k,v) in uploadedFiles'>
             <li>{{k}},{{v}}</li>
         </ul>
-        <el-button v-bind:type='type' @click='clickHandler'>{{text||'选择文件'}}</el-button>
+        <el-button v-bind:type='type' @click='clickHandler'>{{label}}</el-button>
         <input type="file" name='input' @change='filesSelected($event.target.files)' v-bind:accept='accept' style="display:none">
     </div>
 </template>

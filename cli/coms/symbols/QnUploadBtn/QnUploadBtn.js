@@ -33,9 +33,12 @@ com.created = function () {
 
 com.data = function () {
     vc = this;
+
+    var label = vc.text ? vc.text : (vc.blob ? '保存' : '选择文件');
     return {
         selectedFiles: undefined,
         dialogs: vc.$xglobal.dialogs,
+        label: label,
     };
 };
 
@@ -50,6 +53,10 @@ com.mounted = function () {
 
     //由于v-bind:multiple异常，在这里处理
     if (vc.multiple == 'true') jo.find('input').attr('multiple', 'true');
+
+
+
+
 };
 
 //----------------functions-----------------------
