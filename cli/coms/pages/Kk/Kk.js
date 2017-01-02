@@ -6,18 +6,27 @@ let vc; //此元素vueComponent对象
 let jo; //此元素对应的jquery对象,mounted函数内设定
 
 //所有直接用到的组件在这里导入
-import QnUploadGrp from '../../symbols/QnUploadGrp/QnUploadGrp.html';
+import QnUploadBtn from '../../symbols/QnUploadBtn/QnUploadBtn.html';
 
 com.components = {
-    QnUploadGrp,
+    QnUploadBtn,
 };
 
 //所有数据写在这里
 com.data = function data() {
     vc = this;
+
+    var blob = new Blob(['hello world!!'], {
+        type: 'text/plain'
+    });
+    blob.name = 'testx.html';
+    blob.lastModifiedDate = new Date();
+
     return {
         msg: 'Hello from blocks/Kk/Kk.js',
         uploadFiles: {},
+        blob: blob,
+        url: URL.createObjectURL(blob),
     };
 };
 

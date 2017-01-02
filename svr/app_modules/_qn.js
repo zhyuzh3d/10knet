@@ -66,14 +66,16 @@ _zrouter.addApi('/qnRandKeyUploadToken', {
     },
     method: async function (ctx) {
         var fkey = $shortid.generate();
-        if(ctx.xdata.fileName) fkey += '/' + ctx.xdata.fileName;
+        if (ctx.xdata.fileName) fkey += '/' + ctx.xdata.fileName;
 
+        var url = _qn.conf.BucketDomain + '/' + fkey;
         var data = {
             domain: _qn.conf.BucketDomain,
             token: genUploadToken(fkey, ctx.xdata.tag, {
                 url: _qn.conf.BucketDomain + '/' + fkey,
             }),
             key: fkey, //前端需要使用这个key上传到七牛
+            url: url,
         };
         ctx.body = new _msg.Msg(null, ctx, data);
     },

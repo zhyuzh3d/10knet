@@ -19,7 +19,9 @@ function remoteRun(api, data, opt) {
 
     var prms = new Promise(function (resolve, reject) {
         var apistr = (api.constructor == String) ? api : api.url;
+        var xhr;
         var ajaxObj;
+
         if (api.constructor == String) {
             //第一个参数为url字符串
             ajaxObj = {

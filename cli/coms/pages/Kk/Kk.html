@@ -6,9 +6,11 @@
 <template>
     <div id='Kk' xid='Kk'>
         <p>{{msg}}!</p>
-        <qn-upload-grp type='warning' accept='image/*' multiple='true' v-bind:uploadFiles='uploadFiles'></qn-upload-grp>
+        <a v-bind:href='url' download='testDown.html'>download blob</a>
+        <hr>
+        <qn-upload-btn type='warning' v-bind:blob='blob' acceptx='image/*' multiple='true' v-bind:uploadFiles='uploadFiles'></qn-upload-btn>
         <ul v-for='(v,k) in uploadFiles'>
-            <li>{{v.url}}</li>
+            <li @click='v.uploadInfo.abort'>{{v.uploadInfo.percent}}||{{v.uploadInfo.url}}</li>
         </ul>
     </div>
 </template>
