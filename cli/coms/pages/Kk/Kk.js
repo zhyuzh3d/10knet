@@ -89,7 +89,7 @@ async function getUserGithubInfo() {
 
         //创建一个文件:PUT!!!
         /*
-        url = 'https://api.github.com/repos/zhyuzh3d/10knet/contents/xxx.html?access_token=' + token;
+        url = 'https://api.github.com/repos/testlala/10knet/contents/xxx.html?access_token=' + token;
         dat = {
             "message": "my commit message",
             "content": btoa('hello github!'),
