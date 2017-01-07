@@ -48,15 +48,31 @@ function zprms2() {
  * @param   {boolean} cbAtEnd  callback函数是否最后一个参数，默认为true
  * @returns {promise} promise
  */
-
 function genPromise(fn, args, cbAtEnd = true) {
     return new Promise((resolve, reject) => {
         function callbackFn(err, res) {
-            if (!err || (err && err.constructor != Error)) { //兼容cb第一个参数不是err的情况
-                resolve(res);
-            } else {
-                reject(err, res);
+            var cbArgs = arguments;
+
+            var datas = [];
+            for (var i = 0; i < cbArgs.length; i++) {
+                var arg = cbArgs[i];
+                if (arg) {
+                    if (arg.cosntructor == Error) {
+                        //参数里如果有一个Error就reject抛出这个错误
+                        reject(arg);
+                    } else {
+                        datas.push(arg);
+                    };
+                };
             };
+
+            if (datas.length < 1) {
+                datas = undefined;
+            } else if (datas.length = 1) {
+                datas = datas[0];
+            };
+
+            resolve(datas);
         };
 
         var argsArr = [];
@@ -75,11 +91,11 @@ function genPromise(fn, args, cbAtEnd = true) {
 };
 
 
-//------------------------samples--------------------------
+//----------------------------------samples------------------------------------
 (async function () {
     try {
         //read a file, then print the buffer.
-        //var res = await $fs.readFile.zprms('./base_modules/_zprms.js');
+        //var res = await $fs.readFile.zprms('./base_modules/_zprms2.js');
 
         //wait 3 sec then print undefined.
         //var res = await setTimeout.zprms2(5000);

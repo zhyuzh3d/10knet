@@ -16,11 +16,11 @@ Vue.use(xglobal, {
     xglobal: {
         //将通过beforCreate附着到组件的this，任意字段
         conf,
-        fns,
+        fns, //包含多个函数的object
     },
     xcomponent: {
         //将附着到每个组件，可以使用data，methods等字段
-        methods: {
+        methods: { //只能使用单个函数
             rRun,
         },
         data: function () {

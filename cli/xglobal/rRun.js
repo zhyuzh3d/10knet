@@ -23,16 +23,27 @@ function remoteRun(api, data, opt) {
         var ajaxObj;
 
         if (api.constructor == String) {
+            var dt, tp;
+            //如有数据，则默认POST
+            if (data) {
+                tp = 'POST';
+                dt = data.constructor == String ? data : JSON.stringify(data);
+            } else {
+                tp = 'GET';
+            };
+
             //第一个参数为url字符串
             ajaxObj = {
-                type: "POST",
+                type: tp,
                 url: api,
-                data: data,
+                data: dt,
                 dataType: 'json',
                 xhrFields: {
                     withCredentials: true
                 },
             };
+
+            //合并第三个参数
             if (opt) ajaxObj = Object.assign(ajaxObj, opt);
         } else {
             //第一个参数为设置对象，忽略后面的参数
@@ -63,6 +74,7 @@ function remoteRun(api, data, opt) {
 
             reject(zerr);
         };
+
 
         //启动请求
         $.ajax(ajaxObj);

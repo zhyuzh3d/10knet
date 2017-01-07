@@ -5,7 +5,9 @@ var conf = {};
 export default conf;
 
 //所有尚未统一的原有页面，原则上元素内不使用任何字符串格式的url地址
-conf.urls = {};
+conf.urls = {
+    githubLogin: 'https://github.com/login/oauth/authorize?client_id=bcc991a3db5d401bd4af&scope=user,repo',
+};
 
 conf.imgs = {}
 
@@ -13,5 +15,3 @@ conf.imgs = {}
 conf.apis = {
     qnRandKeyUploadToken: `//${location.host}/api/qnRandKeyUploadToken`,
 };
-
-

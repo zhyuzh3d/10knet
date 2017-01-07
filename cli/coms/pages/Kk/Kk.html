@@ -12,5 +12,14 @@
         <ul v-for='(v,k) in uploadFiles'>
             <li @click='v.uploadInfo.abort'>{{v.uploadInfo.percent}}||{{v.uploadInfo.url}}</li>
         </ul>
+        <hr>
+        <div>
+            <a v-bind:href='gitLoginUrl'>Github登录</a>
+            <hr>
+            <el-button type='success' @click='getUserGithubInfo'>获取信息</el-button>
+            <hr>
+            <p>{{myGithubInfo}}</p>
+        </div>
+
     </div>
 </template>

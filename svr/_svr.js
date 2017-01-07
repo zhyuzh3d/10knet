@@ -13,7 +13,10 @@ const $polyFill = global.$polyFill = require("babel-polyfill");
 
 //导入全局插件
 const $fs = global.$fs = require('fs');
+const $http = global.$http = require('http');
+const $https = global.$https = require('https');
 const $path = global.$path = require('path');
+const $gitUrlParse = global.$gitUrlParse = require('git-url-parse');
 const $koa = global.$koa = require('koa');
 const $koaBody = global.$koaBody = require('koa-body');
 const $_ = global.$_ = require('lodash');
@@ -25,3 +28,4 @@ const $shortid = global.$shortid = require('shortid');
 //服务程序真正的入口
 console.info(`==========${$moment().format('YYYY-MM-DD hh:mm:ss')}==========`);
 require("./_app.js");
+

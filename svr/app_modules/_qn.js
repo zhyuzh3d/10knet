@@ -10,8 +10,8 @@ const _qn = {
         UploadCallbackUrl: `http://${_conf.Domain}/api/qnUploadCallback`,
         BucketName: _conf.Qiniu.BucketName,
         BucketDomain: _conf.Qiniu.BucketDomain,
-        ACCESS_KEY: _xconf.Qiniu.ACCESS_KEY,
-        SECRET_KEY: _xconf.Qiniu.SECRET_KEY,
+        ACCESS_KEY: _conf.Qiniu.ACCESS_KEY,
+        SECRET_KEY: _conf.Qiniu.SECRET_KEY,
     },
     uploadTags: {
         none: true,
