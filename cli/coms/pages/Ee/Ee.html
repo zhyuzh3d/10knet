@@ -3,18 +3,19 @@
     <div id='Ee' xid='Ee' class='full'>
         <div style="height:60px"></div>
         <div class='mainBox'>
-            <div class="left">
-                <div class="set"> </div>
-                <div class="html">
-                    <editor lang='html'></editor>
+            <dbox class="left" wid='400px' useRight='true' hei='100%'>
+                <dbox useBottom='true' hei='30%'>
+                    <coder mode='css' code='body{color:red}' v-bind:opts2='opt'></coder>
+                </dbox>
+                <dbox useBottom='true' hei='30%'>
+                    <coder mode='text/html' code='<h1>hello 10knet!</h1>'></coder>
+                </dbox>
+                <div class='autoFlex'>
+                    <div style="height:100%">
+                        <coder mode='javascript' code='var msg="hello 10knet!"'></coder>
+                    </div>
                 </div>
-                <div class="css">
-                    <editor lang='css'></editor>
-                </div>
-                <div class="js">
-                    <editor lang='js'></editor>
-                </div>
-            </div>
+            </dbox>
             <div class="right">
                 <iframe preview src="templates/preview/preview.html"></iframe>
             </div>
@@ -22,6 +23,12 @@
     </div>
 </template>
 <style scoped>
+    .autoFlex {
+        flex: 1;
+        flex-grow: 1;
+        overflow: auto;
+    }
+
     iframe {
         border-style: none;
         width: 100%;
@@ -48,7 +55,7 @@
     }
 
     .left {
-        flex: 1;
+        flex: initial;
         background-color: #CCC;
         display: flex;
         align-items: stretch;
@@ -56,7 +63,7 @@
     }
 
     .right {
-        flex: 1;
+        flex: auto;
         background-color: #FFF;
     }
 

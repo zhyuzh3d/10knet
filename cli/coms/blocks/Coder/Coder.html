@@ -1,0 +1,21 @@
+<script src="./Coder.js"></script>
+<!--<script src="/node_modules/codemirror/addon/hint/html-hint.js"></script>-->
+
+<template>
+    <div id='Coder' xid='Coder'>
+        <codemirror id='editor' ref="myEditor" :code.sync="code" :options="options"></codemirror>
+    </div>
+</template>
+
+<style scoped>
+    #Coder {
+        width: 100%;
+        height: 100%;
+    }
+
+    #editor {
+        width: 100%;
+        height: 100%;
+    }
+
+</style>

@@ -7,8 +7,12 @@ let jo; //此元素对应的jquery对象,mounted函数内设定
 
 //所有要用的元素都写在这里
 import Editor from '../../blocks/Editor/Editor.html';
+import Coder from '../../blocks/Coder/Coder.html';
+import Dbox from '../../symbols/Dbox/Dbox.html';
 com.components = {
-    Editor
+    Editor,
+    Coder,
+    Dbox,
 };
 
 
@@ -16,7 +20,11 @@ com.components = {
 com.data = function data() {
     vc = this;
     return {
-        msg: 'Hello from blocks/Ee/Ee.js'
+        msg: 'Hello from blocks/Ee/Ee.js',
+        opt: {
+            mode: 'text/html',
+            lineNumbers: false,
+        }
     };
 };
 

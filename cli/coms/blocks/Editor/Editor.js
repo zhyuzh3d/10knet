@@ -1,4 +1,3 @@
-//var $ = () => System.import('jquery');
 import $ from 'jquery';
 
 let com = {};

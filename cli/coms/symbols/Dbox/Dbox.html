@@ -1,0 +1,55 @@
+<script src="./Dbox.js"></script>
+
+<template>
+    <div id='Dbox' xid='Dbox' v-bind:style='{width:sizeX,height:sizeY}'>
+        <div v-if='useLeft' class="vbar" @mousedown='startDrag($event,"left")'></div>
+        <div class='box'>
+            <div v-if='useTop' class="hbar" @mousedown='startDrag($event,"top")'></div>
+            <div class='box2'>
+                <slot></slot>
+            </div>
+            <div v-if='useBottom' class="hbar" @mousedown='startDrag($event,"bottom")'></div>
+        </div>
+        <div v-if='useRight' class="vbar" @mousedown='startDrag($event,"right")'></div>
+    </div>
+</template>
+
+<style scoped>
+    #Dbox {
+        display: flex;
+        flex-direction: row
+    }
+
+    .box {
+        flex: auto;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .box2 {
+        flex: 100;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .vbar {
+        width: 10px;
+        height: 100%;
+        flex: none;
+        background: #AAA;
+        cursor: col-resize;
+        border-right: 1px solid #CCC;
+    }
+
+    .hbar {
+        width: 100%;
+        height: 10px;
+        flex: none;
+        background: #AAA;
+        cursor: row-resize;
+        border-top: 1px solid #CCC;
+    }
+
+</style>

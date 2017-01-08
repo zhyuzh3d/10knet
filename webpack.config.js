@@ -12,27 +12,22 @@ module.exports = {
         loaders: [{
             test: /\.(vue|html)$/,
             loader: 'vue-loader',
-            include: /cli/,
         }, {
             test: /\.js$/,
             loader: 'babel-loader',
-            exclude: /node_modules/,
-            include: /cli/,
+            exclude: /(node_modules)/,
         }, {
             test: /\.css$/,
             loader: 'style-loader!css-loader',
-            include: /cli/,
         }, {
             test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
             loader: 'file-loader',
-            include: /cli/,
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
             loader: 'file-loader',
             query: {
                 name: '[name].[ext]?[hash]'
             },
-            include: /cli/,
         }]
     },
     devServer: {
