@@ -10,10 +10,6 @@ body {
 }
 p {
     -webkit-font-smoothing: antialiased;
-    font-size: 14px;
-}
-div {
-    font-size: 14px;
 }
 a:link {
     text-decoration: none;
@@ -32,4 +28,3 @@ a:visited {
 
 
 /*常用id名选择器*/
-

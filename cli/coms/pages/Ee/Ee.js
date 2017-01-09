@@ -4,6 +4,7 @@ let com = {};
 export default com;
 let vc; //此元素vueComponent对象
 let jo; //此元素对应的jquery对象,mounted函数内设定
+let previewMsgHub;
 
 //所有要用的元素都写在这里
 import Editor from '../../blocks/Editor/Editor.html';
@@ -15,21 +16,19 @@ com.components = {
     Dbox,
 };
 
-
-
 com.data = function data() {
     vc = this;
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
-        opt: {
-            mode: 'text/html',
-            lineNumbers: false,
-        }
+        refreshCss,
+        refreshHtml,
+        refreshJs,
     };
 };
 
 com.mounted = function () {
     jo = $(this.$el);
+    previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
 
     //激活顶部导航栏菜单
     vc.$xrouter.xset('NavBar', {
@@ -44,3 +43,41 @@ com.mounted = function () {
 };
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+function sendPreviewCmd(cmd, params) {
+    let cmdChannel = new MessageChannel();
+    cmdChannel.port1.addEventListener('message', recvPreviewMsg);
+
+    var msg = {
+        cmd: cmd, //'reload','refresh',
+        params: params, //{lang}
+    };
+
+    previewMsgHub.postMessage(JSON.stringify(msg), '/', [cmdChannel.port2]);
+};
+
+function recvPreviewMsg(e) {
+    console.log('blocks/Editor/RecvChannelMsg,', e.data);
+};
+
+function refreshCss(code, key) {
+    localStorage.setItem('preview-css', code);
+    sendPreviewCmd('refresh', {
+        lang: 'css',
+    });
+};
+
+function refreshHtml(code, key) {
+    localStorage.setItem('preview-html', code);
+    sendPreviewCmd('refresh', {
+        lang: 'html',
+    });
+};
+
+function refreshJs(code, key) {
+    if (key == '\r') {
+        localStorage.setItem('preview-js', code);
+        sendPreviewCmd('reload', {
+            lang: 'js',
+        });
+    };
+};

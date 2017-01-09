@@ -2,8 +2,9 @@
 
 <template>
     <div id='App' xid='App'>
-        <nav-bar id='NavBar' xid='NavBar' v-bind:bg-color='barBg' style='position:absolute;z-index:1'></nav-bar>
-        <component id='App_mainView' :is="mainView" xid='App_mainView' style='position:absolute;z-index:0' v-bind:class='(barBg!="inherit")?"padbar":""'></component>
+        <!--        <nav-bar id='NavBar' xid='NavBar' v-bind:bg-color='barBg' style='position:absolute;z-index:1'></nav-bar>-->
+        <!--        <component id='App_mainView' :is="mainView" xid='App_mainView' style='position:absolute;z-index:0' v-bind:class='(barBg!="inherit")?"padbar":""'></component>-->
+        <component id='App_mainView' :is="mainView" xid='App_mainView' style='position:absolute;z-index:0'></component>
 
     </div>
 </template>

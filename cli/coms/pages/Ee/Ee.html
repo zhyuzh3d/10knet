@@ -1,18 +1,17 @@
 <script src="./Ee.js"></script>
 <template>
     <div id='Ee' xid='Ee' class='full'>
-        <div style="height:60px"></div>
         <div class='mainBox'>
-            <dbox class="left" wid='400px' useRight='true' hei='100%'>
-                <dbox useBottom='true' hei='30%'>
-                    <coder mode='css' code='body{color:red}' v-bind:opts2='opt'></coder>
+            <dbox class="left" wid='400px' useRight='true' hei='100%' barSize='8'>
+                <dbox useBottom='true' hei='30%' barSize='5'>
+                    <coder mode='css' code='body{color:red}' v-bind:keyupFn='refreshCss'></coder>
                 </dbox>
-                <dbox useBottom='true' hei='30%'>
-                    <coder mode='text/html' code='<h1>hello 10knet!</h1>'></coder>
+                <dbox useBottom='true' hei='30%' barSize='5'>
+                    <coder mode='text/html' code='<h1>hello 10knet!</h1>' v-bind:keyupFn='refreshHtml'></coder>
                 </dbox>
                 <div class='autoFlex'>
                     <div style="height:100%">
-                        <coder mode='javascript' code='var msg="hello 10knet!"'></coder>
+                        <coder mode='javascript' code='var msg="hello 10knet!"' v-bind:keyupFn='refreshJs'></coder>
                     </div>
                 </div>
             </dbox>

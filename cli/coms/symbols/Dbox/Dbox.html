@@ -2,15 +2,15 @@
 
 <template>
     <div id='Dbox' xid='Dbox' v-bind:style='{width:sizeX,height:sizeY}'>
-        <div v-if='useLeft' class="vbar" @mousedown='startDrag($event,"left")'></div>
+        <div v-if='useLeft' class="vbar" @mousedown='startDrag($event,"left")' v-bind:style='{width:barSize+"px"}'></div>
         <div class='box'>
-            <div v-if='useTop' class="hbar" @mousedown='startDrag($event,"top")'></div>
+            <div v-if='useTop' class="hbar" @mousedown='startDrag($event,"top")' v-bind:style='{height:barSize+"px"}'></div>
             <div class='box2'>
                 <slot></slot>
             </div>
-            <div v-if='useBottom' class="hbar" @mousedown='startDrag($event,"bottom")'></div>
+            <div v-if='useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' v-bind:style='{height:barSize+"px"}'></div>
         </div>
-        <div v-if='useRight' class="vbar" @mousedown='startDrag($event,"right")'></div>
+        <div v-if='useRight' class="vbar" @mousedown='startDrag($event,"right")' v-bind:style='{width:barSize+"px"}'></div>
     </div>
 </template>
 

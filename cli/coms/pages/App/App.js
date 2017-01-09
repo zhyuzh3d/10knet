@@ -49,7 +49,7 @@ com.mounted = function () {
     //初次自动载入welcome页，后续依赖xrestore自动切换
     if (!vc.xrestored) {
         vc.$xrouter.go('App', {
-            mainView: 'welcome'
+            mainView: 'ee'
         });
     };
 };

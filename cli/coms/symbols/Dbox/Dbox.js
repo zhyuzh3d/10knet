@@ -17,14 +17,9 @@ com.props = {
     useBottom: String,
     wid: String,
     hei: String,
-    minWid: {
-        type: String,
-        default: barWid,
-    },
-    minHei: {
-        type: String,
-        default: barWid,
-    },
+    barSize: String,
+    minWid: String,
+    minHei: String,
     maxWid: String,
     maxHei: String,
 };
@@ -34,6 +29,8 @@ com.data = function data() {
         rdragging: false,
         sizeX: this.wid || '100%',
         sizeY: this.hei || '100%',
+        mWid: this.minWid || this.barSize || barWid,
+        mHei: this.minHei || this.barSize || barWid,
     };
 };
 
@@ -43,7 +40,10 @@ com.methods = {
     },
 };
 
-com.mounted = function () {};
+com.mounted = function () {
+
+
+};
 
 //------------------------functions-----------------------
 function startDrag(evt, ctx, tag) {
@@ -72,13 +72,13 @@ function startDrag(evt, ctx, tag) {
 
         if (tag == 'right' || tag == 'left') {
             var wid = jo.width() + offsetX;
-            wid = (wid < ctx.minWid) ? ctx.minWid : wid;
+            wid = (wid < ctx.mWid) ? ctx.mWid : wid;
             ctx.$set(ctx.$data, 'sizeX', wid + 'px');
         };
 
         if (tag == 'top' || tag == 'bottom') {
             var hei = jo.height() + offsetY;
-            hei = (hei < ctx.minHei) ? ctx.minHei : hei;
+            hei = (hei < ctx.mHei) ? ctx.mHei : hei;
             ctx.$set(ctx.$data, 'sizeY', hei + 'px');
         };
     });
