@@ -20,11 +20,16 @@ com.data = function data() {
     vc = this;
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
-        refreshCss,
+        refreshCss, //三个函数将作为数据传给coder编辑器
         refreshHtml,
         refreshJs,
+        cssData: localStorage.getItem('preview-css') || '/*css样式*/',
+        htmlData: localStorage.getItem('preview-html') || '/*body标记*/',
+        jsData: localStorage.getItem('preview-js') || '/*javascript脚本*/',
     };
 };
+
+
 
 com.mounted = function () {
     jo = $(this.$el);

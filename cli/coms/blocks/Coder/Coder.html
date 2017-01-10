@@ -4,6 +4,9 @@
 <template>
     <div id='Coder' xid='Coder'>
         <codemirror id='editor' ref="myEditor" :code.sync="codeData" :options="options"></codemirror>
+        <div class="hud">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -11,11 +14,19 @@
     #Coder {
         width: 100%;
         height: 100%;
+        position: relative;
     }
 
     #editor {
         width: 100%;
         height: 100%;
+    }
+
+    .hud {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 100;
     }
 
 </style>

@@ -53,10 +53,33 @@ function reloadJs() {
     var data = localStorage.getItem('preview-js');
     $('script[preview]').remove();
     var sdom = $('<script preview></script>');
-    sdom.html(data);
+
+    //外加try-catch捕获异常
+    var str = '(' + wrapJs.toString().replace('//locator', data) + ')()';
+    sdom.html(str);
+
     $('body').append(sdom);
 };
 
+
+function wrapJs() {
+    try {
+        //locator
+    } catch (err) {
+        var div = $('<div></div>');
+        div.css({
+            color: '#888',
+            'font-size': '12px',
+            'word-wrap': 'break-word',
+            'line-height': '20px',
+        });
+        $('<h5 style="color:#000;font-size:16px">Javascript脚本代码异常:</h5>').appendTo(div);
+        $('<h3 style="color:red;font-size:18px">' + err.message + '</h3>').appendTo(div);
+        $('<p>' + err.stack + '</p>').appendTo(div);
+        $("body").empty();
+        $('body').append(div);
+    }
+};
 
 
 /**
