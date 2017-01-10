@@ -22,6 +22,7 @@ com.props = {
     minHei: String,
     maxWid: String,
     maxHei: String,
+    xidTag: String,
 };
 
 com.data = function data() {
@@ -40,8 +41,8 @@ com.methods = {
     },
 };
 
-com.mounted = function () {
 
+com.mounted = function () {
 
 };
 
@@ -74,12 +75,24 @@ function startDrag(evt, ctx, tag) {
             var wid = jo.width() + offsetX;
             wid = (wid < ctx.mWid) ? ctx.mWid : wid;
             ctx.$set(ctx.$data, 'sizeX', wid + 'px');
+            console.log('>>>xid', ctx.xid);
+            if (ctx.xid) {
+                ctx.$xrouter.xset(ctx.xid, {
+                    sizeX: wid + 'px',
+                });
+            };
         };
 
         if (tag == 'top' || tag == 'bottom') {
             var hei = jo.height() + offsetY;
             hei = (hei < ctx.mHei) ? ctx.mHei : hei;
             ctx.$set(ctx.$data, 'sizeY', hei + 'px');
+            console.log('>>>xid', ctx.xid);
+            if (ctx.xid) {
+                ctx.$xrouter.xset(ctx.xid, {
+                    sizeY: hei + 'px',
+                });
+            };
         };
     });
 

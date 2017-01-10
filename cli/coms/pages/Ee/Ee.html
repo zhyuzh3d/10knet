@@ -2,13 +2,13 @@
 <template>
     <div id='Ee' xid='Ee' class='full'>
         <div class='mainBox'>
-            <dbox class="left" wid='400px' useRight='true' hei='100%' barSize='8'>
-                <dbox useBottom='true' hei='30%' barSize='5'>
+            <dbox class="left" wid='400px' useRight='true' hei='100%' barSize='8' xid='codersBox'>
+                <dbox xid='cssCoder' useBottom='true' hei='30%' barSize='5'>
                     <coder mode='css' v-bind:code='cssData' v-bind:keyupFn='refreshCss'>
                         <el-tag>css</el-tag>
                     </coder>
                 </dbox>
-                <dbox useBottom='true' hei='30%' barSize='5'>
+                <dbox xid='htmlCoder' useBottom='true' hei='30%' barSize='5'>
                     <coder mode='text/html' v-bind:code='htmlData' v-bind:keyupFn='refreshHtml'>
                         <el-tag>body</el-tag>
                     </coder>
@@ -28,7 +28,6 @@
     </div>
 </template>
 <style scoped>
-
     .autoFlex {
         flex: 1;
         flex-grow: 1;

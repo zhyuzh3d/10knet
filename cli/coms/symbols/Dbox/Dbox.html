@@ -1,7 +1,7 @@
 <script src="./Dbox.js"></script>
 
 <template>
-    <div id='Dbox' xid='Dbox' v-bind:style='{width:sizeX,height:sizeY}'>
+    <div id='Dbox' v-bind:xid='xid||"Dbox"' v-bind:style='{width:sizeX,height:sizeY}'>
         <div v-if='useLeft' class="vbar" @mousedown='startDrag($event,"left")' v-bind:style='{width:barSize+"px"}'></div>
         <div class='box'>
             <div v-if='useTop' class="hbar" @mousedown='startDrag($event,"top")' v-bind:style='{height:barSize+"px"}'></div>
