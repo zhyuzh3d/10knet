@@ -3,7 +3,7 @@
     "description": "A Vue.js project",
     "author": "zhyuzh",
     "private": true,
-    "version": "0.0.1",
+    "version": "0.0.11",
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --content-base pub/",
         "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

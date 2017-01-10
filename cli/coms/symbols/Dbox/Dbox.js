@@ -75,7 +75,6 @@ function startDrag(evt, ctx, tag) {
             var wid = jo.width() + offsetX;
             wid = (wid < ctx.mWid) ? ctx.mWid : wid;
             ctx.$set(ctx.$data, 'sizeX', wid + 'px');
-            console.log('>>>xid', ctx.xid);
             if (ctx.xid) {
                 ctx.$xrouter.xset(ctx.xid, {
                     sizeX: wid + 'px',

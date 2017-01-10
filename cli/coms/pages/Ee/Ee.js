@@ -24,7 +24,7 @@ com.data = function data() {
         refreshHtml,
         refreshJs,
         cssData: localStorage.getItem('preview-css') || '/*css样式*/',
-        htmlData: localStorage.getItem('preview-html') || '<!--body标记-->',
+        htmlData: localStorage.getItem('preview-html') || '<!--html内body标记-->',
         jsData: localStorage.getItem('preview-js') || '/*javascript脚本*/',
     };
 };
