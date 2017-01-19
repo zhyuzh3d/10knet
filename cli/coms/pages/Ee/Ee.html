@@ -1,6 +1,11 @@
 <script src="./Ee.js"></script>
 <template>
     <div id='Ee' xid='Ee' class='full'>
+        <div>
+            <dbox xid='topBar' useBottom='true' hei='33' barSize='5' maxHei='33'>
+                <git-bar v-bind:filesToSave='githubFilesToSave' v-bind:beforeSave='githubBeforeSave' v-bind:onProjectChange='githubOnProjectChange' v-bind:onFileLoaded='githubOnFileLoaded'></git-bar>
+            </dbox>
+        </div>
         <div class='mainBox'>
             <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox'>
                 <dbox xid='cssCoder' useBottom='true' hei='30%' barSize='5'>
@@ -32,6 +37,10 @@
         flex: 1;
         flex-grow: 1;
         overflow: auto;
+    }
+
+    .toolBar {
+        border-bottom: 4px solid #AAA;
     }
 
     iframe {

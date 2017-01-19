@@ -69,7 +69,7 @@ com.props = {
     theme: String,
     fontSize: {
         type: String,
-        default: '14',
+        default: '13',
     },
     keyupFn: Function, //fn(code,key,ctx)
 };
@@ -84,7 +84,11 @@ com.beforeMount = function () {
 com.watch = {
     fontSize: function (val, oldVal) {
         setFontSize(val, this);
-    }
+    },
+    code: function (val, oldVal) {
+        var editor = this.$refs.myEditor.editor;
+        editor.doc.setValue(val || '');
+    },
 };
 
 

@@ -30,8 +30,10 @@ com.data = function data() {
         rdragging: false,
         sizeX: this.wid || '100%',
         sizeY: this.hei || '100%',
-        mWid: this.minWid || this.barSize || barWid,
-        mHei: this.minHei || this.barSize || barWid,
+        mnWid: this.minWid || this.barSize || barWid,
+        mxWid: this.maxWid || window.innerWidth,
+        mnHei: this.minHei || this.barSize || barWid,
+        mxHei: this.maxHei || window.innerHeight,
     };
 };
 
@@ -73,7 +75,9 @@ function startDrag(evt, ctx, tag) {
 
         if (tag == 'right' || tag == 'left') {
             var wid = jo.width() + offsetX;
-            wid = (wid < ctx.mWid) ? ctx.mWid : wid;
+            wid = (wid < ctx.mnWid) ? ctx.mnWid : wid;
+            wid = (wid > ctx.mxWid) ? ctx.mxWid : wid;
+
             ctx.$set(ctx.$data, 'sizeX', wid + 'px');
             if (ctx.xid) {
                 ctx.$xrouter.xset(ctx.xid, {
@@ -84,9 +88,9 @@ function startDrag(evt, ctx, tag) {
 
         if (tag == 'top' || tag == 'bottom') {
             var hei = jo.height() + offsetY;
-            hei = (hei < ctx.mHei) ? ctx.mHei : hei;
+            hei = (hei < ctx.mnHei) ? ctx.mnHei : hei;
+            hei = (hei > ctx.mxHei) ? ctx.mxHei : hei;
             ctx.$set(ctx.$data, 'sizeY', hei + 'px');
-            console.log('>>>xid', ctx.xid);
             if (ctx.xid) {
                 ctx.$xrouter.xset(ctx.xid, {
                     sizeY: hei + 'px',

@@ -56,13 +56,17 @@ function remoteRun(api, data, opt) {
             console.log(`rRun:${apistr}:`, msg);
 
             //解析msg格式,判断msg.err
-            if (!msg.err) {
+            if (msg && !msg.err) {
                 msg.res ? resolve(msg.res) : resolve(msg); //输出整个返回，兼容外部站点
             } else {
-                msg.err.tip = '服务端提示:' + msg.err.tip;
+                if (msg && msg.err) msg.err.tip = '服务端提示:' + msg.err.tip;
+                if (!msg) msg = {
+                    err: 'unkown'
+                };
                 reject(msg.err);
             };
         };
+
         ajaxObj.error = function (xhr, err) {
             //重组err,合成标准的err格式
             var zerr = {

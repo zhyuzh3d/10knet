@@ -1,9 +1,13 @@
-//刷新iframe页面
+/**
+ * 重新加载整个页面
+ */
 function reload() {
     location.reload();
 };
 
-//载入后自动从保存的ls中恢复
+/**
+ * 页面加载后自动从ls恢复css,js,body
+ */
 function autoRefresh() {
     refreshCss();
     refreshHtml();
@@ -12,6 +16,10 @@ function autoRefresh() {
 
 autoRefresh();
 
+/**
+ * 刷新页面的css,js,html代码
+ * @param {object} params {lang:'xxx'}
+ */
 function refresh(params) {
     if (!params) return;
 
@@ -33,30 +41,29 @@ function refresh(params) {
     };
 };
 
+/**
+ * 从ls重新载入css内容
+ */
 function refreshCss() {
     var data = localStorage.getItem('preview-css');
     $('style[preview]').empty();
     $('style[preview]').append(data);
 };
 
+/**
+ * 从ls重新载入body内容
+ */
 function refreshHtml() {
     var data = localStorage.getItem('preview-html');
-    $('body').empty();
-    $('body').append(data);
+    $('body').find('div[preview]').empty();
+    $('body').find('div[preview]').append(data);
 };
 
-function refreshJs() {
-    //reload();
-};
-
-
-
-
+/**
+ * 重新载入js代码，从ls读取数据并运行
+ */
 function reloadJs() {
     var data = localStorage.getItem('preview-js');
-    $('script[preview]').remove();
-    var sdom = $('<script preview></script>');
-
     //外加try-catch捕获异常
     try {
         eval(data);
@@ -65,13 +72,18 @@ function reloadJs() {
     };
 };
 
+/**
+ * 在body内显示错误信息的函数
+ * @param {object} err err
+ */
 function showErr(err) {
     var div = $('<div></div>');
     div.css({
-        color: '#888',
+        color: '#444',
         'font-size': '12px',
         'word-wrap': 'break-word',
         'line-height': '20px',
+        '-webkit-font-smoothing': 'antialiased',
     });
     $('<h5 style="color:#000;font-size:16px">Javascript脚本代码异常:</h5>').appendTo(div);
     $('<h3 style="color:red;font-size:18px">' + err.message + '</h3>').appendTo(div);
@@ -98,7 +110,6 @@ window.addEventListener('message', function (e) {
     if (obj) {
         //执行刷新
         if (obj.cmd == 'refresh') {
-
             refresh(obj.params);
         } else if (obj.cmd == 'reload') {
             reload();

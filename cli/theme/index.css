@@ -2429,7 +2429,7 @@
 }
 .el-notification {
     width: 330px;
-    padding: 20px;
+    padding: 16px;
     box-sizing: border-box;
     border-radius: 0px;
     position: fixed;
@@ -2464,12 +2464,13 @@
     text-align: justify;
 }
 .el-notification__icon {
-    width: 40px;
-    height: 40px;
-    font-size: 40px;
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
     float: left;
     position: relative;
     top: 3px;
+    margin-right: 12px;
 }
 .el-notification__closeBtn {
     top: 20px;
@@ -9418,7 +9419,9 @@
     display: inline-block;
     vertical-align: middle;
     background-color: #fff;
-    width: 420px;
+    min-width: 400px;
+    max-width: 600px;
+    width: 60%;
     border-radius: 0px;
     font-size: 16px;
     -webkit-user-select: none;
