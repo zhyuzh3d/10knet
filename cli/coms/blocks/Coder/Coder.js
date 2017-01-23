@@ -41,7 +41,7 @@ com.data = function () {
             keyMap: "sublime",
             styleActiveLine: true,
             tabMode: "indent",
-            lineWrapping: false,
+            lineWrapping: true,
             foldGutter: true,
             gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             lint: true,

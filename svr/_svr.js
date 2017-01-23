@@ -18,7 +18,7 @@ const $https = global.$https = require('https');
 const $path = global.$path = require('path');
 const $gitUrlParse = global.$gitUrlParse = require('git-url-parse');
 const $koa = global.$koa = require('koa');
-const $koaBody = global.$koaBody = require('koa-body');
+const $koaBody = global.$koaBody = require('koa-bodyparser');
 const $_ = global.$_ = require('lodash');
 const $moment = global.$moment = require('moment');
 const $qiniu = global.$qiniu = require('qiniu');

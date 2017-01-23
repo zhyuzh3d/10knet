@@ -10,33 +10,33 @@ function reload() {
  */
 function autoRefresh() {
     refreshCss();
-    refreshHtml();
-    reloadJs();
+    refreshBody();
+    reloadAll();
 };
 
 autoRefresh();
 
 /**
  * 刷新页面的css,js,html代码
- * @param {object} params {lang:'xxx'}
+ * @param {object} params {part:'xxx'}
  */
 function refresh(params) {
     if (!params) return;
 
-    var lang = params.lang;
+    var part = params.part;
 
-    switch (lang) {
+    switch (part) {
         case 'css':
             refreshCss();
             break;
-        case 'html':
-            refreshHtml();
+        case 'body':
+            refreshBody();
             break;
-        case 'js':
-            refreshJs();
+        case 'all':
+            reloadAll();
             break;
         default:
-            console.log('refresh:lang is unknown', lang);
+            console.log('refresh:part is unknown', part);
             break;
     };
 };
@@ -53,24 +53,44 @@ function refreshCss() {
 /**
  * 从ls重新载入body内容
  */
-function refreshHtml() {
-    var data = localStorage.getItem('preview-html');
+function refreshBody() {
+    var data = localStorage.getItem('preview-body');
     $('body').find('div[preview]').empty();
     $('body').find('div[preview]').append(data);
 };
 
 /**
- * 重新载入js代码，从ls读取数据并运行
+ * 从ls重新载入head内容
+ */
+function reloadHead() {
+    var headData = localStorage.getItem('preview-head');
+    if (headData) {
+        $('head').empty();
+        $('head').append(headData);
+    };
+};
+
+/**
+ * 从ls重新载入js内容
  */
 function reloadJs() {
-    var data = localStorage.getItem('preview-js');
+    var jsData = localStorage.getItem('preview-js');
     //外加try-catch捕获异常
     try {
-        eval(data);
+        eval(jsData);
     } catch (err) {
         showErr(err);
     };
 };
+
+/**
+ * 重新载入head和js代码，从ls读取数据并运行
+ */
+function reloadAll() {
+    reloadHead();
+    reloadJs();
+};
+
 
 /**
  * 在body内显示错误信息的函数
@@ -96,7 +116,7 @@ function showErr(err) {
 
 /**
  * 接收父层窗口传来的信息,字符串化的对象;
- * {id:'...',cmd:'refresh',params:{lang:'css'}};
+ * {id:'...',cmd:'refresh',params:{part:'css'}};
  */
 window.addEventListener('message', function (e) {
     //禁止跨域访问

@@ -15,6 +15,7 @@ const _qn = {
     },
     uploadTags: {
         none: true,
+        page: true,
     },
     genUploadToken: genUploadToken,
 };
@@ -48,6 +49,8 @@ _zrouter.addApi('/qnUploadCallback', {
             url: ctx.request.body.url,
         };
         //限制文件大小和类型可以放在这里
+
+
         ctx.body = new _msg.Msg(null, ctx, data);
     },
 });

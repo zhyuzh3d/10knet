@@ -11,6 +11,9 @@ body {
 p {
     -webkit-font-smoothing: antialiased;
 }
+a {
+    color: #1cbbb4;
+}
 a:link {
     text-decoration: none;
 }

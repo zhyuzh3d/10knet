@@ -1,0 +1,82 @@
+<script src="./ShareHtml.js"></script>
+
+<template>
+    <div id='PageSet' xid='PageSet'>
+        <el-dialog title="分享到:" v-model="conf.show">
+            <div class="btns">
+                <a v-bind:href='qzoneUrl' target="_blank">
+                    <el-button class='sbtn' size='small'>
+                        <img class="btnimg" src='http://10knet.com/imgs/qzone.png' />
+                        <span>QQ空间</span>
+                    </el-button>
+                </a>
+
+                <a v-bind:href='qqUrl' target="_blank">
+                    <el-button class='sbtn' size='small'>
+                        <img class="btnimg" src='http://10knet.com/imgs/QQclr.png' />
+                        <span>QQ好友</span>
+                    </el-button>
+                </a>
+
+                <a v-bind:href='weiboUrl' target="_blank">
+                    <el-button class='sbtn' size='small'>
+                        <img class="btnimg" src='http://10knet.com/imgs/weibo.png' />
+                        <span>新浪微博</span>
+                    </el-button>
+                </a>
+            </div>
+            <div class="urlTip">微信扫码后分享</div>
+            <div class="qrcodeBox" id='qrcodeBox'>...正在生成二维码...</div>
+            <div class="urlBox"><a v-bind:href='conf.url' target="_blank">{{conf.url}}</a></div>
+        </el-dialog>
+    </div>
+</template>
+
+<style scoped>
+    .urlTip {
+        text-align: center;
+        width: 100%;
+        margin-top: 12px;
+        font-size: 12px;
+    }
+
+    .urlBox {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .qrcodeBox {
+        text-align: center;
+        padding: 18px;
+        font-size: 12px;
+        color: #AAA;
+    }
+
+    .btns {
+        text-align: center;
+        white-space: nowrap;
+        margin-top: 12px;
+    }
+
+    .btnimg {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        border-radius: 4px;
+    }
+
+    .sbtn {
+        padding: 8px 12px;
+        border: none;
+    }
+
+    .sbtn:hover {
+        padding: 7px 11px;
+        border: 1px solid #DDD;
+        flex: 1;
+        border-radius: 0px;
+        background: #EEE;
+    }
+
+</style>

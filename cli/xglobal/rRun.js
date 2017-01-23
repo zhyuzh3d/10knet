@@ -38,6 +38,7 @@ function remoteRun(api, data, opt) {
                 url: api,
                 data: dt,
                 dataType: 'json',
+                contentType: 'application/json',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -53,7 +54,7 @@ function remoteRun(api, data, opt) {
         //补足完成事件和出错处理,使用异步处理，不使用回调
         ajaxObj.success = function (msg) {
             //测试输出
-            console.log(`rRun:${apistr}:`, msg);
+            console.log(`rRun:${apistr}:`, data, msg);
 
             //解析msg格式,判断msg.err
             if (msg && !msg.err) {

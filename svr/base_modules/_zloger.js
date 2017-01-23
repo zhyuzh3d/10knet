@@ -31,6 +31,7 @@ module.exports = _zloger;
 //--------------------functions------------------
 
 async function koaMiddleWare(ctx, next) {
+
     const start = new Date();
     var str = `${ctx.method} : ${ctx.url}`;
     _zloger.info(`_zloger:koaMdWr: ${str} <-`);

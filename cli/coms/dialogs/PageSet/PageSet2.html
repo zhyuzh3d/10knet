@@ -1,0 +1,55 @@
+<script src="./PageSet.js"></script>
+
+<template>
+    <div id='PageSet' xid='PageSet'>
+        <el-dialog v-bind:title="title" v-model="conf.show">
+            <el-tabs v-model="activeName" style='width:100%'>
+                <el-tab-pane label="基本设置">
+                    <div></div>
+                    <el-input v-model="conf.pageName" placeholder="请输入页面名称">
+                        <template slot="prepend" style="line-height:24px">页面名称</template>
+                    </el-input>
+                </el-tab-pane>
+                <el-tab-pane label="<head>代码">
+                    <div class="coderBox">
+                        <coder mode='text/html' v-bind:code='headData' v-bind:keyupFn='syncCode'>
+                            <el-button class='tagbtn' size='mini'>&nbsp;head&nbsp;</el-button>
+                        </coder>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+            <div class="btns">
+                <el-button @click='conf.show=false'>取消</el-button>
+                <el-button type='primary' @click='saveHeadData'>保 存</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</template>
+
+<style scoped>
+    .tagbtn {
+        background: rgba(180, 180, 180, 0.75);
+        border: none;
+        width: 40px;
+    }
+
+    .tagbtn:hover {
+        color: #FFF;
+    }
+
+    .tagbtn:focus {
+        color: #FFF;
+    }
+
+    .btns {
+        text-align: right;
+        margin-top: 18px;
+    }
+
+    .coderBox {
+        height: 200px;
+        min-height: 50%;
+        max-height: 80%;
+    }
+
+</style>

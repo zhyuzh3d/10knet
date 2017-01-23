@@ -1,0 +1,113 @@
+<script src="./Ee.js"></script>
+<template>
+    <div id='Ee' xid='Ee' class='full'>
+        <div v-if=false>
+            <dbox xid='topBar' useBottom='true' hei='33' barSize='5' maxHei='33'>
+                <git-bar v-bind:filesToSave='githubFilesToSave' v-bind:beforeSave='githubBeforeSave' v-bind:onProjectChange='githubOnProjectChange' v-bind:onFileLoaded='githubOnFileLoaded'></git-bar>
+            </dbox>
+        </div>
+        <div class='mainBox'>
+            <div class="sideBar">
+
+            </div>
+            <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox'>
+                <dbox xid='cssCoder' useBottom='true' hei='30%' barSize='5'>
+                    <coder mode='css' v-bind:code='cssData' v-bind:keyupFn='refreshCss'>
+                        <el-tag>css</el-tag>
+                    </coder>
+                </dbox>
+                <dbox xid='htmlCoder' useBottom='true' hei='30%' barSize='5'>
+                    <coder mode='text/html' v-bind:code='htmlData' v-bind:keyupFn='refreshHtml'>
+                        <el-tag>body</el-tag>
+                    </coder>
+                </dbox>
+                <div class='autoFlex'>
+                    <div style="height:100%">
+                        <coder mode='javascript' v-bind:code='jsData' v-bind:keyupFn='refreshJs'>
+                            <el-tag>js</el-tag>
+                        </coder>
+                    </div>
+                </div>
+            </dbox>
+            <div class="right">
+                <iframe preview src="templates/preview/preview.html"></iframe>
+            </div>
+        </div>
+    </div>
+</template>
+<style scoped>
+    .sideBar{
+        width: 40px;
+        background: #AAA;
+    }
+
+    .autoFlex {
+        flex: 1;
+        flex-grow: 1;
+        overflow: auto;
+    }
+
+    .toolBar {
+        border-bottom: 4px solid #AAA;
+    }
+
+    iframe {
+        border-style: none;
+        width: 100%;
+        height: 100%;
+        background-color: #FFF;
+    }
+
+    .full {
+        position: absolute;
+        margin-top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+    }
+
+    .mainBox {
+        position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        flex: 1;
+    }
+
+    .left {
+        flex: initial;
+        background-color: #CCC;
+        display: flex;
+        align-items: stretch;
+        flex-flow: column nowrap;
+    }
+
+    .right {
+        flex: auto;
+        background-color: #FFF;
+    }
+
+    .set {
+        height: 32px;
+        flex: initial;
+        background-color: #BBB;
+    }
+
+    .html {
+        flex: 1;
+        background: #EEE;
+    }
+
+    .css {
+        flex: 1;
+        background: #DDD;
+    }
+
+    .js {
+        flex: 1;
+        background: #CCC;
+    }
+
+</style>
