@@ -21,3 +21,28 @@ conf.apis = {
 conf.temp = {
     headData: '<title>10knet | 未标题</title>\n<meta charset="utf-8"/>\n<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>',
 };
+
+
+//所有的页面模版
+conf.pageTemplates = {
+    'Hello world!': {
+        name: 'Hello world!',
+        desc: '第一次接触编码？从这里开始吧！最简单的起步模版。带有jquery和bootstrap库。',
+        url: 'http://10knet.com/templates/pages/helloWorld.html',
+    },
+    '个人简历': {
+        name: '个人简历',
+        desc: '用代码自由编写自己的在线简历，从这个模版开始吧！带有jquery和bootstrap库',
+        url: 'http://10knet.com/templates/pages/resume.html',
+    },
+    '2D(绘图)起步': {
+        name: '2D(绘图)起步',
+        desc: '学习做2D特效图像或者2D游戏编码，从这里开始。适合刚刚开始接触计算机图像编程的用户。带有jquery和cocos2d-js库。',
+        url: 'http://10knet.com/templates/pages/2dgraphic.html',
+    },
+    '3D(VR)起步': {
+        name: '3D(VR)起步',
+        desc: '做3D图像或者虚拟现实场景，从这里起步。适合第一次接触3D／VR的同学。带有jquery和aframe和three.js两个库。',
+        url: 'http://10knet.com/templates/pages/3dgraphic.html',
+    },
+}

@@ -12,12 +12,14 @@ import Dbox from '../../symbols/Dbox/Dbox.html';
 import PageSet from '../../dialogs/PageSet/PageSet.html';
 import ShareHtml from '../../dialogs/ShareHtml/ShareHtml.html';
 import About from '../../dialogs/About/About.html';
+import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
 com.components = {
     Coder,
     Dbox,
     PageSet,
     ShareHtml,
     About,
+    PageTemplates,
 };
 
 com.data = function data() {
@@ -48,6 +50,14 @@ com.data = function data() {
         },
         aboutDialogConf: { //打开关于窗口的按钮
             show: false,
+        },
+        pageTempDialogConf: { //打开模版窗口的按钮
+            show: false,
+            onHide: function (tarctx) {
+                if (tarctx.conf.select) {
+                    loadTemplate(tarctx.conf.template, ctx);
+                };
+            },
         },
         page: {}, //上传后的文件
         localPages: {}, //本地存储曾经上传的文件信息
@@ -96,6 +106,22 @@ com.mounted = function () {
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
 
 /**
+ * 将一个模版page文件载入到编辑器
+ */
+async function loadTemplate(temp, ctx) {
+    //弹出提示确认
+    ctx.$confirm('是否用模版代码替换编辑器内容，替换后将无法返回', '确认替换编辑器内容', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    }).then(() => {
+        $.get(temp.url, function (data) {
+            fillEditors(data, ctx);
+        });
+    });
+};
+
+/**
  * 选择一个文件上传
  */
 async function selectUploadFile(ctx) {
@@ -124,7 +150,7 @@ async function assemblePage(ctx) {
     var bodyData = localStorage.getItem('preview-body');
     var jsData = localStorage.getItem('preview-js');
 
-    var data = `<!DOCTYPE html>\n<head>\n${headData}\n</head>\n<style 10knet>${cssData}</style>\n<body><div 10knet>${bodyData}</div></body>\n<script 10knet>${jsData}</script>`;
+    var data = `<!DOCTYPE html>\n<head>\n<div head 10knet>\n${headData}\n</div>\n</head>\n<style 10knet>${cssData}</style>\n<body><div body 10knet>${bodyData}</div></body>\n<script 10knet>${jsData}</script>`;
 
     return data;
 };
@@ -183,7 +209,7 @@ async function openShareDialog(ctx) {
     var blob = new Blob([pageData], {
         type: 'html'
     });
-    var pageFile = await uploadFile('page', ctx.$data.pageName, blob, ctx);
+    var pageFile = await uploadFile('page', 'index.html', blob, ctx);
     ctx.$set(ctx.$data, 'page', pageFile);
 
     ctx.shareDialogConf.show = true;
@@ -199,20 +225,28 @@ function fillEditors(data, ctx) {
     var tempDiv = $('<div></div>');
     tempDiv.append(data);
 
+    var headData = tempDiv.find('div[head][10knet]').html();;
     var cssData = tempDiv.find('style[10knet]').html();
-    var bodyData = tempDiv.find('div[10knet]').html();
+    var bodyData = tempDiv.find('div[body][10knet]').html();
     var jsData = tempDiv.find('script[10knet]').html();
 
     //触发coder填充
+    localStorage.setItem('preview-head', headData);
     ctx.$set(ctx.$data, 'cssData', cssData);
-    ctx.$set(ctx.$data, 'htmlData', bodyData);
+    ctx.$set(ctx.$data, 'bodyData', bodyData);
     ctx.$set(ctx.$data, 'jsData', jsData);
 
     //刷新预览
     refreshCss(cssData);
-    refreshHtml(bodyData);
+    refreshBody(bodyData);
     refreshJs(jsData);
+    refreshJsMenual();
 };
+
+
+
+
+
 
 
 /**

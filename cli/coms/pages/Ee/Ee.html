@@ -5,11 +5,15 @@
             <div class="sideBar">
                 <div style='height:4px'></div>
                 <div class='btnGrp1'>
+                    <el-tooltip class="item" effect="light" content="导入模版页面代码" placement="left-end">
+                        <el-button class='rbtn' @click='pageTempDialogConf.show=true'><i class="fa fa-folder-open"></i></el-button>
+                    </el-tooltip>
+
                     <el-tooltip class="item" effect="light" content="设置页面head信息" placement="left-end">
                         <el-button class='rbtn' @click='setDialogConf.show=true'><i class="fa fa-gear"></i></el-button>
                     </el-tooltip>
 
-                    <el-tooltip class="item" effect="light" content="分享当前的页面效果" placement="left-end">
+                    <el-tooltip class="item" effect="light" content="QQ、微信、微博，分享当前的页面效果" placement="left-end">
                         <el-button class='rbtn' @click='openShareDialog'><i class="fa fa-share-alt"></i></el-button>
                     </el-tooltip>
 
@@ -76,6 +80,7 @@
             </div>
         </div>
         <div id='dialogs'>
+            <page-templates v-bind:conf='pageTempDialogConf'></page-templates>
             <page-set v-bind:conf='setDialogConf'></page-set>
             <share-html v-bind:conf='shareDialogConf'></share-html>
             <about v-bind:conf='aboutDialogConf'></about>

@@ -1,0 +1,119 @@
+<script src="./PageTemplates.js"></script>
+
+<template>
+    <div id='PageTemplates' xid='PageTemplates'>
+        <el-dialog title="导入模版代码" v-model="conf.show" size='large'>
+            <div class="rowDiv">
+                <div>请直接输入页面地址或者点击下面的卡片选择</div>
+            </div>
+            <div class="rowDiv" style="margin-top:4px">
+                <el-input v-model="inputUrl" placeholder="请粘贴页面链接如http://app.10knet.com/.../index.html" style='width:100%'> </el-input>
+            </div>
+            <div class="rowDiv tmpsBox">
+                <div class='cardBox' v-for='(v,k) in templates'>
+                    <el-card class="card" :body-style="{padding: '0px'}">
+                        <div class="cardContent">
+                            <div class="tmpPrev">
+                                <iframe @load='iframeLoad($event)' v-bind:src='v.url' style=""></iframe>
+                            </div>
+                            <div class="tmpInfo" @click='seleletTemp(v)'>
+                                <div class="tmpTitle">{{k}}</div>
+                                <div class="tmpDesc">{{v.desc}}</div>
+                            </div>
+                        </div>
+                    </el-card>
+                </div>
+            </div>
+            <div class="btns">
+                <el-button @click='conf.show=false'>取消</el-button>
+                <el-button type='primary' @click='closeDialog'>&nbsp;载&nbsp;入&nbsp;</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</template>
+
+<style scoped>
+    iframe {
+        border: none;
+        transform-origin: 0 0;
+        padding: 1px;
+        overflow: hidden;
+    }
+
+    .tmpInfo {
+        opacity: 0.01;
+        position: absolute;
+        overflow-y: scroll;
+        background: #FFF;
+        padding: 12px;
+        height: 124px;
+    }
+
+    .tmpInfo:hover {
+        opacity: 1;
+    }
+
+    .cardContent {
+        display: flex;
+        width: 100%;
+        height: 150px;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .tmpTitle {
+        font-weight: bold;
+        color: #1c2d3d;
+    }
+
+    .tmpDesc {
+        color: #888;
+        font-size: 10px;
+        -webkit-font-smoothing: antialiased;
+        width: 100%;
+        overflow: scroll;
+        text-align: left;
+        word-break: break-all;
+        margin-top: 8px
+    }
+
+    .tmpsBox {
+        max-height: 360px;
+        overflow-y: scroll;
+    }
+
+    .el-card__body {
+        padding: 12px;
+    }
+
+    .cardBox {
+        width: 25%;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .card {
+        cursor: pointer;
+        box-shadow: none;
+        height: 150px;
+        margin: 6px;
+    }
+
+    .card:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 6px #aaa;
+    }
+
+    .rowDiv {
+        margin-top: 18px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .btns {
+        text-align: right;
+        margin-top: 18px;
+    }
+
+</style>
