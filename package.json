@@ -21,6 +21,7 @@
     "git-url-parse": "^6.1.1",
     "jquery.cookie": "^1.4.1",
     "jquery.qrcode": "^1.0.3",
+    "js-beautify": "^1.6.8",
     "koa": "^2.0.0-alpha.7",
     "koa-better-body": "^3.0.2",
     "koa-body": "^2.0.0",

@@ -13,6 +13,9 @@ import PageSet from '../../dialogs/PageSet/PageSet.html';
 import ShareHtml from '../../dialogs/ShareHtml/ShareHtml.html';
 import About from '../../dialogs/About/About.html';
 import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
+import Beautify from 'js-beautify';
+
+
 com.components = {
     Coder,
     Dbox,
@@ -32,13 +35,19 @@ com.data = function data() {
         refreshCss, //三个函数将作为数据传给coder编辑器
         refreshBody,
         refreshJs,
-        cssData: localStorage.getItem('preview-css') || '/*css样式*/',
-        bodyData: localStorage.getItem('preview-body') || '<!--html内body标记-->',
-        jsData: localStorage.getItem('preview-js') || '/*javascript脚本*/',
+        cssData: {
+            code: localStorage.getItem('preview-css') || '/*css样式*/',
+        },
+        bodyData: {
+            code: localStorage.getItem('preview-body') || '<!--html内body标记-->',
+        },
+        jsData: {
+            code: localStorage.getItem('preview-js') || '/*javascript脚本*/',
+        },
         setDialogConf: { //设置按钮，关闭时候同步刷新预览
             show: false,
             onHide: function (tarctx) {
-                refreshJsMenual();
+                refreshJsMenual(ctx);
                 var pname = tarctx.conf.pageName;
                 ctx.$set(ctx.$data, 'pageName', pname);
                 localStorage.setItem('lastPageName', pname);
@@ -68,7 +77,7 @@ com.data = function data() {
 
 com.methods = {
     refreshJsMenual: function () {
-        refreshJsMenual();
+        refreshJsMenual(this);
     },
     openShareDialog: function () {
         openShareDialog(this);
@@ -81,6 +90,12 @@ com.methods = {
     },
     uploadIptChanged: function (file) {
         uploadIptChanged(file, this);
+    },
+    beautifyCss: function () {
+        beautifyCss(this);
+    },
+    beautifyBody: function () {
+        beautifyBody(this);
     },
 };
 
@@ -104,6 +119,49 @@ com.mounted = function () {
 
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+
+function beautifyCss(ctx) {
+    beautifyCode('css', ctx);
+};
+
+function beautifyBody(ctx) {
+    beautifyCode('body', ctx);
+};
+
+function beautifyJs(ctx) {
+    beautifyCode('js', ctx);
+};
+
+function beautifyCode(part, ctx) {
+    var cmEditor = ctx.jsData.editor;
+    var cmDoc = cmEditor.doc;
+
+    var cursorpos = cmDoc.getCursor();
+    var scrollpos = cmEditor.getScrollInfo();
+
+    if (part == 'js') {
+        var fcode = Beautify.js(ctx.$data.jsData.code);
+        ctx.$set(ctx.$data.jsData, 'code', fcode);
+        localStorage.setItem('preview-js', fcode);
+    } else if (part == 'body') {
+        var fcode = Beautify.html(ctx.$data.bodyData.code);
+        ctx.$set(ctx.$data.bodyData, 'code', fcode);
+        localStorage.setItem('preview-body', fcode);
+    } else if (part == 'css') {
+        var fcode = Beautify.css(ctx.$data.cssData.code);
+        ctx.$set(ctx.$data.cssData, 'code', fcode);
+        localStorage.setItem('preview-css', fcode);
+    };
+
+    //手工刷新预览
+    refreshJsMenual(ctx);
+
+    setTimeout(function () {
+        cmDoc.setCursor(cursorpos);
+        cmEditor.scrollTo(scrollpos.left, scrollpos.top);
+    }, 200);
+};
+
 
 /**
  * 将一个模版page文件载入到编辑器
@@ -145,12 +203,12 @@ async function uploadIptChanged(file, ctx) {
  * 组装head,css,body
  */
 async function assemblePage(ctx) {
-    var cssData = localStorage.getItem('preview-css');
-    var headData = localStorage.getItem('preview-head') || ctx.$xglobal.conf.temp.headData;
-    var bodyData = localStorage.getItem('preview-body');
-    var jsData = localStorage.getItem('preview-js');
+    var cssCode = localStorage.getItem('preview-css');
+    var headCode = localStorage.getItem('preview-head') || ctx.$xglobal.conf.temp.headData;
+    var bodyCode = localStorage.getItem('preview-body');
+    var jsCode = localStorage.getItem('preview-js');
 
-    var data = `<!DOCTYPE html>\n<head>\n<div head 10knet>\n${headData}\n</div>\n</head>\n<style 10knet>${cssData}</style>\n<body><div body 10knet>${bodyData}</div></body>\n<script 10knet>${jsData}</script>`;
+    var data = `<!DOCTYPE html>\n<head>\n<div head 10knet>${headCode}</div>\n</head>\n<style 10knet>${cssCode}</style>\n<body><div body 10knet>${bodyCode}</div></body>\n<script 10knet>${jsCode}</script>`;
 
     return data;
 };
@@ -225,22 +283,22 @@ function fillEditors(data, ctx) {
     var tempDiv = $('<div></div>');
     tempDiv.append(data);
 
-    var headData = tempDiv.find('div[head][10knet]').html();;
-    var cssData = tempDiv.find('style[10knet]').html();
-    var bodyData = tempDiv.find('div[body][10knet]').html();
-    var jsData = tempDiv.find('script[10knet]').html();
+    var headCode = tempDiv.find('div[head][10knet]').html();;
+    var cssCode = tempDiv.find('style[10knet]').html();
+    var bodyCode = tempDiv.find('div[body][10knet]').html();
+    var jsCode = tempDiv.find('script[10knet]').html();
 
     //触发coder填充
-    localStorage.setItem('preview-head', headData);
-    ctx.$set(ctx.$data, 'cssData', cssData);
-    ctx.$set(ctx.$data, 'bodyData', bodyData);
-    ctx.$set(ctx.$data, 'jsData', jsData);
+    localStorage.setItem('preview-head', headCode);
+    ctx.$set(ctx.$data.cssData, 'code', cssCode);
+    ctx.$set(ctx.$data.bodyData, 'code', bodyCode);
+    ctx.$set(ctx.$data.jsData, 'code', jsCode);
 
     //刷新预览
-    refreshCss(cssData);
-    refreshBody(bodyData);
-    refreshJs(jsData);
-    refreshJsMenual();
+    refreshCss(cssCode);
+    refreshBody(bodyCode);
+    refreshJs(jsCode);
+    refreshJsMenual(ctx);
 };
 
 
@@ -315,7 +373,7 @@ function refreshJs(code, key) {
 /**
  * 发送命令要求刷新js预览，从本地缓存读取（本地缓存被coder自动更新）
  */
-function refreshJsMenual() {
+function refreshJsMenual(ctx) {
     sendPreviewCmd('reload', {
         part: 'all',
     });

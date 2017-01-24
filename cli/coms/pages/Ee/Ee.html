@@ -52,23 +52,23 @@
             </div>
             <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
                 <dbox xid='cssCoder' useBottom='true' hei='30%' barSize='5'>
-                    <coder class='coderDiv' mode='css' v-bind:code='cssData' v-bind:keyupFn='refreshCss'>
-                        <el-tooltip effect="light" content="编码时自动同步刷新，无需点击" placement="left-end">
-                            <el-button class='tagbtn' size='mini'>&nbsp;css&nbsp;</el-button>
+                    <coder class='coderDiv' mode='css' v-bind:data='cssData' v-bind:keyupFn='refreshCss'>
+                        <el-tooltip effect="light" content="编码时自动同步刷新，点击这里手工刷新并规范代码格式" placement="left-end">
+                            <el-button class='tagbtn' size='mini' @click='beautifyCss'>&nbsp;css&nbsp;</el-button>
                         </el-tooltip>
                     </coder>
                 </dbox>
                 <dbox xid='bodyCoder' useBottom='true' hei='30%' barSize='5'>
-                    <coder class='coderDiv' mode='text/html' v-bind:code='bodyData' v-bind:keyupFn='refreshBody'>
-                        <el-tooltip effect="light" content="编码时自动同步刷新，无需点击" placement="left-end">
-                            <el-button class='tagbtn' size='mini'>&nbsp;body&nbsp;</el-button>
+                    <coder class='coderDiv' mode='text/html' v-bind:data='bodyData' v-bind:keyupFn='refreshBody'>
+                        <el-tooltip effect="light" content="编码时自动同步刷新，点击这里手工刷新并规范代码格式" placement="left-end">
+                            <el-button class='tagbtn' size='mini' @click='beautifyBody'>&nbsp;body&nbsp;</el-button>
                         </el-tooltip>
                     </coder>
                 </dbox>
                 <div class='autoFlex'>
                     <div style="height:100%">
-                        <coder class='coderDiv' mode='javascript' v-bind:code='jsData' v-bind:keyupFn='refreshJs'>
-                            <el-tooltip effect="light" content="编码时回车刷新，点击这里手工刷新" placement="left-end">
+                        <coder class='coderDiv' mode='javascript' v-bind:data='jsData' v-bind:keyupFn='refreshJs'>
+                            <el-tooltip effect="light" content="编码时回车才会刷新，点击这里手工刷新并规范代码格式" placement="left-end">
                                 <el-button class='tagbtn' size='mini' @click='refreshJsMenual'>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
                             </el-tooltip>
                         </coder>

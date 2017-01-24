@@ -12,6 +12,8 @@ import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/hint/html-hint.js';
 
+
+
 let com = {};
 export default com;
 
@@ -31,7 +33,7 @@ com.data = function () {
 
     return {
         msg: 'Hello from blocks/Coder/Coder.js',
-        codeData: vc.code,
+        codeData: vc.data,
         options: vc.opts || {
             mode: vc.mode || 'javascript',
             lineNumbers: true,
@@ -63,7 +65,7 @@ com.data = function () {
 com.methods = {};
 
 com.props = {
-    code: String,
+    data: Object,
     opts: Object,
     mode: String,
     theme: String,
@@ -85,9 +87,13 @@ com.watch = {
     fontSize: function (val, oldVal) {
         setFontSize(val, this);
     },
-    code: function (val, oldVal) {
-        var editor = this.$refs.myEditor.editor;
-        editor.doc.setValue(val || '');
+    datax: {
+        handler: function (val, oldVal) {
+            var editor = this.$refs.myEditor.editor;
+            editor.doc.setValue(val.code || '');
+            console.log('>>>coder data watch', val.code);
+        },
+        deep: true,
     },
 };
 
@@ -95,8 +101,10 @@ com.watch = {
 //加载到页面之后执行的函数
 com.mounted = function () {
     jo = $(this.$el);
+    var ctx = this;
 
-    let editor = this.$refs.myEditor.editor;
+    var editor = this.$refs.myEditor.editor;
+    ctx.data.editor = editor;
 
     //设置自动提示
     var ctx = this;
@@ -135,8 +143,14 @@ function editorKeydown(cm, event, ctx) {
  * @param {object} event event
  */
 function editorKeyup(cm, event, ctx) {
-    //结合anyword和javascript两个提示器
     var editor = ctx.$refs.myEditor.editor;
+
+    //同步data.code数据
+    var codeStr = editor.doc.getValue();
+    ctx.$set(ctx.data, 'code', codeStr);
+    ctx.$set(ctx.codeData, 'code', codeStr);
+
+    //结合anyword和javascript两个提示器
     var char = String.fromCharCode(event.keyCode);
 
     //处理外部传来的控制器函数
