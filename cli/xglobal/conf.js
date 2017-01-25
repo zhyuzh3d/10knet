@@ -39,8 +39,9 @@ conf.pageTemplates = {
     },
     '2D(绘图)起步': {
         name: '2D(绘图)起步',
-        desc: '学习做2D特效图像或者2D游戏编码，从这里开始。适合刚刚开始接触计算机图像编程的用户。带有jquery和cocos2d-js库。',
+        desc: '学习做2D特效图像或者2D游戏编码，从这里开始。适合刚刚开始接触计算机图像编程的用户。带有jquery和createjs库。',
         url: 'http://10knet.com/templates/pages/2dgraphic.html',
+        show:true,
     },
     '3D(VR)起步': {
         name: '3D(VR)起步',

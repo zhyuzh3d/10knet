@@ -11,24 +11,31 @@
 </head>
 
 <body>
-    <div id="App" xid='App'></div>
-    <script>
-        //用来直接使用的全局变量
-        var zglobal = {
-            mod: 'build'
-        };
-
-        //判断是否开放测试，添加build.js文件
-        var scriptdom = document.createElement("script");
-        var url = "//" + window.location.host + '/dist/build.js';
-        if (window.location.search.indexOf('?dev') == 0) {
-            zglobal.mod = 'dev';
-            url = "//localhost:8080/dist/build.js";
-        }
-        scriptdom.setAttribute("src", url)
-        document.body.appendChild(scriptdom);
-
-    </script>
+    <div id="App" xid='App'>
+        <div style="width:100%;text-align:center;margin-top:10%;">
+            <h3>相信自己，每个人都能学会编程</h3>
+            <div style="font-size:16px;color:#888">正在载入编辑器，请稍后...</div>
+            <br>
+            <div style="font-size:12px;color:#888">初次载入可能需要多一点点时间，请耐心等待</div>
+        </div>
+    </div>
 </body>
+<script>
+    //用来直接使用的全局变量
+    var zglobal = {
+        mod: 'build'
+    };
+
+    //判断是否开放测试，添加build.js文件
+    var scriptdom = document.createElement("script");
+    var url = "//" + window.location.host + '/dist/build.js';
+    if (window.location.search.indexOf('?dev') == 0) {
+        zglobal.mod = 'dev';
+        url = "//localhost:8080/dist/build.js";
+    }
+    scriptdom.setAttribute("src", url)
+    document.body.appendChild(scriptdom);
+
+</script>
 
 </html>

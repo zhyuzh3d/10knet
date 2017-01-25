@@ -69,7 +69,7 @@
                     <div style="height:100%">
                         <coder xid='jsCoder' class='coderDiv' mode='javascript' v-bind:data='jsData' v-bind:keyupFn='refreshJs'>
                             <el-tooltip effect="light" content="编码时回车才会刷新，点击这里手工刷新并规范代码格式" placement="left-end">
-                                <el-button class='tagbtn' size='mini' @click='refreshJsMenual'>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
+                                <el-button class='tagbtn' size='mini' @click='beautifyJs'>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
                             </el-tooltip>
                         </coder>
                     </div>

@@ -97,6 +97,9 @@ com.methods = {
     beautifyBody: function () {
         beautifyBody(this);
     },
+    beautifyJs: function () {
+        beautifyJs(this);
+    },
 };
 
 

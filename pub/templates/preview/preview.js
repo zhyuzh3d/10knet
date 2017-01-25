@@ -41,6 +41,7 @@ function refresh(params) {
     };
 };
 
+
 /**
  * 从ls重新载入css内容
  */
@@ -125,7 +126,14 @@ window.addEventListener('message', function (e) {
         return;
     };
 
-    var obj = JSON.safeParse(e.data);
+    var obj;
+
+    try {
+        obj=JSON.parse(e.data);
+    } catch (err) {
+        console.warn('preview/message:JSON parse err.', e.data);
+    };
+
 
     if (obj) {
         //执行刷新
@@ -149,16 +157,3 @@ window.addEventListener('message', function (e) {
 
 
 
-
-/**
- * 扩展JSON安全parse方法
- * @param   {string} str 字符串
- * @returns {object} 成功的对象或undefined
- */
-JSON.safeParse = function (str) {
-    try {
-        return JSON.parse(str);
-    } catch (err) {
-        return undefined;
-    };
-};
