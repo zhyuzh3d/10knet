@@ -30,7 +30,7 @@
                         <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
                     </el-tooltip>
 
-                    <el-tooltip class="item" effect="light" content="加入 10knet编程爱好者 QQ群，求助或一起交流" placement="left-end">
+                    <el-tooltip class="item" effect="light" content="加入【10knet编程爱好者】QQ群，求助或一起交流" placement="left-end">
                         <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
                             <el-button class='rbtn'><i class="fa fa-qq"></i></el-button>
                         </a>
@@ -51,15 +51,15 @@
                 <div style='height:8px'></div>
             </div>
             <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
-                <dbox xid='cssCoder' useBottom='true' hei='30%' barSize='5'>
-                    <coder class='coderDiv' mode='css' v-bind:data='cssData' v-bind:keyupFn='refreshCss'>
+                <dbox xid='cssCoderBox' useBottom='true' hei='30%' barSize='5'>
+                    <coder xid='cssCoder' class='coderDiv' mode='css' v-bind:data='cssData' v-bind:keyupFn='refreshCss'>
                         <el-tooltip effect="light" content="编码时自动同步刷新，点击这里手工刷新并规范代码格式" placement="left-end">
                             <el-button class='tagbtn' size='mini' @click='beautifyCss'>&nbsp;css&nbsp;</el-button>
                         </el-tooltip>
                     </coder>
                 </dbox>
-                <dbox xid='bodyCoder' useBottom='true' hei='30%' barSize='5'>
-                    <coder class='coderDiv' mode='text/html' v-bind:data='bodyData' v-bind:keyupFn='refreshBody'>
+                <dbox xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5'>
+                    <coder xid='bodyCoder' class='coderDiv' mode='text/html' v-bind:data='bodyData' v-bind:keyupFn='refreshBody'>
                         <el-tooltip effect="light" content="编码时自动同步刷新，点击这里手工刷新并规范代码格式" placement="left-end">
                             <el-button class='tagbtn' size='mini' @click='beautifyBody'>&nbsp;body&nbsp;</el-button>
                         </el-tooltip>
@@ -67,7 +67,7 @@
                 </dbox>
                 <div class='autoFlex'>
                     <div style="height:100%">
-                        <coder class='coderDiv' mode='javascript' v-bind:data='jsData' v-bind:keyupFn='refreshJs'>
+                        <coder xid='jsCoder' class='coderDiv' mode='javascript' v-bind:data='jsData' v-bind:keyupFn='refreshJs'>
                             <el-tooltip effect="light" content="编码时回车才会刷新，点击这里手工刷新并规范代码格式" placement="left-end">
                                 <el-button class='tagbtn' size='mini' @click='refreshJsMenual'>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
                             </el-tooltip>

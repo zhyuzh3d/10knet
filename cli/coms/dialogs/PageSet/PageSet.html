@@ -4,7 +4,7 @@
     <div id='PageSet' xid='PageSet'>
         <el-dialog v-bind:title="title" v-model="conf.show">
             <div class="coderBox">
-                <coder mode='text/html' v-bind:code='headData' v-bind:keyupFn='syncCode'>
+                <coder mode='text/html' v-bind:data='headData' v-bind:keyupFn='syncCode'>
                     <el-button class='tagbtn' size='mini'>&nbsp;head&nbsp;</el-button>
                 </coder>
             </div>

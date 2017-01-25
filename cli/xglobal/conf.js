@@ -29,11 +29,13 @@ conf.pageTemplates = {
         name: 'Hello world!',
         desc: '第一次接触编码？从这里开始吧！最简单的起步模版。带有jquery和bootstrap库。',
         url: 'http://10knet.com/templates/pages/helloWorld.html',
+        show:true,
     },
     '个人简历': {
         name: '个人简历',
-        desc: '用代码自由编写自己的在线简历，从这个模版开始吧！带有jquery和bootstrap库',
+        desc: '用代码自由编写自己的在线简历，从这个模版开始吧！带有jquery和bootstrap库，自动匹配电脑和手机屏幕',
         url: 'http://10knet.com/templates/pages/resume.html',
+        show:true,
     },
     '2D(绘图)起步': {
         name: '2D(绘图)起步',

@@ -125,7 +125,11 @@ xrouter.xset = function (xid, keyValObj, unsave) {
         //根据dataKeyValObj为com设置$set每个$data值
         res = com;
         for (var key in keyValObj) {
-            com.$set(com, key, keyValObj[key]);
+            if (com.$data[key] != undefined || com[key] != undefined) {
+                com.$set(com, key, keyValObj[key]);
+            } else {
+                console.warn(`'xrouter/xset:can not add property to com:${key}`);
+            };
         };
     };
 

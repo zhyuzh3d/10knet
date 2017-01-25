@@ -12,6 +12,8 @@ import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/hint/html-hint.js';
 
+import 'codemirror/addon/edit/matchtags.js';
+
 
 
 let com = {};
@@ -29,11 +31,15 @@ com.components = {
 
 //所有数据写在这里
 com.data = function () {
-    vc = this;
+    var vc = this;
 
     return {
         msg: 'Hello from blocks/Coder/Coder.js',
         codeData: vc.data,
+        scrollInfo: {
+            top: 0,
+            left: 0,
+        },
         options: vc.opts || {
             mode: vc.mode || 'javascript',
             lineNumbers: true,
@@ -48,6 +54,9 @@ com.data = function () {
             gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             lint: true,
             matchBrackets: true,
+            matchTags: vc.mode == 'text/html' ? {
+                bothTags: true
+            } : undefined,
             autoCloseBrackets: true,
             autoCloseTags: true,
             continueComments: "Enter",
@@ -91,7 +100,6 @@ com.watch = {
         handler: function (val, oldVal) {
             var editor = this.$refs.myEditor.editor;
             editor.doc.setValue(val.code || '');
-            console.log('>>>coder data watch', val.code);
         },
         deep: true,
     },
@@ -102,9 +110,13 @@ com.watch = {
 com.mounted = function () {
     jo = $(this.$el);
     var ctx = this;
+    var codejo = $(this.$el);
 
     var editor = this.$refs.myEditor.editor;
     ctx.data.editor = editor;
+
+    //恢复卷动位置
+    editor.scrollTo(ctx.$data.scrollInfo.left, ctx.$data.scrollInfo.top);
 
     //设置自动提示
     var ctx = this;
@@ -113,6 +125,20 @@ com.mounted = function () {
     });
     editor.on('keyup', function (cm, evt) {
         editorKeyup(cm, evt, ctx);
+    });
+
+    //自动恢复滚动位置
+    editor.on('scroll', function (cm, evt) {
+        var xid = codejo.parents('[xid]').attr('xid');
+        if (xid) {
+            /*
+            ctx.$xrouter.xset(xid, {
+                scrollInfo: editor.getScrollInfo()
+            });
+            */
+        };
+
+        console.log('>>>cm scroll', xid);
     });
 
     editor.setSize('100%', '100%');

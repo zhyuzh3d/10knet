@@ -10,7 +10,7 @@
                 <el-input v-model="inputUrl" placeholder="请粘贴页面链接如http://app.10knet.com/.../index.html" style='width:100%'> </el-input>
             </div>
             <div class="rowDiv tmpsBox">
-                <div class='cardBox' v-for='(v,k) in templates'>
+                <div class='cardBox' v-for='(v,k) in templates' v-if='v.show'>
                     <el-card class="card" :body-style="{padding: '0px'}">
                         <div class="cardContent">
                             <div class="tmpPrev">
@@ -74,7 +74,8 @@
         overflow: scroll;
         text-align: left;
         word-break: break-all;
-        margin-top: 8px
+        margin-top: 8px;
+        text-align: justify;
     }
 
     .tmpsBox {

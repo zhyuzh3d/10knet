@@ -19,7 +19,9 @@ com.data = function data() {
 
     return {
         title: `页面头部<head>代码`,
-        headData: localStorage.getItem('preview-head') || headStr,
+        headData: {
+            code: localStorage.getItem('preview-head') || headStr,
+        },
         headCode: localStorage.getItem('preview-head') || headStr,
     };
 };

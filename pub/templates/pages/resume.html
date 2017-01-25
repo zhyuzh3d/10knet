@@ -1,18 +1,133 @@
+
 <!DOCTYPE html>
 <head>
-<div head 10knet>
-<title>10knet | Resume</title>
+<div head 10knet><title>10knet | 个人简历</title>
 <meta charset="utf-8">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </div>
 </head>
 <style 10knet>/*css样式*/
-h1{
-  color:red;
+
+.biaoti {
+    color: black;
+    background-color: #1CBBB4;
+    font-size: 16px;
+    padding: 6px 12px;
+    margin: 12px 0;
+}
+
+.info {
+    padding: 4px 8px
+}
+
+.info div {
+    white-space: nowrap;
+    overflow-x: auto;
+    line-height: 26px;
+}
+
+.space-h {
+    width: 100%;
+    margin: 12px;
+}
+
+.comp {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+i,
+tt {
+    font-size: 12px;
+    color: #AAA;
+}
+
+.base {
+    display: flex;
 }</style>
 <body><div body 10knet><!--html内body标记-->
-<h1>
-  Resume!
-</h1></div></body>
+<!--这个页面是响应式的，在电脑和手机上都能自动调整布局，正常显示。可点击分享按钮观看效果-->
+<div class='container' style='margin-bottom:24px'>
+    <h2 style='text-align:center;margin-top:36px'>王小猫的个人简历</h2>
+    <hr style='margin-bottom:4px'>
+    <div style='padding:4px 12px'>
+        <!--修改css代码的.biaoti下的background-color改变标题栏颜色-->
+        <div class='biaoti'>基本信息</div>
+        <div class='info row base'>
+            <div style='line-height:32px;flex:1'>
+                <div class='col-xs-6 col-sm-4'>姓名：王小猫</div>
+                <div class='col-xs-6 col-sm-4'>性别：男</div>
+                <div class='col-xs-6 col-sm-4'>出生：1992.03.16</div>
+                <div class='col-xs-6 col-sm-4'>民族：汉</div>
+                <div class='col-xs-6 col-sm-4'>政治面貌：党员</div>
+                <div class='col-xs-6 col-sm-4'>工作经验：2年</div>
+                <div class='col-xs-6 col-sm-6'>学历：本科</div>
+                <div class='col-xs-6 col-sm-6'>英语水平：四级</div>
+                <div class='col-xs-12 col-sm-6'>专业：软件工程系</div>
+                <div class='col-xs-12 col-sm-6'>毕业院校：苏州大学计算机学院</div>
+                <div class='col-xs-12 col-sm-6'>联系电话：1889898918</div>
+                <div class='col-xs-12 col-sm-6'>电子信箱：wxm1992@gmail.com</div>
+                <div class='col-xs-12 col-sm-12'>现在住址：苏州市工业园区莲花三村18幢201</div>
+            </div>
+            <!--工具栏云图标上传图片，获得地址替换下面src引号内代码-->
+            <!--如果不使用照片，请删除下面div-->
+            <div style='flex:initial;margin:0 8px;max-width:20%;width:150px'>
+                <img src='http://app.10knet.com/ryBRlcSDg/hxm.png' style='width:100%;'>
+            </div>
+        </div>
+
+        <div class='biaoti'>求职意向</div>
+        <div class='info row' style='line-height:32px'>
+            <div class='col-xs-12 col-sm-6'>目标行业：移动互联网，医疗，教育</div>
+            <div class='col-xs-12 col-sm-6'>目标职位：iOS开发工程师</div>
+            <div class='col-xs-12 col-sm-6'>期望地区：苏州，无锡，上海</div>
+            <div class='col-xs-12 col-sm-6'>期望薪资：面议</div>
+            <div class='col-xs-12 col-sm-6'>到岗时间：一个月内</div>
+        </div>
+
+        <div class='biaoti'>技能特长</div>
+        <div class='info row' style='line-height:32px'>
+            <p class='col-xs-12'>
+                熟练掌握iOS开发技巧，思维敏捷，编码规范，善于运用编程技能解决各种遇到的技术问题；熟悉Java和C++语言编程，能够开发简单的后端服务程序；性格内向稳重，抗压能力强，可以适应高强度工作和加班。
+            </p>
+        </div>
+
+        <div class='biaoti'>工作经历</div>
+        <div class='info row' style='line-height:32px'>
+            <div class='col-xs-12'>
+                <div class='comp'>南京小猫科技有限公司（2015.03~2015.08）</div>
+                <div class='col-xs-12 col-sm-6'>职位：移动端iOS工程师（实习）</div>
+                <div class='col-xs-12'>工作内容：编写iOS移动端技术文档，软件测试</div>
+            </div>
+            <div class='space-h'></div>
+            <div class='col-xs-12'>
+                <div class='comp'>苏州同城网络科技有限公司（2015.10~至今）</div>
+                <div class='col-xs-12 col-sm-6'>职位：移动端iOS工程师</div>
+                <div class='col-xs-12'>工作内容：编写移ipad移动端页面功能</div>
+            </div>
+        </div>
+
+        <div class='biaoti'>教育培训</div>
+        <div class='info row' style='line-height:32px'>
+            <div class='col-xs-12'>
+                <div>2012.09~2016.06 苏州大学计算机学院，软件工程系，本科</div>
+                <div>2015.07~2016.02 苏州高博培训中心，iOS开发专业</div>
+                <div>2016.09至今 东南大学研究生院，软件工程，研究生</div>
+            </div>
+        </div>
+
+        <div class='biaoti'>资格证书</div>
+        <div class='info row' style='line-height:32px'>
+            <div class='col-xs-12'>2012.09 微软认证系统工程师</div>
+            <div class='col-xs-12'>2015.07 英语四级证书</div>
+            <div class='col-xs-12'>2015.08 苹果认证软件开发工程师</div>
+        </div>
+        <hr>
+        <i>编辑于2017.01.12</i>
+    </div>
+</div></div></body>
 <script 10knet>/*javascript脚本*/
-$('body').append('<p>Hello 10knet!</p>');</script>
+$('body').append('<br><tt>&nbsp;This page is created in <a href="http://10knet.com">10knet.com</a></tt>');</script>
