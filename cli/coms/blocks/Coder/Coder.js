@@ -74,6 +74,7 @@ com.data = function () {
 com.methods = {};
 
 com.props = {
+    xid: String,
     data: Object,
     opts: Object,
     mode: String,
@@ -111,12 +112,10 @@ com.mounted = function () {
     jo = $(this.$el);
     var ctx = this;
     var codejo = $(this.$el);
+    if (ctx.xid) codejo.attr('xid', ctx.xid);
 
     var editor = this.$refs.myEditor.editor;
     ctx.data.editor = editor;
-
-    //恢复卷动位置
-    editor.scrollTo(ctx.$data.scrollInfo.left, ctx.$data.scrollInfo.top);
 
     //设置自动提示
     var ctx = this;
@@ -127,18 +126,19 @@ com.mounted = function () {
         editorKeyup(cm, evt, ctx);
     });
 
-    //自动恢复滚动位置
+    //利用xset自动恢复滚动位置，延迟确保生效
+    setTimeout(function () {
+        editor.scrollTo(ctx.$data.scrollInfo.left, ctx.$data.scrollInfo.top);
+    }, 200);
+
+    //滚动的时候自动保存位置
     editor.on('scroll', function (cm, evt) {
-        var xid = codejo.parents('[xid]').attr('xid');
+        var xid = codejo.attr('xid');
         if (xid) {
-            /*
             ctx.$xrouter.xset(xid, {
                 scrollInfo: editor.getScrollInfo()
             });
-            */
         };
-
-        console.log('>>>cm scroll', xid);
     });
 
     editor.setSize('100%', '100%');

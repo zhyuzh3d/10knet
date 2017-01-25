@@ -2,7 +2,7 @@
 <!--<script src="/node_modules/codemirror/addon/hint/html-hint.js"></script>-->
 
 <template>
-    <div id='Coder' xid='Coder'>
+    <div id='Coder'>
         <codemirror id='editor' ref="myEditor" :code.sync="codeData.code" :options="options"></codemirror>
         <div class="hud">
             <slot></slot>
