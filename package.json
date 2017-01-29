@@ -29,6 +29,7 @@
     "koa-router": "^7.0.1",
     "lodash": "^4.17.2",
     "moment": "^2.17.1",
+    "mongoose": "^4.8.0",
     "qiniu": "^6.1.13",
     "shortid": "^2.2.6",
     "vue-grid-layout": "^2.0.1"

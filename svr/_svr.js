@@ -24,6 +24,7 @@ const $moment = global.$moment = require('moment');
 const $qiniu = global.$qiniu = require('qiniu');
 const $cryptoJs = global.$cryptoJs = require('crypto-js');
 const $shortid = global.$shortid = require('shortid');
+const $mongoose = global.$mongoose = require('mongoose');
 
 //服务程序真正的入口
 console.info(`==========${$moment().format('YYYY-MM-DD hh:mm:ss')}==========`);
