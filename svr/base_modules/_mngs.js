@@ -28,14 +28,14 @@ var models = _mngs.models = {}; //全部模型
 //用户数据
 schemas.user = new $mongoose.Schema({
     name: String,
-    phone: String,
+    mobile: String,
     avatar: {
         type: String,
         default: '//10knet.com/imgs/10knet.jpg',
     },
     sex: {
         type: String,
-        default: 'unknow',
+        default: 'unknown',
     },
     _pw: String,
 }, {

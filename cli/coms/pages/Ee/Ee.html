@@ -22,13 +22,7 @@
                         <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
                     </el-tooltip>
 
-                    <el-tooltip v-if=false class="item" effect="light" content="使用手机登录" placement="left-end">
-                        <el-button class='rbtn'><i class="fa fa-user"></i></el-button>
-                    </el-tooltip>
 
-                    <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
-                        <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
-                    </el-tooltip>
 
                     <el-tooltip class="item" effect="light" content="加入【10knet编程爱好者】QQ群，求助或一起交流" placement="left-end">
                         <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
@@ -36,14 +30,25 @@
                         </a>
                     </el-tooltip>
 
+                    <div style="margin:18px 12px;height:1px;background:#666"></div>
+
+                    <el-tooltip class="item" effect="light" content="账号登录或注册" placement="left-end">
+                        <el-button class='rbtn' @click='accountDialogConf.show=true'><i class="fa fa-user"></i></el-button>
+                    </el-tooltip>
+
+                    <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
+                        <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
+                    </el-tooltip>
+
+
+                </div>
+                <div class="btnGrp2">
                     <el-tooltip class="item" effect="light" content="隐藏／显示编辑器" placement="left-end">
                         <el-button class='rbtn' @click='codersBoxVis=!codersBoxVis'>
                             <i class="fa fa-code" v-bind:class='{btnOn:codersBoxVis,btnOff:!codersBoxVis}' style='font-weight: bold;'></i>
                         </el-button>
                     </el-tooltip>
 
-                </div>
-                <div class="btnGrp2">
                     <el-tooltip class="item" effect="light" content="关于10knet.com" placement="left-end">
                         <el-button class='rbtn' @click='aboutDialogConf.show=true'><i class="fa fa-info"></i></el-button>
                     </el-tooltip>
@@ -84,6 +89,7 @@
             <page-set v-bind:conf='setDialogConf'></page-set>
             <share-html v-bind:conf='shareDialogConf'></share-html>
             <about v-bind:conf='aboutDialogConf'></about>
+            <account v-bind:conf='accountDialogConf'></account>
         </div>
     </div>
 </template>

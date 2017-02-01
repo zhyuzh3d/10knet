@@ -49,4 +49,19 @@ function objToSearchStr(obj = {}) {
 };
 
 
+/**
+ * 扩展JSON安全parse方法
+ * @param   {string} str 字符串
+ * @returns {object} 成功的对象或undefined
+ */
+JSON.safeParse = function (str) {
+    try {
+        return JSON.parse(str);
+    } catch (err) {
+        return undefined;
+    };
+};
+``
+
+
 //--------------------test---------------

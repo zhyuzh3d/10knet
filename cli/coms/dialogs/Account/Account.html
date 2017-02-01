@@ -1,0 +1,158 @@
+<script src="./Account.js"></script>
+
+<template>
+    <div id='Account' xid='Account'>
+        <el-dialog title="账号管理" v-model="conf.show" style='text-align:center'>
+            <el-tabs v-model="actTab" @tab-click="tabClick" style='width:100%;max-width:500px'>
+                <el-tab-pane label="注册" name="reg">
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>手机号码</p>
+                        </el-col>
+                        <el-col :span="18">
+                            <el-input placeholder="使用手机号码作为账号名" v-model="reg.mobile">
+                            </el-input>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>验证码</p>
+                        </el-col>
+                        <el-col :span="10">
+                            <el-input placeholder="手机短信中的数字" v-model="reg.code"></el-input>
+                        </el-col>
+                        <el-col :span="8" style='padding-left:8px'>
+                            <el-button type='primary' style='width:100%;'>发送验证码</el-button>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>账号密码</p>
+                        </el-col>
+                        <el-col :span="18">
+                            <el-input placeholder="任意6～18位字符" v-model="reg.pw"></el-input>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="24" style='margin-top:12px'>
+                            <el-button type='primary' style='width:100%'>注册新用户</el-button>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+
+                <el-tab-pane label="登录" name="login">
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>手机号码</p>
+                        </el-col>
+                        <el-col :span="18">
+                            <el-input placeholder="使用手机号码作为账号名" v-model="login.mobile">
+                            </el-input>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>账号密码</p>
+                        </el-col>
+                        <el-col :span="18">
+                            <el-input placeholder="任意6～18位字符" v-model="login.pw"></el-input>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="24" style='margin-top:12px'>
+                            <el-button type='primary' style='width:100%'>登录</el-button>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+
+                <el-tab-pane label="忘记密码" name="rst">
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>手机号码</p>
+                        </el-col>
+                        <el-col :span="18">
+                            <el-input placeholder="使用手机号码作为账号" v-model="rst.mobile">
+                            </el-input>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>验证码</p>
+                        </el-col>
+                        <el-col :span="10">
+                            <el-input placeholder="手机短信中的数字" v-model="rst.code"></el-input>
+                        </el-col>
+                        <el-col :span="8" style='padding-left:8px'>
+                            <el-button type='primary' style='width:100%;'>发送验证码</el-button>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>新密码</p>
+                        </el-col>
+                        <el-col :span="18">
+                            <el-input placeholder="任意6～18位字符" v-model="rst.pw"></el-input>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="24" style='margin-top:12px'>
+                            <el-button type='primary' style='width:100%'>重置密码</el-button>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+
+                <el-tab-pane label="设置" name="set">
+                    <el-row>
+                        <el-col :span="6" class='label'>
+                            <p>个人主页:</p>
+                        </el-col>
+                        <el-col :span="3" class='net' style='
+        padding-right: 2px;text-align:right'>
+                            <p>http://</p>
+                        </el-col>
+                        <el-col :span="9">
+                            <el-input placeholder="4～18位字母数字" v-model="set.name">
+                            </el-input>
+                        </el-col>
+                        <el-col :span="6" class='net' style='
+        padding-left: 2px;'>
+                            <p>.10knet.com</p>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="24" style='margin-top:12px'>
+                            <el-button type='primary' style='width:100%'>保存</el-button>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+            </el-tabs>
+        </el-dialog>
+    </div>
+</template>
+
+<style scoped>
+    .label {
+        text-align: right;
+        padding-right: 12px;
+        line-height: 10px;
+    }
+
+    .el-tab-pane .el-row {
+        margin: 12px;
+    }
+
+    .net {
+        text-align: left;
+        line-height: 10px;
+        font-weight: bold;
+    }
+
+</style>

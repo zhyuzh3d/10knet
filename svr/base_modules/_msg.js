@@ -42,9 +42,10 @@ const _msg = {
     Msg: Msg,
     Errs: {
         RouterPathNotFound: new Err('找不到您所请求的API路径', 101),
-        routerPathFormatErr: new Err('您请求的API路径格式错误', 102),
-        routerMethodNotFound: new Err('找不到您所请求的API方法', 103),
-        routerReqDataFormatErr: new Err('您提交的数据格式错误', 104),
+        RouterPathFormatErr: new Err('您请求的API路径格式错误', 102),
+        RouterMethodNotFound: new Err('找不到您所请求的API方法', 103),
+        RouterReqDataFormatErr: new Err('您提交的数据格式错误', 104),
+        SmsSendCodeErr: new Err('服务器发送短信失败，请重试', 201),
     }
 };
 

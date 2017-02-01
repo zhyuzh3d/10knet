@@ -7,7 +7,8 @@ module.exports = _app;
 
 //统一引入其他模块
 const _xconf = global._xconf = require('../xconf/secret/_xconf.js');
-const _conf = global._conf = require('./base_modules/_conf.js');
+var _conf = global._conf = require('./base_modules/_conf.js');
+
 const _msg = global._msg = require('./base_modules/_msg.js');
 const _zfns = global._zfns = require('./base_modules/_zfns.js');
 
@@ -15,11 +16,13 @@ const _zloger = global._zloger = require('./base_modules/_zloger.js');
 const _zprms = global._zprms = require('./base_modules/_zprms.js');
 const _zreq = global._zreq = require('./base_modules/_zreq.js');
 const _zrouter = global._zrouter = require('./base_modules/_zrouter.js');
+const _sms = global._sms = require('./base_modules/_sms.js');
+
 const _mngs = global._mngs = require('./base_modules/_mngs.js');
 
 const _qn = global._qn = require('./app_modules/_qn.js');
 const _github = global._github = require('./app_modules/_github.js');
-const _usr = global._usr = require('./app_modules/_usr.js');
+const _acc = global._acc = require('./app_modules/_acc.js');
 
 (async function () {
     //全部api的容器对象
@@ -36,9 +39,6 @@ const _usr = global._usr = require('./app_modules/_usr.js');
 
     //连接mongo数据库
     await _mngs.startPrms();
-
-    //test
-    await _usr.test();
 
     //启动服务器，打印分割线
     _app.listen(8000);

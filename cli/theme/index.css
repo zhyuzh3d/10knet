@@ -4910,12 +4910,15 @@
 }
 .el-dialog--tiny {
     width: 30%;
+    min-width: 400px;
 }
 .el-dialog--small {
     width: 50%;
+    min-width: 400px;
 }
 .el-dialog--large {
     width: 90%;
+    min-width: 400px;
 }
 .el-dialog--full {
     width: 100%;

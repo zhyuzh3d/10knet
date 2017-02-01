@@ -12,6 +12,7 @@ import Dbox from '../../symbols/Dbox/Dbox.html';
 import PageSet from '../../dialogs/PageSet/PageSet.html';
 import ShareHtml from '../../dialogs/ShareHtml/ShareHtml.html';
 import About from '../../dialogs/About/About.html';
+import Account from '../../dialogs/Account/Account.html';
 import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
 import Beautify from 'js-beautify';
 
@@ -22,6 +23,7 @@ com.components = {
     PageSet,
     ShareHtml,
     About,
+    Account,
     PageTemplates,
 };
 
@@ -29,6 +31,7 @@ com.data = function data() {
     vc = this;
     var ctx = this;
     var pageName = localStorage.getItem('lastPageName');
+    var accountInfo = {}; //??用户信息，每次启动应自动获取
 
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
@@ -68,6 +71,13 @@ com.data = function data() {
                 };
             },
         },
+        accountDialogConf: { //打开账号登陆窗口的按钮
+            show: false,
+            onHide: function (tarctx) {
+                ctx.$set(ctx.$data, 'accountInfo', tarctx.conf.accountInfo);
+            },
+        },
+        accountInfo: {}, //用户的账号信息
         page: {}, //上传后的文件
         localPages: {}, //本地存储曾经上传的文件信息
         pageName: pageName, //当前页面名称，下次上传时候使用

@@ -3,7 +3,8 @@
 敏感信息放在_xconf文件内，字段与_conf完全对应，可以合并覆盖
 */
 
-const _conf = {
+//设置信息
+var _conf = {
     Domain: '10knet.com',
     SvrPort: 8000,
     Domains: ['10knet.com', 'www.10knet.com'],
@@ -20,6 +21,22 @@ const _conf = {
         ClientId: 'bcc991a3db5d401bd4af',
         ClientSecret: 'set in _xconf',
     }, _xconf.Github),
+    Sms: Object.assign({
+        AppId: 'set in _xconf',
+        AppKey: 'set in _xconf',
+        Templates: {
+            REG: 'set in _xconf',
+            RST: 'set in _xconf',
+        },
+        ExpMin: 'set in _xconf',
+    }, _xconf.Sms),
+};
+
+
+//正则表达式
+_conf.regx = {
+    mobile: /^1\d{10}$/,
+    mobileCode: /^\d{6}$/,
 };
 
 
