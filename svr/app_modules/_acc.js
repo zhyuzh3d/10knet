@@ -36,6 +36,41 @@ _zrouter.addApi('/accGetMobileRegCode', {
     },
 });
 
+
+/**
+ * 用户忘记密码的时候获取手机验证码，以此确认对此手机号码所有权来修改密码
+ * 成功返回空
+ */
+_zrouter.addApi('/accGetMobileRstCode', {
+    validator: {
+        mobile: _conf.regx.mobile,
+    },
+    method: async function (ctx) {
+        var mobile = ctx.xdata.mobile;
+
+        //检测此手机号码mongo是否已经被注册用户使用
+        var mobileUsed = await $mongoose.model('user').findOne({
+            mobile: mobile,
+        }, '_id');
+        if (!mobileUsed) throw Error().zbind(_msg.Errs.AccNotExist, `手机号码:${mobile}`);
+
+        //检测此手机号码rds是否刚刚已经发送还没过期
+        var rdsKey = _rds.k.mobileRstCode(mobile);
+        var hasSend = await _zprms.gen([_rds.cli, 'exists'], rdsKey);
+        if (hasSend) throw Error().zbind(_msg.Errs.AccRstCodeHasSend, `手机号码:${mobile}`);
+
+        //发送验证码
+        var code = await _sms.sendCode(ctx.xdata.mobile, 'rst');
+
+        //写入rds数据库,过期时间秒
+        var exp = _conf.Sms.ExpMin * 60;
+        var hasSend = await _zprms.gen([_rds.cli, 'setex'], rdsKey, exp, code);
+
+        ctx.body = new _msg.Msg(null, ctx, null);
+    },
+});
+
+
 /**
  * 使用手机号和验证码注册为用户，返回用户token
  */
@@ -96,13 +131,100 @@ _zrouter.addApi('/accSaveProfile', {
             name: name,
         });
 
+        if (res.n == 0) throw Error().zbind(_msg.Errs.AccNotExist);
+
+        ctx.body = new _msg.Msg(null, ctx, null);
+    },
+});
+
+
+/**
+ * 根据短信修改密码
+ */
+_zrouter.addApi('/accChangePw', {
+    validator: {
+        mobile: _conf.regx.mobile,
+        code: _conf.regx.mobileCode,
+        pw: _conf.regx.pw,
+    },
+    method: async function (ctx) {
+        var mobile = ctx.xdata.mobile;
+        var code = ctx.xdata.code;
+        var pw = ctx.xdata.pw;
+
+        //rds检测rstCode和mobile是否匹配
+        var codeKey = _rds.k.mobileRstCode(mobile);
+        var rdsCode = await _zprms.gen([_rds.cli, 'get'], codeKey);
+        if (rdsCode != code) throw Error().zbind(_msg.Errs.AccRstCodeNotMatch, '手机号码:' + mobile);
+
+        //mng修改密码
+        var res = await _mngs.models.user.update({
+            mobile: mobile,
+        }, {
+            _pw: pw,
+        });
+
+        if (res.n == 0) throw Error().zbind(_msg.Errs.AccNotExist);
+
+        ctx.body = new _msg.Msg(null, ctx, null);
+    },
+});
+
+
+/**
+ * 用户登录，获取token
+ */
+_zrouter.addApi('/accLogin', {
+    validator: {
+        mobile: _conf.regx.mobile,
+        pw: _conf.regx.pw,
+    },
+    method: async function (ctx) {
+        var mobile = ctx.xdata.mobile;
+        var pw = ctx.xdata.pw;
+
+        //mng使用token提取user直接进行操作
+        var res = await _mngs.models.user.findOne({
+            mobile: mobile,
+            _pw: pw,
+        });
+
+        if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch, `手机号码:${mobile}`);
+
+        //去除敏感信息
+        res._pw = null;
+
+        ctx.body = new _msg.Msg(null, ctx, res);
+    },
+});
+
+/**
+ * 自动登录，使用token验证
+ */
+_zrouter.addApi('/accAutoLogin', {
+    validator: {
+        token: _conf.regx.token,
+    },
+    method: async function (ctx) {
+        var token = ctx.xdata.token;
+
+        //mng使用token提取user直接进行操作
+        var res = await _mngs.models.user.findOne({
+            _token: token,
+        });
+
+        if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch);
+
+        //去除敏感信息
+        res._pw = null;
+
         ctx.body = new _msg.Msg(null, ctx, res);
     },
 });
 
 
 //-------------------functions--------------------
-
+//
 
 
 

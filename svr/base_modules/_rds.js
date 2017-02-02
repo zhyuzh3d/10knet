@@ -9,7 +9,7 @@ var _rds = {
 //全部key列表,所有映射map_开头,所有临时tmp_开头,所有对象直接写
 _rds.k = {
     mobileRegCode: function (mobile) { //向用户发送的手机注册验证码,string
-        return 'mobileRegCode' + mobile;
+        return 'mobileRegCode-' + mobile;
     },
     mobileRstCode: function (mobile) { //向用户发送的手机注册验证码,string
         return 'mobileRstCode-' + mobile;

@@ -49,6 +49,10 @@ const _msg = {
         AccRegCodeHasSend: new Err('注册验证码已经发送，请不要重复发送，稍后再试', 302),
         AccMobileHasUsed: new Err('手机号码已经被注册，请更换其他号码再试', 303),
         AccRegCodeNotMatch: new Err('注册短信验证码不匹配，请重试', 304),
+        AccNotExist: new Err('用户不存在', 305),
+        AccPwNotMatch: new Err('密码错误或账号不存在', 306),
+        AccRstCodeHasSend: new Err('重置验证码已经发送，请不要重复发送，稍后再试', 307),
+        AccRstCodeNotMatch: new Err('重置短信验证码不匹配，请重试', 308),
     }
 };
 

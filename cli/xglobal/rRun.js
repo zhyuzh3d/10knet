@@ -54,7 +54,9 @@ function remoteRun(api, data, opt) {
         //补足完成事件和出错处理,使用异步处理，不使用回调
         ajaxObj.success = function (msg) {
             //测试输出
-            console.log(`rRun:${apistr}:`, data, msg);
+            if (location.href.indexOf('http://10knet.com/?dev') == 0) {
+                console.log(`rRun:${apistr}:`, data, msg);
+            };
 
             //解析msg格式,判断msg.err
             if (msg && !msg.err) {

@@ -4,7 +4,7 @@
     <div id='Account' xid='Account'>
         <el-dialog title="账号管理" v-model="conf.show">
             <el-tabs :active-name="actTab" @tab-click="tabClick" style='width:100%;max-width:500px;text-align:center'>
-                <el-tab-pane label="注册" name="reg">
+                <el-tab-pane label="注册" name="reg" v-if='!$xglobal.accInfo'>
                     <el-row>
                         <el-col :span="6" class='label'>
                             <p>手机号码</p>
@@ -23,7 +23,7 @@
                             <el-input placeholder="手机短信中的数字" v-model="reg.code" ref='regCode' @change='validate("regCode")'></el-input>
                         </el-col>
                         <el-col :span="8" style='padding-left:8px'>
-                            <el-button type='primary' style='width:100%;' :disabled='!validates.regMobile.pass || reg.codeBtnDis' @click='senRegCode'>{{reg.codeBtnDis?"请稍后":"发送验证码"}}</el-button>
+                            <el-button type='primary' style='width:100%;' :disabled='!validates.regMobile.pass || reg.codeBtnDis' @click='sendRegCode'>{{reg.codeBtnDis?"请稍后":"发送验证码"}}</el-button>
                         </el-col>
                     </el-row>
 
@@ -43,13 +43,13 @@
                     </el-row>
                 </el-tab-pane>
 
-                <el-tab-pane label="登录" name="login">
+                <el-tab-pane label="登录" name="login" v-if='!$xglobal.accInfo'>
                     <el-row>
                         <el-col :span="6" class='label'>
                             <p>手机号码</p>
                         </el-col>
                         <el-col :span="18">
-                            <el-input placeholder="使用手机号码作为账号名" v-model="login.mobile">
+                            <el-input placeholder="使用手机号码作为账号名" v-model="login.mobile" ref='loginMobile' @change='validate("loginMobile")'>
                             </el-input>
                         </el-col>
                     </el-row>
@@ -59,13 +59,13 @@
                             <p>账号密码</p>
                         </el-col>
                         <el-col :span="18">
-                            <el-input placeholder="任意6～18位字符" v-model="login.pw"></el-input>
+                            <el-input type='password' placeholder="任意6～18位字符" v-model="login.pw" ref='loginPw' @change='validate("loginPw")'></el-input>
                         </el-col>
                     </el-row>
 
                     <el-row>
                         <el-col :span="24" style='margin-top:12px'>
-                            <el-button type='primary' style='width:100%'>登录</el-button>
+                            <el-button type='primary' style='width:100%' @click='mobileLogin' :disabled='!validates.loginMobile.pass || !validates.loginPw.pass'>登录</el-button>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -76,7 +76,7 @@
                             <p>手机号码</p>
                         </el-col>
                         <el-col :span="18">
-                            <el-input placeholder="使用手机号码作为账号" v-model="rst.mobile">
+                            <el-input placeholder="使用手机号码作为账号" v-model="rst.mobile" ref='rstMobile' @change='validate("rstMobile")'>
                             </el-input>
                         </el-col>
                     </el-row>
@@ -86,10 +86,10 @@
                             <p>验证码</p>
                         </el-col>
                         <el-col :span="10">
-                            <el-input placeholder="手机短信中的数字" v-model="rst.code"></el-input>
+                            <el-input placeholder="手机短信中的数字" v-model="rst.code" ref='rstCode' @change='validate("rstCode")'></el-input>
                         </el-col>
                         <el-col :span="8" style='padding-left:8px'>
-                            <el-button type='primary' style='width:100%;'>发送验证码</el-button>
+                            <el-button type='primary' style='width:100%;' :disabled='!validates.rstMobile.pass || rst.codeBtnDis' @click='sendRstCode'>{{rst.codeBtnDis?"请稍后":"发送验证码"}}</el-button>
                         </el-col>
                     </el-row>
 
@@ -98,18 +98,18 @@
                             <p>新密码</p>
                         </el-col>
                         <el-col :span="18">
-                            <el-input placeholder="任意6～18位字符" v-model="rst.pw"></el-input>
+                            <el-input placeholder="任意6～18位字符" v-model="rst.pw" ref='rstPw' type='password' @change='validate("rstPw")'></el-input>
                         </el-col>
                     </el-row>
 
                     <el-row>
                         <el-col :span="24" style='margin-top:12px'>
-                            <el-button type='primary' style='width:100%'>重置密码</el-button>
+                            <el-button type='primary' style='width:100%' :disabled='!validates.rstMobile.pass || !validates.rstPw.pass || !validates.rstCode.pass' @click='changePw'>重置密码</el-button>
                         </el-col>
                     </el-row>
                 </el-tab-pane>
 
-                <el-tab-pane label="设置" name="set">
+                <el-tab-pane label="设置" name="set" v-if='$xglobal.accInfo'>
                     <el-row>
                         <el-col :span="6" class='label'>
                             <p>个人主页:</p>
@@ -119,7 +119,7 @@
                             <p>http://</p>
                         </el-col>
                         <el-col :span="9">
-                            <el-input placeholder="4～18位字母数字" v-model="set.name">
+                            <el-input placeholder="4～18位字母数字" v-model="set.name" ref='setName' @change='validate("setName")'>
                             </el-input>
                         </el-col>
                         <el-col :span="6" class='net' style='
@@ -129,7 +129,15 @@
                     </el-row>
                     <el-row>
                         <el-col :span="24" style='margin-top:12px'>
-                            <el-button type='primary' style='width:100%' @click='saveProfile'>保存</el-button>
+                            <el-button type='primary' style='width:100%' @click='saveProfile' :disabled='!validates.setName.pass'>保存</el-button>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+
+                <el-tab-pane label="注销" name="logout" v-if='$xglobal.accInfo'>
+                    <el-row>
+                        <el-col :span="24" style='margin-top:12px'>
+                            <el-button type='primary' style='width:100%' @click='accLogout'>注销退出</el-button>
                         </el-col>
                     </el-row>
                 </el-tab-pane>

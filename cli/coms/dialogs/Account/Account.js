@@ -14,12 +14,14 @@ com.props = {
 //所有数据写在这里
 com.data = function data() {
     return {
-        actTab: 'rst',
+        actTab: 'login',
         reg: {
             codeBtnDis: false,
         },
         login: {},
-        rst: {},
+        rst: {
+            codeBtnDis: false,
+        },
         set: {},
         validates: { //input格式验证，fn或正则，和html的ref对应名称
             regMobile: {
@@ -34,6 +36,30 @@ com.data = function data() {
                 fn: /^[\s\S]{6,18}$/,
                 tip: '任意6～18位字符'
             },
+            loginMobile: {
+                fn: /^1\d{10}$/,
+                tip: '真实的11位数字手机号码'
+            },
+            loginPw: {
+                fn: /^[\s\S]{6,18}$/,
+                tip: '任意6～18位字符'
+            },
+            rstMobile: {
+                fn: /^1\d{10}$/,
+                tip: '真实的11位数字手机号码'
+            },
+            rstCode: {
+                fn: /^\d{6}$/,
+                tip: '手机短信中的六位数字'
+            },
+            rstPw: {
+                fn: /^[\s\S]{6,18}$/,
+                tip: '任意6～18位字符'
+            },
+            setName: {
+                fn: /^[A-Za-z0-9]{4,18}$/,
+                tip: '4~18位字母和数字'
+            },
         },
     };
 };
@@ -41,10 +67,21 @@ com.data = function data() {
 com.watch = {
     conf: {
         handler: function (val, oldval) {
+            var ctx = this;
+
             //使关闭窗口的钩子生效
             if (!val.show && val.onHide) {
                 val.onHide(this);
-            }
+            };
+
+            if (val.show) {
+                //自动调整默认打开的tab
+                if (ctx.$xglobal.accInfo) {
+                    ctx.$set(ctx.$data, 'actTab', 'set');
+                } else {
+                    ctx.$set(ctx.$data, 'actTab', 'login');
+                };
+            };
         },
         deep: true,
     },
@@ -58,16 +95,28 @@ com.methods = {
     validate: function (ref) {
         this.$xglobal.fns.validate(this, ref);
     },
-    senRegCode: senRegCode,
+    sendRegCode: sendRegCode,
+    sendRstCode: sendRstCode,
     regByMobile: regByMobile,
     saveProfile: saveProfile,
+    mobileLogin: mobileLogin,
+    changePw: changePw,
+    accLogout: accLogout,
 };
 
 //加载到页面前执行的函数
 com.beforeMount = function () {};
 
 //加载到页面后执行的函数
-com.mounted = function () {};
+com.mounted = function () {
+    var ctx = this;
+    autoLogin(ctx);
+
+    //自动调整默认打开的tab
+    if (ctx.$xglobal.accInfo) {
+        ctx.$set(ctx.$data, 'actTab', 'set');
+    };
+};
 
 //--------------------------functions---------------------------
 
@@ -100,7 +149,39 @@ function tabClick(evt) {
 /**
  * 发送注册验证码,10秒内发1次（服务端限制5分钟发3次）
  */
-async function senRegCode() {
+async function sendRegCode() {
+    var ctx = this;
+
+    try {
+        ctx.$set(ctx.$data.rst, 'codeBtnDis', true);
+        setTimeout(function () {
+            ctx.$set(ctx.$data.rst, 'codeBtnDis', false);
+        }, 10000);
+
+        var api = ctx.$xglobal.conf.apis.accGetMobileRstCode;
+        var data = {
+            mobile: ctx.$data.reg.mobile,
+        };
+        var res = await ctx.rRun(api, data);
+        if (!res.err) {
+            ctx.$notify.success({
+                title: `验证码已经发送到您的手机，请注意查收`,
+                message: `手机号码是${data.mobile}`,
+            });
+        };
+    } catch (err) {
+        ctx.$notify.error({
+            title: `发送重置验证码失败`,
+            message: err.tip,
+        });
+    };
+};
+
+
+/**
+ * 发送重置验证码,10秒内发1次（服务端限制5分钟发3次）
+ */
+async function sendRstCode() {
     var ctx = this;
 
     try {
@@ -109,9 +190,9 @@ async function senRegCode() {
             ctx.$set(ctx.$data.reg, 'codeBtnDis', false);
         }, 10000);
 
-        var api = ctx.$xglobal.conf.apis.accGetMobileRegCode;
+        var api = ctx.$xglobal.conf.apis.accGetMobileRstCode;
         var data = {
-            mobile: ctx.$data.reg.mobile,
+            mobile: ctx.$data.rst.mobile,
         };
         var res = await ctx.rRun(api, data);
         if (!res.err) {
@@ -190,6 +271,10 @@ async function saveProfile() {
             ctx.$notify.success({
                 title: '保存成功!',
             });
+
+            //关闭弹窗
+            ctx.$set(ctx.conf, 'state', 'set');
+            ctx.$set(ctx.conf, 'show', false);
         };
     } catch (err) {
         ctx.$notify.error({
@@ -199,8 +284,121 @@ async function saveProfile() {
     };
 };
 
+/**
+ * 使用手机号码和密码登录
+ */
+async function mobileLogin() {
+    var ctx = this;
+    try {
+        var api = ctx.$xglobal.conf.apis.accLogin;
+        var data = {
+            mobile: ctx.$data.login.mobile,
+            pw: md5(ctx.$data.login.pw),
+        };
+        var res = await ctx.rRun(api, data);
+
+        if (!res.err) {
+            ctx.$notify.success({
+                title: '登录成功!',
+            });
+
+            //数据放入xglobal
+            ctx.$set(ctx.$xglobal, 'accInfo', res.data);
+
+            //token写入本地
+            localStorage.setItem('accToken', res.data._token);
+
+            //关闭弹窗
+            ctx.$set(ctx.conf, 'state', 'login');
+            ctx.$set(ctx.conf, 'show', false);
+        };
+    } catch (err) {
+        ctx.$notify.error({
+            title: `登录失败`,
+            message: err.tip,
+        });
+    };
+};
 
 
+/**
+ * 自动登录，使用token
+ */
+async function autoLogin(ctx) {
+    try {
+        var token = localStorage.getItem('accToken');
+        if (!token) {
+            ctx.$notify.error({
+                title: `您还没有登录，请先登录或注册`,
+                message: '登录后可以获得更多功能',
+            });
+            return;
+        };
+
+        var api = ctx.$xglobal.conf.apis.accAutoLogin;
+        var data = {
+            token: token,
+        };
+        var res = await ctx.rRun(api, data);
+
+        if (!res.err) {
+            ctx.$notify.success({
+                title: '自动登录成功!',
+            });
+
+            //数据放入xglobal
+            ctx.$set(ctx.$xglobal, 'accInfo', res.data);
+        };
+    } catch (err) {
+        ctx.$notify.error({
+            title: `自动登录失败，请尝试使用密码登录`,
+            message: err.tip,
+        });
+    };
+};
+
+/**
+ * 重置密码，根据手机短信验证码修改密码
+ */
+async function changePw() {
+    var ctx = this;
+    try {
+        var api = ctx.$xglobal.conf.apis.accChangePw;
+        var data = {
+            mobile: ctx.$data.rst.mobile,
+            code: ctx.$data.rst.code,
+            pw: md5(ctx.$data.rst.pw),
+        };
+        var res = await ctx.rRun(api, data);
+
+        if (!res.err) {
+            ctx.$notify.success({
+                title: '修改成功，请使用新密码登录',
+            });
+
+            //切换tab到登录
+            ctx.$set(ctx.$data, 'actTab', 'login');
+        };
+    } catch (err) {
+        ctx.$notify.error({
+            title: `修改密码失败`,
+            message: err.tip,
+        });
+    };
+};
+
+/**
+ * 注销，清除token和$xglobal.accInfo
+ */
+async function accLogout() {
+    var ctx = this;
+    localStorage.removeItem('accToken');
+    ctx.$set(ctx.$xglobal, 'accInfo', null);
+
+    //关闭弹窗
+    ctx.$set(ctx.conf, 'state', 'logout');
+    ctx.$set(ctx.conf, 'show', false);
+};
 
 
 //

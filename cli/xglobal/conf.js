@@ -16,8 +16,12 @@ conf.imgs = {}
 conf.apis = {
     qnRandKeyUploadToken: `//${location.host}/api/qnRandKeyUploadToken`,
     accGetMobileRegCode: `//${location.host}/api/accGetMobileRegCode`,
+    accGetMobileRstCode: `//${location.host}/api/accGetMobileRstCode`,
     accRegByMobile: `//${location.host}/api/accRegByMobile`,
     accSaveProfile: `//${location.host}/api/accSaveProfile`,
+    accLogin: `//${location.host}/api/accLogin`,
+    accChangePw: `//${location.host}/api/accChangePw`,
+    accAutoLogin: `//${location.host}/api/accAutoLogin`,
 };
 
 //默认模版相关
