@@ -3,10 +3,47 @@
 let fns = {
     getCookie,
     validate,
+    autoLogin,
 };
 export default fns;
 
 //------------------functions------------
+/**
+ * 自动登录，使用token
+ */
+async function autoLogin(ctx) {
+    try {
+        var token = localStorage.getItem('accToken');
+        if (!token) {
+            ctx.$notify.error({
+                title: `您还没有登录，请先登录或注册`,
+                message: '登录后可以获得更多功能',
+            });
+            return;
+        };
+
+        var api = ctx.$xglobal.conf.apis.accAutoLogin;
+        var data = {
+            token: token,
+        };
+        var res = await ctx.rRun(api, data);
+
+        if (!res.err) {
+            ctx.$notify.success({
+                title: '自动登录成功!',
+            });
+
+            //数据放入xglobal
+            ctx.$set(ctx.$xglobal, 'accInfo', res.data);
+            ctx.$set(ctx.$data, 'accInfo', res.data);
+        };
+    } catch (err) {
+        ctx.$notify.error({
+            title: `自动登录失败，请尝试使用密码登录`,
+            message: err.tip,
+        });
+    };
+};
 
 /**
  * 从本地读取cookie

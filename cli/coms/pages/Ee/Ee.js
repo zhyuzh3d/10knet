@@ -35,6 +35,7 @@ com.data = function data() {
 
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
+        accInfo: undefined,
         refreshCss, //三个函数将作为数据传给coder编辑器
         refreshBody,
         refreshJs,
@@ -74,10 +75,10 @@ com.data = function data() {
         accountDialogConf: { //打开账号登陆窗口的按钮
             show: false,
             onHide: function (tarctx) {
-                ctx.$set(ctx.$data, 'accountInfo', tarctx.conf.accountInfo);
+                ctx.$set(ctx.$data, 'accInfo', tarctx.$xglobal.accInfo);
             },
         },
-        accountInfo: {}, //用户的账号信息
+        accInfo: undefined, //用户的账号信息
         page: {}, //上传后的文件
         localPages: {}, //本地存储曾经上传的文件信息
         pageName: pageName, //当前页面名称，下次上传时候使用
@@ -115,6 +116,7 @@ com.methods = {
 
 com.mounted = function () {
     jo = $(this.$el);
+    var ctx = this;
 
     previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
 
@@ -128,6 +130,7 @@ com.mounted = function () {
         barBg: '',
     });
 
+    ctx.$xglobal.fns.autoLogin(ctx);
 };
 
 

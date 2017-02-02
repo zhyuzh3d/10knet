@@ -33,7 +33,10 @@
                     <div style="margin:18px 12px;height:1px;background:#666"></div>
 
                     <el-tooltip class="item" effect="light" content="账号登录或注册" placement="left-end">
-                        <el-button class='rbtn' @click='accountDialogConf.show=true'><i class="fa fa-user"></i></el-button>
+                        <el-button class='rbtn' @click='accountDialogConf.show=true'>
+                            <i class="fa fa-user" v-if='!accInfo'></i>
+                            <img v-if='accInfo' v-bind:src='accInfo.avatar' class="avatarMini">
+                        </el-button>
                     </el-tooltip>
 
                     <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
@@ -94,6 +97,14 @@
     </div>
 </template>
 <style scoped>
+    .avatarMini {
+        width: 18px;
+        height: 18px;
+        border-radius: 18px;
+        border: 1px solid #FEFEFE;
+        margin: -4px;
+    }
+
     .btnOn {
         color: #FFF;
     }
@@ -140,12 +151,13 @@
 
     .sideBar .rbtn {
         border-radius: 4px;
-        padding: 8px;
         width: 32px;
         margin: 2px 4px;
         border: none;
         font-size: 14px;
         background: none;
+        padding: 8px;
+        text-align: center;
     }
 
     .sideBar .rbtn:hover {
