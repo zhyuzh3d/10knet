@@ -3,6 +3,7 @@
 
 var _mngs = {};
 
+
 _mngs.startPrms = function () {
     var prms = new Promise(function (resolvefn, rejectfn) {
         $mongoose.connect('mongodb://localhost/10knet_dev');
@@ -31,7 +32,7 @@ schemas.user = new $mongoose.Schema({
     mobile: String,
     avatar: {
         type: String,
-        default: '//10knet.com/imgs/10knet.jpg',
+        default: 'http://app.10knet.com/ryNCjtgOg/10knetSqr64.png', //必须app.10knet.com以便于裁剪
     },
     sex: {
         type: String,
@@ -46,6 +47,8 @@ schemas.user = new $mongoose.Schema({
     },
 });
 models.user = $mongoose.model('user', schemas.user);
+
+
 
 
 

@@ -24,7 +24,10 @@ const $moment = global.$moment = require('moment');
 const $qiniu = global.$qiniu = require('qiniu');
 const $sha256 = global.$sha256 = require('sha256');
 const $shortid = global.$shortid = require('shortid');
+const $uuid = global.$uuid = require('uuid');
+const $redis = global.$redis = require('redis');
 const $mongoose = global.$mongoose = require('mongoose');
+$mongoose.Promise = global.Promise;
 
 //服务程序真正的入口
 console.info(`==========${$moment().format('YYYY-MM-DD hh:mm:ss')}==========`);

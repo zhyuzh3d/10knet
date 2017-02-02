@@ -46,6 +46,9 @@ const _msg = {
         RouterMethodNotFound: new Err('找不到您所请求的API方法', 103),
         RouterReqDataFormatErr: new Err('您提交的数据格式错误', 104),
         SmsSendCodeErr: new Err('服务器发送短信失败，请重试', 201),
+        AccRegCodeHasSend: new Err('注册验证码已经发送，请不要重复发送，稍后再试', 302),
+        AccMobileHasUsed: new Err('手机号码已经被注册，请更换其他号码再试', 303),
+        AccRegCodeNotMatch: new Err('注册短信验证码不匹配，请重试', 304),
     }
 };
 

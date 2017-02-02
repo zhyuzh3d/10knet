@@ -25,18 +25,23 @@ var _conf = {
         AppId: 'set in _xconf',
         AppKey: 'set in _xconf',
         Templates: {
-            REG: 'set in _xconf',
-            RST: 'set in _xconf',
+            REG: 'set in _xconf', //发送注册短信码模版号
+            RST: 'set in _xconf', //发送重置短信码模版号
         },
-        ExpMin: 'set in _xconf',
+        ExpMin: 'set in _xconf', //短信码过期时间，分钟
     }, _xconf.Sms),
 };
 
 
 //正则表达式
 _conf.regx = {
-    mobile: /^1\d{10}$/,
-    mobileCode: /^\d{6}$/,
+    mobile: /^1\d{10}$/, //手机号码
+    mobileCode: /^\d{6}$/, //短信验证码
+    pw: /^[A-Za-z0-9]{32}$/, //密码，md5加密后
+    name: /^[A-Za-z0-9]{4,18}$/, //用户名，主页地址名，不能用中文
+    nick: /^[\S\s]{4,18}$/, //昵称，任意字符
+    avatar: /^(http)?(s)?(:)?\/\/app\.10knet.com\/[\S\s]{3,256}$/, //头像，必须来自app.10knet网站
+    token: /^[A-Za-z0-9-]{32,64}$/, //用户token，数字字母横线
 };
 
 

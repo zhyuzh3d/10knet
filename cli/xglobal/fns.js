@@ -2,6 +2,7 @@
  */
 let fns = {
     getCookie,
+    validate,
 };
 export default fns;
 
@@ -28,5 +29,39 @@ JSON.safeParse = function (str) {
         return JSON.parse(str);
     } catch (err) {
         return undefined;
+    };
+};
+
+/**
+ * 对el包裹的input事件进行验证，在el-input上使用;验证通过将在vali对象上添加字段pass
+ * <el-input ref='regMobile' @change='validate("regMobile")'>
+ * @param {object} evt event
+ * @returns {boolean} 通过验证为true
+ */
+function validate(ctx, ref) {
+    var vali = ctx.$data.validates ? ctx.$data.validates[ref] : undefined;
+    if (!vali) return;
+    var fn = vali ? vali.fn : undefined;
+    if (!fn) return;
+
+    var jo = $(ctx.$refs[ref].$el);
+    var type = fn.constructor;
+    var iptjo = jo.find('input');
+    var val = iptjo.val();
+    var tipjo = $('<div id="valiTip" style="font-size:10px;color:red;text-align:left"></div>');
+    var tip = vali ? vali.tip : '您输入的格式不完整或不正确';
+    tipjo.html(tip);
+
+    if ((type == Function && fn(val)) || (type == RegExp && fn.test(String(val)))) {
+        ctx.$set(ctx.$data.validates[ref], 'pass', true);
+        jo.find('#valiTip').remove();
+        iptjo.css('color', 'inherit');
+        return true;
+    } else {
+        ctx.$set(ctx.$data.validates[ref], 'pass', false);
+        iptjo.css('color', 'red');
+        jo.find('#valiTip').remove();
+        jo.append(tipjo);
+        return false;
     };
 };

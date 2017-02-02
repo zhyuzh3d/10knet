@@ -10,6 +10,7 @@ module.exports = _zfns;
 
 
 //-------------------------- functions------------------
+
 /**
  * 解析url地址生成request请求option设置对象
  * @param   {string} str = '' url地址栏

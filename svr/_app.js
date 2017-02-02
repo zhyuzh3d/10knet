@@ -18,6 +18,7 @@ const _zreq = global._zreq = require('./base_modules/_zreq.js');
 const _zrouter = global._zrouter = require('./base_modules/_zrouter.js');
 const _sms = global._sms = require('./base_modules/_sms.js');
 
+const _rds = global._rds = require('./base_modules/_rds.js');
 const _mngs = global._mngs = require('./base_modules/_mngs.js');
 
 const _qn = global._qn = require('./app_modules/_qn.js');

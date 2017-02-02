@@ -73,7 +73,6 @@ _zrouter.addApi('/qnRandKeyUploadToken', {
 
         var url = _qn.conf.BucketDomain + '/' + fkey;
 
-
         var data = {
             domain: _qn.conf.BucketDomain,
             token: genUploadToken(fkey, ctx.xdata.tag, {
