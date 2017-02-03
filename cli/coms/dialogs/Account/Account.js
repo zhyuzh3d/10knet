@@ -355,6 +355,7 @@ async function changePw() {
 async function accLogout() {
     var ctx = this;
     localStorage.removeItem('accToken');
+    localStorage.removeItem('accPage');
     ctx.$set(ctx.$xglobal, 'accInfo', null);
 
     //关闭弹窗

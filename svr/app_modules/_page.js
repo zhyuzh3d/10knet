@@ -4,8 +4,8 @@ var _page = {};
 
 //-------------------apis--------------------
 /**
- * 用户注册之前获取手机验证码，以此确认对此手机号码所有权
- * 成功返回空
+ * 创建一个新的页面
+ * 返回这个页面
  */
 _zrouter.addApi('/pageNew', {
     validator: {
@@ -36,6 +36,33 @@ _zrouter.addApi('/pageNew', {
         }).save();
 
         ctx.body = new _msg.Msg(null, ctx, newPage);
+    },
+});
+
+
+/**
+ * 获取用户所有页面列表,
+ * 返回基本信息列表，只有id和名称
+ */
+_zrouter.addApi('/pageGetList', {
+    validator: {
+        token: _conf.regx.token, //用户token认证信息
+    },
+    method: async function (ctx) {
+        var token = ctx.xdata.token;
+
+        //根据token获取用户id
+        var acc = await _mngs.models.user.findOne({
+            _token: token,
+        }, '_id');
+        if (!acc) throw Error().zbind(_msg.Errs.AccNotExist);
+
+        //获取此用户所有page列表
+        var list = await _mngs.models.page.find({
+            author: acc._id,
+        }, 'name file').populate('file', 'url').exec();
+
+        ctx.body = new _msg.Msg(null, ctx, list);
     },
 });
 

@@ -24,7 +24,7 @@ xrouter.install = function (Vue, options) {
         },
         mounted: function () {
             //同时兼容props和标记内的xid属性（顶级app没有props）
-            var xid = this.xid || this.$el.getAttribute('xid');
+            var xid = this.xid || ((this.$el && this.$el.getAttribute) ? this.$el.getAttribute('xid') : undefined);
 
             //路由组件管理
             if (xid) {

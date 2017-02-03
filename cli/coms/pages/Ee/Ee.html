@@ -5,8 +5,11 @@
             <div class="sideBar">
                 <div style='height:4px'></div>
                 <div class='btnGrp1'>
-                    <el-tooltip class="item" effect="light" content="创建新页面文件" placement="left-end">
-                        <el-button class='rbtn' @click='pageNew'><i class="fa fa-file-text"></i></el-button>
+                    <el-tooltip class="item" effect="light" content="设置您的页面名称" placement="left-end">
+                        <el-button class='rbtn' @click='setAccPageDialogConf.show=true'><i class="fa fa-file-text"></i></el-button>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="light" content="将当前代码保存为页面最新版本" placement="left-end">
+                        <el-button class='rbtn' @click='saveAccPage'><i class="fa fa-save"></i></el-button>
                     </el-tooltip>
 
                     <el-tooltip class="item" effect="light" content="导入模版页面代码" placement="left-end">
@@ -97,6 +100,7 @@
             <share-html v-bind:conf='shareDialogConf'></share-html>
             <about v-bind:conf='aboutDialogConf'></about>
             <account v-bind:conf='accountDialogConf'></account>
+            <set-acc-page v-bind:conf='setAccPageDialogConf'></set-acc-page>
         </div>
     </div>
 </template>

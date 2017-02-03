@@ -16,6 +16,7 @@ const _qn = {
     uploadTags: {
         none: true,
         page: true,
+        file: true,
     },
     genUploadToken: genUploadToken,
 };
@@ -53,31 +54,36 @@ _zrouter.addApi('/qnUploadCallback', {
         var accToken = file.accToken;
         var accId;
         if (accToken) {
-            var uploaderId = await _mngs.models.user.findOne({
+            var acc = await _mngs.models.user.findOne({
                 _token: accToken,
             }, '_id');
-            accId = uploaderId;
-            if (uploaderId) file.uploader = uploaderId;
+            accId = acc._id;
+            if (accId) file.uploader = accId;
         };
-
         delete file['accToken'];
-
-        //mng保存文件对象,uploader可用populate方法自动填充读取
-        var mngFile = await new _mngs.models.file(file).save();
 
         //如果附带了pageId字段，那么先验证page的author与acctoken是否匹配，然后再加入page.his
         var pageId = file.pageId;
         if (pageId && accToken && accId) {
-            var author = await _mngs.models.page.findOne({
+            var page = await _mngs.models.page.findOne({
                 _id: pageId,
             }, 'author');
-            console.log('>>>qnUploadCallback authorId', author);
-
-
+            if (page.author != accId) throw Error().zbind(_msg.Errs.PageNoPower);
+            file.page = page._id;
         };
+        delete file['pageId'];
 
+        //mng保存文件对象,uploader可用populate方法自动填充读取
+        var mngFile = await new _mngs.models.file(file).save();
 
-
+        //mng保存file到page，作为最新版本文件
+        if (file.page) {
+            await _mngs.models.page.update({
+                _id: pageId,
+            }, {
+                file: mngFile._id
+            })
+        };
 
         ctx.body = new _msg.Msg(null, ctx, mngFile);
     },
@@ -110,6 +116,7 @@ _zrouter.addApi('/qnRandKeyUploadToken', {
             url: _qn.conf.BucketDomain + '/' + fkey,
             accToken: ctx.xdata.token,
             tag: ctx.xdata.tag,
+            pageId: ctx.xdata.pageId,
         });
 
         var data = {

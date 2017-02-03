@@ -58,6 +58,7 @@ const _msg = {
         AccNameHasUsed: new Err('用户名已经被使用', 309),
 
         PageNameUsed: new Err('页面名称已经被使用，请更换后重试', 401),
+        PageNoPower: new Err('您无权对页面进行操作', 402),
     },
 };
 

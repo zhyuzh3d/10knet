@@ -55,6 +55,10 @@ schemas.file = new $mongoose.Schema({
         type: String,
         ref: 'user',
     },
+    page: { //上传者id
+        type: String,
+        ref: 'page',
+    },
     filename: String,
     filesize: Number,
     hash: String,
@@ -80,10 +84,6 @@ schemas.page = new $mongoose.Schema({
         type: String,
         ref: 'file',
     },
-    his: [{ //历史版本，不断添加
-        type: String,
-        ref: 'file'
-    }],
 }, {
     strict: false,
     timestamps: {

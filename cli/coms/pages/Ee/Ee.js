@@ -13,6 +13,7 @@ import PageSet from '../../dialogs/PageSet/PageSet.html';
 import ShareHtml from '../../dialogs/ShareHtml/ShareHtml.html';
 import About from '../../dialogs/About/About.html';
 import Account from '../../dialogs/Account/Account.html';
+import SetAccPage from '../../dialogs/SetAccPage/SetAccPage.html';
 import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
 import Beautify from 'js-beautify';
 
@@ -24,13 +25,14 @@ com.components = {
     ShareHtml,
     About,
     Account,
+    SetAccPage,
     PageTemplates,
 };
 
 com.data = function data() {
     vc = this;
     var ctx = this;
-    var pageName = localStorage.getItem('lastPageName');
+    var fileName = localStorage.getItem('lastFileName');
     var accountInfo = {}; //??用户信息，每次启动应自动获取
 
     return {
@@ -53,9 +55,9 @@ com.data = function data() {
             show: false,
             onHide: function (tarctx) {
                 refreshJsMenual(ctx);
-                var pname = tarctx.conf.pageName;
-                ctx.$set(ctx.$data, 'pageName', pname);
-                localStorage.setItem('lastPageName', pname);
+                var pname = tarctx.conf.fileName;
+                ctx.$set(ctx.$data, 'fileName', pname);
+                localStorage.setItem('lastFileName', pname);
             },
         },
         shareDialogConf: { //分享按钮，关闭时候同步刷新预览
@@ -79,10 +81,16 @@ com.data = function data() {
                 ctx.$set(ctx.$data, 'accInfo', tarctx.$xglobal.accInfo);
             },
         },
+        setAccPageDialogConf: { //打开账号登陆窗口的按钮
+            show: false,
+            onHide: function (tarctx) {
+                ctx.$set(ctx.$data, 'accPage', tarctx.conf.setPage);
+            },
+        },
         accInfo: undefined, //用户的账号信息
-        page: {}, //上传后的文件
-        localPages: {}, //本地存储曾经上传的文件信息
-        pageName: pageName, //当前页面名称，下次上传时候使用
+        file: {}, //上传后的文件
+        localFiles: {}, //本地存储曾经上传的文件信息
+        fileName: fileName, //当前页面名称，下次上传时候使用
         codersBoxVis: true,
     };
 };
@@ -112,7 +120,7 @@ com.methods = {
     beautifyJs: function () {
         beautifyJs(this);
     },
-    pageNew: pageNew,
+    saveAccPage: saveAccPage,
 };
 
 
@@ -137,44 +145,32 @@ com.mounted = function () {
 
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
-
-async function pageNew() {
+async function saveAccPage() {
     var ctx = this;
-    var token = localStorage.getItem('accToken');
-    if (!token) {
+
+    var aPage = JSON.safeParse(localStorage.getItem('accPage'));
+    if (!aPage) {
         ctx.$notify.error({
-            title: `您还没有登录，请先登录或注册`,
+            title: `您还没有创建页面`,
+            message: `请先创建页面然后再执行保存`,
         });
+        return;
     };
 
-    var ipt = await ctx.$prompt('请输入新页面名称（4～32个字母或数字）', '创建新页面', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputPattern: /^[A-Za-z0-9_]{4,64}$/,
-        inputErrorMessage: '4～32个字母或数字或者下划线'
+    var pageData = await assemblePage(ctx);
+    var blob = new Blob([pageData], {
+        type: 'html'
     });
+    var pageFile = await uploadFile('page', 'index.html', blob, ctx);
+    ctx.$set(ctx.$data, 'file', pageFile);
 
-    if (ipt.value) {
-        try {
-            var api = ctx.$xglobal.conf.apis.pageNew;
-            var data = {
-                token: token,
-                name: ipt.value,
-            };
-            var res = await ctx.rRun(api, data);
-            ctx.$set(ctx.$data, 'accPage', res.data);
-            ctx.$notify.success({
-                title: `创建页面文件成功`,
-                message: `接下来的代码将被保存到此页面${name}`,
-            });
-        } catch (err) {
-            ctx.$notify.error({
-                title: `创建页面文件失败`,
-                message: err.tip || err.message || '原因未知',
-            });
-        };
-    };
+    ctx.$notify.success({
+        title: `保存页面成功`,
+        message: `已经将页面更新为最新版本`,
+    });
 };
+
+
 
 async function createPage(ctx, token, name) {
     var api = ctx.$xglobal.conf.apis.pageNew;
@@ -297,6 +293,15 @@ async function uploadFile(tag, fileName, file, ctx) {
             tag: tag ? tag : 'none',
             fileName: fileName ? fileName : "untitled",
         };
+
+        //如果accPage本地不为空，那么附带pageId
+        var aPage = JSON.safeParse(localStorage.getItem('accPage'));
+
+        var pageId = aPage ? aPage._id : undefined;
+        if (tag == 'page' && pageId) {
+            data.pageId = pageId;
+        };
+
         var tokenRes = await ctx.rRun(tokenApi, data);
 
         var token = tokenRes.data.token;
@@ -324,7 +329,7 @@ async function uploadFile(tag, fileName, file, ctx) {
     } catch (err) {
         ctx.$notify.error({
             title: `上传页面文件失败`,
-            message: err.message || '原因未知',
+            message: err.tip || err.message || '原因未知',
         });
     }
 };
@@ -339,11 +344,12 @@ async function openShareDialog(ctx) {
     var blob = new Blob([pageData], {
         type: 'html'
     });
-    var pageFile = await uploadFile('page', 'index.html', blob, ctx);
-    ctx.$set(ctx.$data, 'page', pageFile);
+
+    var pageFile = await uploadFile('share', 'index.html', blob, ctx);
+    ctx.$set(ctx.$data, 'file', pageFile);
 
     ctx.shareDialogConf.show = true;
-    ctx.shareDialogConf.url = ctx.$data.page.url;
+    ctx.shareDialogConf.url = ctx.$data.file.url;
 };
 
 /**
