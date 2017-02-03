@@ -104,6 +104,8 @@ _zrouter.addApi('/accRegByMobile', {
             _token: token,
         }).save();
 
+        newAcc._pw = undefined;
+
         ctx.body = new _msg.Msg(null, ctx, {
             token: token,
             acc: newAcc,
@@ -141,13 +143,19 @@ _zrouter.addApi('/accSaveProfile', {
         //保存成功后为每个用户创建一个同名的page，作为用户的首页
         var acc = await _mngs.models.user.findOne({
             _token: token,
-        }, '_id');
-        var newPage = await new _mngs.models.page({
-            author: acc.id,
-            name: name,
-        }).save();
+        });
 
-        ctx.body = new _msg.Msg(null, ctx, null);
+        var page = {
+            author: acc._id,
+            name: name,
+        };
+        var newPage = await _mngs.models.page.update(page, page, {
+            upsert: true
+        });
+
+        acc._pw = undefined;
+
+        ctx.body = new _msg.Msg(null, ctx, acc);
     },
 });
 

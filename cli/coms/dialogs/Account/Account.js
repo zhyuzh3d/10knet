@@ -276,6 +276,9 @@ async function saveProfile() {
                 title: '保存成功!',
             });
 
+            //更新$xglobal.accInfo
+            ctx.$set(ctx.$xglobal, 'accInfo', res.data);
+
             //关闭弹窗
             ctx.$set(ctx.conf, 'state', 'set');
             ctx.$set(ctx.conf, 'show', false);
