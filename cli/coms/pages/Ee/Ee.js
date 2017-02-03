@@ -121,10 +121,11 @@ com.methods = {
         beautifyJs(this);
     },
     saveAccPage: saveAccPage,
+    autoSetAccPage: autoSetAccPage,
 };
 
 
-com.mounted = function () {
+com.mounted = async function () {
     jo = $(this.$el);
     var ctx = this;
 
@@ -140,11 +141,50 @@ com.mounted = function () {
         barBg: '',
     });
 
-    ctx.$xglobal.fns.autoLogin(ctx);
+
+    //自动登录
+    await ctx.$xglobal.fns.autoLogin(ctx);
+
+    //从本地读取accPage并设定
+    await ctx.autoSetAccPage();
 };
 
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+
+/**
+ * 自动设定accPage，先从本地读取，如果没有就设定为用户名同名的首页page
+ */
+async function autoSetAccPage() {
+    var ctx = this;
+
+    var lsAccPage = localStorage.getItem('accPage');
+    if (lsAccPage) {
+        lsAccPage = JSON.safeParse(lsAccPage);
+        if (lsAccPage) ctx.$set(ctx.$data, 'accPage', lsAccPage);
+    } else {
+        var accInfo = ctx.$xglobal.accInfo;
+        if (!accInfo || !accInfo.name) return;
+
+        try {
+            //获取同名的page
+            var api = ctx.$xglobal.conf.apis.pageGetHomePage;
+            var data = {
+                name: accInfo.name,
+            };
+
+            var res = await ctx.rRun(api, data);
+            var page = res.data;
+
+            ctx.$set(ctx.$data, 'accPage', page);
+            localStorage.setItem('accPage', JSON.stringify(page));
+        } catch (err) {
+            console.log('>Ee:autoSetAccPage:failed,', err);
+        };
+    };
+};
+
+
 async function saveAccPage() {
     var ctx = this;
 

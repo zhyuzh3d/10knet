@@ -24,13 +24,14 @@ com.watch = {
         handler: async function (val, oldval) {
             var ctx = this;
             //使关闭窗口的钩子生效
-            if (!val && ctx.conf.onHide) {
-                ctx.conf.onHide(this);
+            if (!val && ctx.conf.onHide && ctx.conf.state == 'set') {
+                ctx.conf.onHide(ctx);
             };
 
             //从服务器读取page列表，从ls读取当前accPage
             if (val) {
                 await ctx.getPageNameList();
+                ctx.$set(ctx.conf, 'state', undefined);
             };
         }
     },
@@ -55,7 +56,7 @@ com.methods = {
     },
     createFilter(str) {
         return (name) => {
-            return (name.value.indexOf(str.toLowerCase()) === 0);
+            return (name.value.indexOf(str.toLowerCase()) != -1);
         };
     },
     handleSelect: function (item) {
@@ -71,12 +72,7 @@ com.beforeMount = function () {};
 //加载到页面后执行的函数
 com.mounted = function () {
     var ctx = this;
-    var page = localStorage.getItem('accPage');
-    if (page) {
-        page = JSON.safeParse(page);
-        ctx.$set(ctx.conf, 'setPage', page);
-        ctx.$set(ctx.$data, 'iptName', page.name);
-    };
+
 };
 
 //-------所有函数写在下面--------
@@ -115,8 +111,24 @@ async function getPageNameList() {
     try {
         var res = await ctx.rRun(api, data);
         var list = res.data;
+        var lsPage = localStorage.getItem('accPage');
+        var lsPageId;
+
+        if (lsPage) {
+            lsPage = JSON.safeParse(lsPage);
+            if (lsPage) lsPageId = lsPage._id;
+        };
+
         list.forEach(function (item) {
             item.value = item.name;
+            item.accUrl = `http://${ctx.$xglobal.accInfo.name}.10knet.com/${item.name}`;
+
+            if (item._id == lsPageId) {
+                ctx.$set(ctx.$data, 'iptName', item.name);
+                ctx.$set(ctx.conf, 'setPage', item);
+                ctx.$set(ctx.$data, 'isNew', false);
+                localStorage.setItem('accPage', JSON.stringify(item));
+            };
         });
         ctx.$set(ctx.$data, 'nameList', list);
 

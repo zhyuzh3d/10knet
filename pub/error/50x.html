@@ -10,10 +10,10 @@
 <body>
     <div style="margin-top:10%;text-align:center">
         <h1>访问异常:50x</h1>
-        <p>服务端程序异常,<span id='tick'>3</span>秒后自动跳转到首页</p>
+        <p>服务端程序异常,<span id='tick'>6</span>秒后自动跳转到首页</p>
     </div>
     <script>
-        var tick = 3;
+        var tick = 6;
         var n = setInterval(function() {
             tick -= 1;
             document.getElementById('tick').innerHTML = tick;

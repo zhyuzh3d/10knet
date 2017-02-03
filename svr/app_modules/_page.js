@@ -67,6 +67,35 @@ _zrouter.addApi('/pageGetList', {
 });
 
 
+/**
+ * 根据用户名获取他的主页page(含file),任何人都可以获取
+ * 返回基本file信息
+ */
+_zrouter.addApi('/pageGetHomePage', {
+    validator: {
+        name: _conf.regx.name, //用户名
+    },
+    method: async function (ctx) {
+        var name = ctx.xdata.name;
+
+        //获取用户的_id
+        var acc = await _mngs.models.user.findOne({
+            name: name,
+        }, '_id');
+        if (!acc) throw Error().zbind(_msg.Errs.AccNotExist);
+
+        //获取同名的page
+        var page = await _mngs.models.page.findOne({
+            author: acc._id,
+            name: name,
+        }).populate('file').exec();
+        if (!page) throw Error().zbind(_msg.Errs.PageNoExist, `:${name}`);
+
+        ctx.body = new _msg.Msg(null, ctx, page);
+    },
+});
+
+
 //-------------------functions--------------------
 //
 

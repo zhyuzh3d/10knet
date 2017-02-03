@@ -23,16 +23,15 @@ com.data = function data() {
 };
 
 com.watch = {
-    conf: {
+    'conf.show': {
         handler: function (val, oldval) {
             var ctx = this;
             //使关闭窗口的钩子生效
-            if (val.show) {
+            if (val) {
                 ctx.$set(ctx.$data, 'templates', ctx.$xglobal.conf.pageTemplates);
             };
 
-            if (!val.show && val.onHide) {
-                val.onHide(this);
+            if (!val && ctx.conf.onHide) {
 
                 //如果用户手工输入了地址，那么清理template信息
                 if (ctx.$data.inputUrl != ctx.conf.template.url) {
@@ -42,6 +41,7 @@ com.watch = {
                         desc: 'none',
                     };
                 };
+                ctx.conf.onHide(ctx);
             };
 
         },

@@ -128,7 +128,7 @@ _zrouter.addApi('/accSaveProfile', {
         var hasUsed = await _mngs.models.user.findOne({
             name: name,
         }, '_id');
-        if (hasUsed) throw Error().zbind(_msg.Errs.AccNameHasUsed,`:${name}`);
+        if (hasUsed) throw Error().zbind(_msg.Errs.AccNameHasUsed, `:${name}`);
 
         //mng使用token提取user直接进行操作
         var res = await _mngs.models.user.update({
@@ -136,8 +136,16 @@ _zrouter.addApi('/accSaveProfile', {
         }, {
             name: name,
         });
-
         if (res.n == 0) throw Error().zbind(_msg.Errs.AccNotExist);
+
+        //保存成功后为每个用户创建一个同名的page，作为用户的首页
+        var acc = await _mngs.models.user.findOne({
+            _token: token,
+        }, '_id');
+        var newPage = await new _mngs.models.page({
+            author: acc.id,
+            name: name,
+        }).save();
 
         ctx.body = new _msg.Msg(null, ctx, null);
     },

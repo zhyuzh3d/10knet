@@ -65,21 +65,26 @@ com.data = function data() {
 };
 
 com.watch = {
-    conf: {
+    'conf.show': {
         handler: function (val, oldval) {
             var ctx = this;
 
             //使关闭窗口的钩子生效
-            if (!val.show && val.onHide) {
-                val.onHide(this);
+            if (!val && ctx.conf.onHide) {
+                ctx.conf.onHide(this);
             };
 
-            if (val.show) {
+            if (val) {
                 //自动调整默认打开的tab
                 if (ctx.$xglobal.accInfo) {
                     ctx.$set(ctx.$data, 'actTab', 'set');
                 } else {
                     ctx.$set(ctx.$data, 'actTab', 'login');
+                };
+
+                //自动填充set.name
+                if (ctx.$xglobal.accInfo) {
+                    ctx.$set(ctx.$data.set, 'name', ctx.$xglobal.accInfo.name);
                 };
             };
         },
@@ -310,6 +315,9 @@ async function mobileLogin() {
             //关闭弹窗
             ctx.$set(ctx.conf, 'state', 'login');
             ctx.$set(ctx.conf, 'show', false);
+
+            //刷新页面
+            location.href = location.href.substr(0, location.href.length - location.hash.length);
         };
     } catch (err) {
         ctx.$notify.error({
@@ -354,13 +362,14 @@ async function changePw() {
  */
 async function accLogout() {
     var ctx = this;
-    localStorage.removeItem('accToken');
-    localStorage.removeItem('accPage');
-    ctx.$set(ctx.$xglobal, 'accInfo', null);
-
-    //关闭弹窗
-    ctx.$set(ctx.conf, 'state', 'logout');
-    ctx.$set(ctx.conf, 'show', false);
+    ctx.$confirm('注销将清空当前编辑器及所有浏览器记录信息', '确认注销', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    }).then(() => {
+        localStorage.clear();
+        location.href = location.href.substr(0, location.href.length - location.hash.length);
+    });
 };
 
 

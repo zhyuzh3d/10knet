@@ -7,12 +7,12 @@
                 <div class='txt'>您的代码将被保存到此页面</div>
                 <el-autocomplete v-model="iptName" :fetch-suggestions="querySearch" placeholder="请输入新名称或从下拉选择" @select="handleSelect" class='iptcom'></el-autocomplete>
                 <el-button @click='clearIpt'><i class="fa fa-caret-down"></i></el-button>
-                <div v-if='conf.setPage&&conf.setPage.file&&!isNew' class='url'><small></small>{{conf.setPage.file.url}}</div>
+                <div v-if='conf.setPage&&!isNew&&iptName' class='url'><a :href='conf.setPage.accUrl' target="_blank">{{conf.setPage.accUrl}}</a></div>
             </div>
             <div class="btns">
                 <el-button @click='conf.show=false'>取消</el-button>
                 <el-button v-show='isNew' type='danger' @click='newAccPage'>新 建</el-button>
-                <el-button v-show='!isNew' type='primary' @click='setAccPage'>设 置</el-button>
+                <el-button v-show='!isNew' type='primary' @click='setAccPage'>设 定</el-button>
             </div>
         </el-dialog>
     </div>

@@ -5,18 +5,34 @@
             <div class="sideBar">
                 <div style='height:4px'></div>
                 <div class='btnGrp1'>
-                    <el-tooltip class="item" effect="light" content="设置您的页面名称" placement="left-end">
-                        <el-button class='rbtn' @click='setAccPageDialogConf.show=true'><i class="fa fa-file-text"></i></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="light" content="将当前代码保存为页面最新版本" placement="left-end">
-                        <el-button class='rbtn' @click='saveAccPage'><i class="fa fa-save"></i></el-button>
+
+                    <el-tooltip class="item" effect="light" :content="'账号登录或注册,已登录【'+(accInfo?accInfo.name:'未登录')+'】'" placement="left-end">
+                        <el-button class='rbtn' @click='accountDialogConf.show=true'>
+                            <i class="fa fa-user" v-if='!accInfo'></i>
+                            <img v-if='accInfo' v-bind:src='accInfo.avatar' class="avatarMini">
+                        </el-button>
                     </el-tooltip>
 
-                    <el-tooltip class="item" effect="light" content="导入模版页面代码" placement="left-end">
+                    <el-tooltip v-show='accInfo' class="item" effect="light" :content="'选择您要编辑的页面，当前【'+(accPage?accPage.name:'未设定')+'】'" placement="left-end">
+                        <el-button class='rbtn' @click='setAccPageDialogConf.show=true'><i class="fa fa-file-text"></i></el-button>
+                    </el-tooltip>
+                    <el-tooltip v-show='accInfo' class="item" effect="light" :content="'将当前代码保存为页面【'+(accPage?accPage.name:'未设定')+'】最新版本'" placement="left-end">
+                        <el-button class='rbtn' @click='saveAccPage'><i class="fa fa-cloud-upload"></i></el-button>
+                    </el-tooltip>
+
+                    <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
+                        <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
+                    </el-tooltip>
+
+                    <div style="margin:12px 12px;height:1px;background:#666"></div>
+
+
+
+                    <el-tooltip class="item" effect="light" content="从模版导入代码到编辑器" placement="left-end">
                         <el-button class='rbtn' @click='pageTempDialogConf.show=true'><i class="fa fa-folder-open"></i></el-button>
                     </el-tooltip>
 
-                    <el-tooltip class="item" effect="light" content="设置页面head信息" placement="left-end">
+                    <el-tooltip class="item" effect="light" content="设置当前代码的头部head信息" placement="left-end">
                         <el-button class='rbtn' @click='setDialogConf.show=true'><i class="fa fa-gear"></i></el-button>
                     </el-tooltip>
 
@@ -24,8 +40,8 @@
                         <el-button class='rbtn' @click='openShareDialog'><i class="fa fa-share-alt"></i></el-button>
                     </el-tooltip>
 
-                    <el-tooltip class="item" effect="light" content="上传图片素材" placement="left-end">
-                        <el-button class='rbtn' @click='selectUploadFile'><i class="fa fa-cloud-upload"></i></el-button>
+                    <el-tooltip class="item" effect="light" content="上传图片素材，获取图片链接地址" placement="left-end">
+                        <el-button class='rbtn' @click='selectUploadFile'><i class="fa fa-photo"></i></el-button>
                         <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
                     </el-tooltip>
 
@@ -37,18 +53,7 @@
                         </a>
                     </el-tooltip>
 
-                    <div style="margin:18px 12px;height:1px;background:#666"></div>
 
-                    <el-tooltip class="item" effect="light" content="账号登录或注册" placement="left-end">
-                        <el-button class='rbtn' @click='accountDialogConf.show=true'>
-                            <i class="fa fa-user" v-if='!accInfo'></i>
-                            <img v-if='accInfo' v-bind:src='accInfo.avatar' class="avatarMini">
-                        </el-button>
-                    </el-tooltip>
-
-                    <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
-                        <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
-                    </el-tooltip>
 
 
                 </div>
@@ -109,7 +114,7 @@
         width: 18px;
         height: 18px;
         border-radius: 18px;
-        border: 1px solid #FEFEFE;
+        border: 1px solid #CCC;
         margin: -4px;
     }
 
