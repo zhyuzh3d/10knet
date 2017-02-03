@@ -45,7 +45,9 @@ const _msg = {
         RouterPathFormatErr: new Err('您请求的API路径格式错误', 102),
         RouterMethodNotFound: new Err('找不到您所请求的API方法', 103),
         RouterReqDataFormatErr: new Err('您提交的数据格式错误', 104),
+
         SmsSendCodeErr: new Err('服务器发送短信失败，请重试', 201),
+
         AccRegCodeHasSend: new Err('注册验证码已经发送，请不要重复发送，稍后再试', 302),
         AccMobileHasUsed: new Err('手机号码已经被注册，请更换其他号码再试', 303),
         AccRegCodeNotMatch: new Err('注册短信验证码不匹配，请重试', 304),
@@ -53,7 +55,10 @@ const _msg = {
         AccPwNotMatch: new Err('密码错误或账号不存在', 306),
         AccRstCodeHasSend: new Err('重置验证码已经发送，请不要重复发送，稍后再试', 307),
         AccRstCodeNotMatch: new Err('重置短信验证码不匹配，请重试', 308),
-    }
+        AccNameHasUsed: new Err('用户名已经被使用', 309),
+
+        PageNameUsed: new Err('页面名称已经被使用，请更换后重试', 401),
+    },
 };
 
 module.exports = _msg;

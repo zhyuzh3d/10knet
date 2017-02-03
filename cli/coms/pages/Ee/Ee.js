@@ -36,6 +36,7 @@ com.data = function data() {
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
         accInfo: undefined,
+        accPage: undefined,
         refreshCss, //三个函数将作为数据传给coder编辑器
         refreshBody,
         refreshJs,
@@ -111,6 +112,7 @@ com.methods = {
     beautifyJs: function () {
         beautifyJs(this);
     },
+    pageNew: pageNew,
 };
 
 
@@ -135,6 +137,59 @@ com.mounted = function () {
 
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+
+async function pageNew() {
+    var ctx = this;
+    var token = localStorage.getItem('accToken');
+    if (!token) {
+        ctx.$notify.error({
+            title: `您还没有登录，请先登录或注册`,
+        });
+    };
+
+    var ipt = await ctx.$prompt('请输入新页面名称（4～32个字母或数字）', '创建新页面', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^[A-Za-z0-9_]{4,64}$/,
+        inputErrorMessage: '4～32个字母或数字或者下划线'
+    });
+
+    if (ipt.value) {
+        try {
+            var api = ctx.$xglobal.conf.apis.pageNew;
+            var data = {
+                token: token,
+                name: ipt.value,
+            };
+            var res = await ctx.rRun(api, data);
+            ctx.$set(ctx.$data, 'accPage', res.data);
+            ctx.$notify.success({
+                title: `创建页面文件成功`,
+                message: `接下来的代码将被保存到此页面${name}`,
+            });
+        } catch (err) {
+            ctx.$notify.error({
+                title: `创建页面文件失败`,
+                message: err.tip || err.message || '原因未知',
+            });
+        };
+    };
+};
+
+async function createPage(ctx, token, name) {
+    var api = ctx.$xglobal.conf.apis.pageNew;
+    var data = {
+        token: token,
+        name: name,
+    };
+    var res = await ctx.rRun(api, data);
+    return res;
+};
+
+
+
+
+
 
 function beautifyCss(ctx) {
     beautifyCode('css', ctx);
@@ -238,8 +293,9 @@ async function uploadFile(tag, fileName, file, ctx) {
         //获取随机key的token
         var tokenApi = ctx.$xglobal.conf.apis.qnRandKeyUploadToken;
         var data = {
+            token: localStorage.getItem('accToken'),
             tag: tag ? tag : 'none',
-            fileName: fileName ? fileName : "untitled"
+            fileName: fileName ? fileName : "untitled",
         };
         var tokenRes = await ctx.rRun(tokenApi, data);
 

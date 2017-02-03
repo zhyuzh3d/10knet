@@ -22,6 +22,7 @@ conf.apis = {
     accLogin: `//${location.host}/api/accLogin`,
     accChangePw: `//${location.host}/api/accChangePw`,
     accAutoLogin: `//${location.host}/api/accAutoLogin`,
+    pageNew: `//${location.host}/api/pageNew`,
 };
 
 //默认模版相关

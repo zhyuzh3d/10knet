@@ -45,13 +45,41 @@ _zrouter.addApi('/qnUploadCallback', {
         //对请求合法性检查可以放在这里，参照七牛文档
     },
     method: async function (ctx) {
-        var data = {
-            url: ctx.request.body.url,
+        var file = ctx.request.body;
+
+        //??限制文件大小和类型可以放在这里
+
+        //mng根据token获取用户id,记录到uploader字段
+        var accToken = file.accToken;
+        var accId;
+        if (accToken) {
+            var uploaderId = await _mngs.models.user.findOne({
+                _token: accToken,
+            }, '_id');
+            accId = uploaderId;
+            if (uploaderId) file.uploader = uploaderId;
         };
-        //限制文件大小和类型可以放在这里
+
+        delete file['accToken'];
+
+        //mng保存文件对象,uploader可用populate方法自动填充读取
+        var mngFile = await new _mngs.models.file(file).save();
+
+        //如果附带了pageId字段，那么先验证page的author与acctoken是否匹配，然后再加入page.his
+        var pageId = file.pageId;
+        if (pageId && accToken && accId) {
+            var author = await _mngs.models.page.findOne({
+                _id: pageId,
+            }, 'author');
+            console.log('>>>qnUploadCallback authorId', author);
 
 
-        ctx.body = new _msg.Msg(null, ctx, data);
+        };
+
+
+
+
+        ctx.body = new _msg.Msg(null, ctx, mngFile);
     },
 });
 
@@ -62,7 +90,13 @@ _zrouter.addApi('/qnUploadCallback', {
  */
 _zrouter.addApi('/qnRandKeyUploadToken', {
     validator: {
-        tag: function (ipt, ctx) {
+        token: function (ipt, ctx) { //用来判断用户身份,允许为空
+            return (ipt === undefined || ipt === null || _conf.regx.token.test(ipt));
+        },
+        pageId: function (ipt, ctx) {
+            return (ipt === undefined || ipt === null || _conf.regx.mngId.test(ipt));
+        },
+        tag: function (ipt, ctx) { //标志文件的用途，如page或素材none
             return _qn.uploadTags[ipt];
         },
         fileName: /^(undefined|([\S\s]{1,64}\.\w{1,6}))$/
@@ -72,12 +106,15 @@ _zrouter.addApi('/qnRandKeyUploadToken', {
         if (ctx.xdata.fileName) fkey += '/' + ctx.xdata.fileName;
 
         var url = _qn.conf.BucketDomain + '/' + fkey;
+        var upToken = genUploadToken(fkey, {
+            url: _qn.conf.BucketDomain + '/' + fkey,
+            accToken: ctx.xdata.token,
+            tag: ctx.xdata.tag,
+        });
 
         var data = {
             domain: _qn.conf.BucketDomain,
-            token: genUploadToken(fkey, ctx.xdata.tag, {
-                url: _qn.conf.BucketDomain + '/' + fkey,
-            }),
+            token: upToken,
             key: fkey, //前端需要使用这个key上传到七牛
             url: url,
         };
@@ -94,7 +131,7 @@ _zrouter.addApi('/qnRandKeyUploadToken', {
  * @param   {string} key 可选，文件名，默认为空随机文件名
  * @returns {string} token
  */
-function genUploadToken(key, tag = 'none', callbackBody) {
+function genUploadToken(key, callbackBody) {
     var keystr = key ? (_qn.conf.BucketName + ':' + key) : _qn.conf.BucketName;
     var pubPutPolicy = new $qiniu.rs.PutPolicy(keystr);
 
@@ -105,7 +142,6 @@ function genUploadToken(key, tag = 'none', callbackBody) {
     cbstr += `filesize=$(fsize)&`;
     cbstr += `type=$(mimeType)&`;
     cbstr += `hash=$(etag)&`;
-    cbstr += `tag=${tag}&`;
 
     //自定义回调字段，将callbackBodyUri传进来的参数序列化
     if (callbackBody) {

@@ -49,6 +49,51 @@ schemas.user = new $mongoose.Schema({
 models.user = $mongoose.model('user', schemas.user);
 
 
+//文件对象
+schemas.file = new $mongoose.Schema({
+    uploader: { //上传者id
+        type: String,
+        ref: 'user',
+    },
+    filename: String,
+    filesize: Number,
+    hash: String,
+    tag: String,
+    url: String,
+}, {
+    strict: false,
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'update_at',
+    },
+});
+models.file = $mongoose.model('file', schemas.file);
+
+//页面对象，每个页面对应一个当前文件file(html)以及多个历史file版本his
+schemas.page = new $mongoose.Schema({
+    name: String, //页面名，每用户不可重复
+    author: {
+        type: String,
+        ref: 'user',
+    },
+    file: { //当前文件
+        type: String,
+        ref: 'file',
+    },
+    his: [{ //历史版本，不断添加
+        type: String,
+        ref: 'file'
+    }],
+}, {
+    strict: false,
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'update_at',
+    },
+});
+models.page = $mongoose.model('page', schemas.page);
+
+
 
 
 

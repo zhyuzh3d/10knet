@@ -124,6 +124,12 @@ _zrouter.addApi('/accSaveProfile', {
         var name = ctx.xdata.name;
         var token = ctx.xdata.token;
 
+        //先检查name有没有被其他用户使用
+        var hasUsed = await _mngs.models.user.findOne({
+            name: name,
+        }, '_id');
+        if (hasUsed) throw Error().zbind(_msg.Errs.AccNameHasUsed,`:${name}`);
+
         //mng使用token提取user直接进行操作
         var res = await _mngs.models.user.update({
             _token: token,
