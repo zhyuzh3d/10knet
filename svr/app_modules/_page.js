@@ -69,7 +69,7 @@ _zrouter.addApi('/pageGetList', {
 
 /**
  * 根据用户名获取他的主页page(含file),任何人都可以获取
- * 返回基本file信息
+ * 返回page信息
  */
 _zrouter.addApi('/pageGetHomePage', {
     validator: {
@@ -90,6 +90,37 @@ _zrouter.addApi('/pageGetHomePage', {
             name: name,
         }).populate('file').exec();
         if (!page) throw Error().zbind(_msg.Errs.PageNoExist, `:${name}`);
+
+        ctx.body = new _msg.Msg(null, ctx, page);
+    },
+});
+
+
+/**
+ * 根据用户名和页面名获取page信息
+ * 返回基本page信息
+ */
+_zrouter.addApi('/pageGetPageByANamePName', {
+    validator: {
+        accName: _conf.regx.name, //用户名
+        pageName: _conf.regx.pageName, //页面名
+    },
+    method: async function (ctx) {
+        var accName = ctx.xdata.accName;
+        var pageName = ctx.xdata.pageName;
+
+        //获取用户的_id
+        var acc = await _mngs.models.user.findOne({
+            name: accName,
+        }, '_id');
+        if (!acc) throw Error().zbind(_msg.Errs.AccNotExist);
+
+        //获取同名的page
+        var page = await _mngs.models.page.findOne({
+            author: acc._id,
+            name: pageName,
+        }).populate('file').exec();
+        if (!page) throw Error().zbind(_msg.Errs.PageNoExist, `,作者[${accName}]页面[${pageName}]`);
 
         ctx.body = new _msg.Msg(null, ctx, page);
     },

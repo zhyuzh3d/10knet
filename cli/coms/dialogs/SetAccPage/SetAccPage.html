@@ -8,8 +8,8 @@
                 <el-autocomplete v-model="iptName" :fetch-suggestions="querySearch" placeholder="请输入新名称或从下拉选择" @select="handleSelect" class='iptcom'></el-autocomplete>
                 <el-button @click='clearIpt'><i class="fa fa-caret-down"></i></el-button>
                 <div v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName' class='url'><a :href='conf.setPage.accUrl' target="_blank">{{conf.setPage.accUrl}}</a></div>
-                <div style="text-align:left;margin:18px">
-                    <el-switch v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName' v-model="loadCode" on-text="开" off-text="关"></el-switch>
+                <div style="text-align:left;margin:18px" v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName'>
+                    <el-switch v-model="loadCode" on-text="开" off-text="关"></el-switch>
                     <span v-bind:style='{color:(loadCode?"#444":"#AAA")}'>&nbsp;载入代码替换编辑器内容</span>
                 </div>
 
@@ -44,7 +44,8 @@
     .iptcom {
         display: inline-block;
         width: 80%;
-        text-align: left
+        text-align: left;
+        z-index: 100;
     }
 
     .url {

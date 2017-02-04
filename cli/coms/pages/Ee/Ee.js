@@ -169,9 +169,10 @@ async function autoSetAccPage() {
 
         try {
             //获取同名的page
-            var api = ctx.$xglobal.conf.apis.pageGetHomePage;
+            var api = ctx.$xglobal.conf.apis.pageGetPageByANamePName;
             var data = {
-                name: accInfo.name,
+                accName: accInfo.name,
+                pageName: accInfo.name,
             };
 
             var res = await ctx.rRun(api, data);

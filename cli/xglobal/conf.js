@@ -24,7 +24,7 @@ conf.apis = {
     accAutoLogin: `//${location.host}/api/accAutoLogin`,
     pageNew: `//${location.host}/api/pageNew`,
     pageGetList: `//${location.host}/api/pageGetList`,
-    pageGetHomePage: `//${location.host}/api/pageGetHomePage`,
+    pageGetPageByANamePName: `//${location.host}/api/pageGetPageByANamePName`,
 };
 
 //默认模版相关

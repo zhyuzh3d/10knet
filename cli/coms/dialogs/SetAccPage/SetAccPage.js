@@ -134,7 +134,12 @@ async function getPageNameList() {
 
         list.forEach(function (item) {
             item.value = item.name;
-            item.accUrl = `http://${ctx.$xglobal.accInfo.name}.10knet.com/${item.name}`;
+            if (ctx.$xglobal.accInfo.name == item.name) {
+                item.accUrl = `http://${ctx.$xglobal.accInfo.name}.10knet.com`;
+            } else {
+                item.accUrl = `http://${ctx.$xglobal.accInfo.name}.10knet.com/${item.name}`;
+            };
+
 
             if (item._id == lsPageId) {
                 ctx.$set(ctx.$data, 'iptName', item.name);
