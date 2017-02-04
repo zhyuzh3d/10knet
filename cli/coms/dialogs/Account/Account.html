@@ -3,6 +3,7 @@
 <template>
     <div id='Account' xid='Account'>
         <el-dialog title="账号管理" v-model="conf.show">
+            <p><small style="color:#A00">测试中,正式版即将发布,敬请期待</small></p>
             <div style='width:100%;text-align:center'>
                 <el-tabs :active-name="actTab" @tab-click="tabClick" style='width:100%;max-width:500px;text-align:center'>
                     <el-tab-pane label="注册" name="reg" v-if='!$xglobal.accInfo'>
@@ -113,7 +114,7 @@
                     <el-tab-pane label="首页" name="set" v-if='$xglobal.accInfo'>
                         <el-row>
                             <el-col :span="6" class='label'>
-                                <p>个人主页:</p>
+                                <p>我的10k主页:</p>
                             </el-col>
                             <el-col :span="3" class='net' style='
         padding-right: 2px;text-align:right'>

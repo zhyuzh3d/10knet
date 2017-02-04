@@ -43,13 +43,16 @@ com.data = function data() {
         refreshBody,
         refreshJs,
         cssData: {
-            code: localStorage.getItem('preview-css') || '/*css样式*/',
+            code: localStorage.getItem('preview-css') || '',
+            //            code: localStorage.getItem('preview-css') || '/*css样式,请用左侧栏【田】按钮导入代码模版*/\nh2{color:red}',
         },
         bodyData: {
-            code: localStorage.getItem('preview-body') || '<!--html内body标记-->',
+            code: localStorage.getItem('preview-body') || '',
+            //            code: localStorage.getItem('preview-body') || '<!--html内body标记,请用左侧栏【田】按钮导入代码模版-->\n<h2 id="hello">Hello world!</h2>',
         },
         jsData: {
-            code: localStorage.getItem('preview-js') || '/*javascript脚本*/',
+            code: localStorage.getItem('preview-js') || '',
+            //            code: localStorage.getItem('preview-js') || '/*javascript脚本,请用左侧栏【田】按钮导入代码模版*/\n$("#hello").html("Hello 10knet in javascript!");',
         },
         setDialogConf: { //设置按钮，关闭时候同步刷新预览
             show: false,
@@ -142,9 +145,15 @@ com.mounted = async function () {
         barBg: '',
     });
 
-
     //自动登录
     await ctx.$xglobal.fns.autoLogin(ctx);
+
+    //如果都为空，那么自动载入start模版
+    console.log('>>>XXX', ctx.$data.cssData);
+    if (ctx.$data.cssData.code == '' && ctx.$data.bodyData.code == '' && ctx.$data.jsData.code == '') {
+        console.log('>>>XXX222', ctx.$data.cssData);
+        loadTemplate(ctx.$xglobal.conf.pageTemplates['start'], ctx, true);
+    };
 
     //从本地读取accPage并设定
     await ctx.autoSetAccPage();
@@ -272,7 +281,13 @@ function beautifyCode(part, ctx) {
 /**
  * 将一个模版page文件载入到编辑器
  */
-async function loadTemplate(temp, ctx) {
+async function loadTemplate(temp, ctx, force) {
+    if (force) { //不提示，直接载入
+        $.get(temp.url, function (data) {
+            fillEditors(data, ctx);
+        });
+        return;
+    };
     //弹出提示确认
     ctx.$confirm('是否用模版代码替换编辑器内容，替换后将无法返回', '确认替换编辑器内容', {
         confirmButtonText: '确定',

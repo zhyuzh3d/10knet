@@ -40,7 +40,7 @@ conf.temp = {
 
 //所有的页面模版
 conf.pageTemplates = {
-    'Hello world!': {
+    'start': {
         name: 'Hello world!',
         desc: '第一次接触编码？从这里开始吧！最简单的起步模版。带有jquery和bootstrap库。',
         url: 'http://10knet.com/templates/pages/helloWorld.html',
