@@ -297,6 +297,22 @@ async function selectUploadFile(ctx) {
  * 启动上传一个文件
  */
 async function uploadIptChanged(file, ctx) {
+    var confset = ctx.$xglobal.conf.set;
+    var maxSize = ctx.$data.accInfo ? confset.accUploadMaxSizeKb : confset.userUploadMaxSizeKb
+
+    //限制上传文件最大1M
+    if (file.size / 1024 > maxSize) {
+        var accM = Math.floor(confset.accUploadMaxSizeKb / 1024) + 'M';
+        var usrM = Math.floor(confset.userUploadMaxSizeKb / 1024) + 'M';
+
+        var str = ctx.$data.accInfo ? '注册用户单个上传文件不超过' + accM : '未注册用户单个上传文件不超过' + usrM;
+        ctx.$notify.error({
+            title: `上传失败，文件大小超过限制`,
+            message: str,
+        });
+        return;
+    };
+
     var ipt = $(ctx.$el).find('#uploadIpt');
     var res = await uploadFile('none', file.name, file, ctx);
     ctx.$alert(res.url, '已经存储到云端', {
@@ -319,9 +335,6 @@ async function assemblePage(ctx) {
     if (!domainRegx.test(jsCode)) {
         jsCode += "\ndocument.domain = '10knet.com';";
     };
-
-    console.log('>>jscode', jsCode);
-
 
     var data = `<!DOCTYPE html>\n<head>\n<div head 10knet>${headCode}</div>\n</head>\n<style 10knet>${cssCode}</style>\n<body><div body 10knet>${bodyCode}</div></body>\n<script 10knet>${jsCode}</script>`;
 

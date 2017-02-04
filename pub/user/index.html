@@ -68,6 +68,8 @@
             pageName: pageName,
         };
         var xhr = $.post(api, data, function(result) {
+            console.log('>POST:', api, data, result);
+
             //服务端错误显示出来
             if (result.err) {
                 showErr(result.err);

@@ -4,6 +4,11 @@
 var conf = {};
 export default conf;
 
+conf.set = {
+    userUploadMaxSizeKb: 1024,
+    accUploadMaxSizeKb: 2 * 1024,
+};
+
 //所有尚未统一的原有页面，原则上元素内不使用任何字符串格式的url地址
 conf.urls = {
     host: 'http://10knet.com/',
