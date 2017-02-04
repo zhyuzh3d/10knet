@@ -53,58 +53,81 @@
 <script>
     document.domain = '10knet.com'; //解决跨域安全问题
 
-    var accName = location.host.substr(0, location.host.indexOf('.'));
-    var pageName = location.pathname.substr(1);
-    pageName = (pageName == '') ? accName : pageName;
+    /**
+     * 根据accName和pageName拿到file的url，然后利用iframe载入这个file。
+     *  需要注意的是，file运行在iframe里面，a标签要使用target='_top'避免iframe多层嵌套
+     */
+    (function() {
+        var accName = location.host.substr(0, location.host.indexOf('.'));
+        var pageName = location.pathname.substr(1);
+        pageName = (pageName == '') ? accName : pageName;
 
-    var api = 'http://' + location.host + '/api/pageGetPageByANamePName';
-    var data = {
-        accName: accName,
-        pageName: pageName,
-    };
-    var xhr = $.post(api, data, function(result) {
-        console.log('>POST:', api, data, result);
+        var api = 'http://' + location.host + '/api/pageGetPageByANamePName';
+        var data = {
+            accName: accName,
+            pageName: pageName,
+        };
+        var xhr = $.post(api, data, function(result) {
+            //服务端错误显示出来
+            if (result.err) {
+                showErr(result.err);
+                return;
+            };
 
-        //服务端错误显示出来
-        if (result.err) {
-            showErr(result.err);
-            return;
+            var page = result.res.data;
+
+            //更新页面标题
+            $('head').find('title').html('10knet | ' + page.name);
+
+            //还没有创建文件版本
+            if (!page.file) {
+                showEmpty();
+                return;
+            };
+
+            //添加iframe，隐藏其他
+            $('#10knetHtml').hide();
+            var iframejo = $('<iframe id="10knet_iframe"></iframe>');
+            iframejo.attr('src', page.file.url);
+            $('body').append(iframejo);
+
+            iframejo[0].onload = function() {
+                var title = $(iframejo[0].contentWindow.document).find('title').html();
+                $('head').find('title').html(title);
+            };
+        });
+
+        /**
+         * Post异常处理
+         */
+        xhr.err = function(err) {
+            showErr(err);
         };
 
-        var page = result.res.data;
-
-        //还没有创建文件版本
-        if (!page.file) {
-            showEmpty();
-            return;
+        /**
+         * 显示错误到页面上
+         * @param {object} err err
+         */
+        function showErr(err) {
+            $('#welcome').hide();
+            $('#empty').hide();
+            var estr = err.tip || err.message;
+            var ecode = err.id || '000';
+            $('#error').find('#tip').html('CODE:' + ecode + ':' + estr);
+            $('#error').show();
         };
 
-        //添加iframe，隐藏其他
-        $('#10knetHtml').hide();
-        var iframejo = $('<iframe></iframe>');
-        iframejo.attr('src', page.file.url);
-        $('body').append(iframejo);
-    });
+        /**
+         * 对于没有file的page，显示空页面提示
+         */
+        function showEmpty() {
+            $('#welcome').hide();
+            $('#error').hide();
+            $('#empty').find('#tip').html('作者:' + accName + '&nbsp;页面:' + pageName);
+            $('#empty').show();
+        };
 
-    xhr.err = function(err) {
-        showErr(err);
-    };
-
-    function showErr(err) {
-        $('#welcome').hide();
-        $('#empty').hide();
-        var estr = err.tip || err.message;
-        var ecode = err.id || '000';
-        $('#error').find('#tip').html('CODE:' + ecode + ':' + estr);
-        $('#error').show();
-    };
-
-    function showEmpty() {
-        $('#welcome').hide();
-        $('#error').hide();
-        $('#empty').find('#tip').html('作者:' + accName + '&nbsp;页面:' + pageName);
-        $('#empty').show();
-    };
+    })();
 
 </script>
 
