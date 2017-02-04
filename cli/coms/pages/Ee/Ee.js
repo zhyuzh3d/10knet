@@ -85,6 +85,9 @@ com.data = function data() {
             show: false,
             onHide: function (tarctx) {
                 ctx.$set(ctx.$data, 'accPage', tarctx.conf.setPage);
+                if (tarctx.conf.loadFile) {
+                    loadTemplate(tarctx.conf.loadFile, ctx);
+                };
             },
         },
         accInfo: undefined, //用户的账号信息
@@ -99,9 +102,7 @@ com.methods = {
     refreshJsMenual: function () {
         refreshJsMenual(this);
     },
-    openShareDialog: function () {
-        openShareDialog(this);
-    },
+    openShareDialog: openShareDialog,
     uploadFile: function () {
         uploadFile(this);
     },
@@ -224,9 +225,6 @@ async function createPage(ctx, token, name) {
 
 
 
-
-
-
 function beautifyCss(ctx) {
     beautifyCode('css', ctx);
 };
@@ -283,7 +281,7 @@ async function loadTemplate(temp, ctx) {
         $.get(temp.url, function (data) {
             fillEditors(data, ctx);
         });
-    });
+    }).catch(() => {});
 };
 
 /**
@@ -378,13 +376,21 @@ async function uploadFile(tag, fileName, file, ctx) {
  * 打开分享按钮的一刻进行上传
  * 组装head,css,body,js并上传page，然后打开分享窗口
  */
-async function openShareDialog(ctx) {
-    var pageData = await assemblePage(ctx);
+async function openShareDialog() {
+    var ctx = this;
 
+    var url = ctx.$data.accPage ? ctx.$data.accPage.accUrl : undefined;
+    if (url) {
+        ctx.shareDialogConf.show = true;
+        ctx.shareDialogConf.url = url;
+        return;
+    };
+
+    //未登录或者没有设置accPage的用户，组装文件上传获得随机地址
+    var pageData = await assemblePage(ctx);
     var blob = new Blob([pageData], {
         type: 'html'
     });
-
     var pageFile = await uploadFile('share', 'index.html', blob, ctx);
     ctx.$set(ctx.$data, 'file', pageFile);
 

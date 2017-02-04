@@ -1,3 +1,8 @@
+/**
+ *设定当前工作的页面
+ *输入ctx.conf.loadFile，非空则载入模版文件
+ */
+
 import $ from 'jquery';
 
 let com = {};
@@ -16,6 +21,7 @@ com.data = function data() {
         nameList: undefined,
         iptName: '',
         isNew: false,
+        loadCode: false,
     };
 };
 
@@ -25,6 +31,13 @@ com.watch = {
             var ctx = this;
             //使关闭窗口的钩子生效
             if (!val && ctx.conf.onHide && ctx.conf.state == 'set') {
+                //更新conf.loadFile
+                if (ctx.conf.setPage && ctx.conf.setPage.file && ctx.$data.loadCode) {
+                    ctx.conf.loadFile = ctx.conf.setPage.file;
+                } else {
+                    ctx.conf.loadFile = undefined;
+                };
+
                 ctx.conf.onHide(ctx);
             };
 

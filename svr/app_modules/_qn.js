@@ -17,6 +17,7 @@ const _qn = {
         none: true,
         page: true,
         file: true,
+        share: true,
     },
     genUploadToken: genUploadToken,
 };
@@ -154,8 +155,10 @@ function genUploadToken(key, callbackBody) {
     if (callbackBody) {
         for (var attr in callbackBody) {
             var val = callbackBody[attr];
-            if (val.constructor != String) val = JSON.stringify(val); //避免'"xxx"'情况
-            cbstr += `${attr}=${val}&`
+            if (val) {
+                if (val.constructor != String) val = JSON.stringify(val); //避免'"xxx"'情况
+                cbstr += `${attr}=${val}&`
+            };
         };
     };
 
