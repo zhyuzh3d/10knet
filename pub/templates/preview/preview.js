@@ -1,3 +1,5 @@
+document.domain = '10knet.com';
+
 /**
  * 重新加载整个页面
  */

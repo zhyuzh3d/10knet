@@ -32,7 +32,7 @@ com.watch = {
             //使关闭窗口的钩子生效
             if (!val && ctx.conf.onHide && ctx.conf.state == 'set') {
                 //更新conf.loadFile
-                if (ctx.conf.setPage && ctx.conf.setPage.file && ctx.$data.loadCode) {
+                if (ctx.conf.setPage && ctx.conf.setPage.file && ctx.$data.loadCode && !ctx.$data.isNew && ctx.$data.iptName != '') {
                     ctx.conf.loadFile = ctx.conf.setPage.file;
                 } else {
                     ctx.conf.loadFile = undefined;

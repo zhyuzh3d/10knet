@@ -51,6 +51,8 @@
     </div>
 </body>
 <script>
+    document.domain = '10knet.com'; //解决跨域安全问题
+
     var accName = location.host.substr(0, location.host.indexOf('.'));
     var pageName = location.pathname.substr(1);
     pageName = (pageName == '') ? accName : pageName;

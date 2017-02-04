@@ -314,10 +314,20 @@ async function assemblePage(ctx) {
     var bodyCode = localStorage.getItem('preview-body');
     var jsCode = localStorage.getItem('preview-js');
 
+    //为解决跨域安全问题，jsCode中添加域名锁定；document.domain = '10knet.com'；
+    var domainRegx = /[;\n\r]+\s*document\.domain\s*=\s*'10knet.com'\s*[;\n\r]+/;
+    if (!domainRegx.test(jsCode)) {
+        jsCode += "\ndocument.domain = '10knet.com';";
+    };
+
+    console.log('>>jscode', jsCode);
+
+
     var data = `<!DOCTYPE html>\n<head>\n<div head 10knet>${headCode}</div>\n</head>\n<style 10knet>${cssCode}</style>\n<body><div body 10knet>${bodyCode}</div></body>\n<script 10knet>${jsCode}</script>`;
 
     return data;
 };
+
 
 
 /**
