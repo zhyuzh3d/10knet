@@ -12,7 +12,7 @@ _zrouter.addApi('/pageNew', {
         token: _conf.regx.token, //用户token认证信息
         name: _conf.regx.pageName,
     },
-    method: async function (ctx) {
+    method: async function pageNew(ctx) {
         var token = ctx.xdata.token;
         var name = ctx.xdata.name;
 
@@ -35,6 +35,8 @@ _zrouter.addApi('/pageNew', {
             name: name,
         }).save();
 
+        list = _mngs.fns.clearDoc(list);
+
         ctx.body = new _msg.Msg(null, ctx, newPage);
     },
 });
@@ -48,7 +50,7 @@ _zrouter.addApi('/pageGetList', {
     validator: {
         token: _conf.regx.token, //用户token认证信息
     },
-    method: async function (ctx) {
+    method: async function pageGetList(ctx) {
         var token = ctx.xdata.token;
 
         //根据token获取用户id
@@ -61,6 +63,8 @@ _zrouter.addApi('/pageGetList', {
         var list = await _mngs.models.page.find({
             author: acc._id,
         }, 'name file').populate('file', 'url').exec();
+
+        list = _mngs.fns.clearDoc(list);
 
         ctx.body = new _msg.Msg(null, ctx, list);
     },
@@ -75,7 +79,7 @@ _zrouter.addApi('/pageGetHomePage', {
     validator: {
         name: _conf.regx.name, //用户名
     },
-    method: async function (ctx) {
+    method: async function pageGetHomePage(ctx) {
         var name = ctx.xdata.name;
 
         //获取用户的_id
@@ -91,6 +95,8 @@ _zrouter.addApi('/pageGetHomePage', {
         }).populate('file').exec();
         if (!page) throw Error().zbind(_msg.Errs.PageNoExist, `:${name}`);
 
+        page = _mngs.fns.clearDoc(page);
+
         ctx.body = new _msg.Msg(null, ctx, page);
     },
 });
@@ -105,7 +111,7 @@ _zrouter.addApi('/pageGetPageByANamePName', {
         accName: _conf.regx.name, //用户名
         pageName: _conf.regx.pageName, //页面名
     },
-    method: async function (ctx) {
+    method: async function pageGetPageByANamePName(ctx) {
         var accName = ctx.xdata.accName;
         var pageName = ctx.xdata.pageName;
 
@@ -122,9 +128,12 @@ _zrouter.addApi('/pageGetPageByANamePName', {
         }).populate('file').exec();
         if (!page) throw Error().zbind(_msg.Errs.PageNoExist, `,作者[${accName}]页面[${pageName}]`);
 
+        page = _mngs.fns.clearDoc(page);
+
         ctx.body = new _msg.Msg(null, ctx, page);
     },
 });
+
 
 
 //-------------------functions--------------------

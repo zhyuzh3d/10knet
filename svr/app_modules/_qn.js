@@ -86,6 +86,8 @@ _zrouter.addApi('/qnUploadCallback', {
             })
         };
 
+        mngFile = _mngs.fns.clearDoc(mngFile);
+
         ctx.body = new _msg.Msg(null, ctx, mngFile);
     },
 });

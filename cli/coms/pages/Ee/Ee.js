@@ -44,15 +44,12 @@ com.data = function data() {
         refreshJs,
         cssData: {
             code: localStorage.getItem('preview-css') || '',
-            //            code: localStorage.getItem('preview-css') || '/*css样式,请用左侧栏【田】按钮导入代码模版*/\nh2{color:red}',
         },
         bodyData: {
             code: localStorage.getItem('preview-body') || '',
-            //            code: localStorage.getItem('preview-body') || '<!--html内body标记,请用左侧栏【田】按钮导入代码模版-->\n<h2 id="hello">Hello world!</h2>',
         },
         jsData: {
             code: localStorage.getItem('preview-js') || '',
-            //            code: localStorage.getItem('preview-js') || '/*javascript脚本,请用左侧栏【田】按钮导入代码模版*/\n$("#hello").html("Hello 10knet in javascript!");',
         },
         setDialogConf: { //设置按钮，关闭时候同步刷新预览
             show: false,
@@ -149,9 +146,7 @@ com.mounted = async function () {
     await ctx.$xglobal.fns.autoLogin(ctx);
 
     //如果都为空，那么自动载入start模版
-    console.log('>>>XXX', ctx.$data.cssData);
     if (ctx.$data.cssData.code == '' && ctx.$data.bodyData.code == '' && ctx.$data.jsData.code == '') {
-        console.log('>>>XXX222', ctx.$data.cssData);
         loadTemplate(ctx.$xglobal.conf.pageTemplates['start'], ctx, true);
     };
 

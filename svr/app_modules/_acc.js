@@ -11,7 +11,7 @@ _zrouter.addApi('/accGetMobileRegCode', {
     validator: {
         mobile: _conf.regx.mobile,
     },
-    method: async function (ctx) {
+    method: async function accGetMobileRegCode(ctx) {
         var mobile = ctx.xdata.mobile;
 
         //检测此手机号码mongo是否已经被注册用户使用
@@ -45,7 +45,7 @@ _zrouter.addApi('/accGetMobileRstCode', {
     validator: {
         mobile: _conf.regx.mobile,
     },
-    method: async function (ctx) {
+    method: async function accGetMobileRstCode(ctx) {
         var mobile = ctx.xdata.mobile;
 
         //检测此手机号码mongo是否已经被注册用户使用
@@ -80,7 +80,7 @@ _zrouter.addApi('/accRegByMobile', {
         code: _conf.regx.mobileCode,
         pw: _conf.regx.pw,
     },
-    method: async function (ctx) {
+    method: async function accRegByMobile(ctx) {
         var mobile = ctx.xdata.mobile;
         var code = ctx.xdata.code;
         var pw = ctx.xdata.pw;
@@ -122,7 +122,7 @@ _zrouter.addApi('/accSaveProfile', {
         token: _conf.regx.token,
         name: _conf.regx.name,
     },
-    method: async function (ctx) {
+    method: async function accSaveProfile(ctx) {
         var name = ctx.xdata.name;
         var token = ctx.xdata.token;
 
@@ -153,7 +153,7 @@ _zrouter.addApi('/accSaveProfile', {
             upsert: true
         });
 
-        acc._pw = undefined;
+        acc = _mngs.fns.clearDoc(acc);
 
         ctx.body = new _msg.Msg(null, ctx, acc);
     },
@@ -169,7 +169,7 @@ _zrouter.addApi('/accChangePw', {
         code: _conf.regx.mobileCode,
         pw: _conf.regx.pw,
     },
-    method: async function (ctx) {
+    method: async function accChangePw(ctx) {
         var mobile = ctx.xdata.mobile;
         var code = ctx.xdata.code;
         var pw = ctx.xdata.pw;
@@ -201,7 +201,7 @@ _zrouter.addApi('/accLogin', {
         mobile: _conf.regx.mobile,
         pw: _conf.regx.pw,
     },
-    method: async function (ctx) {
+    method: async function accLogin(ctx) {
         var mobile = ctx.xdata.mobile;
         var pw = ctx.xdata.pw;
 
@@ -213,8 +213,8 @@ _zrouter.addApi('/accLogin', {
 
         if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch, `手机号码:${mobile}`);
 
-        //去除敏感信息
-        res._pw = null;
+        //去除敏感信息,这里需要保留_token，不能使用clearDoc方法清理
+        res._pw = undefined;
 
         ctx.body = new _msg.Msg(null, ctx, res);
     },
@@ -227,7 +227,7 @@ _zrouter.addApi('/accAutoLogin', {
     validator: {
         token: _conf.regx.token,
     },
-    method: async function (ctx) {
+    method: async function accAutoLogin(ctx) {
         var token = ctx.xdata.token;
 
         //mng使用token提取user直接进行操作
@@ -238,7 +238,7 @@ _zrouter.addApi('/accAutoLogin', {
         if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch);
 
         //去除敏感信息
-        res._pw = null;
+        res = _mngs.fns.clearDoc(res);
 
         ctx.body = new _msg.Msg(null, ctx, res);
     },
@@ -246,7 +246,7 @@ _zrouter.addApi('/accAutoLogin', {
 
 
 //-------------------functions--------------------
-//
+
 
 
 

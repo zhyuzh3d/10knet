@@ -20,8 +20,49 @@ _mngs.startPrms = function () {
     return prms;
 };
 
+//-------------------functions-----------------------------
+var fns = _mngs.fns = {
+    clearDoc,
+}; //全部操作方法
 
-var fns = _mngs.fns = {}; //全部操作方法
+/**
+ * 将所有下划线开头的属性都删除，但保留_id
+ * 必须具有_id字段才会被清理
+ * @param   {object} obj    obj
+ * @returns {object} obj
+ */
+function clearDoc(doc) {
+    //如果undefined,null,0,false，直接返回
+    if (!doc) return doc;
+
+    //如果是队列，那么逐个执行
+    if (doc.constructor == Array) {
+        var arr = [];
+        doc.forEach(function (item) {
+            arr.push(clearDoc(item));
+        });
+        return arr;
+    };
+
+    //如果有_id属性(必然是对象)，那么先转object，再针对每个属性执行
+    if (doc['_id']) {
+        var obj = doc.toObject ? doc.toObject() : Object(doc);
+        for (var attr in obj) {
+            if (attr != '_id' && attr[0] == '_') {
+                delete obj[attr];
+            } else {
+                obj[attr] = clearDoc(obj[attr]);
+            };
+        };
+
+        doc = obj;
+    };
+
+    return doc;
+};
+
+
+//----------------schemas&&models-------------------------
 var schemas = _mngs.schemas = {}; //全部图式
 var models = _mngs.models = {}; //全部模型
 
