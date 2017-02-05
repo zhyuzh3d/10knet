@@ -5,8 +5,10 @@ var conf = {};
 export default conf;
 
 conf.set = {
-    userUploadMaxSizeKb: 1024,
-    accUploadMaxSizeKb: 2 * 1024,
+    userUploadMaxSizeKb: 512,
+    userUploadMaxSizeStr: '512k',
+    accUploadMaxSizeKb: 1024,
+    accUploadMaxSizeStr: '1M',
 };
 
 //所有尚未统一的原有页面，原则上元素内不使用任何字符串格式的url地址

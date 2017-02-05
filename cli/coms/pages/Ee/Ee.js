@@ -312,8 +312,8 @@ async function uploadIptChanged(file, ctx) {
 
     //限制上传文件最大1M
     if (file.size / 1024 > maxSize) {
-        var accM = Math.floor(confset.accUploadMaxSizeKb / 1024) + 'M';
-        var usrM = Math.floor(confset.userUploadMaxSizeKb / 1024) + 'M';
+        var accM = confset.accUploadMaxSizeStr;
+        var usrM = confset.userUploadMaxSizeStr;
 
         var str = ctx.$data.accInfo ? '注册用户单个上传文件不超过' + accM : '未注册用户单个上传文件不超过' + usrM;
         ctx.$notify.error({

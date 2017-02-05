@@ -2453,14 +2453,14 @@
 }
 .el-notification__group {}
 .el-notification__group span {
-    font-size: 16px;
+    font-size: 15px;
     color: #1f2d3d;
 }
 .el-notification__group p {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 21px;
     margin: 10px 0 0 0;
-    color: #8492a6;
+    color: #616a77;
     text-align: justify;
 }
 .el-notification__icon {
