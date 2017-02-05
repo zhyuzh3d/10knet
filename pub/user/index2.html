@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>10knet | 用户首页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initiaXl-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/png" href="//10knet.com/imgs/10knetSqr64.png">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<style>
+    iframe {
+        border-style: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
+        min-height: 100%;
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+</style>
+
+<body>
+    <div id="10knetHtml">
+        <div id='welcome' style="width:100%;text-align:center;margin-top:10%;">
+            <h2 id='title'>我的首页，我做主</h2>
+            <p>...载入中，请稍后...</p>
+            <div style="font-size:16px;color:#888">
+                <a href="http://10knet.com" style="text-decoration: none;font-size:13px">请登录10knet.com编辑您的首页</a></div>
+        </div>
+        <div id='error' style="width:100%;text-align:center;margin-top:10%;display:none">
+            <h2 id='title'>服务器程序出错啦！</h2>
+            <div id='tip' style="font-size:13px;color:#888"></div>
+        </div>
+        <div id='empty' style="width:100%;text-align:center;margin-top:10%;;display:none">
+            <h2 id='title'>您访问的页面还没有保存编码</h2>
+            <div id='tip' style="font-size:13px;color:#888"></div>
+        </div>
+    </div>
+</body>
+<script>
+    document.domain = '10knet.com'; //解决跨域安全问题
+
+    /**
+     * 根据accName和pageName拿到file的url，然后利用iframe载入这个file。
+     *  需要注意的是，file运行在iframe里面，a标签要使用target='_top'避免iframe多层嵌套
+     */
+    (function() {
+        var accName = location.host.substr(0, location.host.indexOf('.'));
+        var pageName = location.pathname.substr(1);
+        pageName = (pageName == '') ? accName : pageName;
+
+        var api = 'http://' + location.host + '/api/pageGetPageByANamePName';
+        var data = {
+            accName: accName,
+            pageName: pageName,
+        };
+        var xhr = $.post(api, data, function(result) {
+            console.log('>POST:', api, data, result);
+
+            //服务端错误显示出来
+            if (result.err) {
+                showErr(result.err);
+                return;
+            };
+
+            var page = result.res.data;
+
+            //更新页面标题
+            $('head').find('title').html('10knet | ' + page.name);
+
+            //还没有创建文件版本
+            if (!page.file) {
+                showEmpty();
+                return;
+            };
+
+            //添加iframe，隐藏其他
+            $('#10knetHtml').hide();
+            var iframejo = $('<iframe id="10knet_iframe"></iframe>');
+            iframejo.attr('src', page.file.url);
+            $('body').append(iframejo);
+
+            iframejo[0].onload = function() {
+                var title = $(iframejo[0].contentWindow.document).find('title').html();
+                $('head').find('title').html(title);
+            };
+        });
+
+        /**
+         * Post异常处理
+         */
+        xhr.err = function(err) {
+            showErr(err);
+        };
+
+        /**
+         * 显示错误到页面上
+         * @param {object} err err
+         */
+        function showErr(err) {
+            $('#welcome').hide();
+            $('#empty').hide();
+            var estr = err.tip || err.message;
+            var ecode = err.id || '000';
+            $('#error').find('#tip').html('CODE:' + ecode + ':' + estr);
+            $('#error').show();
+        };
+
+        /**
+         * 对于没有file的page，显示空页面提示
+         */
+        function showEmpty() {
+            $('#welcome').hide();
+            $('#error').hide();
+            $('#empty').find('#tip').html('作者:' + accName + '&nbsp;页面:' + pageName);
+            $('#empty').show();
+        };
+
+    })();
+
+</script>
+
+</html>

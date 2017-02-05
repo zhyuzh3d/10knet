@@ -32,103 +32,167 @@
 
 </style>
 
+
 <body>
-    <div id="10knetHtml">
+    <div id='10knetHtml'>
         <div id='welcome' style="width:100%;text-align:center;margin-top:10%;">
-            <h2 id='title'>我的首页，我做主</h2>
-            <p>...载入中，请稍后...</p>
+            <h1 id='title'>我的首页，我做主</h1>
+            <p id='tip'>...载入中，请稍后...</p>
             <div style="font-size:16px;color:#888">
                 <a href="http://10knet.com" style="text-decoration: none;font-size:13px">请登录10knet.com编辑您的首页</a></div>
         </div>
         <div id='error' style="width:100%;text-align:center;margin-top:10%;display:none">
-            <h2 id='title'>服务器程序出错啦！</h2>
+            <h2 id='title'>我的首页，我做主</h2>
             <div id='tip' style="font-size:13px;color:#888"></div>
         </div>
         <div id='empty' style="width:100%;text-align:center;margin-top:10%;;display:none">
-            <h2 id='title'>您访问的页面还没有保存编码</h2>
+            <h2 id='title'>我的首页，我做主</h2>
             <div id='tip' style="font-size:13px;color:#888"></div>
         </div>
     </div>
+    <style 10knet></style>
+    <div 10knet></div>
+    <div id='10knetFooter' style="padding:24px;display:none;width:100%;text-align:right">
+        <tt>&nbsp;This page is created in <a href="http://10knet.com">10knet.com</a></tt>
+    </div>
 </body>
+<script 10knet></script>
 <script>
-    document.domain = '10knet.com'; //解决跨域安全问题
-
-    /**
-     * 根据accName和pageName拿到file的url，然后利用iframe载入这个file。
-     *  需要注意的是，file运行在iframe里面，a标签要使用target='_top'避免iframe多层嵌套
-     */
     (function() {
         var accName = location.host.substr(0, location.host.indexOf('.'));
-        var pageName = location.pathname.substr(1);
+        var pathStr = location.pathname.substr(1);
+
+        $('body').children('#10knetHtml').children('#welcome').find('#tip').html('...正在载入【' + accName + '】的作品...');
+
+        var pathPos = pathStr.indexOf('/');
+        var pageName = (pathPos == -1) ? pathStr.substr(0) : pathStr.substr(0, pathPos);
+
+
         pageName = (pageName == '') ? accName : pageName;
+        var lskey = '10knet/' + accName + '/' + pageName; //本地存储key
 
         var api = 'http://' + location.host + '/api/pageGetPageByANamePName';
         var data = {
             accName: accName,
             pageName: pageName,
         };
-        var xhr = $.post(api, data, function(result) {
-            console.log('>POST:', api, data, result);
 
-            //服务端错误显示出来
-            if (result.err) {
-                showErr(result.err);
-                return;
-            };
 
-            var page = result.res.data;
-
-            //更新页面标题
-            $('head').find('title').html('10knet | ' + page.name);
-
-            //还没有创建文件版本
-            if (!page.file) {
-                showEmpty();
-                return;
-            };
-
-            //添加iframe，隐藏其他
-            $('#10knetHtml').hide();
-            var iframejo = $('<iframe id="10knet_iframe"></iframe>');
-            iframejo.attr('src', page.file.url);
-            $('body').append(iframejo);
-
-            iframejo[0].onload = function() {
-                var title = $(iframejo[0].contentWindow.document).find('title').html();
-                $('head').find('title').html(title);
-            };
-        });
-
-        /**
-         * Post异常处理
-         */
-        xhr.err = function(err) {
-            showErr(err);
+        //检测本地版本，如果低于10秒，表示刚刚已经载入过，这次是刷新，直接显示；
+        //如果本地没有或者版本超过10秒，表示这是新的请求，先拉取数据存储到ls，然后刷新
+        var ts = localStorage.getItem(lskey) || 0;
+        var dur = Number(new Date().getTime()) - ts;
+        if (dur > 5000) {
+            getFileUrl();
+        } else {
+            autoLoadFromLs();
         };
 
-        /**
-         * 显示错误到页面上
-         * @param {object} err err
-         */
+        //获取文件file的真实地址，自动载入并存储到本地，然后刷新页面（从本地读取）
+        function getFileUrl() {
+            var xhr = $.post(api, data, function(result) {
+                console.log('>POST:', api, data, result);
+
+                //服务端错误显示出来
+                if (result.err) {
+                    showErr(result.err);
+                    return;
+                };
+
+                var page = result.res.data;
+
+                //还没有创建文件版本
+                if (!page.file) {
+                    showEmpty();
+                    return;
+                };
+
+                //读取file文件，然后填充替换本页面内容
+                loadFile(page.file.url);
+            });
+
+            xhr.err = function(err) {
+                showErr(err);
+            };
+        };
+
+
+        //读取file文件
+        function loadFile(url) {
+            $.get(url, function(data) {
+                var tempDiv = $('<div></div>');
+                tempDiv.append(data);
+
+                //拆解文档并存储到本地
+                var ts = new Date().getTime(); //时间戳，时间戳超过1天就强制刷新
+                localStorage.setItem(lskey, ts);
+
+                var headCode = tempDiv.find('div[head][10knet]').html();
+                localStorage.setItem(lskey + '/head', headCode);
+
+                var cssCode = tempDiv.find('style[10knet]').html();
+                localStorage.setItem(lskey + '/css', cssCode);
+
+                var bodyCode = tempDiv.find('div[body][10knet]').html();
+                localStorage.setItem(lskey + '/body', bodyCode);
+
+                var jsCode = tempDiv.find('script[10knet]').html();
+                localStorage.setItem(lskey + '/js', jsCode);
+
+                //刷新页面
+                location.reload();
+            });
+        };
+
+        //从本地载入代码
+        function autoLoadFromLs() {
+            $('#10knetHtml').hide();
+            $('#10knetFooter').show();
+
+            var headCode = localStorage.getItem(lskey + '/head');
+            var cssCode = localStorage.getItem(lskey + '/css');
+            var bodyCode = localStorage.getItem(lskey + '/body');
+            var jsCode = localStorage.getItem(lskey + '/js');
+
+            //从本地重组文档
+            $('head').empty();
+            $('head').append(headCode);
+
+            $('body').find('style[10knet]').empty();
+            $('body').find('style[10knet]').append(cssCode);
+            $('body').find('div[10knet]').empty();
+            $('body').find('div[10knet]').append(bodyCode);
+
+            //执行js代码，如果也是append那么代码内的append就不能执行了
+            try {
+                eval(jsCode);
+            } catch (err) {
+                showErr(err);
+            };
+        };
+
         function showErr(err) {
-            $('#welcome').hide();
-            $('#empty').hide();
+            $('body').children().hide();
+            $('body').children('#10knetHtml').show();
+            $('body').children('#10knetHtml').children().hide();
+
             var estr = err.tip || err.message;
             var ecode = err.id || '000';
-            $('#error').find('#tip').html('CODE:' + ecode + ':' + estr);
-            $('#error').show();
+
+            var jo = $('body').children('#10knetHtml').children('#error');
+            jo.find('#tip').html('出错啦!代码:' + ecode + ':' + estr);
+            jo.show();
         };
 
-        /**
-         * 对于没有file的page，显示空页面提示
-         */
         function showEmpty() {
-            $('#welcome').hide();
-            $('#error').hide();
-            $('#empty').find('#tip').html('作者:' + accName + '&nbsp;页面:' + pageName);
-            $('#empty').show();
-        };
+            $('body').children().hide();
+            $('body').children('#10knetHtml').show();
+            $('body').children('#10knetHtml').children().hide();
 
+            var jo = $('body').children('#10knetHtml').children('#empty');
+            jo.find('#tip').html('作者:' + accName + '&nbsp;页面:' + pageName);
+            jo.show();
+        };
     })();
 
 </script>
