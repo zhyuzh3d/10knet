@@ -22,6 +22,17 @@ _mngs.startPrms = function () {
     return prms;
 };
 
+//所有数据类型字符串格式，用于his.targetType
+_mngs.types = {
+    user: 'user',
+    file: 'file',
+    page: 'page',
+    his: 'his',
+};
+
+
+
+
 //-------------------functions-----------------------------
 
 
@@ -102,6 +113,14 @@ schemas.user = new $mongoose.Schema({
         default: 'unknown',
     },
     _pw: String,
+    exp: {
+        type: Number,
+        default: 0
+    },
+    coin: {
+        type: Number,
+        default: 0
+    },
 }, {
     strict: false,
     timestamps: {
@@ -155,6 +174,24 @@ schemas.page = new $mongoose.Schema({
     },
 });
 models.page = $mongoose.model('page', schemas.page);
+
+//历史记录数据，一般不用来查询，数量会很庞大
+schemas.his = new $mongoose.Schema({
+    tag: String, //类型
+    author: {
+        type: String,
+        ref: 'user',
+    },
+    //target: Array,//操作目标对象_id，数组
+    //targetType: String,//操作目标对象类型
+    //params:Array,//操作参数，数组
+}, {
+    strict: false,
+    timestamps: {
+        createdAt: 'created_at',
+    },
+});
+models.his = $mongoose.model('his', schemas.his);
 
 
 

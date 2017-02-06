@@ -22,6 +22,7 @@ conf.imgs = {}
 //所有接口，原则上元素内不使用任何字符串格式的接口url地址
 conf.apis = {
     qnRandKeyUploadToken: `//${location.host}/api/qnRandKeyUploadToken`,
+
     accGetMobileRegCode: `//${location.host}/api/accGetMobileRegCode`,
     accGetMobileRstCode: `//${location.host}/api/accGetMobileRstCode`,
     accRegByMobile: `//${location.host}/api/accRegByMobile`,
@@ -29,10 +30,13 @@ conf.apis = {
     accLogin: `//${location.host}/api/accLogin`,
     accChangePw: `//${location.host}/api/accChangePw`,
     accAutoLogin: `//${location.host}/api/accAutoLogin`,
+
     pageNew: `//${location.host}/api/pageNew`,
     pageGetList: `//${location.host}/api/pageGetList`,
     pageGetPageByANamePName: `//${location.host}/api/pageGetPageByANamePName`,
     pageDel: `//${location.host}/api/pageDel`,
+
+    coinChangeExp: `//${location.host}/api/coinChangeExp`,
 };
 
 //默认模版相关

@@ -1,52 +1,26 @@
 /**
  * 货币系统，编码得经验，经验换金币，使用功能减金币
  */
-
 var _coin = {};
 
-
+var noDel = _mngs.fns.noDel;
 
 //-------------------apis-----------------------------
 
 /**
- * 修改用户金币数量，添加历史记录
+ * 增加经验，修改用户硬币数量，添加历史记录
+ * 返回exp总数和coin总数
  */
-_zrouter.addApi('/coinAdd', {
+_zrouter.addApi('/coinChangeExp', {
     validator: {
         token: _conf.regx.token,
-        name: _conf.regx.name,
+        delta: _conf.regx.int8,
     },
     method: async function accSaveProfile(ctx) {
-        var name = ctx.xdata.name;
         var token = ctx.xdata.token;
+        var delta = ctx.xdata.delta;
 
-        //先检查name有没有被其他用户使用
-        var hasUsed = await _mngs.models.user.findOne(noDel({
-            name: name,
-        }), '_id');
-        if (hasUsed) throw Error().zbind(_msg.Errs.AccNameHasUsed, `:${name}`);
-
-        //mng使用token提取user直接进行操作
-        var res = await _mngs.models.user.update(noDel({
-            _token: token,
-        }), {
-            name: name,
-        });
-        if (res.n == 0) throw Error().zbind(_msg.Errs.AccNotExist);
-
-        //保存成功后为每个用户创建一个同名的page，作为用户的首页
-        var acc = await _mngs.models.user.findOne(noDel({
-            _token: token,
-        }));
-
-        var page = {
-            author: acc._id,
-            name: name,
-        };
-
-        var newPage = await _mngs.models.page.update(noDel(page), page, {
-            upsert: true
-        });
+        var acc = await _coin.changeExp(token, delta);
 
         acc = _mngs.fns.clearDoc(acc);
 
@@ -55,9 +29,74 @@ _zrouter.addApi('/coinAdd', {
 });
 
 
-
 //-------------------functions-----------------------------
+/**
+ * 修改用户的经验数量，自动同步变化硬币数量
+ * @param {mngdoc} acc mongo的user对象
+ * @param {number} delta 增减变化量，整数
+ * @param {object} ext 附加记录到his的信息对象
+ * @return {accdoc} 变化后的acc数量
+ */
+_coin.changeExp = async function changeExp(token, delta, ext) {
+    var acc = await _acc.getAccByToken(token, 'exp coin');
+    var params = {
+        exp: delta,
+        coin: delta / _conf.Coin.ExpPerCoin,
+    };
 
+    var res = await acc.update({
+        $inc: params
+    });
+
+    //写入历史记录
+    if (ext) params = Object.assign(params, ext);
+    await new _mngs.models.his({
+        tag: 'changeExp',
+        author: acc._id,
+        target: acc._id,
+        targetType: _mngs.types.user,
+        params: params,
+    }).save();
+
+    acc.exp += params.exp;
+    acc.coin += params.coin;
+
+    return acc;
+};
+
+
+/**
+ * 单独修改用户的硬币数量，消费，与exp无关
+ * 这个函数没有对外的接口，仅在后台程序之间调用
+ * @param {mngdoc} acc mongo的user对象
+ * @param {number} delta 增减变化量，整数
+ * @param {object} ext 附加记录到his.params的信息对象
+ * @return {accdoc} 变化后的acc数量
+ */
+_coin.changeCoin = async function changeCoin(token, delta, ext) {
+    var acc = await _acc.getAccByToken(token, 'exp coin');
+    var params = {
+        coin: delta,
+    };
+
+    var res = await acc.update({
+        $inc: params
+    });
+
+    //写入历史记录
+    if (ext) params = Object.assign(params, ext);
+    await new _mngs.models.his({
+        tag: 'changeCoin',
+        author: acc._id,
+        target: acc._id,
+        targetType: _mngs.types.user,
+        params: params,
+    }).save();
+
+    acc.coin += params.coin;
+
+    return acc;
+};
 
 
 //导出模块

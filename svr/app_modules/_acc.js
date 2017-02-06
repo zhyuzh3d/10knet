@@ -223,7 +223,7 @@ _zrouter.addApi('/accAutoLogin', {
     },
     method: async function accAutoLogin(ctx) {
         var token = ctx.xdata.token;
-        var res = await _acc.getAccByToken(token);
+        var res = await _acc.getAccByToken(token, '');
 
         res = _mngs.fns.clearDoc(res);
         ctx.body = new _msg.Msg(null, ctx, res);
@@ -236,10 +236,11 @@ _zrouter.addApi('/accAutoLogin', {
 /**
  * 获取账号Id，通过token，使用token提取user直接进行操作
  * @param   {string}   token token
- * @param   {string}   str 要获取的附加字段,默认为空，只带_id字段
+ * @param   {string}   str 要获取的附加字段,默认为空，只带_id字段;全部字段使用''
  * @returns {object} accInfo
  */
 _acc.getAccByToken = async function getAccByToken(token, str) {
+    if (!str) str = '_id';
     var res = await _mngs.models.user.findOne(noDel({
         _token: token,
     }), str);

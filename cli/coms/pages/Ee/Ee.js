@@ -152,6 +152,20 @@ com.mounted = async function () {
 
     //从本地读取accPage并设定
     await ctx.autoSetAccPage();
+
+
+    //test
+    (async function test() {
+        //获取随机key的token
+        var api = ctx.$xglobal.conf.apis.coinChangeExp;
+        var data = {
+            token: localStorage.getItem('accToken'),
+            delta: -3000,
+        };
+
+        var res = await ctx.rRun(api, data);
+    })();
+
 };
 
 
@@ -460,11 +474,6 @@ function fillEditors(data, ctx) {
 };
 
 
-
-
-
-
-
 /**
  * 发送命令，让右侧预览窗口刷新
  * @param {string} cmd    'reload'或'refresh'，由preview.js支持
@@ -536,3 +545,12 @@ function refreshJsMenual(ctx) {
         part: 'all',
     });
 };
+
+
+
+
+
+
+
+
+//

@@ -49,7 +49,6 @@ async function apiValidate(ctx) {
         var inputValue = ctx.query[key] || ctx.request.body[key];
         var vali = api.validator[key];
 
-
         var legal = true;
 
         if (vali.constructor == RegExp) {

@@ -30,6 +30,9 @@ var _conf = {
         },
         ExpMin: 'set in _xconf', //短信码过期时间，分钟
     }, _xconf.Sms),
+    Coin: {
+        ExpPerCoin: 50, //每个50个经验兑换1个金币
+    },
 };
 
 
@@ -44,6 +47,7 @@ _conf.regx = {
     token: /^[A-Za-z0-9-]{32,64}$/, //用户token，数字字母横线
     mngId: /^[a-z0-9-]{16,64}$/, //mongo数据库文档id，数字字母
     pageName: /^[A-Za-z0-9_]{4,64}$/, //页面名称，数字字母下划线
+    int8: /^-?\d{1,8}$/, //正负整数,99999999
 };
 
 
