@@ -56,11 +56,13 @@ const _msg = {
         AccRstCodeHasSend: new Err('重置验证码已经发送，请不要重复发送，稍后再试', 307),
         AccRstCodeNotMatch: new Err('重置短信验证码不匹配，请重试', 308),
         AccNameHasUsed: new Err('用户名已经被使用', 309),
+        AccTokenNotMatch: new Err('用户令牌过期或无效', 310),
 
         PageNameUsed: new Err('页面名称已经被使用，请更换后重试', 401),
         PageNoPower: new Err('您无权对页面进行操作', 402),
         PageNoExist: new Err('您请求的页面不存在', 403),
         PageFileNoExist: new Err('您请求页面还没有创建文件', 404),
+        PageIdNotFound: new Err('找不到页面ID', 405),
     },
 };
 

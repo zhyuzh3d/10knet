@@ -19,31 +19,14 @@ _zrouter.addApi('/pageNew', {
         var name = ctx.xdata.name;
 
         //根据token获取用户id
-        var acc = await _mngs.models.user.findOne(noDel({
-            _token: token
-        }), '_id');
-        if (!acc) throw Error().zbind(_msg.Errs.AccNotExist);
+        var acc = await _acc.getAccByToken(token);
 
-        //检测是否有重名的page
-        var hasUsed = await _mngs.models.page.findOne(noDel({
-            author: acc.id,
-            name: name,
-        }), '_id');
-        if (hasUsed) throw Error().zbind(_msg.Errs.PageNameUsed, `:${name}`);
-
-        //创建新页面
-        var newPage = await new _mngs.models.page({
-            author: acc.id,
-            name: name,
-        }).save();
-
+        var newPage = await _page.createNew(acc.id, name);
         newPage = _mngs.fns.clearDoc(newPage);
 
         ctx.body = new _msg.Msg(null, ctx, newPage);
     },
 });
-
-
 
 /**
  * 删除一个页面,只是设置__del:true，并不真的删除
@@ -54,15 +37,12 @@ _zrouter.addApi('/pageDel', {
         token: _conf.regx.token, //用户token认证信息
         name: _conf.regx.pageName,
     },
-    method: async function pageNew(ctx) {
+    method: async function pageDel(ctx) {
         var token = ctx.xdata.token;
         var name = ctx.xdata.name;
 
         //根据token获取用户id
-        var acc = await _mngs.models.user.findOne(noDel({
-            _token: token
-        }), '_id');
-        if (!acc) throw Error().zbind(_msg.Errs.AccNotExist);
+        var acc = await _acc.getAccByToken(token);
 
         //直接更新__del字段
         var res = await _mngs.models.page.update(noDel({
@@ -90,10 +70,7 @@ _zrouter.addApi('/pageGetList', {
         var token = ctx.xdata.token;
 
         //根据token获取用户id
-        var acc = await _mngs.models.user.findOne(noDel({
-            _token: token,
-        }), '_id');
-        if (!acc) throw Error().zbind(_msg.Errs.AccNotExist);
+        var acc = await _acc.getAccByToken(token);
 
         //获取此用户所有page列表
         var list = await _mngs.models.page.find(noDel({
@@ -173,6 +150,72 @@ _zrouter.addApi('/pageGetPageByANamePName', {
 
 
 //-------------------functions--------------------
+
+/**
+ * 创建一个页面(create模式),带检测重名
+ * @param   {object}   page 页面对象,必须{author(id),name}
+ * @returns {object} 新建的page,不清理
+ */
+_page.createNew = async function createNew(authorId, pageName) {
+    //检测是否有重名的page
+    var hasUsed = await _mngs.models.page.findOne(noDel({
+        author: authorId,
+        name: pageName,
+    }), '_id');
+    if (hasUsed) throw Error().zbind(_msg.Errs.PageNameUsed, `:${pageName}`);
+
+    var page = {
+        author: authorId,
+        name: pageName,
+    };
+
+    //创建新页面
+    var newPage = await new _mngs.models.page(page).save();
+    return newPage;
+};
+
+
+/**
+ * 创建一个页面(upsert模式),带检测重名
+ * @param   {object}   page 页面对象,必须{author(id),name}
+ * @returns {object} 新建的page,不清理
+ */
+_page.upsertNew = async function createNew(authorId, pageName) {
+    var page = {
+        author: authorId,
+        name: pageName,
+    };
+
+    //创建新页面
+    var newPage = await _mngs.models.page.update(noDel(page), page, {
+        upsert: true
+    });
+    return newPage;
+};
+
+/**
+ * 设置一个page的file字段,file自带page（id）和author(id)字段;不做验证
+ * @param   {object}   page 页面对象,必须{authorId,pageId,file}
+ * @returns {object} 新建的page,不清理
+ */
+_page.setPageFile = async function setPageFile(file) {
+    //mng保存file到page，作为最新版本文件
+    var res = await _mngs.models.page.update(noDel({
+        _id: file.page,
+        author: file.uploader,
+    }), {
+        file: file._id
+    });
+
+    res = await _mngs.models.page.find(noDel({
+        _id: file.page,
+        author: file.uploader,
+    }));
+
+    if (res.n == 0) throw Error().zbind(_msg.Errs.PageNoExist);
+
+    return res;
+};
 
 
 

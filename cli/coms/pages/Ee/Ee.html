@@ -24,7 +24,9 @@
                         <div v-if='!accInfo'>你还没注册和登录</div>
                         <div v-if='!accPage'>您还没设定保存页面地址</div>
                         <div v-if='accInfo&&accPage'>
-                            <div class="popTitle">保存到&nbsp;{{accInfo.name}}.10knet.com/{{accPage.name}}</div>
+                            <div class="popTitle">
+                                <span>保存到&nbsp;</span>
+                                <a v-bind:href="'http://'+accInfo.name+'.10knet.com/'+accPage.name" target="_blank">                              {{accInfo.name}}.10knet.com/{{accPage.name}}</a></div>
                             <div class="popBody">
                                 <div>点击按钮立即保存</div>
                                 <br>
@@ -71,7 +73,7 @@
                     <el-button class='rbtn' @click='openShareDialog' v-popover:shareBtnPop><i class="fa fa-share-alt"></i></el-button>
 
                     <el-popover ref="picBtnPop" placement="right" width="auto" v-model="picBtnPopVis" trigger="hover">
-                        <div class="popTitle">想在代码里面使用自己的图片吗？点这里！</div>
+                        <div class="popTitle">想使用自己的图片？点这里上传！</div>
                         <div class="popBody">
                             <div>您可以点击按钮选择自己的图片上传</div>
                             <div>上传后弹出图片的链接地址</div>

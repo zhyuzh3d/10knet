@@ -1,4 +1,6 @@
-/*七牛云存储相关的函数和接口，如获取token等
+/**
+ * 七牛云存储相关的函数和接口，如获取token等
+ * 同时控制mngs文件file对象
  */
 'use strict';
 
@@ -55,37 +57,19 @@ _zrouter.addApi('/qnUploadCallback', {
 
         //mng根据token获取用户id,记录到uploader字段
         var accToken = file.accToken;
-        var accId;
         if (accToken) {
-            var acc = await _mngs.models.user.findOne(noDel({
-                _token: accToken,
-            }), '_id');
-            accId = acc._id;
-            if (accId) file.uploader = accId;
+            var acc = await _acc.getAccByToken(accToken);
+            if (acc._id) file.uploader = acc._id;
         };
         delete file['accToken'];
 
-        //如果附带了pageId字段，那么先验证page的author与acctoken是否匹配，然后再加入page.his
-        var pageId = file.pageId;
-        if (pageId && accToken && accId) {
-            var page = await _mngs.models.page.findOne(noDel({
-                _id: pageId,
-            }), 'author');
-            if (page.author != accId) throw Error().zbind(_msg.Errs.PageNoPower);
-            file.page = page._id;
-        };
-        delete file['pageId'];
-
-        //mng保存文件对象,uploader可用populate方法自动填充读取
+        //mngs保存文件
         var mngFile = await new _mngs.models.file(file).save();
 
-        //mng保存file到page，作为最新版本文件
-        if (file.page) {
-            await _mngs.models.page.update(noDel({
-                _id: pageId,
-            }), {
-                file: mngFile._id
-            })
+        //mngs如果附带了pageId字段，那么更新page的file字段
+        if (mngFile.page && mngFile.uploader) {
+            delete file['pageId'];
+            await _page.setPageFile(mngFile);
         };
 
         mngFile = _mngs.fns.clearDoc(mngFile);
@@ -121,7 +105,7 @@ _zrouter.addApi('/qnRandKeyUploadToken', {
             url: _qn.conf.BucketDomain + '/' + fkey,
             accToken: ctx.xdata.token,
             tag: ctx.xdata.tag,
-            pageId: ctx.xdata.pageId,
+            page: ctx.xdata.pageId,
         });
 
         var data = {

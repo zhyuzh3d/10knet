@@ -127,11 +127,12 @@ _zrouter.addApi('/accSaveProfile', {
         var name = ctx.xdata.name;
         var token = ctx.xdata.token;
 
-        //先检查name有没有被其他用户使用
+        //先检查name有没有被其他用户使用且不是被自己使用
         var hasUsed = await _mngs.models.user.findOne(noDel({
             name: name,
-        }), '_id');
-        if (hasUsed) throw Error().zbind(_msg.Errs.AccNameHasUsed, `:${name}`);
+        }), '_id _token');
+
+        if (hasUsed && hasUsed.toObject()._token != token) throw Error().zbind(_msg.Errs.AccNameHasUsed, `:${name}`);
 
         //mng使用token提取user直接进行操作
         var res = await _mngs.models.user.update(noDel({
@@ -146,15 +147,7 @@ _zrouter.addApi('/accSaveProfile', {
             _token: token,
         }));
 
-        var page = {
-            author: acc._id,
-            name: name,
-        };
-
-        var newPage = await _mngs.models.page.update(noDel(page), page, {
-            upsert: true
-        });
-
+        var newPage = await _page.upsertNew(acc.id, name);
         acc = _mngs.fns.clearDoc(acc);
 
         ctx.body = new _msg.Msg(null, ctx, acc);
@@ -230,17 +223,9 @@ _zrouter.addApi('/accAutoLogin', {
     },
     method: async function accAutoLogin(ctx) {
         var token = ctx.xdata.token;
+        var res = await _acc.getAccByToken(token);
 
-        //mng使用token提取user直接进行操作
-        var res = await _mngs.models.user.findOne(noDel({
-            _token: token,
-        }));
-
-        if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch);
-
-        //去除敏感信息
         res = _mngs.fns.clearDoc(res);
-
         ctx.body = new _msg.Msg(null, ctx, res);
     },
 });
@@ -248,7 +233,20 @@ _zrouter.addApi('/accAutoLogin', {
 
 //-------------------functions--------------------
 
+/**
+ * 获取账号Id，通过token，使用token提取user直接进行操作
+ * @param   {string}   token token
+ * @param   {string}   str 要获取的附加字段,默认为空，只带_id字段
+ * @returns {object} accInfo
+ */
+_acc.getAccByToken = async function getAccByToken(token, str) {
+    var res = await _mngs.models.user.findOne(noDel({
+        _token: token,
+    }), str);
 
+    if (!res) throw Error().zbind(_msg.Errs.AccTokenNotMatch);
+    return res;
+};
 
 
 
