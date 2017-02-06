@@ -5,20 +5,34 @@
             <div class="sideBar">
                 <div style='height:4px'></div>
                 <div class='btnGrp1'>
+                    <el-popover ref="accBtnPop" placement="right" width="auto" v-model="accBtnPopVis" trigger="hover">
+                        <div v-if='!accInfo' class="popTitle">点击按钮注册或登录，获得更多功能</div>
+                        <div v-if='accInfo'>
+                            <div class="popTitle">已登录【{{accInfo.name}}】</div>
+                            <div class="popBody">
+                                <div>欢迎来到10knet!</div>
+                                <div>点击进行设置</div>
+                            </div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='accountDialogConf.show=true' v-popover:accBtnPop>
+                        <i class="fa fa-user" v-if='!accInfo'></i>
+                        <img v-if='accInfo' v-bind:src='accInfo.avatar' class="avatarMini">
+                    </el-button>
 
-                    <el-tooltip class="item" effect="light" :content="'账号登录或注册,已登录【'+(accInfo?accInfo.name:'未登录')+'】'" placement="left-end">
-                        <el-button class='rbtn' @click='accountDialogConf.show=true'>
-                            <i class="fa fa-user" v-if='!accInfo'></i>
-                            <img v-if='accInfo' v-bind:src='accInfo.avatar' class="avatarMini">
-                        </el-button>
-                    </el-tooltip>
-
-                    <el-tooltip v-show='accInfo' class="item" effect="light" :content="'选择您要编辑的页面，当前【'+(accPage?accPage.name:'未设定')+'】'" placement="left-end">
-                        <el-button class='rbtn' @click='setAccPageDialogConf.show=true'><i class="fa fa-file-text"></i></el-button>
-                    </el-tooltip>
-                    <el-tooltip v-show='accInfo' class="item" effect="light" :content="'将当前代码保存为页面【'+(accPage?accPage.name:'未设定')+'】最新版本'" placement="left-end">
-                        <el-button class='rbtn' @click='saveAccPage'><i class="fa fa-cloud-upload"></i></el-button>
-                    </el-tooltip>
+                    <el-popover ref="saveBtnPop" placement="right" width="auto" v-model="accBtnPopVis" trigger="hover">
+                        <div v-if='!accInfo'>你还没注册和登录</div>
+                        <div v-if='!accPage'>您还没设定保存页面地址</div>
+                        <div v-if='accInfo&&accPage'>
+                            <div class="popTitle">保存到&nbsp;{{accInfo.name}}.10knet.com/{{accPage.name}}</div>
+                            <div class="popBody">
+                                <div>点击按钮立即保存</div>
+                                <br>
+                                <el-button type='primary' size='small' @click='setAccPageDialogConf.show=true'>设置保存地址</el-button>
+                            </div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' v-show='accInfo' @click='saveAccPage' v-popover:saveBtnPop><i class="fa fa-save"></i></el-button>
 
                     <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
                         <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
@@ -26,47 +40,85 @@
 
                     <div style="margin:12px 12px;height:1px;background:#666"></div>
 
+                    <el-popover ref="tmpBtnPop" placement="right" width="auto" v-model="tmpBtnPopVis" trigger="hover">
+                        <div class="popTitle">不知从何开始？点击浏览代码模版</div>
+                        <div class="popBody">
+                            <div>您可以从各种模版一键导入代码</div>
+                            <div>然后在模版基础上修改编写</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='pageTempDialogConf.show=true' v-popover:tmpBtnPop><i class="fa fa-th-large"></i></el-button>
+
+                    <el-popover ref="setBtnPop" placement="right" width="auto" v-model="setBtnPopVis" trigger="hover">
+                        <div class="popTitle">修改页面标题？在这里设置更多！</div>
+                        <div class="popBody">
+                            <div>页面包含head,css,body,js四个部分</div>
+                            <div>您可以在head中设置页面标题文字或引入其他文件</div>
+                            <div>点击按钮打开head代码编辑窗口</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='setDialogConf.show=true' v-popover:setBtnPop><i class="fa fa-gear"></i></el-button>
 
 
-                    <el-tooltip class="item" effect="light" content="从模版导入代码到编辑器" placement="left-end">
-                        <el-button class='rbtn' @click='pageTempDialogConf.show=true'><i class="fa fa-th-large"></i></el-button>
-                    </el-tooltip>
+                    <el-popover ref="shareBtnPop" placement="right" width="auto" v-model="shareBtnPopVis" trigger="hover">
+                        <div class="popTitle">想把您的页面分享给朋友吗？点这里！</div>
+                        <div class="popBody">
+                            <div>支持QQ好友、QQ空间、微博、微信</div>
+                            <div>微信扫码后打开，然后在右上角菜单下分享</div>
+                            <div>您也可以直接把链接复制到任何地方打开观看</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='openShareDialog' v-popover:shareBtnPop><i class="fa fa-share-alt"></i></el-button>
 
-                    <el-tooltip class="item" effect="light" content="设置当前代码的头部head信息" placement="left-end">
-                        <el-button class='rbtn' @click='setDialogConf.show=true'><i class="fa fa-gear"></i></el-button>
-                    </el-tooltip>
+                    <el-popover ref="picBtnPop" placement="right" width="auto" v-model="picBtnPopVis" trigger="hover">
+                        <div class="popTitle">想在代码里面使用自己的图片吗？点这里！</div>
+                        <div class="popBody">
+                            <div>您可以点击按钮选择自己的图片上传</div>
+                            <div>上传后弹出图片的链接地址</div>
+                            <div>可以复制到任意&lt;img&gt;标记的src属性中</div>
+                            <div v-if='!accInfo'>未登录用户每文件最大{{$xglobal.conf.set.userUploadMaxSizeStr}}</div>
+                            <div v-if='accInfo'>注册用户每文件最大{{$xglobal.conf.set.accUploadMaxSizeStr}}</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='selectUploadFile' v-popover:picBtnPop><i class="fa fa-photo"></i></el-button>
+                    <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
 
-                    <el-tooltip class="item" effect="light" content="QQ、微信、微博，分享当前的页面效果" placement="left-end">
-                        <el-button class='rbtn' @click='openShareDialog'><i class="fa fa-share-alt"></i></el-button>
-                    </el-tooltip>
-
-                    <el-tooltip class="item" effect="light" content="上传图片素材，获取图片链接地址" placement="left-end">
-                        <el-button class='rbtn' @click='selectUploadFile'><i class="fa fa-photo"></i></el-button>
-                        <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
-                    </el-tooltip>
 
 
-
-                    <el-tooltip class="item" effect="light" content="加入【10knet编程爱好者】QQ群，求助或一起交流" placement="left-end">
-                        <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
-                            <el-button class='rbtn'><i class="fa fa-qq"></i></el-button>
-                        </a>
-                    </el-tooltip>
+                    <el-popover ref="qqBtnPop" placement="right" width="auto" v-model="qqBtnPopVis" trigger="hover">
+                        <div class="popTitle">加入【10knet编程爱好者】QQ群，求助或一起交流</div>
+                        <div class="popBody">
+                            <div>一键加入我们的QQ群</div>
+                            <div>或QQ搜索群：10knet编程爱好者</div>
+                            <div>群号：571956473</div>
+                        </div>
+                    </el-popover>
+                    <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
+                        <el-button class='rbtn' v-popover:qqBtnPop><i class="fa fa-qq"></i></el-button>
+                    </a>
 
 
 
 
                 </div>
                 <div class="btnGrp2">
-                    <el-tooltip class="item" effect="light" content="隐藏／显示编辑器" placement="left-end">
-                        <el-button class='rbtn' @click='codersBoxVis=!codersBoxVis'>
-                            <i class="fa fa-code" v-bind:class='{btnOn:codersBoxVis,btnOff:!codersBoxVis}' style='font-weight: bold;'></i>
-                        </el-button>
-                    </el-tooltip>
+                    <el-popover ref="coderBtnPop" placement="right" width="auto" v-model="coderBtnPopVis" trigger="hover">
+                        <div class="popTitle">显示／隐藏代码编辑器</div>
+                        <div class="popBody">
+                            <div>您也可以手工拉动边框调整编辑器大小</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='codersBoxVis=!codersBoxVis' v-popover:coderBtnPop>
+                        <i class="fa fa-code" v-bind:class='{btnOn:codersBoxVis,btnOff:!codersBoxVis}' style='font-weight: bold;'></i>
+                    </el-button>
 
-                    <el-tooltip class="item" effect="light" content="关于10knet.com" placement="left-end">
-                        <el-button class='rbtn' @click='aboutDialogConf.show=true'><i class="fa fa-info"></i></el-button>
-                    </el-tooltip>
+                    <el-popover ref="aboutBtnPop" placement="right" width="auto" v-model="aboutBtnPopVis" trigger="hover">
+                        <div class="popTitle">关于10knet和我的信息</div>
+                        <div class="popBody">
+                            <div>欢迎您随时打扰～</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='aboutDialogConf.show=true' v-popover:aboutBtnPop><i class="fa fa-info"></i></el-button>
                 </div>
                 <div style='height:8px'></div>
             </div>
@@ -110,6 +162,17 @@
     </div>
 </template>
 <style scoped>
+    .popTitle {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 8px;
+    }
+
+    .popBody {
+        font-size: 12px;
+        margin: 8px;
+    }
+
     .avatarMini {
         width: 18px;
         height: 18px;

@@ -31,8 +31,6 @@ async function autoLogin(ctx) {
         if (!res.err) {
             ctx.$notify.success({
                 title: '自动登录成功!',
-                message: '自动登录成功!自动登录成功自动登录成功自动登录成功自动登录成功自动登录成功',
-                duration: 0,
             });
 
             //数据放入xglobal

@@ -2,6 +2,7 @@
  */
 var _acc = {};
 
+var noDel = _mngs.fns.noDel;
 //-------------------apis--------------------
 /**
  * 用户注册之前获取手机验证码，以此确认对此手机号码所有权
@@ -15,9 +16,9 @@ _zrouter.addApi('/accGetMobileRegCode', {
         var mobile = ctx.xdata.mobile;
 
         //检测此手机号码mongo是否已经被注册用户使用
-        var mobileUsed = await $mongoose.model('user').findOne({
+        var mobileUsed = await $mongoose.model('user').findOne(noDel({
             mobile: mobile,
-        }, '_id');
+        }), '_id');
         if (mobileUsed) throw Error().zbind(_msg.Errs.AccMobileHasUsed, `手机号码:${mobile}`);
 
         //检测此手机号码rds是否刚刚已经发送还没过期
@@ -49,9 +50,9 @@ _zrouter.addApi('/accGetMobileRstCode', {
         var mobile = ctx.xdata.mobile;
 
         //检测此手机号码mongo是否已经被注册用户使用
-        var mobileUsed = await $mongoose.model('user').findOne({
+        var mobileUsed = await $mongoose.model('user').findOne(noDel({
             mobile: mobile,
-        }, '_id');
+        }), '_id');
         if (!mobileUsed) throw Error().zbind(_msg.Errs.AccNotExist, `手机号码:${mobile}`);
 
         //检测此手机号码rds是否刚刚已经发送还没过期
@@ -91,9 +92,9 @@ _zrouter.addApi('/accRegByMobile', {
         if (rdsCode != code) throw Error().zbind(_msg.Errs.AccRegCodeNotMatch, '手机号码:' + mobile);
 
         //mng检测手机号码是否已经被其他用户注册
-        var mobileUsed = await $mongoose.model('user').findOne({
+        var mobileUsed = await $mongoose.model('user').findOne(noDel({
             mobile: mobile,
-        }, '_id');
+        }), '_id');
         if (mobileUsed) throw Error().zbind(_msg.Errs.AccMobileHasUsed, `手机号码:${mobile}`);
 
         //mng创建新的用户，随机token密钥
@@ -127,29 +128,30 @@ _zrouter.addApi('/accSaveProfile', {
         var token = ctx.xdata.token;
 
         //先检查name有没有被其他用户使用
-        var hasUsed = await _mngs.models.user.findOne({
+        var hasUsed = await _mngs.models.user.findOne(noDel({
             name: name,
-        }, '_id');
+        }), '_id');
         if (hasUsed) throw Error().zbind(_msg.Errs.AccNameHasUsed, `:${name}`);
 
         //mng使用token提取user直接进行操作
-        var res = await _mngs.models.user.update({
+        var res = await _mngs.models.user.update(noDel({
             _token: token,
-        }, {
+        }), {
             name: name,
         });
         if (res.n == 0) throw Error().zbind(_msg.Errs.AccNotExist);
 
         //保存成功后为每个用户创建一个同名的page，作为用户的首页
-        var acc = await _mngs.models.user.findOne({
+        var acc = await _mngs.models.user.findOne(noDel({
             _token: token,
-        });
+        }));
 
         var page = {
             author: acc._id,
             name: name,
         };
-        var newPage = await _mngs.models.page.update(page, page, {
+
+        var newPage = await _mngs.models.page.update(noDel(page), page, {
             upsert: true
         });
 
@@ -180,9 +182,9 @@ _zrouter.addApi('/accChangePw', {
         if (rdsCode != code) throw Error().zbind(_msg.Errs.AccRstCodeNotMatch, '手机号码:' + mobile);
 
         //mng修改密码
-        var res = await _mngs.models.user.update({
+        var res = await _mngs.models.user.update(noDel({
             mobile: mobile,
-        }, {
+        }), {
             _pw: pw,
         });
 
@@ -206,11 +208,10 @@ _zrouter.addApi('/accLogin', {
         var pw = ctx.xdata.pw;
 
         //mng使用token提取user直接进行操作
-        var res = await _mngs.models.user.findOne({
+        var res = await _mngs.models.user.findOne(noDel({
             mobile: mobile,
             _pw: pw,
-        });
-
+        }));
         if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch, `手机号码:${mobile}`);
 
         //去除敏感信息,这里需要保留_token，不能使用clearDoc方法清理
@@ -231,9 +232,9 @@ _zrouter.addApi('/accAutoLogin', {
         var token = ctx.xdata.token;
 
         //mng使用token提取user直接进行操作
-        var res = await _mngs.models.user.findOne({
+        var res = await _mngs.models.user.findOne(noDel({
             _token: token,
-        });
+        }));
 
         if (!res) throw Error().zbind(_msg.Errs.AccPwNotMatch);
 

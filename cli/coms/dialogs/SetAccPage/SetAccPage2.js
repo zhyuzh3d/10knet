@@ -18,12 +18,10 @@ com.props = {
 //所有数据写在这里
 com.data = function data() {
     return {
-        pageList: undefined,
+        nameList: undefined,
         iptName: '',
         isNew: false,
         loadCode: false,
-        showPageUrl: true,
-        showDelBtn: false,
     };
 };
 
@@ -60,9 +58,9 @@ com.methods = {
     clearIpt: clearIpt,
     querySearch(ipt, cb) {
         var ctx = this;
-        var pageList = ctx.$data.pageList;
-        var results = ipt ? pageList.filter(ctx.createFilter(ipt)) : pageList;
-        if (results && results.length == 0) {
+        var nameList = ctx.$data.nameList;
+        var results = ipt ? nameList.filter(ctx.createFilter(ipt)) : nameList;
+        if (results.length == 0) {
             ctx.$set(ctx.$data, 'isNew', true);
         } else {
             ctx.$set(ctx.$data, 'isNew', false);
@@ -74,10 +72,11 @@ com.methods = {
             return (name.value.indexOf(str.toLowerCase()) != -1);
         };
     },
-    handleSelect: setConfPage,
+    handleSelect: function (item) {
+        var ctx = this;
+        ctx.$set(ctx.conf, 'setPage', item);
+    },
     getPageNameList: getPageNameList,
-    delPage: delPage,
-    setConfPage: setConfPage,
 };
 
 //加载到页面前执行的函数
@@ -86,76 +85,10 @@ com.beforeMount = function () {};
 //加载到页面后执行的函数
 com.mounted = function () {
     var ctx = this;
+
 };
 
 //-------所有函数写在下面--------
-
-/**
- * 统一的设置当前页面的方法
- * @param {object} page page
- */
-function setConfPage(page) {
-    var ctx = this;
-    ctx.$set(ctx.conf, 'setPage', page);
-    ctx.$set(ctx.$data, 'iptName', page.name);
-    ctx.$set(ctx.$data, 'showDelBtn', false);
-};
-
-
-/**
- * 删除一个页面
- */
-async function delPage() {
-    var ctx = this;
-    try {
-        var api = ctx.$xglobal.conf.apis.pageDel;
-
-        var token = localStorage.getItem('accToken');
-        if (!token) {
-            ctx.$notify.error({
-                title: `你还没有登录，无法执行删除页面操作`,
-            });
-            return;
-        };
-
-        var data = {
-            token: token,
-            name: ctx.$data.iptName,
-        };
-
-        var res = await ctx.rRun(api, data);
-        if (!res.err) {
-            ctx.$notify.success({
-                title: `删除成功`,
-            });
-
-            //从列表中删除这个页面
-            var list = ctx.$data.pageList;
-            var newList = [];
-            for (var i = 0; i < list.length; i++) {
-                var pitem = list[i];
-                if (pitem.name != data.name) {
-                    newList.push(pitem);
-                };
-            };
-            ctx.$set(ctx.$data, 'pageList', newList);
-
-            //设置第一个页面为当前页面
-            if (newList && newList.length > 0) {
-                ctx.setConfPage(newList[0]);
-            };
-
-        } else {
-            throw Error(res.err.tip);
-        };
-    } catch (err) {
-        ctx.$notify.error({
-            title: `删除页面失败`,
-            message: err.tip || err.message,
-        });
-    };
-};
-
 
 /**
  * 清除输入框，激活显示列表
@@ -185,7 +118,7 @@ async function getPageNameList() {
     };
 
     var data = {
-        token: token,
+        token: localStorage.getItem('accToken'),
     };
 
     try {
@@ -215,11 +148,11 @@ async function getPageNameList() {
                 localStorage.setItem('accPage', JSON.stringify(item));
             };
         });
-        ctx.$set(ctx.$data, 'pageList', list);
+        ctx.$set(ctx.$data, 'nameList', list);
 
     } catch (err) {
         ctx.$notify.error({
-            title: `获取页面列表失败`,
+            title: `你还没有登录，无法设置页面`,
             message: err.tip || err.message,
         });
     };
@@ -232,7 +165,7 @@ async function getPageNameList() {
  */
 async function setAccPage() {
     var ctx = this;
-    ctx.$data.pageList.forEach(function (item) {
+    ctx.$data.nameList.forEach(function (item) {
         if (item.value == ctx.$data.iptName) {
             ctx.$set(ctx.conf, 'setPage', item);
             localStorage.setItem('accPage', JSON.stringify(item));

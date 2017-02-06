@@ -15,6 +15,7 @@ com.props = {
 com.data = function data() {
     return {
         actTab: 'login',
+        showLogOutBtn: false,
         reg: {
             codeBtnDis: false,
         },

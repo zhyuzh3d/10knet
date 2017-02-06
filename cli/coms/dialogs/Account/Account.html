@@ -137,7 +137,9 @@
                     </el-tab-pane>
 
                     <el-tab-pane label="注销" name="logout" v-if='$xglobal.accInfo'>
-                        <el-row>
+                        <el-button type='text' size='small' @click='showLogOutBtn=!showLogOutBtn'>想要注销退出？点击显示注销按钮</el-button>
+                        <div style="color:#A00;font-weight:bold;margin:12px 0">警告:注销将清空编辑器，删除全部设置数据，请慎用</div>
+                        <el-row v-if='showLogOutBtn'>
                             <el-col :span="24" style='margin-top:12px'>
                                 <el-button type='primary' style='width:100%' @click='accLogout'>注销退出</el-button>
                             </el-col>

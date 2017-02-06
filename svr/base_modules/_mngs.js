@@ -1,4 +1,6 @@
-/*mongoose数据库基本功能
+/**
+ * mongoose数据库基本功能
+ * 删除统一使用__del=true
  */
 
 var _mngs = {};
@@ -21,9 +23,29 @@ _mngs.startPrms = function () {
 };
 
 //-------------------functions-----------------------------
+
+
 var fns = _mngs.fns = {
     clearDoc,
-}; //全部操作方法
+    noDel,
+};
+
+/**
+ * 补充数据__del查询字段
+ */
+function noDel(obj) {
+    var res = {};
+    for (var attr in obj) {
+        res[attr] = obj[attr];
+    };
+
+    res.__del = {
+        $ne: true
+    };
+
+    return res;
+};
+
 
 /**
  * 将所有下划线开头的属性都删除，但保留_id

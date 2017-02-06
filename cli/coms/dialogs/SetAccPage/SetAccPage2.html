@@ -1,0 +1,58 @@
+<script src="./SetAccPage.js"></script>
+
+<template>
+    <div id='SetAccPage' xid='SetAccPage'>
+        <el-dialog title="设置当前页面名称" v-model="conf.show">
+            <div class='contbox'>
+                <div class='txt'>您的代码将被保存到此页面</div>
+                <el-autocomplete v-model="iptName" :fetch-suggestions="querySearch" placeholder="请输入新名称或从下拉选择" @select="handleSelect" class='iptcom'></el-autocomplete>
+                <el-button @click='clearIpt'><i class="fa fa-caret-down"></i></el-button>
+                <div v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName' class='url'><a :href='conf.setPage.accUrl' target="_blank">{{conf.setPage.accUrl}}</a></div>
+                <div style="text-align:left;margin:18px" v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName'>
+                    <el-switch v-model="loadCode" on-text="开" off-text="关"></el-switch>
+                    <span v-bind:style='{color:(loadCode?"#444":"#AAA")}'>&nbsp;载入代码替换编辑器内容</span>
+                </div>
+
+            </div>
+            <div class="btns">
+                <el-button @click='conf.show=false'>取消</el-button>
+                <el-button v-show='isNew' type='danger' @click='newAccPage'>新 建</el-button>
+                <el-button v-show='!isNew' type='primary' @click='setAccPage'>设 定</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</template>
+
+<style scoped>
+    .btns {
+        text-align: right;
+        margin-top: 18px;
+    }
+
+    .txt {
+        text-align: left;
+        margin: 12px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .contbox {
+        margin: 12px 24px 48px 24px;
+        text-align: center
+    }
+
+    .iptcom {
+        display: inline-block;
+        width: 80%;
+        text-align: left;
+        z-index: 100;
+    }
+
+    .url {
+        margin: 18px;
+        color: #666;
+        word-break: break-all;
+        text-align: left;
+    }
+
+</style>

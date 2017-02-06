@@ -2,7 +2,7 @@
  */
 'use strict';
 
-const _qn = {
+var _qn = {
     conf: {
         Port: 19110,
         Uptoken_Url: "/uptoken",
@@ -21,6 +21,8 @@ const _qn = {
     },
     genUploadToken: genUploadToken,
 };
+
+var noDel = _mngs.fns.noDel;
 
 
 (function () {
@@ -55,9 +57,9 @@ _zrouter.addApi('/qnUploadCallback', {
         var accToken = file.accToken;
         var accId;
         if (accToken) {
-            var acc = await _mngs.models.user.findOne({
+            var acc = await _mngs.models.user.findOne(noDel({
                 _token: accToken,
-            }, '_id');
+            }), '_id');
             accId = acc._id;
             if (accId) file.uploader = accId;
         };
@@ -66,9 +68,9 @@ _zrouter.addApi('/qnUploadCallback', {
         //如果附带了pageId字段，那么先验证page的author与acctoken是否匹配，然后再加入page.his
         var pageId = file.pageId;
         if (pageId && accToken && accId) {
-            var page = await _mngs.models.page.findOne({
+            var page = await _mngs.models.page.findOne(noDel({
                 _id: pageId,
-            }, 'author');
+            }), 'author');
             if (page.author != accId) throw Error().zbind(_msg.Errs.PageNoPower);
             file.page = page._id;
         };
@@ -79,9 +81,9 @@ _zrouter.addApi('/qnUploadCallback', {
 
         //mng保存file到page，作为最新版本文件
         if (file.page) {
-            await _mngs.models.page.update({
+            await _mngs.models.page.update(noDel({
                 _id: pageId,
-            }, {
+            }), {
                 file: mngFile._id
             })
         };

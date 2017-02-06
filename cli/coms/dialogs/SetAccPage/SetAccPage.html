@@ -5,14 +5,33 @@
         <el-dialog title="设置当前页面名称" v-model="conf.show">
             <div class='contbox'>
                 <div class='txt'>您的代码将被保存到此页面</div>
-                <el-autocomplete v-model="iptName" :fetch-suggestions="querySearch" placeholder="请输入新名称或从下拉选择" @select="handleSelect" class='iptcom'></el-autocomplete>
-                <el-button @click='clearIpt'><i class="fa fa-caret-down"></i></el-button>
-                <div v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName' class='url'><a :href='conf.setPage.accUrl' target="_blank">{{conf.setPage.accUrl}}</a></div>
-                <div style="text-align:left;margin:18px" v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName'>
+                <el-row>
+                    <el-col :span='18'>
+                        <el-autocomplete v-model="iptName" :fetch-suggestions="querySearch" placeholder="请输入新名称或从下拉选择" @select="handleSelect" class='iptcom'></el-autocomplete>
+                    </el-col>
+                    <el-col :span='6' style='text-align:left;padding-left:4px'>
+                        <el-button @click='clearIpt'><i class="fa fa-caret-down"></i>&nbsp;全部</el-button>
+                    </el-col>
+                </el-row>
+
+                <div style="margin-top:8px" v-show='!isNew&&conf.setPage&&iptName!=""'>
+                    <el-button type='text' size='small' @click='showDelBtn=!showDelBtn'>想要删除此项目？</el-button>
+                    <el-button v-show='showDelBtn' type='primary' size='small' @click='delPage'>
+                        <i class="fa fa-remove"></i>
+                        <span>&nbsp;删除此项目</span>
+                    </el-button>
+                </div>
+
+                <div v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName' class='url'>
+                    <el-button type='text' size='small' @click='showPageUrl=!showPageUrl'><i class="fa fa-random"></i></el-button>
+                    <a v-if='showPageUrl' :href='conf.setPage.accUrl' target="_blank">{{conf.setPage.accUrl}}</a>
+                    <a v-if='!showPageUrl' :href='conf.setPage.file.url' target="_blank">{{conf.setPage.file.url}}</a>
+                </div>
+
+                <div class='onoffBox' v-if='conf.setPage&&conf.setPage.file&&!isNew&&iptName'>
                     <el-switch v-model="loadCode" on-text="开" off-text="关"></el-switch>
                     <span v-bind:style='{color:(loadCode?"#444":"#AAA")}'>&nbsp;载入代码替换编辑器内容</span>
                 </div>
-
             </div>
             <div class="btns">
                 <el-button @click='conf.show=false'>取消</el-button>
@@ -24,6 +43,34 @@
 </template>
 
 <style scoped>
+    .el-button--info.is-plain:hover {
+        background: #1cbbb4;
+        color: #FFF;
+    }
+
+    .el-button--info.is-plain:focus {
+        background: #1cbbb4;
+        color: #FFF;
+    }
+
+    .pageCard {
+        border: 1px solid #CCC;
+        padding: 8px 12px;
+        line-height: 16px;
+        text-align: left;
+        height: 36px;
+        cursor: pointer;
+    }
+
+    .pageCard:hover {
+        box-shadow: 0 0 12px #AAA;
+    }
+
+    .active {
+        background: #1cbbb4;
+        color: #FFF;
+    }
+
     .btns {
         text-align: right;
         margin-top: 18px;
@@ -38,20 +85,25 @@
 
     .contbox {
         margin: 12px 24px 48px 24px;
-        text-align: center
+        text-align: left;
     }
 
     .iptcom {
         display: inline-block;
-        width: 80%;
+        width: 100%;
         text-align: left;
         z-index: 100;
     }
 
     .url {
-        margin: 18px;
+        margin: 12px 0;
         color: #666;
         word-break: break-all;
+        text-align: left;
+    }
+
+    .onoffBox {
+        margin: 12px 0;
         text-align: left;
     }
 

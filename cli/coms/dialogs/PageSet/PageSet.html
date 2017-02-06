@@ -2,7 +2,7 @@
 
 <template>
     <div id='PageSet' xid='PageSet'>
-        <el-dialog v-bind:title="title" v-model="conf.show">
+        <el-dialog v-bind:title="title" v-model="conf.show" size='large'>
             <div class="coderBox">
                 <coder mode='text/html' v-bind:data='headData' v-bind:keyupFn='syncCode'>
                     <el-button class='tagbtn' size='mini'>&nbsp;head&nbsp;</el-button>

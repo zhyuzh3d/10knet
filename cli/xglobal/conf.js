@@ -32,6 +32,7 @@ conf.apis = {
     pageNew: `//${location.host}/api/pageNew`,
     pageGetList: `//${location.host}/api/pageGetList`,
     pageGetPageByANamePName: `//${location.host}/api/pageGetPageByANamePName`,
+    pageDel: `//${location.host}/api/pageDel`,
 };
 
 //默认模版相关
