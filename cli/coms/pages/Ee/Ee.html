@@ -8,10 +8,10 @@
                     <el-popover ref="accBtnPop" placement="right" width="auto" v-model="accBtnPopVis" trigger="hover">
                         <div v-if='!accInfo' class="popTitle">点击按钮注册或登录，获得更多功能</div>
                         <div v-if='accInfo'>
-                            <div class="popTitle">已登录【{{accInfo.name}}】</div>
+                            <div class="popTitle">已登录【{{accInfo.name||'未命名'}}】</div>
                             <div class="popBody">
-                                <div>欢迎来到10knet!</div>
-                                <div>点击进行设置</div>
+                                <div>经验【&nbsp;<b>{{accInfo.exp}}</b>&nbsp;】</div>
+                                <div>码币【&nbsp;<b>{{Math.floor(accInfo.coin)}}</b>&nbsp;】</div>
                             </div>
                         </div>
                     </el-popover>

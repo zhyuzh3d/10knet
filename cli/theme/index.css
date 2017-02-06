@@ -8455,14 +8455,14 @@
     box-sizing: border-box;
     border-radius: 0px;
     left: 50%;
-    top: 20px;
+    top: 0;
     transform: translateX(-50%);
     background-color: #fff;
     transition: opacity 0.3s, transform .4s;
     overflow: hidden;
     max-width: 80%;
     position: relative;
-    white-space: nowrap;
+    white-space:pre-wrap;
     overflow: auto;
     margin-bottom: 10px;
 }

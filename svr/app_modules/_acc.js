@@ -107,10 +107,7 @@ _zrouter.addApi('/accRegByMobile', {
 
         newAcc._pw = undefined;
 
-        ctx.body = new _msg.Msg(null, ctx, {
-            token: token,
-            acc: newAcc,
-        });
+        ctx.body = new _msg.Msg(null, ctx, newAcc);
     },
 });
 
@@ -236,11 +233,11 @@ _zrouter.addApi('/accAutoLogin', {
 /**
  * 获取账号Id，通过token，使用token提取user直接进行操作
  * @param   {string}   token token
- * @param   {string}   str 要获取的附加字段,默认为空，只带_id字段;全部字段使用''
+ * @param   {string}   str 要获取的附加字段,默认为空，只带_id字段;全部字段使用null
  * @returns {object} accInfo
  */
 _acc.getAccByToken = async function getAccByToken(token, str) {
-    if (!str) str = '_id';
+    if (str === undefined) str = '_id';
     var res = await _mngs.models.user.findOne(noDel({
         _token: token,
     }), str);

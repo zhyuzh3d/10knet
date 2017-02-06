@@ -5,10 +5,12 @@ var conf = {};
 export default conf;
 
 conf.set = {
-    userUploadMaxSizeKb: 512,
-    userUploadMaxSizeStr: '512k',
-    accUploadMaxSizeKb: 1024,
-    accUploadMaxSizeStr: '1M',
+    userUploadMaxSizeKb: 512, //未注册用户上传限制
+    userUploadMaxSizeStr: '512k', //未注册用户上传限制
+    accUploadMaxSizeKb: 1024, //注册用户上传限制
+    accUploadMaxSizeStr: '1M', //注册用户上传限制
+    expAutoSaveMin: 50, //自动保存经验最小限制
+    expAutoSaveTime: 12000, //自动保存经验间隔,每2分钟
 };
 
 //所有尚未统一的原有页面，原则上元素内不使用任何字符串格式的url地址

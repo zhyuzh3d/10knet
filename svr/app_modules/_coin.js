@@ -15,12 +15,16 @@ _zrouter.addApi('/coinChangeExp', {
     validator: {
         token: _conf.regx.token,
         delta: _conf.regx.int8,
+        page: _conf.regx.mngId,
     },
     method: async function accSaveProfile(ctx) {
         var token = ctx.xdata.token;
         var delta = ctx.xdata.delta;
+        var page = ctx.xdata.page;
 
-        var acc = await _coin.changeExp(token, delta);
+        var acc = await _coin.changeExp(token, delta, {
+            page: page
+        });
 
         acc = _mngs.fns.clearDoc(acc);
 
@@ -40,8 +44,8 @@ _zrouter.addApi('/coinChangeExp', {
 _coin.changeExp = async function changeExp(token, delta, ext) {
     var acc = await _acc.getAccByToken(token, 'exp coin');
     var params = {
-        exp: delta,
-        coin: delta / _conf.Coin.ExpPerCoin,
+        exp: Number(delta),
+        coin: Number(delta) / _conf.Coin.ExpPerCoin,
     };
 
     var res = await acc.update({

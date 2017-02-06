@@ -123,6 +123,8 @@ com.methods = {
     },
     saveAccPage: saveAccPage,
     autoSetAccPage: autoSetAccPage,
+    saveMyExp: saveMyExp,
+    autoSaveExp: autoSaveExp,
 };
 
 
@@ -153,23 +155,100 @@ com.mounted = async function () {
     //从本地读取accPage并设定
     await ctx.autoSetAccPage();
 
-
-    //test
-    (async function test() {
-        //获取随机key的token
-        var api = ctx.$xglobal.conf.apis.coinChangeExp;
-        var data = {
-            token: localStorage.getItem('accToken'),
-            delta: -3000,
-        };
-
-        var res = await ctx.rRun(api, data);
-    })();
-
+    //启动自动保存经验
+    setInterval(ctx.autoSaveExp, ctx.$xglobal.conf.set.expAutoSaveTime);
 };
 
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+
+/**
+ * 设定本地存储的用户exp值,空参数+1
+ */
+function changeLsExp(delta) {
+    var token = localStorage.getItem('accToken');
+    if (!token) return;
+    var orgexp = localStorage.getItem('myLocalExp');
+    if (!orgexp || !Number(orgexp)) orgexp = 0;
+    if (!delta) delta = 1;
+    orgexp = Number(orgexp) + Number(delta);
+    localStorage.setItem('myLocalExp', orgexp);
+};
+
+/**
+ * 获取本地存储的用户exp值
+ */
+function getLsExp(delta) {
+    var token = localStorage.getItem('accToken');
+    if (!token) return 0;
+    var orgexp = localStorage.getItem('myLocalExp');
+    if (!orgexp || !Number(orgexp)) {
+        localStorage.setItem('myLocalExp', 0);
+        return 0
+    };
+    return orgexp;
+};
+
+
+/**
+ * 保存经验值到云端,仅在联网状况下有效
+ */
+async function saveMyExp() {
+    var ctx = this;
+    try {
+        //获取随机key的token
+        var api = ctx.$xglobal.conf.apis.coinChangeExp;
+        var data = {
+            token: localStorage.getItem('accToken'),
+            delta: getLsExp(),
+            page: ctx.$data.accPage ? ctx.$data.accPage._id : undefined,
+        };
+        if (!data.token) throw Error('您还没有注册和登录，无法保存经验值');
+
+        var res = await ctx.rRun(api, data);
+        if (res.err) {
+            throw Error(res.err.tip);
+        } else {
+            var expAdd = Math.floor(Number(res.data.exp) - Number(ctx.accInfo.exp));
+            if (expAdd > 0) {
+                ctx.$notify.success({
+                    title: `恭喜你，增加${expAdd}经验!`,
+                });
+            };
+
+            var coinAdd = Math.floor(Number(res.data.coin) - Number(ctx.accInfo.coin))
+            if (coinAdd > 0) {
+                setTimeout(function () {
+                    ctx.$notify.success({
+                        title: `恭喜你，增加${coinAdd}码币!`,
+                    });
+                }, 100); //延迟避免重叠
+            };
+
+            changeLsExp(data.delta * -1); //本地去掉已经存储的数量
+            ctx.$set(ctx.accInfo, 'coin', res.data.coin);
+            ctx.$set(ctx.accInfo, 'exp', res.data.exp);
+        };
+
+    } catch (err) {
+        ctx.$notify.error({
+            title: `保存经验值失败`,
+            message: err.tip || err.message,
+        });
+    };
+};
+
+/**
+ * 自动保存经验值,检测codeLocal超过50就保存，否则不保存
+ */
+function autoSaveExp() {
+    var ctx = this;
+    var token = localStorage.getItem('accToken');
+    if (token && getLsExp() > ctx.$xglobal.conf.set.expAutoSaveMin) {
+        ctx.saveMyExp();
+    };
+};
+
 
 /**
  * 自动设定accPage，先从本地读取，如果没有就设定为用户名同名的首页page
@@ -509,6 +588,9 @@ function refreshCss(code, key) {
     sendPreviewCmd('refresh', {
         part: 'css',
     });
+
+    //增加本地经验值
+    changeLsExp();
 };
 
 /**
@@ -521,6 +603,9 @@ function refreshBody(code, key) {
     sendPreviewCmd('refresh', {
         part: 'body',
     });
+
+    //增加本地经验值
+    changeLsExp();
 };
 
 /**
@@ -535,6 +620,9 @@ function refreshJs(code, key) {
             part: 'all',
         });
     };
+
+    //增加本地经验值
+    changeLsExp();
 };
 
 /**

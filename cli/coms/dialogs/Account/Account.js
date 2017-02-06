@@ -163,14 +163,14 @@ async function sendRegCode() {
             ctx.$set(ctx.$data.rst, 'codeBtnDis', false);
         }, 10000);
 
-        var api = ctx.$xglobal.conf.apis.accGetMobileRstCode;
+        var api = ctx.$xglobal.conf.apis.accGetMobileRegCode;
         var data = {
             mobile: ctx.$data.reg.mobile,
         };
         var res = await ctx.rRun(api, data);
         if (!res.err) {
             ctx.$notify.success({
-                title: `验证码已经发送到您的手机，请注意查收`,
+                title: `验证码已经发送到您的手机，请查收`,
                 message: `手机号码是${data.mobile}`,
             });
         };
@@ -202,7 +202,7 @@ async function sendRstCode() {
         var res = await ctx.rRun(api, data);
         if (!res.err) {
             ctx.$notify.success({
-                title: `验证码已经发送到您的手机，请注意查收`,
+                title: `验证码已经发送到您的手机，请查收`,
                 message: `手机号码是${data.mobile}`,
             });
         };
@@ -235,16 +235,19 @@ async function regByMobile() {
                 message: '强烈建议您立即设定个人首页地址',
             });
 
+            //数据放入xglobal
+            ctx.$set(ctx.$xglobal, 'accInfo', res.data);
+
             //切换tab到设置
             ctx.$set(ctx.$data, 'actTab', 'set');
 
             //将token存到ls
-            localStorage.setItem('accToken', res.data.token);
+            localStorage.setItem('accToken', res.data._token);
         };
     } catch (err) {
         ctx.$notify.error({
             title: `注册新用户失败`,
-            message: err.tip,
+            message: err.tip || err.message,
         });
     };
 };
