@@ -1,4 +1,7 @@
+import Vue from 'vue';
 import $ from 'jquery';
+
+
 import {
     codemirror, CodeMirror
 }

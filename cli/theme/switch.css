@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px
     /* Input
   -------------------------- */
     /* Cascader
@@ -94,16 +95,16 @@
 }
 
 .el-switch.is-disabled .el-switch__core{
-    border-color: #E5E9F3;
-    background: #E5E9F3
+    border-color: #E5E9F3 !important;
+    background: #E5E9F3 !important
 }
 
 .el-switch.is-disabled .el-switch__core span{
-    background-color: #F9FAFC
+    background-color: #F9FAFC !important
 }
 
 .el-switch.is-disabled .el-switch__core ~ .el-switch__label *{
-    color: #F9FAFC
+    color: #F9FAFC !important
 }
 
 .el-switch.is-disabled .el-switch__input:checked + .el-switch__core{
@@ -156,8 +157,8 @@
 }
 
 .el-switch__input:checked + .el-switch__core{
-    border-color: #1cbbb4;
-    background-color: #1cbbb4
+    border-color: #009688;
+    background-color: #009688
 }
 
 .el-switch__core{
@@ -167,11 +168,11 @@
     position: relative;
     width: 46px;
     height: 22px;
-    border: 1px solid #C0CCDA;
+    border: 1px solid #c0ccda;
     outline: none;
-    border-radius: 0px;
+    border-radius: 12px;
     box-sizing: border-box;
-    background: #C0CCDA;
+    background: #c0ccda;
     cursor: pointer;
     transition: border-color .3s, background-color .3s
 }

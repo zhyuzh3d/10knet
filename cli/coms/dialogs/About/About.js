@@ -1,4 +1,15 @@
+import Vue from 'vue';
 import $ from 'jquery';
+
+import {
+    Dialog,
+    Button,
+}
+from 'element-ui'
+Vue.use(Dialog);
+Vue.use(Button);
+
+
 
 let com = {};
 export default com;

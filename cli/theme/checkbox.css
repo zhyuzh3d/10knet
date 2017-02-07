@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px
     /* Input
   -------------------------- */
     /* Cascader
@@ -110,7 +111,7 @@
 .el-checkbox__inner{
     display: inline-block;
     position: relative;
-    border: 1px solid #CCC;
+    border: 1px solid #c0ccda;
     border-radius: 0px;
     box-sizing: border-box;
     width: 18px;
@@ -122,7 +123,7 @@
 }
 
 .el-checkbox__inner:not(.is-disabled):hover{
-    border-color: #1cbbb4
+    border-color: #009688
 }
 
 .el-checkbox__inner::after{
@@ -160,8 +161,8 @@
 }
 
 .el-checkbox__inner.is-indeterminate{
-    background-color: #1cbbb4;
-    border-color: #1c758a
+    background-color: #009688;
+    border-color: #2196F3
 }
 
 .el-checkbox__inner.is-indeterminate::before{
@@ -180,12 +181,12 @@
 }
 
 .el-checkbox__inner.is-focus{
-    border-color: #1cbbb4
+    border-color: #009688
 }
 
 .el-checkbox__inner.is-checked{
-    background-color: #1cbbb4;
-    border-color: #1c758a
+    background-color: #009688;
+    border-color: #2196F3
 }
 
 .el-checkbox__inner.is-checked::after{

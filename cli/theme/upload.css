@@ -48,6 +48,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -98,16 +99,16 @@
     line-height: 1;
 }
 .el-progress.is-exception .el-progress-bar__inner{
-    background-color: #ed135b;
+    background-color: #E91E63;
 }
 .el-progress.is-exception .el-progress__text{
-    color: #ed135b;
+    color: #E91E63;
 }
 .el-progress.is-success .el-progress-bar__inner{
-    background-color: #00d656;
+    background-color: #4CAF50;
 }
 .el-progress.is-success .el-progress__text{
-    color: #00d656;
+    color: #4CAF50;
 }
 .el-progress__text{
     font-size: 14px;
@@ -171,7 +172,7 @@
     top: 0;
     height: 100%;
     border-radius: 2px 0 0 2px;
-    background-color: #1cbbb4;
+    background-color: #009688;
     text-align: right;
     border-radius: 100px;
     line-height: 1;
@@ -228,6 +229,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -312,16 +314,18 @@
     box-sizing: border-box;
     border-radius: 4px;
     width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     position: relative;
 }
 
 .el-upload__file a {
     color: #475669;
-    transition: color .3s;
+    display: block;
+    margin-right: 40px;
+    overflow: hidden;
     padding-left: 4px;
+    text-overflow: ellipsis;
+    transition: color .3s;
+    white-space: nowrap;
 }
 
 .el-upload__file a [class^="el-icon"] {
@@ -356,7 +360,7 @@
 .el-upload__file.is-finished{}
 
 .el-upload__file.is-finished a:hover{
-    color: #1cbbb4;
+    color: #009688;
     cursor: pointer;
 }
 
@@ -376,7 +380,7 @@
     right: 15px;
     top: 0;
     font-size: 12px;
-    color: #1cbbb4;
+    color: #009688;
     display: none;
 }
 
@@ -416,12 +420,12 @@
 }
 
 .el-dragger:not(.is-showCover):hover{
-    border-color: #1cbbb4;
+    border-color: #009688;
 }
 
 .el-dragger.is-dragOver{
     background-color: rgba(32, 159, 255, .06);
-    border: 2px dashed #1cbbb4;
+    border: 2px dashed #009688;
 }
 
 .el-dragger__cover{
@@ -541,6 +545,6 @@
 }
 
 .el-dragger__text em{
-    color: #1cbbb4;
+    color: #009688;
     font-style: normal;
 }

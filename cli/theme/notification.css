@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -96,34 +97,40 @@
 }
 
 .el-notification .el-icon-circle-check{
-    color: #00d656;
+    color: #4CAF50;
 }
 
 .el-notification .el-icon-circle-cross{
-    color: #ed135b;
+    color: #E91E63;
 }
 
 .el-notification .el-icon-information{
-    color: #0090ff;
+    color: #00BCD4;
 }
 
 .el-notification .el-icon-warning{
-    color: #ffc000;
+    color: #FF9800;
 }
 
-.el-notification__group{}
+.el-notification__group{
+    margin-left: 0;
+}
 
 .el-notification__group span{
-    font-size: 16px;
+    font-size: 14px;
     color: #1f2d3d;
 }
 
 .el-notification__group p{
-    font-size: 14px;
+    font-size: 12px;
     line-height: 21px;
     margin: 10px 0 0 0;
     color: #8492a6;
     text-align: justify;
+}
+
+.el-notification__group.is-with-icon{
+    margin-left: 55px;
 }
 
 .el-notification__icon{
@@ -140,8 +147,8 @@
     right: 20px;
     position: absolute;
     cursor: pointer;
-    color: #CCC;
-    font-size: 14px;
+    color: #c0ccda;
+    font-size: 12px;
 }
 
 .el-notification__closeBtn:hover{

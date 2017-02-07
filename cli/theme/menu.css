@@ -42,6 +42,7 @@
   -------------------------- */
   /* Notification
   -------------------------- */
+  //: 14px;
   /* Input
   -------------------------- */
   /* Cascader
@@ -92,7 +93,7 @@
   height: 56px;
   line-height: 56px;
   font-size: 14px;
-  color: #1196a2;
+  color: #475669;
   padding: 0 20px;
   cursor: pointer;
   position: relative;
@@ -148,7 +149,7 @@
 }
 
 .el-menu--horizontal .el-menu-item:hover{
-  background-color: #d3dce6;
+  background-color: #D3DCE6;
 }
 
 .el-menu--horizontal .el-submenu{
@@ -195,7 +196,7 @@
 }
 
 .el-menu--horizontal > .el-menu-item:hover, .el-menu--horizontal > .el-submenu:hover .el-submenu__title, .el-menu--horizontal > .el-submenu.is-active .el-submenu__title{
-  border-bottom: 5px solid #1cbbb4;
+  border-bottom: 5px solid #009688;
 }
 
 .el-menu--horizontal.el-menu--dark{}
@@ -213,7 +214,7 @@
 }
 
 .el-menu--horizontal.el-menu--dark .el-submenu .el-menu-item.is-active{
-  color: #1cbbb4;
+  color: #009688;
 }
 
 .el-menu-item [class^="el-icon-"]{
@@ -234,7 +235,7 @@
 }
 
 .el-menu-item.is-active{
-  color: #1cbbb4;
+  color: #009688;
 }
 
 .el-submenu [class^="el-icon-"]{
@@ -261,7 +262,7 @@
 }
 
 .el-submenu.is-active .el-submenu__title{
-  border-bottom-color: #1cbbb4;
+  border-bottom-color: #009688;
 }
 
 .el-submenu__title{

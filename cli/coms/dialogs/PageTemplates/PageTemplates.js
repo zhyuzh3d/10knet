@@ -1,4 +1,20 @@
+import Vue from 'vue';
 import $ from 'jquery';
+
+import {
+    Dialog,
+    Button,
+    Input,
+    Card,
+    Notification,
+}
+from 'element-ui'
+Vue.use(Dialog);
+Vue.use(Button);
+Vue.use(Input);
+Vue.use(Card);
+const notify = Notification
+Vue.prototype.$notify = notify;
 
 let com = {};
 export default com;
@@ -28,11 +44,11 @@ com.watch = {
             var ctx = this;
             //使关闭窗口的钩子生效
             if (val) {
+                ctx.conf.ipt = false;
                 ctx.$set(ctx.$data, 'templates', ctx.$xglobal.conf.pageTemplates);
             };
 
             if (!val && ctx.conf.onHide) {
-
                 //如果用户手工输入了地址，那么清理template信息
                 if (ctx.$data.inputUrl != ctx.conf.template.url) {
                     ctx.conf.template = {
@@ -41,9 +57,9 @@ com.watch = {
                         desc: 'none',
                     };
                 };
+
                 ctx.conf.onHide(ctx);
             };
-
         },
         deep: true
     },
@@ -52,15 +68,9 @@ com.watch = {
 
 //所有直接使用的方法写在这里
 com.methods = {
-    closeDialog: function () {
-        closeDialog(this);
-    },
-    iframeLoad: function (e) {
-        iframeLoad(e, this);
-    },
-    seleletTemp: function (url) {
-        seleletTemp(url, this);
-    }
+    closeDialog: closeDialog,
+    iframeLoad: iframeLoad,
+    seleletTemp: seleletTemp,
 };
 
 //加载到页面前执行的函数
@@ -75,8 +85,17 @@ com.mounted = function () {
 };
 
 //-------所有函数写在下面--------
-function closeDialog(ctx) {
-    ctx.conf.select = true;
+function closeDialog() {
+    var ctx = this;
+    if (!ctx.conf.template || !ctx.conf.template.url) {
+        ctx.$notify.error({
+            title: `您还没选择模版`,
+            message: '点击任意模版即可选择',
+        });
+        return;
+    };
+
+    ctx.conf.ipt = true;
     ctx.$set(ctx.conf, 'show', false);
 };
 
@@ -86,7 +105,8 @@ function closeDialog(ctx) {
  * @param {object}   temp temp{name,url,desc}
  * @param {object} ctx ctx
  */
-function seleletTemp(temp, ctx) {
+function seleletTemp(temp) {
+    var ctx = this;
     ctx.$set(ctx.conf, 'template', temp);
     ctx.$set(ctx.$data, 'inputUrl', temp.url);
 };
@@ -97,7 +117,8 @@ function seleletTemp(temp, ctx) {
  * @param {object}   evt evt
  * @param {object} ctx ctx
  */
-function iframeLoad(evt, ctx) {
+function iframeLoad(evt) {
+    var ctx = this;
     var jo = $(evt.target);
     jo.hide();
     var inwid = jo.width();

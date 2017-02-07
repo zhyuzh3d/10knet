@@ -35,6 +35,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -99,7 +100,7 @@
     color: #ddd;
 }
 .el-date-table td.today {
-    color: #20a0ff;
+    color: #009688;
 }
 .el-date-table td.available:hover {
     background-color: #e5e9f2;
@@ -111,7 +112,7 @@
     background-color: #AFDCFF;
 }
 .el-date-table td.current, .el-date-table td.start-date, .el-date-table td.end-date {
-    background-color: #1cbbb4 !important;
+    background-color: #009688 !important;
     color: #fff;
 }
 .el-date-table td.disabled {
@@ -173,6 +174,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -233,7 +235,7 @@
     height: 32px;
     display: block;
     line-height: 32px;
-    color: #1196a2;
+    color: #475669;
 }
 .el-month-table td .cell:hover {
     background-color: #e5e9f2;
@@ -244,7 +246,7 @@
     color: #ccc;
 }
 .el-month-table td.current .cell {
-    background-color: #1cbbb4 !important;
+    background-color: #009688 !important;
     color: #fff;
 }
 :root {
@@ -284,6 +286,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -347,7 +350,7 @@
     height: 32px;
     display: block;
     line-height: 32px;
-    color: #1196a2;
+    color: #475669;
 }
 .el-year-table td .cell:hover {
     background-color: #e5e9f2;
@@ -358,7 +361,7 @@
     color: #ccc;
 }
 .el-year-table td.current .cell {
-    background-color: #1cbbb4 !important;
+    background-color: #009688 !important;
     color: #fff;
 }
 :root {
@@ -398,6 +401,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -444,11 +448,14 @@
   --------------------------*/
 }
 .el-time-spinner {}
+.el-time-spinner.has-seconds .el-time-spinner__wrapper {
+    width: 33.33333%;
+}
 .el-time-spinner__wrapper {
     height: 190px;
     overflow: hidden;
-    -ms-flex: 1;
-        flex: 1;
+    display: inline-block;
+    width: 50%;
     vertical-align: top;
     position: relative;
     -ms-overflow-style: none;
@@ -474,14 +481,14 @@
     font-size: 12px;
 }
 .el-time-spinner__item:hover:not(.disabled):not(.active) {
-    background: #E5E9F2;
+    background: #e5e9f2;
     cursor: pointer;
 }
 .el-time-spinner__item.active:not(.disabled) {
     color: #fff;
 }
 .el-time-spinner__item.disabled {
-    color: #d3dce6;
+    color: #D3DCE6;
     cursor: not-allowed;
 }
 :root {
@@ -521,6 +528,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -604,6 +612,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -655,83 +664,42 @@
 .fade-in-linear-enter, .fade-in-linear-leave, .fade-in-linear-leave-active {
     opacity: 0;
 }
-.fade-in-enter-active, .fade-in-leave-active {
+.el-fade-in-enter-active, .el-fade-in-leave-active {
     transition: all .3s cubic-bezier(.55,0,.1,1);
 }
-.fade-in-enter, .fade-in-leave-active {
+.el-fade-in-enter, .el-fade-in-leave-active {
     opacity: 0;
 }
-.md-fade-center-enter-active, .md-fade-center-leave-active {
+.el-zoom-in-center-enter-active, .el-zoom-in-center-leave-active {
     transition: all .3s cubic-bezier(.55,0,.1,1);
 }
-.md-fade-center-enter, .md-fade-center-leave, .md-fade-center-leave-active {
+.el-zoom-in-center-enter, .el-zoom-in-center-leave-active {
     opacity: 0;
-    transform: scaleY(0);
+    transform: scaleX(0);
 }
-.md-fade-bottom-enter-active, .md-fade-bottom-leave-active {
+.el-zoom-in-top-enter-active, .el-zoom-in-top-leave-active {
     opacity: 1;
     transform: scaleY(1);
     transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;
     transform-origin: center top;
 }
-.md-fade-bottom-enter, .md-fade-bottom-leave, .md-fade-bottom-leave-active {
+.el-zoom-in-top-enter, .el-zoom-in-top-leave-active {
     opacity: 0;
     transform: scaleY(0);
 }
-.md-fade-top-enter-active, .md-fade-top-leave-active {
+.el-zoom-in-bottom-enter-active, .el-zoom-in-bottom-leave-active {
     opacity: 1;
     transform: scaleY(1);
     transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;
     transform-origin: center bottom;
 }
-.md-fade-top-enter, .md-fade-top-leave, .md-fade-top-leave-active {
+.el-zoom-in-bottom-enter, .el-zoom-in-bottom-leave-active {
     opacity: 0;
     transform: scaleY(0);
 }
-.md-fade-left-enter-active, .md-fade-left-leave-active {
-    opacity: 1;
-    transform: scaleX(1);
-    transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;
-    transform-origin: right center;
-}
-.md-fade-left-enter, .md-fade-left-leave, .md-fade-left-leave-active {
-    opacity: 0;
-    transform: scaleX(0);
-}
-.md-fade-right-enter-active, .md-fade-right-leave-active {
-    opacity: 1;
-    transform: scaleX(1);
-    transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;
-    transform-origin: left center;
-}
-.md-fade-right-enter, .md-fade-right-leave, .md-fade-right-leave-active {
-    opacity: 0;
-    transform: scaleX(0);
-}
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .3s cubic-bezier(.645,.045,.355,1);
-}
-.fade-enter, .fade-leave-active {
-    opacity: 0;
-}
-.list-move, .list-enter-active, .list-leave-active {
-    transition: all .5s cubic-bezier(.55,0,.1,1);
-}
-.list-enter, .list-leave-active {
-    opacity: 0;
-    transform: translate(0, -30px);
-}
-/*.list-leave-active {
-  position: absolute;
-  opacity: 0;
-  transform: scaleY(0.01) translate(30px, 0);
-}*/
 .el-date-editor {
     position: relative;
     display: inline-block;
-    box-sizing: border-box;
-    height: 36px;
-    width: 182px;
 }
 .el-date-editor .el-picker-panel {
     position: absolute;
@@ -741,100 +709,6 @@
     background: #fff;
     z-index: 10;
     top: 41px;
-}
-.el-date-editor.lg .el-date-editor__editor {
-    padding: 6px 4px;
-}
-.el-date-editor.sm .el-date-editor__editor {
-    padding: 1px 1px;
-}
-.el-date-editor.is-have-trigger .el-date-editor__editor {
-    padding-right: 20px;
-}
-.el-date-editor.is-have-trigger .el-date-editor__clear {
-    right: 22px;
-}
-.el-date-editor__editor {
-    border: 1px solid #c0ccda;
-    border-radius: 4px;
-    line-height: 18px;
-    height: 36px;
-    padding: 3px 10px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: border 0.3s;
-    color: #666;
-    font-size: 14px;
-}
-.el-date-editor__editor::-webkit-input-placeholder {
-    color: #bbb;
-    font-size: 14px;
-}
-.el-date-editor__editor::-moz-placeholder {
-    color: #bbb;
-    font-size: 14px;
-}
-.el-date-editor__editor:-ms-input-placeholder {
-    color: #bbb;
-    font-size: 14px;
-}
-.el-date-editor__editor::placeholder {
-    color: #bbb;
-    font-size: 14px;
-}
-.el-date-editor__editor.is-disabled {
-    background-color: #EFF2F7;
-    border-color: #D3DCE6;
-    color: #bbb;
-    cursor: not-allowed;
-}
-.el-date-editor__editor.is-disabled::-webkit-input-placeholder {
-    color: #C0CCDA;
-}
-.el-date-editor__editor.is-disabled::-moz-placeholder {
-    color: #C0CCDA;
-}
-.el-date-editor__editor.is-disabled:-ms-input-placeholder {
-    color: #C0CCDA;
-}
-.el-date-editor__editor.is-disabled::placeholder {
-    color: #C0CCDA;
-}
-.el-date-editor__trigger {}
-.el-date-editor__trigger.el-icon {
-    cursor: pointer;
-    position: absolute;
-    display: inline-block;
-    width: 16px;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    color: #c0ccda;
-    font-size: 16px;
-    line-height: 38px;
-}
-.el-date-editor__clear {
-    cursor: pointer;
-    position: absolute;
-    width: 20px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    line-height: 36px;
-    color: #99a9bf;
-}
-.el-date-editor__clear:hover {
-    color: #20a0ff;
-}
-.el-date-editor__editor:focus, .el-date-editor:hover > .el-date-editor__editor, .el-date-editor.is-active > .el-date-editor__editor {
-    outline: none;
-    border-color: #1cbbb4;
-}
-.el-date-editor .el-date-editor__clear {
-    display: none;
-}
-.el-date-editor.is-filled:hover .el-date-editor__clear, .el-date-editor.is-filled.is-active > .el-date-editor__clear {
-    display: inline-block;
 }
 :root {
     /* Transition
@@ -873,6 +747,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -955,6 +830,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -1001,8 +877,8 @@
   --------------------------*/
 }
 .el-picker-panel {
-    color: #1196a2;
-    border: 1px solid #d3dce6;
+    color: #475669;
+    border: 1px solid #D3DCE6;
     box-shadow: 0 2px 6px #ccc;
     background: #fff;
     border-radius: 2px;
@@ -1033,7 +909,7 @@
     background-color: transparent;
     line-height: 28px;
     font-size: 14px;
-    color: #1196a2;
+    color: #475669;
     padding-left: 12px;
     text-align: left;
     outline: none;
@@ -1044,7 +920,7 @@
 }
 .el-picker-panel__shortcut.active {
     background-color: #e6f1fe;
-    color: #1cbbb4;
+    color: #009688;
 }
 .el-picker-panel__btn {
     border: 1px solid #dcdcdc;
@@ -1071,11 +947,11 @@
     margin-top: 3px;
 }
 .el-picker-panel__icon-btn:hover {
-    color: #20a0ff;
+    color: #009688;
 }
 .el-picker-panel__link-btn {
     cursor: pointer;
-    color: #55a4ff;
+    color: #009688;
     text-decoration: none;
     padding: 15px;
     font-size: 12px;
@@ -1117,23 +993,6 @@
     display: table-cell;
     padding: 0 5px;
 }
-.el-date-picker__editor {
-    position: relative;
-    border: 1px solid #c0ccda;
-    border-radius: 4px;
-    padding: 5px 10px;
-    box-sizing: border-box;
-    height: 28px;
-    outline: none;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-    transition: border 0.3s;
-    width: 100%;
-}
-.el-date-picker__editor:hover {
-    border-color: #20a0ff;
-}
 .el-date-picker__time-header {
     position: relative;
     border-bottom: 1px solid #e4e4e4;
@@ -1155,10 +1014,10 @@
     cursor: pointer;
 }
 .el-date-picker__header-label:hover {
-    color: #20a0ff;
+    color: #009688;
 }
 .el-date-picker__header-label.active {
-    color: #1cbbb4;
+    color: #009688;
 }
 .el-date-picker__prev-btn {
     float: left;
@@ -1213,6 +1072,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -1279,23 +1139,6 @@
 }
 .el-date-range-picker.has-time {
     min-width: 660px;
-}
-.el-date-range-picker__editor {
-    position: relative;
-    border: 1px solid #c0ccda;
-    border-radius: 4px;
-    padding: 5px 10px;
-    box-sizing: border-box;
-    height: 28px;
-    outline: none;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-    transition: border 0.3s;
-    width: 100%;
-}
-.el-date-range-picker__editor:hover {
-    border-color: #20a0ff;
 }
 .el-date-range-picker__header {
     position: relative;
@@ -1397,6 +1240,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -1450,15 +1294,13 @@
     position: relative;
     text-align: center;
     padding: 10px;
-    display: -ms-flexbox;
-    display: flex;
 }
 .el-time-range-picker__cell {
     box-sizing: border-box;
     margin: 0;
     padding: 4px 7px 7px;
-    -ms-flex: 1;
-        flex: 1;
+    width: 50%;
+    display: inline-block;
 }
 .el-time-range-picker__header {
     margin-bottom: 5px;
@@ -1466,8 +1308,6 @@
     font-size: 14px;
 }
 .el-time-range-picker__body {
-    display: -ms-flexbox;
-    display: flex;
     border-radius: 2px;
-    border: 1px solid #d3dce6;
+    border: 1px solid #D3DCE6;
 }

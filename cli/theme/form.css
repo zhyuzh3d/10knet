@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -130,12 +131,12 @@
 .el-form-item.is-error{}
 
 .el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-textarea__inner{
-    border-color: #ed135b;
+    border-color: #E91E63;
 }
 
 .el-form-item.is-required .el-form-item__label:before{
     content: '*';
-    color: #ed135b;
+    color: #E91E63;
     margin-right: 4px;
 }
 

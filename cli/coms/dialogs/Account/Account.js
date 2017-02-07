@@ -1,5 +1,30 @@
+import Vue from 'vue';
 import $ from 'jquery';
 import md5 from 'md5';
+
+import {
+    Dialog,
+    Button,
+    Tabs,
+    Row,
+    Col,
+    Notification,
+    TabPane,
+    MessageBox,
+}
+from 'element-ui'
+Vue.use(Dialog);
+Vue.use(Button);
+Vue.use(Tabs);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(TabPane);
+const notify = Notification
+Vue.prototype.$notify = notify;
+const confirm = MessageBox.confirm;
+Vue.prototype.$confirm = confirm;
+
+
 
 let com = {};
 export default com;

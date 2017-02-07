@@ -1,5 +1,6 @@
 /*全局函数文件，将被xglobal插件载入到每个component的this.$xglobal.fns备用
  */
+
 let fns = {
     getCookie,
     validate,
@@ -38,6 +39,8 @@ async function autoLogin(ctx) {
             ctx.$set(ctx.$data, 'accInfo', res.data);
         };
     } catch (err) {
+        console.log('>>>XX', ctx.$data);
+        if (!ctx.$notify) return;
         ctx.$notify.error({
             title: `自动登录失败，请尝试使用密码登录`,
             message: err.tip,

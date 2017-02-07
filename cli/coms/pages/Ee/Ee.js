@@ -1,9 +1,26 @@
+import Vue from 'vue'
 import $ from 'jquery';
+
+import {
+    Popover,
+    Button,
+    Tooltip,
+    Notification,
+    MessageBox,
+}
+from 'element-ui'
+Vue.use(Popover);
+Vue.use(Button);
+Vue.use(Tooltip);
+const notify = Notification
+Vue.prototype.$notify = notify;
+const confirm = MessageBox.confirm;
+Vue.prototype.$confirm = confirm;
+
 
 let com = {};
 export default com;
-let vc; //此元素vueComponent对象
-let jo; //此元素对应的jquery对象,mounted函数内设定
+
 let previewMsgHub;
 
 //所有要用的元素都写在这里
@@ -15,6 +32,7 @@ import About from '../../dialogs/About/About.html';
 import Account from '../../dialogs/Account/Account.html';
 import SetAccPage from '../../dialogs/SetAccPage/SetAccPage.html';
 import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
+
 import Beautify from 'js-beautify';
 
 
@@ -30,7 +48,6 @@ com.components = {
 };
 
 com.data = function data() {
-    vc = this;
     var ctx = this;
     var fileName = localStorage.getItem('lastFileName');
     var accountInfo = {}; //??用户信息，每次启动应自动获取
@@ -70,7 +87,7 @@ com.data = function data() {
         pageTempDialogConf: { //打开模版窗口的按钮
             show: false,
             onHide: function (tarctx) {
-                if (tarctx.conf.select) {
+                if (tarctx.conf.ipt) {
                     loadTemplate(tarctx.conf.template, ctx);
                 };
             },
@@ -129,7 +146,6 @@ com.methods = {
 
 
 com.mounted = async function () {
-    jo = $(this.$el);
     var ctx = this;
 
     previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
@@ -160,7 +176,7 @@ com.mounted = async function () {
 };
 
 
-//-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+//-----------------functions-------------------------
 
 /**
  * 设定本地存储的用户exp值,空参数+1
@@ -539,8 +555,12 @@ function fillEditors(data, ctx) {
     var bodyCode = tempDiv.find('div[body][10knet]').html();
     var jsCode = tempDiv.find('script[10knet]').html();
 
-    //触发coder填充
     localStorage.setItem('preview-head', headCode);
+    localStorage.setItem('preview-css', cssCode);
+    localStorage.setItem('preview-body', bodyCode);
+    localStorage.setItem('preview-js', jsCode);
+
+    //触发coder填充
     ctx.$set(ctx.$data.cssData, 'code', cssCode);
     ctx.$set(ctx.$data.bodyData, 'code', bodyCode);
     ctx.$set(ctx.$data.jsData, 'code', jsCode);

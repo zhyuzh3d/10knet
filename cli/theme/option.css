@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px
     /* Input
   -------------------------- */
     /* Cascader
@@ -91,7 +92,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #1196a2;
+    color: #475669;
     height: 36px;
     line-height: 1.5;
     box-sizing: border-box;
@@ -104,7 +105,7 @@
 
 .el-select-dropdown__item.selected{
     color: #fff;
-    background-color: #1cbbb4
+    background-color: #009688
 }
 
 .el-select-dropdown__item.selected.hover{
@@ -116,7 +117,7 @@
 }
 
 .el-select-dropdown__item.is-disabled{
-    color: #CCC;
+    color: #c0ccda;
     cursor: not-allowed
 }
 

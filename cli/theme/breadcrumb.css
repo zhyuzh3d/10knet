@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px
     /* Input
   -------------------------- */
     /* Cascader
@@ -124,6 +125,6 @@
 }
 
 .el-breadcrumb__item__inner:hover, .el-breadcrumb__item__inner a:hover{
-    color: #1cbbb4;
+    color: #009688;
     cursor: pointer
 }

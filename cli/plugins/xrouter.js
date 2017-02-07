@@ -1,8 +1,9 @@
-/*全局路由函数文件，将被xglobal插件载入到每个component的this.$xrouter备用
-每个可路由切换的组件必须有prop属性xid传入或$el上面有xid属性，类似<top-bar xid='topbar'>,没有xid的将被忽略无法被路由调动
+/**
+ * 全局路由函数文件，将被xglobal插件载入到每个component的this.$xrouter备用
+ * 每个可路由切换的组件必须有prop属性xid传入或$el上面有xid属性，
+ * 类似<top-bar xid='topbar'>,没有xid的将被忽略无法被路由调动
+ * 最根本的函数是xset，$set设置其他组件的数据，如果该属性+BeforeXset数据存在那么将异步执行它
  */
-//import _ from 'lodash';
-import $ from 'jquery';
 
 let xrouter = {};
 export default xrouter;
@@ -60,18 +61,21 @@ xrouter.showComs = function () {
  * @param   {object} dataKeyValObj 要修改的键值属性,类似{mainView: 'temp'}
  * @returns {object} vuecom对象
  */
-xrouter.go = function (parentXid, dataKeyValObj) {
-    //生成hash
+xrouter.go = async function (parentXid, dataKeyValObj) {
     var hash = JSON.stringify([parentXid, dataKeyValObj]);
     hash = encodeURIComponent(hash);
 
     //模拟锚点为路径添加hash字段
-    var anchor = $('<a href="#' + hash + '" style="display:none"></a>');
-    $('body').append(anchor);
+    //var anchor = $('<a href="#' + hash + '" style="display:none"></a>');
+    //$('body').append(anchor);
+    var anchor = document.createElement('a');
+    anchor.href = '#' + hash;
+    anchor.style.display = 'none';
+    document.body.appendChild(anchor);
 
     setTimeout(function () {
-        anchor[0].click();
-        anchor.remove();
+        anchor.click();
+        document.body.removeChild(anchor);
     }, 25);
 };
 
@@ -113,7 +117,7 @@ xrouter.restore = function (xid) {
  * @param   {boolean} unsave 是否保存
  * @returns {boolean}  成功返回com真失败undefined
  */
-xrouter.xset = function (xid, keyValObj, unsave) {
+xrouter.xset = async function (xid, keyValObj, unsave) {
     var res;
 
     //获取vc对象
@@ -125,6 +129,11 @@ xrouter.xset = function (xid, keyValObj, unsave) {
         //根据dataKeyValObj为com设置$set每个$data值
         res = com;
         for (var key in keyValObj) {
+            //如果是View结尾的属性那么就自动尝试载入组件
+            var before = com[key + 'BeforeXset'];
+            if (before) await before(keyValObj[key]);
+
+            //设置data属性
             if (com.$data[key] != undefined) {
                 com.$set(com, key, keyValObj[key]);
             } else {
@@ -132,6 +141,7 @@ xrouter.xset = function (xid, keyValObj, unsave) {
             };
         };
     };
+
 
     //即使com还不存在也先保存，等待com载入后会自动恢复
     if (!unsave) {
@@ -146,44 +156,44 @@ xrouter.xset = function (xid, keyValObj, unsave) {
         var newval = Object.assign({}, orgval, addval);
         newval = JSON.stringify(newval);
         localStorage.setItem(lskey, newval);
-
-        //测试输出
-        //console.info(`xrouter:xset:${lskey},${newval}`);
     };
 
     return com;
 };
 
 
-/**
- * 监听地址栏导航，执行利用xset实现router路由
- */
-$(window).on('hashchange', function (evt) {
-    var hash = location.hash;
-    if (hash.length < 2) return false;
-    hash = decodeURIComponent(hash.substr(1)); //去除#
+(function () {
+    /**
+     * 监听地址栏导航，执行利用xset实现router路由
+     */
+    //$(window).on('hashchange', function (evt) {
+    window.onhashchange = function (evt) {
+        var hash = location.hash;
+        if (hash.length < 2) return false;
+        hash = decodeURIComponent(hash.substr(1)); //去除#
 
-    var xidKVarr = JSON.parse(hash);
-    if (xidKVarr.constructor != Array || xidKVarr.length < 2) {
-        console.error('xrouter/hashchange:hash format err', xidKVarr);
-        return false;
+        var xidKVarr = JSON.parse(hash);
+        if (xidKVarr.constructor != Array || xidKVarr.length < 2) {
+            console.error('xrouter/hashchange:hash format err', xidKVarr);
+            return false;
+        };
+
+        //真正触发路由
+        xrouter.xset(xidKVarr[0], xidKVarr[1]);
+        return true;
     };
 
-    //真正触发路由
-    xrouter.xset(xidKVarr[0], xidKVarr[1]);
-    return true;
-});
 
-
-/**
- * 扩展JSON安全parse方法
- * @param   {string} str 字符串
- * @returns {object} 成功的对象或undefined
- */
-JSON.safeParse = function (str) {
-    try {
-        return JSON.parse(str);
-    } catch (err) {
-        return undefined;
+    /**
+     * 扩展JSON安全parse方法
+     * @param   {string} str 字符串
+     * @returns {object} 成功的对象或undefined
+     */
+    JSON.safeParse = function (str) {
+        try {
+            return JSON.parse(str);
+        } catch (err) {
+            return undefined;
+        };
     };
-};
+})();

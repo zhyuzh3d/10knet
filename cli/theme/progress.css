@@ -41,6 +41,7 @@
   -------------------------- */
   /* Notification
   -------------------------- */
+  //:14px;
   /* Input
   -------------------------- */
   /* Cascader
@@ -93,19 +94,19 @@
 }
 
 .el-progress.is-exception .el-progress-bar__inner{
-  background-color:#ed135b;
+  background-color:#E91E63;
 }
 
 .el-progress.is-exception .el-progress__text{
-  color:#ed135b;
+  color:#E91E63;
 }
 
 .el-progress.is-success .el-progress-bar__inner{
-  background-color:#00d656;
+  background-color:#4CAF50;
 }
 
 .el-progress.is-success .el-progress__text{
-  color:#00d656;
+  color:#4CAF50;
 }
 
 .el-progress__text{
@@ -180,7 +181,7 @@
   top: 0;
   height: 100%;
   border-radius: 2px 0 0 2px;
-  background-color:#1cbbb4;
+  background-color:#009688;
   text-align: right;
   border-radius: 100px;
   line-height: 1;

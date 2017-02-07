@@ -1,10 +1,8 @@
 /*全局的post/get远程ajax方法，提供一个rRun方法，返回Promise
  */
-import $ from 'jquery';
 
 var rRun = remoteRun;
 export default rRun;
-
 
 //-------------------functions------------------
 
@@ -15,9 +13,9 @@ export default rRun;
  * @param   {object} opt  额外的选项，将覆盖默认选项
  * @returns {promise} promsie
  */
-function remoteRun(api, data, opt) {
+async function remoteRun(api, data, opt) {
 
-    var prms = new Promise(function (resolve, reject) {
+    var prms = new Promise(async function (resolve, reject) {
         var apistr = (api.constructor == String) ? api : api.url;
         var xhr;
         var ajaxObj;
@@ -82,8 +80,8 @@ function remoteRun(api, data, opt) {
             reject(zerr);
         };
 
-
         //启动请求
+        if (!$) var $ = await System.import('jquery');
         $.ajax(ajaxObj);
     });
 

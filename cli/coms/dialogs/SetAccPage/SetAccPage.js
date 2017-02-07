@@ -2,8 +2,23 @@
  *设定当前工作的页面
  *输入ctx.conf.loadFile，非空则载入模版文件
  */
-
+import Vue from 'vue';
 import $ from 'jquery';
+
+import {
+    Dialog,
+    Button,
+    Row,
+    Col,
+    Autocomplete,
+}
+from 'element-ui'
+Vue.use(Dialog);
+Vue.use(Button);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(Autocomplete);
+
 
 let com = {};
 export default com;

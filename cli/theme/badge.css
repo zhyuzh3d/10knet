@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px
     /* Input
   -------------------------- */
     /* Cascader
@@ -89,8 +90,8 @@
 }
 
 .el-badge__content{
-    background-color: #ed135b;
-    border-radius: 0;
+    background-color: #E91E63;
+    border-radius: 10px;
     color: #fff;
     display: inline-block;
     font-size: 12px;

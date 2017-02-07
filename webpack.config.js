@@ -5,7 +5,8 @@ module.exports = {
     entry: ['babel-polyfill', './cli/_cli.js'],
     output: {
         path: path.resolve(__dirname, './pub/dist/'),
-        publicPath: 'dist/',
+        publicPath: 'http://localhost:8080/dist/', //dev使用的路径
+        //publicPath: 'dist/',//build使用的路径
         filename: 'build.js'
     },
     module: {

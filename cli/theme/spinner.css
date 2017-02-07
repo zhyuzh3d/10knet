@@ -36,6 +36,7 @@
   -------------------------- */
   /* Notification
   -------------------------- */
+  //: 14px;
   /* Input
   -------------------------- */
   /* Cascader
@@ -83,9 +84,8 @@
 }
 
 .el-time-spinner{
-  display: -ms-flexbox;
-  display: flex;
   width: 100%;
+  white-space: nowrap;
 }
 
 .el-spinner{

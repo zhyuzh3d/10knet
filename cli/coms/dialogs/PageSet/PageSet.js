@@ -1,4 +1,14 @@
+import Vue from 'vue';
 import $ from 'jquery';
+
+import {
+    Dialog,
+    Button,
+}
+from 'element-ui'
+Vue.use(Dialog);
+Vue.use(Button);
+
 
 let com = {};
 export default com;
@@ -27,11 +37,20 @@ com.data = function data() {
 };
 
 com.watch = {
-    conf: {
+    'conf.show': {
         handler: function (val, oldval) {
+            var ctx = this;
+            if (val) {
+                ctx.conf.ipt = false;
+                var headStr = this.$xglobal.conf.temp.headData;
+                var headData = localStorage.getItem('preview-head') || headStr;
+                ctx.$set(ctx.$data.headData, 'code', headData);
+                ctx.$set(ctx.$data, 'headCode', headData);
+            };
+
             //使关闭窗口的钩子生效
-            if (!val.show && val.onHide) {
-                val.onHide(this);
+            if (!val && ctx.conf.ipt == true && ctx.conf.onHide) {
+                ctx.conf.onHide(ctx);
             }
         },
         deep: true
@@ -41,9 +60,7 @@ com.watch = {
 
 //所有直接使用的方法写在这里
 com.methods = {
-    saveHeadData: function () {
-        saveHeadData(this);
-    },
+    saveHeadData: saveHeadData,
     syncCode: function (code) {
         this.$data.headCode = code;
     },
@@ -58,7 +75,9 @@ com.mounted = function () {
 };
 
 //-------所有函数写在下面--------
-function saveHeadData(ctx) {
+function saveHeadData() {
+    var ctx = this;
+    ctx.conf.ipt = true;
     localStorage.setItem('preview-head', ctx.$data.headCode);
     ctx.$set(ctx.conf, 'show', false);
 };

@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -152,11 +153,11 @@
 
 .el-dialog__close{
     cursor: pointer;
-    color: #CCC;
+    color: #c0ccda;
 }
 
 .el-dialog__close:hover{
-    color: #1cbbb4;
+    color: #009688;
 }
 
 .el-dialog__title{

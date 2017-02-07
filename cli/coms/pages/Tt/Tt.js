@@ -1,17 +1,25 @@
-import $ from 'jquery';
+//import $ from 'jquery';
+var $ = () => System.import('jquery');
+
+import Vue from 'vue';
 
 let com = {};
 export default com;
 let vc; //此元素vueComponent对象
 let jo; //此元素对应的jquery对象,mounted函数内设定
 
-com.components = {};
+
+import Nn from '../../blocks/temp/temp.html';
+com.components = {
+    Nn,
+};
 
 //所有数据写在这里
 com.data = function data() {
     vc = this;
     return {
         msg: 'Hello from blocks/Tt/Tt.js',
+        testView: 'nn',
     };
 };
 
@@ -27,7 +35,10 @@ com.beforeMount = function () {
     jo = $(this.$el);
 };
 
-com.mounted = function () {
+com.mounted = async function () {
+    var ctx = this;
+
+
 
     //激活顶部导航栏菜单
     vc.$xrouter.xset('NavBar', {

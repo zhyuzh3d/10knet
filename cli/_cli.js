@@ -1,11 +1,13 @@
 //主战入口文件，将自动载入子站并完成vue和插件的初始化
 import Vue from 'vue';
 
+/*
 //elements ui主题库
 import './theme/index.css';
 import './conf/common.css'; //自定义样式
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
+*/
 
 //xglobal全局插件及载入设置
 import conf from './xglobal/conf.js';
@@ -32,6 +34,7 @@ Vue.use(xglobal, {
 //xrouter路由插件
 import xrouter from './plugins/xrouter.js';
 Vue.use(xrouter);
+
 
 //初始化vue,使用App组件开始
 import App from './coms/pages/App/App.html';

@@ -10,6 +10,8 @@
                         <div v-if='accInfo'>
                             <div class="popTitle">已登录【{{accInfo.name||'未命名'}}】</div>
                             <div class="popBody">
+                                <div>点击按钮设置名称和主页</div>
+                                <br>
                                 <div>经验【&nbsp;<b>{{accInfo.exp}}</b>&nbsp;】</div>
                                 <div>码币【&nbsp;<b>{{Math.floor(accInfo.coin)}}</b>&nbsp;】</div>
                             </div>
@@ -88,9 +90,9 @@
 
 
                     <el-popover ref="qqBtnPop" placement="right" width="auto" v-model="qqBtnPopVis" trigger="hover">
-                        <div class="popTitle">加入【10knet编程爱好者】QQ群，求助或一起交流</div>
+                        <div class="popTitle">加入QQ群，求助、答疑、一起交流</div>
                         <div class="popBody">
-                            <div>一键加入我们的QQ群</div>
+                            <div>点击一键加入我们的QQ群</div>
                             <div>或QQ搜索群：10knet编程爱好者</div>
                             <div>群号：571956473</div>
                         </div>
@@ -127,9 +129,13 @@
             <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
                 <dbox xid='cssCoderBox' useBottom='true' hei='30%' barSize='5'>
                     <coder xid='cssCoder' class='coderDiv' mode='css' v-bind:data='cssData' v-bind:keyupFn='refreshCss'>
-                        <el-tooltip effect="light" content="编码时自动同步刷新，点击这里手工刷新并规范代码格式" placement="left-end">
-                            <el-button class='tagbtn' size='mini' @click='beautifyCss'>&nbsp;css&nbsp;</el-button>
-                        </el-tooltip>
+                        <el-popover ref="cssHudPop" placement="left" width="auto" v-model="cssHudPopVis" trigger="hover">
+                            <div class="popBody2">
+                                <div>编码时自动同步刷新
+                                    <br>点击手工刷新并美化代码格式</div>
+                            </div>
+                        </el-popover>
+                        <el-button class='tagbtn' size='mini' @click='beautifyCss' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
                     </coder>
                 </dbox>
                 <dbox xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5'>
@@ -173,6 +179,11 @@
     .popBody {
         font-size: 12px;
         margin: 8px;
+    }
+
+    .popBody2 {
+        font-size: 12px;
+        margin: 2px;
     }
 
     .avatarMini {

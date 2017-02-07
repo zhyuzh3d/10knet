@@ -36,6 +36,7 @@
   -------------------------- */
     /* Notification
   -------------------------- */
+    //: 14px;
     /* Input
   -------------------------- */
     /* Cascader
@@ -104,19 +105,19 @@
 }
 
 .el-alert--success{
-    background-color: #00d656;
+    background-color: #4CAF50;
 }
 
 .el-alert--info{
-    background-color: #0090ff;
+    background-color: #00BCD4;
 }
 
 .el-alert--warning{
-    background-color: #ffc000;
+    background-color: #FF9800;
 }
 
 .el-alert--error{
-    background-color: #ed135b;
+    background-color: #E91E63;
 }
 
 .el-alert__content{

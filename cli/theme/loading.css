@@ -36,6 +36,7 @@
   -------------------------- */
   /* Notification
   -------------------------- */
+  //: 14px;
   /* Input
   -------------------------- */
   /* Cascader
@@ -114,7 +115,7 @@
 }
 
 .el-loading-spinner .el-loading-text{
-  color: #1cbbb4;
+  color: #009688;
   margin: 3px 0;
   font-size: 14px;
 }
@@ -129,7 +130,7 @@
   stroke-dasharray: 1, 100;
   stroke-dashoffset: 0;
   stroke-width: 2;
-  stroke: #1cbbb4;
+  stroke: #009688;
   stroke-linecap: round;
 }
 

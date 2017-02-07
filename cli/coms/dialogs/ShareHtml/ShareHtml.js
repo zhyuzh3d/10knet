@@ -1,4 +1,14 @@
+import Vue from 'vue';
 import jquery from 'jquery';
+import {
+    Dialog,
+    Button,
+}
+from 'element-ui'
+Vue.use(Dialog);
+Vue.use(Button);
+
+
 window.$ = window.jQuery = jquery;
 require('jquery.qrcode');
 
