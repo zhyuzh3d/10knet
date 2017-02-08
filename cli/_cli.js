@@ -1,13 +1,14 @@
 //主战入口文件，将自动载入子站并完成vue和插件的初始化
 import Vue from 'vue';
-
-/*
-//elements ui主题库
 import './theme/index.css';
+
+//elements ui主题库
+/*
 import './conf/common.css'; //自定义样式
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 */
+
 
 //xglobal全局插件及载入设置
 import conf from './xglobal/conf.js';
@@ -26,7 +27,7 @@ Vue.use(xglobal, {
             rRun,
         },
         data: function () {
-            return {}
+            return {};
         },
     },
 });
@@ -40,7 +41,7 @@ Vue.use(xrouter);
 import App from './coms/pages/App/App.html';
 
 var app = new Vue({
-    el: '#App', //挂载点
+    el: '#VueApp', //挂载点
     render: function (h) {
         return h(App);
     }

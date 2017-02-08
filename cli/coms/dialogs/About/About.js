@@ -15,10 +15,7 @@ let com = {};
 export default com;
 
 //所有直接用到的组件在这里导入
-import Coder from '../../blocks/Coder/Coder.html';
-com.components = {
-    Coder
-};
+com.components = {};
 
 com.props = {
     conf: Object, //{show,pageName,file{name,url,key...}}

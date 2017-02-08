@@ -211,6 +211,11 @@
   --message-warning-color: var(--color-warning);
   --message-danger-color: var(--color-danger);
 
+  /* Message alert修复不可选择
+  -------------------------- */
+  --message-box-user-select: initial;
+  --message-box-webkit-user-select: initial;
+
   /* Notification
   -------------------------- */
   --notification-width: 330px;

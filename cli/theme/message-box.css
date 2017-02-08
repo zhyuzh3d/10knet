@@ -40,6 +40,8 @@
   -------------------------- */
   /* Message
   -------------------------- */
+  /* Message alert修复不可选择
+  -------------------------- */
   /* Notification
   -------------------------- */
   //: 14px;
@@ -123,6 +125,8 @@
   /* Message Box
   -------------------------- */
   /* Message
+  -------------------------- */
+  /* Message alert修复不可选择
   -------------------------- */
   /* Notification
   -------------------------- */
@@ -594,6 +598,8 @@
   -------------------------- */
   /* Message
   -------------------------- */
+  /* Message alert修复不可选择
+  -------------------------- */
   /* Notification
   -------------------------- */
   //: 14px;
@@ -883,7 +889,7 @@
   width: 420px;
   border-radius: 3px;
   font-size: 16px;
-  -webkit-user-select: none;
+  -webkit-user-select: initial;
   overflow: hidden;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;

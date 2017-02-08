@@ -11,6 +11,7 @@ import {
     Row,
     Col,
     Autocomplete,
+    Switch,
 }
 from 'element-ui'
 Vue.use(Dialog);
@@ -18,6 +19,7 @@ Vue.use(Button);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Autocomplete);
+Vue.use(Switch);
 
 
 let com = {};

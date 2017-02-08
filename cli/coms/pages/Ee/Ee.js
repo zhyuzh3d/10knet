@@ -16,7 +16,8 @@ const notify = Notification
 Vue.prototype.$notify = notify;
 const confirm = MessageBox.confirm;
 Vue.prototype.$confirm = confirm;
-
+const alert = MessageBox.alert;
+Vue.prototype.$alert = alert;
 
 let com = {};
 export default com;
@@ -24,7 +25,6 @@ export default com;
 let previewMsgHub;
 
 //所有要用的元素都写在这里
-import Coder from '../../blocks/Coder/Coder.html';
 import Dbox from '../../symbols/Dbox/Dbox.html';
 import PageSet from '../../dialogs/PageSet/PageSet.html';
 import ShareHtml from '../../dialogs/ShareHtml/ShareHtml.html';
@@ -33,11 +33,10 @@ import Account from '../../dialogs/Account/Account.html';
 import SetAccPage from '../../dialogs/SetAccPage/SetAccPage.html';
 import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
 
-import Beautify from 'js-beautify';
-
+//import Beautify from 'js-beautify';
+var Beautify;
 
 com.components = {
-    Coder,
     Dbox,
     PageSet,
     ShareHtml,
@@ -47,12 +46,33 @@ com.components = {
     PageTemplates,
 };
 
+//动态加载功能,附着$data._xsetConf,所有路由都由xrouter触发，不需要watch
+var comCtx;
+com.beforeCreate = function () {
+    comCtx = this;
+};
+var xsetConf = {};
+xsetConf.coderView = {
+    before: async function mainViewLoader(name, oldName) {
+        var com = await System.import('../../blocks/Coder/Coder.html');
+        Vue.component('coder', com);
+        comCtx.$set(comCtx.$data, 'coderLoaded', true);
+    },
+};
+
+com.props = {
+    xid: String, //必须加入xid字段并且html中:xid='xid'才能保留外部传来的xid
+};
+
 com.data = function data() {
     var ctx = this;
     var fileName = localStorage.getItem('lastFileName');
     var accountInfo = {}; //??用户信息，每次启动应自动获取
 
     return {
+        coderView: '',
+        _xsetConf: xsetConf, //设置xset的钩子事件
+        coderLoaded: false,
         msg: 'Hello from blocks/Ee/Ee.js',
         accInfo: undefined,
         accPage: undefined,
@@ -148,17 +168,15 @@ com.methods = {
 com.mounted = async function () {
     var ctx = this;
 
+    //载入编辑器
+    ctx.$xset(ctx, {
+        coderView: 'coder',
+    });
+
+    //载入代码美化beautiful
+    //if (!Beautify) Beautify = await System.import('js-beautify');
+
     previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
-
-    //激活顶部导航栏菜单
-    this.$xrouter.xset('NavBar', {
-        activeMenu: 'ee',
-    });
-
-    //使用导航栏背景
-    this.$xrouter.xset('App', {
-        barBg: '',
-    });
 
     //自动登录
     await ctx.$xglobal.fns.autoLogin(ctx);
@@ -351,7 +369,9 @@ function beautifyJs(ctx) {
     beautifyCode('js', ctx);
 };
 
-function beautifyCode(part, ctx) {
+async function beautifyCode(part, ctx) {
+    if (!Beautify) Beautify = await System.import('js-beautify');
+
     var cmEditor = ctx.jsData.editor;
     var cmDoc = cmEditor.doc;
 

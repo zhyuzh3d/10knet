@@ -1,6 +1,6 @@
 <script src="./Ee.js"></script>
 <template>
-    <div id='Ee' xid='Ee' class='full'>
+    <div id='Ee' :xid='xid' class='full'>
         <div class='mainBox'>
             <div class="sideBar">
                 <div style='height:4px'></div>
@@ -28,7 +28,7 @@
                         <div v-if='accInfo&&accPage'>
                             <div class="popTitle">
                                 <span>保存到&nbsp;</span>
-                                <a v-bind:href="'http://'+accInfo.name+'.10knet.com/'+accPage.name" target="_blank">                              {{accInfo.name}}.10knet.com/{{accPage.name}}</a></div>
+                                <a v-bind:href="'http://'+accInfo.name+'.10knet.com'+(accInfo.name==accPage.name?'':'/'+accPage.name)" target="_blank">                              {{accInfo.name+'.10knet.com'+(accInfo.name==accPage.name?'':'/'+accPage.name)}}</a></div>
                             <div class="popBody">
                                 <div>点击按钮立即保存</div>
                                 <br>
@@ -87,8 +87,6 @@
                     <el-button class='rbtn' @click='selectUploadFile' v-popover:picBtnPop><i class="fa fa-photo"></i></el-button>
                     <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
 
-
-
                     <el-popover ref="qqBtnPop" placement="right" width="auto" v-model="qqBtnPopVis" trigger="hover">
                         <div class="popTitle">加入QQ群，求助、答疑、一起交流</div>
                         <div class="popBody">
@@ -100,9 +98,6 @@
                     <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
                         <el-button class='rbtn' v-popover:qqBtnPop><i class="fa fa-qq"></i></el-button>
                     </a>
-
-
-
 
                 </div>
                 <div class="btnGrp2">
@@ -127,31 +122,56 @@
                 <div style='height:8px'></div>
             </div>
             <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
-                <dbox xid='cssCoderBox' useBottom='true' hei='30%' barSize='5'>
-                    <coder xid='cssCoder' class='coderDiv' mode='css' v-bind:data='cssData' v-bind:keyupFn='refreshCss'>
+                <dbox xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
+                    <div v-if='!coderLoaded' class="hvcenter">
+                        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                        <small>...载入中...</small>
+                    </div>
+
+                    <component :is="coderView" xid='cssCoder' class='coderDiv' mode='css' v-bind:data='cssData' v-bind:keyupFn='refreshCss'>
                         <el-popover ref="cssHudPop" placement="left" width="auto" v-model="cssHudPopVis" trigger="hover">
                             <div class="popBody2">
                                 <div>编码时自动同步刷新
-                                    <br>点击手工刷新并美化代码格式</div>
+                                    <br>点击按钮手工刷新并美化代码格式</div>
                             </div>
                         </el-popover>
                         <el-button class='tagbtn' size='mini' @click='beautifyCss' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
-                    </coder>
+                    </component>
                 </dbox>
                 <dbox xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5'>
-                    <coder xid='bodyCoder' class='coderDiv' mode='text/html' v-bind:data='bodyData' v-bind:keyupFn='refreshBody'>
-                        <el-tooltip effect="light" content="编码时自动同步刷新，点击这里手工刷新并规范代码格式" placement="left-end">
-                            <el-button class='tagbtn' size='mini' @click='beautifyBody'>&nbsp;body&nbsp;</el-button>
-                        </el-tooltip>
-                    </coder>
+                    <div v-if='!coderLoaded' class="hvcenter">
+                        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                        <small>...载入中...</small>
+                    </div>
+
+                    <component :is="coderView" xid='bodyCoder' class='coderDiv' mode='text/html' v-bind:data='bodyData' v-bind:keyupFn='refreshBody'>
+                        <el-popover ref="bodyHudPop" placement="left" width="auto" v-model="bodyHudPopVis" trigger="hover">
+                            <div class="popBody2">
+                                <div>编码时自动同步刷新
+                                    <br>点击按钮手工刷新并美化代码格式</div>
+                            </div>
+                        </el-popover>
+
+                        <el-button class='tagbtn' size='mini' @click='beautifyBody' v-popover:bodyHudPop>&nbsp;body&nbsp;</el-button>
+                    </component>
                 </dbox>
                 <div class='autoFlex'>
                     <div style="height:100%">
-                        <coder xid='jsCoder' class='coderDiv' mode='javascript' v-bind:data='jsData' v-bind:keyupFn='refreshJs'>
-                            <el-tooltip effect="light" content="编码时回车才会刷新，点击这里手工刷新并规范代码格式" placement="left-end">
-                                <el-button class='tagbtn' size='mini' @click='beautifyJs'>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
-                            </el-tooltip>
-                        </coder>
+                        <div v-if='!coderLoaded' class="hvcenter">
+                            <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                            <small>...载入中...</small>
+                        </div>
+
+                        <component :is="coderView" xid='jsCoder' class='coderDiv' mode='javascript' v-bind:data='jsData' v-bind:keyupFn='refreshJs'>
+                            <el-popover ref="jsHudPop" placement="left" width="auto" v-model="jsHudPopVis" trigger="hover">
+                                <div class="popBody2">
+                                    <div>编码时回车键同步刷新
+                                        <br>点击按钮手工刷新并美化代码格式</div>
+                                </div>
+                            </el-popover>
+
+                            <el-button class='tagbtn' size='mini' @click='beautifyJs' v-popover:jsHudPop>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
+                        </component>
                     </div>
                 </div>
             </dbox>
@@ -170,6 +190,46 @@
     </div>
 </template>
 <style scoped>
+    .el-message-box {
+        -webkit-user-select: none;
+    }
+
+    a {
+        color: #1cbbb4;
+        text-decoration: none;
+    }
+
+    a:-webkit-any-link {
+        color: #1cbbb4;
+        text-decoration: none;
+    }
+
+    a:link {
+        text-decoration: none;
+    }
+
+    a:active {
+        text-decoration: none
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:visited {
+        text-decoration: none;
+    }
+
+    .hvcenter {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #666;
+        -webkit-font-smoothing: antialiased;
+    }
+
     .popTitle {
         font-size: 14px;
         font-weight: bold;
@@ -288,7 +348,7 @@
 
     .left {
         flex: initial;
-        background-color: #CCC;
+        background-color: #888;
         display: flex;
         align-items: stretch;
         flex-flow: column nowrap;

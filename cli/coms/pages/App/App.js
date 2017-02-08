@@ -5,8 +5,7 @@ export default com;
 
 //所有要用的元素都写在这里
 import Ee from '../../pages/Ee/Ee.html';
-//import Ee from '../../blocks/a/a.html';
-
+//import Ee from '../../blocks/aa/aa.html';
 com.components = {
     Ee,
 };
@@ -15,7 +14,7 @@ com.components = {
 com.data = function data() {
     var ctx = this;
     return {
-        mainView: '',
+        mainView: 'ee',
         barBg: '', //inherit 透明
         urls: ctx.$xglobal.conf.urls, //全部素材地址
         apis: ctx.$xglobal.conf.apis, //全部api接口路径
@@ -25,12 +24,10 @@ com.data = function data() {
 //加载到页面后执行的方法
 com.mounted = async function () {
     var ctx = this;
-    ctx.$xrouter.go('App', {
-        mainView: ''
-    });
+
 
     //避免为空或者xrestore失败
-    if (ctx.$data.mainView == '' || !ctx.xrestored) {
+    if (!ctx.$data.mainView || ctx.$data.mainView == '' || !ctx.xrestored) {
         ctx.$xrouter.go('App', {
             mainView: 'ee'
         });

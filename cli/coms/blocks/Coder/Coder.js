@@ -1,29 +1,24 @@
 import Vue from 'vue';
 import $ from 'jquery';
 
-
 import {
     codemirror, CodeMirror
 }
 from 'vue-codemirror';
 
-import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/hint/anyword-hint.js';
-
-import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
+import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/html-hint.js';
-
 import 'codemirror/addon/edit/matchtags.js';
-
-
 
 let com = {};
 export default com;
 
-let vc; //此元素vueComponent对象
-let jo; //此元素对应的jquery对象,mounted函数内设定
+com.beforeCreate = async function () {};
+
 
 let selStr; //选中的字符串，用于自动提示使用
 
@@ -34,20 +29,20 @@ com.components = {
 
 //所有数据写在这里
 com.data = function () {
-    var vc = this;
+    var ctx = this;
 
     return {
         msg: 'Hello from blocks/Coder/Coder.js',
-        codeData: vc.data,
+        codeData: ctx.data,
         scrollInfo: {
             top: 0,
             left: 0,
         },
-        options: vc.opts || {
-            mode: vc.mode || 'javascript',
+        options: ctx.opts || {
+            mode: ctx.mode || 'javascript',
             lineNumbers: true,
             tabSize: 4,
-            theme: vc.theme || 'monokai',
+            theme: ctx.theme || 'monokai',
             line: true,
             keyMap: "sublime",
             styleActiveLine: true,
@@ -57,7 +52,7 @@ com.data = function () {
             gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             lint: true,
             matchBrackets: true,
-            matchTags: vc.mode == 'text/html' ? {
+            matchTags: ctx.mode == 'text/html' ? {
                 bothTags: true
             } : undefined,
             autoCloseBrackets: true,
@@ -91,9 +86,7 @@ com.props = {
 
 
 //加载到页面之前执行的函数
-com.beforeMount = function () {
-    jo = $(this.$el);
-};
+com.beforeMount = function () {};
 
 //监视数据变化
 com.watch = {
@@ -112,7 +105,6 @@ com.watch = {
 
 //加载到页面之后执行的函数
 com.mounted = function () {
-    jo = $(this.$el);
     var ctx = this;
     var codejo = $(this.$el);
     if (ctx.xid) codejo.attr('xid', ctx.xid);
@@ -149,7 +141,7 @@ com.mounted = function () {
 };
 
 
-//-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------
+//---------------functions----------------
 function setFontSize(size, ctx) {
     let editor = ctx.$refs.myEditor.editor;
     editor.getWrapperElement().style["font-size"] = `${size}px`;

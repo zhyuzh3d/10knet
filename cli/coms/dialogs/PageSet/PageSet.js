@@ -14,9 +14,15 @@ let com = {};
 export default com;
 
 //所有直接用到的组件在这里导入
-import Coder from '../../blocks/Coder/Coder.html';
-com.components = {
-    Coder
+com.components = {};
+
+//动态加载功能,附着$data._xsetConf,所有路由都由xrouter触发，不需要watch
+var xsetConf = {};
+xsetConf.coderView = {
+    before: async function mainViewLoader(name, oldName) {
+        var com = await System.import('../../blocks/Coder/Coder.html');
+        Vue.component('coder', com);
+    },
 };
 
 com.props = {
@@ -28,6 +34,8 @@ com.data = function data() {
     var headStr = this.$xglobal.conf.temp.headData;
 
     return {
+        coderView: '',
+        _xsetConf: xsetConf, //设置xset的钩子事件
         title: `页面头部<head>代码`,
         headData: {
             code: localStorage.getItem('preview-head') || headStr,
@@ -72,6 +80,11 @@ com.beforeMount = function () {};
 //加载到页面后执行的函数
 com.mounted = function () {
     var ctx = this;
+
+    //载入编辑器
+    ctx.$xset(ctx, {
+        coderView: 'coder',
+    });
 };
 
 //-------所有函数写在下面--------

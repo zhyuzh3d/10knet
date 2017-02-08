@@ -1,11 +1,17 @@
 /**
- * 全局路由函数文件，将被xglobal插件载入到每个component的this.$xrouter备用
+ * 全局路由函数文件，将被xglobal插件载入到每个component;
+ * this.$xrouter及分离的this.$xset,$xgo,$xrestore,$xcoms,
+ * 分离后的函数可以胜率xid参数，即指向自身xid；$xrouter.xxx不可以省略
  * 每个可路由切换的组件必须有prop属性xid传入或$el上面有xid属性，
  * 类似<top-bar xid='topbar'>,没有xid的将被忽略无法被路由调动
  * 最根本的函数是xset，$set设置其他组件的数据，如果该属性+BeforeXset数据存在那么将异步执行它
  */
 
-let xrouter = {};
+let xrouter = {
+    go: xgo,
+    restore: xrestore,
+    xset: xset,
+};
 export default xrouter;
 
 let xcoms = xrouter.xcoms = {}; //用于路由的全部具有xid属性的组件
@@ -16,12 +22,18 @@ let xcoms = xrouter.xcoms = {}; //用于路由的全部具有xid属性的组件
  * @param {object} options
  */
 xrouter.install = function (Vue, options) {
+
     //向每个组件添加mixin，挂载时候根据ls读取之前的参数设置重新初始化
     //挂载时将组件加入xcoms(xid到vc的映射)，销毁时候清除组件
     Vue.mixin({
         beforeCreate: function () {
             //将xrouter注入到元素的$xrouter
+            var ctx = this;
             this.$xrouter = xrouter;
+            this.$xcoms = xrouter.xcoms;
+            this.$xset = xset;
+            this.$xgo = xgo;
+            this.$xrestore = xrestore;
         },
         mounted: function () {
             //同时兼容props和标记内的xid属性（顶级app没有props）
@@ -52,7 +64,7 @@ xrouter.install = function (Vue, options) {
  * 显示所有可用的xcoms，用于测试
  */
 xrouter.showComs = function () {
-    console.log('router:showComs', xcoms);
+    console.log('xrouter:showComs', xcoms);
 };
 
 /**
@@ -61,13 +73,22 @@ xrouter.showComs = function () {
  * @param   {object} dataKeyValObj 要修改的键值属性,类似{mainView: 'temp'}
  * @returns {object} vuecom对象
  */
-xrouter.go = async function (parentXid, dataKeyValObj) {
+async function xgo(parentXid, dataKeyValObj) {
+    //支持$xset只有一个参数，功能相当于$set但是会本地存储和恢复，同样触发xset功能,不用hash
+    if (!dataKeyValObj) {
+        dataKeyValObj = parentXid;
+        parentXid = this.$el ? this.$el.getAttribute('xid') : undefined;
+    };
+
+    if (!parentXid) {
+        console.error('xrouter:$xgo:xid not defined.');
+        return;
+    };
+
     var hash = JSON.stringify([parentXid, dataKeyValObj]);
     hash = encodeURIComponent(hash);
 
     //模拟锚点为路径添加hash字段
-    //var anchor = $('<a href="#' + hash + '" style="display:none"></a>');
-    //$('body').append(anchor);
     var anchor = document.createElement('a');
     anchor.href = '#' + hash;
     anchor.style.display = 'none';
@@ -84,7 +105,7 @@ xrouter.go = async function (parentXid, dataKeyValObj) {
  * 根据ls存储恢复vuecom的状态，调用xset函数,成功后设置vc.xrestored=true;
  * @param {string} xid 元素的xid
  */
-xrouter.restore = function (xid) {
+function xrestore(xid) {
     //获取本地ls存储的dataKeyValObj
     var lskey = JSON.stringify(['xrouter', xid]);
     var lsval = localStorage.getItem(lskey);
@@ -117,27 +138,37 @@ xrouter.restore = function (xid) {
  * @param   {boolean} unsave 是否保存
  * @returns {boolean}  成功返回com真失败undefined
  */
-xrouter.xset = async function (xid, keyValObj, unsave) {
+async function xset(xid, keyValObj, unsave) {
     var res;
 
+    //如果第一个传进来的不是字符串，那么尝试从ctx上获取xid
+    if (xid && xid.constructor != String) {
+        xid = this.$el ? this.$el.getAttribute('xid') : undefined;
+    };
+
     //获取vc对象
-    var com = xcoms[xid];
-    if (!com) {
-        console.warn('xrouter/xset:can not find parent component xid [' + xid + '],saved for restore.');
+    var ctx = xcoms[xid];
+    if (!ctx) {
+        console.warn('xrouter:xset:can not find parent component xid [' + xid + '],saved for restore.');
         xrouter.showComs();
     } else {
         //根据dataKeyValObj为com设置$set每个$data值
-        res = com;
+        res = ctx;
         for (var key in keyValObj) {
-            //如果是View结尾的属性那么就自动尝试载入组件
-            var before = com[key + 'BeforeXset'];
-            if (before) await before(keyValObj[key]);
+            if (ctx.$data[key] != undefined) {
+                //使_xsetConf钩子生效
+                var beforefn, afterfn;
+                if (ctx.$data._xsetConf && ctx.$data._xsetConf[key]) {
+                    beforefn = ctx.$data._xsetConf[key].before;
+                    afterfn = ctx.$data._xsetConf[key].after;
+                };
 
-            //设置data属性
-            if (com.$data[key] != undefined) {
-                com.$set(com, key, keyValObj[key]);
+                //beforefn->设置data属性->afterfn
+                if (beforefn) await beforefn(keyValObj[key], ctx.$data[key]);
+                ctx.$set(ctx, key, keyValObj[key]);
+                if (afterfn) await afterfn(keyValObj[key], ctx.$data[key]);
             } else {
-                console.warn(`'xrouter/xset:can not add property to com:${key}`);
+                console.warn(`'xrouter:xset:can not add property to com:${key}`);
             };
         };
     };
@@ -145,7 +176,9 @@ xrouter.xset = async function (xid, keyValObj, unsave) {
 
     //即使com还不存在也先保存，等待com载入后会自动恢复
     if (!unsave) {
-        //保存到本地缓存,可用于恢复组件状态，用json化的数组作为键、值,掺入'xrouter'避免和其他插件重复
+        //保存到本地缓存,可用于恢复组件状态，
+        //用json化的数组作为键、值,掺入'xrouter'避免和其他插件重复
+        //单页面应用不用担心跳转
         var lskey = JSON.stringify(['xrouter', xid]);
 
         //先读取已经存储的对象，然后再合并对象，再存储
@@ -158,7 +191,7 @@ xrouter.xset = async function (xid, keyValObj, unsave) {
         localStorage.setItem(lskey, newval);
     };
 
-    return com;
+    return ctx;
 };
 
 
@@ -174,7 +207,7 @@ xrouter.xset = async function (xid, keyValObj, unsave) {
 
         var xidKVarr = JSON.parse(hash);
         if (xidKVarr.constructor != Array || xidKVarr.length < 2) {
-            console.error('xrouter/hashchange:hash format err', xidKVarr);
+            console.error('xrouter:hashchange:hash format err', xidKVarr);
             return false;
         };
 
