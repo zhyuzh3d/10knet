@@ -542,8 +542,16 @@ async function uploadFile(tag, fileName, file, ctx) {
 async function openShareDialog() {
     var ctx = this;
 
+    //如果已经登录，直接分享page地址
     var url = ctx.$data.accPage ? ctx.$data.accPage.accUrl : undefined;
     if (url) {
+        //先保存
+        await ctx.saveAccPage();
+
+        //检测地址是否主页，缩短地址
+        if (ctx.$data.accPage.name == ctx.$data.accInfo.name) {
+            url = 'http://' + ctx.$data.accInfo.name + '.10knet.com';
+        };
         ctx.shareDialogConf.show = true;
         ctx.shareDialogConf.url = url;
         return;

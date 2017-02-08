@@ -65,9 +65,7 @@ com.methods = {
 com.beforeMount = function () {};
 
 //加载到页面后执行的函数
-com.mounted = function () {
-    var headStr = this.$xglobal.conf.temp.headData;
-};
+com.mounted = function () {};
 
 //-------所有函数写在下面--------
 
