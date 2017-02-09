@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<head>
+<div head 10knet>
+<title>10knet | 2D图形学(createJs)</title>
+<meta charset="utf-8">
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script></div>
+</head>
+<style 10knet>/*css样式*/
+canvas {
+    background: #000;
+}
+body {
+    margin: 0;
+}</style>
+<body><div body 10knet><!--html内body标记-->
+<div class="container">
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+</div></div></body>
+<script 10knet>/*javascript脚本*/
+//让画布撑满窗口
+$('#myCanvas').attr('width', window.innerWidth + 'px');
+$('#myCanvas').attr('height', window.innerHeight + 'px');
+
+var circles = []; //所有圆圈列表
+var stage; //舞台
+var count = 24;
+
+//窗口载入完成，准备就绪后开始绘制画布
+window.onload = function() {
+    stage = new createjs.Stage("myCanvas");
+    stage.enableMouseOver(10); //允许鼠标事件
+    createjs.Touch.enable(stage); //允许手机触屏事件
+
+    //创建多个圆圈
+    for (var i = 0; i < count; i++) {
+        var circle = createRandCircle();
+        stage.addChild(circle);
+        circles.push(circle);
+    };
+
+    createjs.Ticker.addEventListener("tick", tickerRender);
+};
+
+//创建一个随机颜色、随机位置、随机大小的圆圈
+function createRandCircle() {
+    var circle = new createjs.Shape();
+    var clr = '#' + (Math.random() * 0xffffff << 0).toString(16);
+    var sizeBase = window.innerWidth * 0.05;
+    var size = Math.random() * sizeBase + 5;
+    circle.graphics.beginFill(clr).drawCircle(0, 0, size);
+    circle.x = Math.random() * (window.innerWidth * 0.8) + window.innerWidth * 0.1;
+    circle.y = Math.random() * (window.innerHeight * 0.8) + window.innerHeight * 0.1;
+
+    //可以把自己需要使用的数据放在每个圆圈的xdata里面
+    circle.xdata = {
+        x: circle.x,
+        y: circle.y,
+        size: size,
+        ani: true,
+        tick: 0,
+        dirX: Math.random() > 0.5 ? 1 : -1,
+        dirY: Math.random() > 0.5 ? 1 : -1,
+    };
+    circle.alpha = size / sizeBase * 0.5 + 0.1;
+    circle.addEventListener("click", circleClick);
+    circle.addEventListener("mouseover", circleOver);
+    circle.addEventListener("mouseout", circleOut);
+    circle.cursor = 'pointer';
+    return circle;
+};
+
+//每次tick执行动画
+function tickerRender(e) {
+    circles.forEach(function(shape, i) {
+        if (shape.xdata.ani) {
+            shape.xdata.tick += 1;
+            shape.x = Math.sin(shape.xdata.tick / 50) * 2 * shape.xdata.size * shape.xdata.dirX + shape.xdata.x;
+            shape.y = Math.sin(shape.xdata.tick / 50) * 2 * shape.xdata.size * shape.xdata.dirY + shape.xdata.y;
+        };
+    });
+    stage.update();
+};
+
+//鼠标点击圆圈放大
+function circleClick(e) {
+    var shape = e.target;
+    shape.xdata.ani = false;
+    shape.scaleX = 1.5;
+    shape.scaleY = 1.5;
+};
+
+//鼠标划上圆圈停止动画
+function circleOver(e) {
+    var shape = e.target;
+    shape.xdata.ani = false;
+};
+
+//鼠标划出圆圈继续动画
+function circleOut(e) {
+    var shape = e.target;
+    shape.xdata.ani = true;
+    shape.scaleX = 1;
+    shape.scaleY = 1;
+};
+document.domain = '10knet.com';</script>

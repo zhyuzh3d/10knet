@@ -17,7 +17,7 @@
                                 <iframe @load='iframeLoad($event)' v-bind:src='v.url' style=""></iframe>
                             </div>
                             <div class="tmpInfo" @click='seleletTemp(v)'>
-                                <div class="tmpTitle">{{k}}</div>
+                                <div class="tmpTitle">{{v.name}}</div>
                                 <div class="tmpDesc">{{v.desc}}</div>
                             </div>
                         </div>
@@ -64,6 +64,7 @@
     .tmpTitle {
         font-weight: bold;
         color: #1c2d3d;
+        font-size: 16px;
     }
 
     .tmpDesc {
