@@ -42,7 +42,8 @@
                         <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
                     </el-tooltip>
 
-                    <div style="margin:12px 12px;height:1px;background:#666"></div>
+                    <el-popover ref="lineJokePop" placement="right" width="auto" v-model="lineJokePopVis" trigger="hover">别看我，我只是条无辜的分割线</el-popover>
+                    <div style="margin:12px 12px;height:1px;background:#666" v-popover:lineJokePop></div>
 
                     <el-popover ref="tmpBtnPop" placement="right" width="auto" v-model="tmpBtnPopVis" trigger="hover">
                         <div class="popTitle">不知从何开始？点击浏览代码模版</div>
@@ -63,17 +64,6 @@
                     </el-popover>
                     <el-button class='rbtn' @click='setDialogConf.show=true' v-popover:setBtnPop><i class="fa fa-gear"></i></el-button>
 
-
-                    <el-popover ref="shareBtnPop" placement="right" width="auto" v-model="shareBtnPopVis" trigger="hover">
-                        <div class="popTitle">想把您的页面分享给朋友吗？点这里！</div>
-                        <div class="popBody">
-                            <div>支持QQ好友、QQ空间、微博、微信</div>
-                            <div>微信扫码后打开，然后在右上角菜单下分享</div>
-                            <div>您也可以直接把链接复制到任何地方打开观看</div>
-                        </div>
-                    </el-popover>
-                    <el-button class='rbtn' @click='openShareDialog' v-popover:shareBtnPop><i class="fa fa-share-alt"></i></el-button>
-
                     <el-popover ref="picBtnPop" placement="right" width="auto" v-model="picBtnPopVis" trigger="hover">
                         <div class="popTitle">想使用自己的图片？点这里上传！</div>
                         <div class="popBody">
@@ -86,6 +76,20 @@
                     </el-popover>
                     <el-button class='rbtn' @click='selectUploadFile' v-popover:picBtnPop><i class="fa fa-photo"></i></el-button>
                     <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
+
+                    <el-popover ref="lineJokePop2" placement="right" width="auto" v-model="lineJokePop2Vis" trigger="hover">别看我，我只是条无辜的分割线</el-popover>
+                    <div style="margin:12px 12px;height:1px;background:#666" v-popover:lineJokePop2></div>
+
+                    <el-popover ref="shareBtnPop" placement="right" width="auto" v-model="shareBtnPopVis" trigger="hover">
+                        <div class="popTitle">想把您的页面分享给朋友吗？点这里！</div>
+                        <div class="popBody">
+                            <div>支持QQ好友、QQ空间、微博、微信</div>
+                            <div>微信扫码后打开，然后在右上角菜单下分享</div>
+                            <div>您也可以直接把链接复制到任何地方打开观看</div>
+                        </div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='openShareDialog' v-popover:shareBtnPop><i class="fa fa-share-alt"></i></el-button>
+
 
                     <el-popover ref="qqBtnPop" placement="right" width="auto" v-model="qqBtnPopVis" trigger="hover">
                         <div class="popTitle">加入QQ群，求助、答疑、一起交流</div>
