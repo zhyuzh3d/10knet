@@ -1,10 +1,10 @@
 //主战入口文件，将自动载入子站并完成vue和插件的初始化
 import Vue from 'vue';
-import './theme/index.css';
+import './conf/common.css'; //自定义样式
 
 //elements ui主题库
 /*
-import './conf/common.css'; //自定义样式
+import './theme/index.css';
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 */

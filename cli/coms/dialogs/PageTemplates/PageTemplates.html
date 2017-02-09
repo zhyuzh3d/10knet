@@ -1,13 +1,13 @@
 <script src="./PageTemplates.js"></script>
 
 <template>
-    <div id='PageTemplates' xid='PageTemplates'>
+    <div id='PageTemplates' :xid='xid||"PageTemplates"'>
         <el-dialog title="导入模版代码" v-model="conf.show" size='large'>
             <div class="rowDiv">
                 <div>请直接输入页面地址或者点击下面的卡片选择</div>
             </div>
             <div class="rowDiv" style="margin-top:4px">
-                <el-input v-model="inputUrl" placeholder="请粘贴页面链接如http://app.10knet.com/.../index.html" style='width:100%'> </el-input>
+                <el-input v-model="inputUrl" placeholder="请粘贴页面链接如http://app.10knet.com/.../index.html" style='width:100%' ref='fileUrl' @change='validate("fileUrl")'> </el-input>
             </div>
             <div class="rowDiv tmpsBox">
                 <div class='cardBox' v-for='(v,k) in templates' v-if='v.show'>

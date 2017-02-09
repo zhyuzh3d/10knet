@@ -29,6 +29,7 @@ export default com;
 com.components = {};
 
 com.props = {
+    xid:String,
     conf: Object, //{show,pageName,file{name,url,key...}}
 };
 

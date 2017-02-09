@@ -10,6 +10,10 @@ com.components = {
     Ee,
 };
 
+com.props = {
+    xid: String
+};
+
 //所有数据写在这里
 com.data = function data() {
     var ctx = this;

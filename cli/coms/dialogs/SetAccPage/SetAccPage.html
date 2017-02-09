@@ -1,7 +1,7 @@
 <script src="./SetAccPage.js"></script>
 
 <template>
-    <div id='SetAccPage' xid='SetAccPage'>
+    <div id='SetAccPage' :xid='xid||"SetAccPage"'>
         <el-dialog title="设置当前页面名称" v-model="conf.show">
             <div class='contbox'>
                 <div class='txt'>您的代码将被保存到此页面</div>

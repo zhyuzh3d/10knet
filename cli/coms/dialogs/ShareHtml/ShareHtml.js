@@ -19,6 +19,7 @@ export default com;
 com.components = {};
 
 com.props = {
+    xid: String,
     conf: Object, //{show,file:{name,url,key...}}
 };
 
@@ -36,22 +37,21 @@ com.data = function data() {
 };
 
 com.watch = {
-    conf: {
+    'conf.show': {
         handler: function (val, oldval) {
             var ctx = this;
             //使关闭窗口的钩子生效
-            if (!val.show && val.onHide) {
-                val.onHide(this);
+            if (!val && ctx.conf.onHide) {
+                ctx.conf.onHide(ctx);
             };
 
-            if (val.show) {
+            if (val) {
                 setTimeout(function () {
                     drawQrcode(ctx);
                     genUrl(ctx);
                 }, 200);
             };
         },
-        deep: true
     },
 }
 

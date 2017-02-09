@@ -1,7 +1,7 @@
 <script src="./PageSet.js"></script>
 
 <template>
-    <div id='PageSet' xid='PageSet'>
+    <div id='PageSet' :xid='xid||"PageSet"'>
         <el-dialog v-bind:title="title" v-model="conf.show" size='large'>
             <div class="coderBox">
                 <component :is="coderView" mode='text/html' v-bind:data='headData' v-bind:keyupFn='syncCode'>

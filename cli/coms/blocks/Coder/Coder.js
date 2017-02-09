@@ -1,3 +1,7 @@
+/**
+ * 代码编辑器模块，支持xid传入，根据xid自动恢复卷动位置等
+ */
+
 import Vue from 'vue';
 import $ from 'jquery';
 
@@ -14,13 +18,10 @@ import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/edit/matchtags.js';
 
-let com = {};
+var com = {};
 export default com;
 
-com.beforeCreate = async function () {};
-
-
-let selStr; //选中的字符串，用于自动提示使用
+var selStr; //选中的字符串，用于自动提示使用
 
 //所有直接用到的组件在这里导入
 com.components = {
@@ -34,7 +35,7 @@ com.data = function () {
     return {
         msg: 'Hello from blocks/Coder/Coder.js',
         codeData: ctx.data,
-        scrollInfo: {
+        scrollInfo: { //自动保存和恢复卷动位置
             top: 0,
             left: 0,
         },
@@ -142,6 +143,11 @@ com.mounted = function () {
 
 
 //---------------functions----------------
+/**
+ * watch中实现自动设置页面的文字大小，设置后刷新编辑器
+ * @param {number} size 文字大小
+ * @param {object}   ctx  ctx
+ */
 function setFontSize(size, ctx) {
     let editor = ctx.$refs.myEditor.editor;
     editor.getWrapperElement().style["font-size"] = `${size}px`;

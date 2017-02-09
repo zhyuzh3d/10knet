@@ -1,7 +1,7 @@
 <script src="./Account.js"></script>
 
 <template>
-    <div id='Account' xid='Account'>
+    <div id='Account' :xid='xid||"Account"'>
         <el-dialog title="账号管理" v-model="conf.show">
             <div><small style="color:#A00">测试中,正式版即将发布,敬请期待</small></div>
             <div style='width:100%;text-align:center'>

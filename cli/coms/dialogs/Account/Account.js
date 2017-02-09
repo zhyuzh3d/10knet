@@ -1,3 +1,7 @@
+/**
+ * 账号管理登录注册弹窗
+ */
+
 import Vue from 'vue';
 import $ from 'jquery';
 import md5 from 'md5';
@@ -33,6 +37,7 @@ export default com;
 com.components = {};
 
 com.props = {
+    xid: String,
     conf: Object, //{show,startTab,myInfo}
 };
 
@@ -49,7 +54,8 @@ com.data = function data() {
             codeBtnDis: false,
         },
         set: {},
-        validates: { //input格式验证，fn或正则，和html的ref对应名称
+        validates: {
+            //input格式验证，fn或正则，和html的ref对应名称，通过时添加pass字段;注意method添加方法
             regMobile: {
                 fn: /^1\d{10}$/,
                 tip: '真实的11位数字手机号码'
@@ -394,14 +400,8 @@ async function changePw() {
  */
 async function accLogout() {
     var ctx = this;
-    ctx.$confirm('注销将清空当前编辑器及所有浏览器记录信息', '确认注销', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-    }).then(() => {
-        localStorage.clear();
-        location.href = location.href.substr(0, location.href.length - location.hash.length);
-    });
+    localStorage.clear();
+    location.href = location.href.substr(0, location.href.length - location.hash.length);
 };
 
 

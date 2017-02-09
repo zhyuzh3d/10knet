@@ -135,10 +135,10 @@
                                     <br>点击按钮手工刷新并美化代码格式</div>
                             </div>
                         </el-popover>
-                        <el-button class='tagbtn' size='mini' @click='beautifyCss' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
+                        <el-button class='tagbtn' size='mini' @click='beautifyCode("css")' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
                     </component>
                 </dbox>
-                <dbox xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5'>
+                <dbox xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
                         <small>...载入中...</small>
@@ -152,11 +152,11 @@
                             </div>
                         </el-popover>
 
-                        <el-button class='tagbtn' size='mini' @click='beautifyBody' v-popover:bodyHudPop>&nbsp;body&nbsp;</el-button>
+                        <el-button class='tagbtn' size='mini' @click='beautifyCode("body")' v-popover:bodyHudPop>&nbsp;body&nbsp;</el-button>
                     </component>
                 </dbox>
                 <div class='autoFlex'>
-                    <div style="height:100%">
+                    <div style="height:100%;position:relative;">
                         <div v-if='!coderLoaded' class="hvcenter">
                             <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             <small>...载入中...</small>
@@ -170,7 +170,7 @@
                                 </div>
                             </el-popover>
 
-                            <el-button class='tagbtn' size='mini' @click='beautifyJs' v-popover:jsHudPop>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
+                            <el-button class='tagbtn' size='mini' @click='beautifyCode("js")' v-popover:jsHudPop>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
                         </component>
                     </div>
                 </div>
@@ -192,32 +192,6 @@
 <style scoped>
     .el-message-box {
         -webkit-user-select: none;
-    }
-
-    a {
-        color: #1cbbb4;
-        text-decoration: none;
-    }
-
-    a:-webkit-any-link {
-        color: #1cbbb4;
-        text-decoration: none;
-    }
-
-    a:link {
-        text-decoration: none;
-    }
-
-    a:active {
-        text-decoration: none
-    }
-
-    a:hover {
-        text-decoration: none;
-    }
-
-    a:visited {
-        text-decoration: none;
     }
 
     .hvcenter {

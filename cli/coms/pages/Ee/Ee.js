@@ -1,6 +1,12 @@
+/**
+ * 编辑器页面布局及左侧栏按钮功能；
+ * Coder太重1M多，延迟加载
+ */
+
 import Vue from 'vue'
 import $ from 'jquery';
 
+//载入element-ui组件
 import {
     Popover,
     Button,
@@ -22,7 +28,7 @@ Vue.prototype.$alert = alert;
 let com = {};
 export default com;
 
-let previewMsgHub;
+let previewMsgHub; //用于向preview iframe传输指令
 
 //所有要用的元素都写在这里
 import Dbox from '../../symbols/Dbox/Dbox.html';
@@ -34,7 +40,7 @@ import SetAccPage from '../../dialogs/SetAccPage/SetAccPage.html';
 import PageTemplates from '../../dialogs/PageTemplates/PageTemplates.html';
 
 //import Beautify from 'js-beautify';
-var Beautify;
+var Beautify; //coder的hud按钮点击时候再加载这个功能
 
 com.components = {
     Dbox,
@@ -47,10 +53,12 @@ com.components = {
 };
 
 //动态加载功能,附着$data._xsetConf,所有路由都由xrouter触发，不需要watch
-var comCtx;
+var comCtx; //指向ctx，限不重复使用的组件
 com.beforeCreate = function () {
     comCtx = this;
 };
+
+//动态加载coder组件；同时也附着到$data._xsetConf以确保restore正常
 var xsetConf = {};
 xsetConf.coderView = {
     before: async function mainViewLoader(name, oldName) {
@@ -60,32 +68,32 @@ xsetConf.coderView = {
     },
 };
 
+//接收父层传来的tag属性
 com.props = {
     xid: String, //必须加入xid字段并且html中:xid='xid'才能保留外部传来的xid
 };
 
+//组件数据
 com.data = function data() {
     var ctx = this;
-    var fileName = localStorage.getItem('lastFileName');
-    var accountInfo = {}; //??用户信息，每次启动应自动获取
 
     return {
+        msg: 'Hello from blocks/Ee/Ee.js',
         coderView: '',
         _xsetConf: xsetConf, //设置xset的钩子事件
-        coderLoaded: false,
-        msg: 'Hello from blocks/Ee/Ee.js',
-        accInfo: undefined,
-        accPage: undefined,
+        coderLoaded: false, //控制圆圈是否显示
+        accInfo: undefined, //账号信息
+        accPage: undefined, //page信息
         refreshCss, //三个函数将作为数据传给coder编辑器
-        refreshBody,
-        refreshJs,
-        cssData: {
+        refreshBody, //同上
+        refreshJs, //同上
+        cssData: { //子层$set无法直接修改对象，这里使用code属性就可以被修改
             code: localStorage.getItem('preview-css') || '',
         },
-        bodyData: {
+        bodyData: { //同上
             code: localStorage.getItem('preview-body') || '',
         },
-        jsData: {
+        jsData: { //同上
             code: localStorage.getItem('preview-js') || '',
         },
         setDialogConf: { //设置按钮，关闭时候同步刷新预览
@@ -93,8 +101,6 @@ com.data = function data() {
             onHide: function (tarctx) {
                 refreshJsMenual(ctx);
                 var pname = tarctx.conf.fileName;
-                ctx.$set(ctx.$data, 'fileName', pname);
-                localStorage.setItem('lastFileName', pname);
             },
         },
         shareDialogConf: { //分享按钮，关闭时候同步刷新预览
@@ -108,7 +114,7 @@ com.data = function data() {
             show: false,
             onHide: function (tarctx) {
                 if (tarctx.conf.ipt) {
-                    loadTemplate(tarctx.conf.template, ctx);
+                    ctx.loadTemplate(tarctx.conf.template);
                 };
             },
         },
@@ -123,48 +129,33 @@ com.data = function data() {
             onHide: function (tarctx) {
                 ctx.$set(ctx.$data, 'accPage', tarctx.conf.setPage);
                 if (tarctx.conf.loadFile) {
-                    loadTemplate(tarctx.conf.loadFile, ctx);
+                    ctx.loadTemplate(tarctx.conf.loadFile);
                 };
             },
         },
-        accInfo: undefined, //用户的账号信息
-        file: {}, //上传后的文件
+        file: {}, //上传后的临时file文件
         localFiles: {}, //本地存储曾经上传的文件信息
-        fileName: fileName, //当前页面名称，下次上传时候使用
-        codersBoxVis: true,
+        codersBoxVis: true, //编辑器显示开关
     };
 };
 
+//所有组件方法
 com.methods = {
-    refreshJsMenual: function () {
-        refreshJsMenual(this);
-    },
+    refreshJsMenual: refreshJsMenual,
     openShareDialog: openShareDialog,
-    uploadFile: function () {
-        uploadFile(this);
-    },
-    selectUploadFile: function () {
-        selectUploadFile(this, true);
-    },
-    uploadIptChanged: function (file) {
-        uploadIptChanged(file, this);
-    },
-    beautifyCss: function () {
-        beautifyCss(this);
-    },
-    beautifyBody: function () {
-        beautifyBody(this);
-    },
-    beautifyJs: function () {
-        beautifyJs(this);
-    },
+    uploadFile: uploadFile,
+    selectUploadFile: selectUploadFile,
+    uploadIptChanged: uploadIptChanged,
+    loadTemplate: loadTemplate,
+    beautifyCode: beautifyCode,
     saveAccPage: saveAccPage,
     autoSetAccPage: autoSetAccPage,
     saveMyExp: saveMyExp,
     autoSaveExp: autoSaveExp,
+    fillEditors: fillEditors,
 };
 
-
+//组件加载后执行
 com.mounted = async function () {
     var ctx = this;
 
@@ -173,8 +164,8 @@ com.mounted = async function () {
         coderView: 'coder',
     });
 
-    //载入代码美化beautiful
-    //if (!Beautify) Beautify = await System.import('js-beautify');
+    //预先加载beauty
+    if (!Beautify) Beautify = await System.import('js-beautify');
 
     previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
 
@@ -183,7 +174,7 @@ com.mounted = async function () {
 
     //如果都为空，那么自动载入start模版
     if (ctx.$data.cssData.code == '' && ctx.$data.bodyData.code == '' && ctx.$data.jsData.code == '') {
-        loadTemplate(ctx.$xglobal.conf.pageTemplates['start'], ctx, true);
+        ctx.loadTemplate(ctx.$xglobal.conf.pageTemplates['start'], true);
     };
 
     //从本地读取accPage并设定
@@ -318,6 +309,9 @@ async function autoSetAccPage() {
 };
 
 
+/**
+ * 上传代码到page（由uploadFile函数自动设定pageId）；
+ */
 async function saveAccPage() {
     var ctx = this;
 
@@ -334,7 +328,8 @@ async function saveAccPage() {
     var blob = new Blob([pageData], {
         type: 'html'
     });
-    var pageFile = await uploadFile('page', 'index.html', blob, ctx);
+    //直接上传，pageId由uploadFile函数生成
+    var pageFile = await ctx.uploadFile('page', 'index.html', blob);
     ctx.$set(ctx.$data, 'file', pageFile);
 
     ctx.$notify.success({
@@ -344,32 +339,13 @@ async function saveAccPage() {
 };
 
 
+/**
+ * Coder编辑器右上角hud点击时候的执行函数
+ * @param {string} part css,body/html,js
+ */
+async function beautifyCode(part) {
+    var ctx = this;
 
-async function createPage(ctx, token, name) {
-    var api = ctx.$xglobal.conf.apis.pageNew;
-    var data = {
-        token: token,
-        name: name,
-    };
-    var res = await ctx.rRun(api, data);
-    return res;
-};
-
-
-
-function beautifyCss(ctx) {
-    beautifyCode('css', ctx);
-};
-
-function beautifyBody(ctx) {
-    beautifyCode('body', ctx);
-};
-
-function beautifyJs(ctx) {
-    beautifyCode('js', ctx);
-};
-
-async function beautifyCode(part, ctx) {
     if (!Beautify) Beautify = await System.import('js-beautify');
 
     var cmEditor = ctx.jsData.editor;
@@ -382,7 +358,7 @@ async function beautifyCode(part, ctx) {
         var fcode = Beautify.js(ctx.$data.jsData.code);
         ctx.$set(ctx.$data.jsData, 'code', fcode);
         localStorage.setItem('preview-js', fcode);
-    } else if (part == 'body') {
+    } else if (part == 'body' || part == 'html') {
         var fcode = Beautify.html(ctx.$data.bodyData.code);
         ctx.$set(ctx.$data.bodyData, 'code', fcode);
         localStorage.setItem('preview-body', fcode);
@@ -404,11 +380,14 @@ async function beautifyCode(part, ctx) {
 
 /**
  * 将一个模版page文件载入到编辑器
+ * @param {object}   temp  模版对象或文件对象，必须要有url字段
+ * @param {[[Type]]} force 是否禁止确认弹窗
  */
-async function loadTemplate(temp, ctx, force) {
+async function loadTemplate(temp, force) {
+    var ctx = this;
     if (force) { //不提示，直接载入
         $.get(temp.url, function (data) {
-            fillEditors(data, ctx);
+            ctx.fillEditors(data);
         });
         return;
     };
@@ -419,7 +398,7 @@ async function loadTemplate(temp, ctx, force) {
         type: 'warning'
     }).then(() => {
         $.get(temp.url, function (data) {
-            fillEditors(data, ctx);
+            ctx.fillEditors(data);
         });
     }).catch(() => {});
 };
@@ -427,15 +406,17 @@ async function loadTemplate(temp, ctx, force) {
 /**
  * 选择一个文件上传
  */
-async function selectUploadFile(ctx) {
+async function selectUploadFile() {
+    var ctx = this;
     var iptjo = $(ctx.$el).find('#uploadIpt');
     iptjo.click();
 };
 
 /**
- * 启动上传一个文件
+ * 监听隐身上传按钮，启动上传一个文件
  */
-async function uploadIptChanged(file, ctx) {
+async function uploadIptChanged(file) {
+    var ctx = this;
     var confset = ctx.$xglobal.conf.set;
     var maxSize = ctx.$data.accInfo ? confset.accUploadMaxSizeKb : confset.userUploadMaxSizeKb
 
@@ -453,12 +434,11 @@ async function uploadIptChanged(file, ctx) {
     };
 
     var ipt = $(ctx.$el).find('#uploadIpt');
-    var res = await uploadFile('none', file.name, file, ctx);
+    var res = await ctx.uploadFile('none', file.name, file);
     ctx.$alert(res.url, '已经存储到云端', {
         confirmButtonText: '确定'
     });
 };
-
 
 /**
  * 组装head,css,body
@@ -480,12 +460,15 @@ async function assemblePage(ctx) {
     return data;
 };
 
-
-
 /**
  * 获取token并上传文件
+ * @param   {string} tag      上传标记，参照后端qn设置,none,share,page;自动为page添加pageId
+ * @param   {string} fileName 指定文件名,url格式app.10knet.com/randkey/filename
+ * @param   {string} file     上传的文件对象或者blob
+ * @returns {object} token接口和upload接口两次数据的合并结果
  */
-async function uploadFile(tag, fileName, file, ctx) {
+async function uploadFile(tag, fileName, file) {
+    var ctx = this;
     try {
         //获取随机key的token
         var tokenApi = ctx.$xglobal.conf.apis.qnRandKeyUploadToken;
@@ -562,7 +545,7 @@ async function openShareDialog() {
     var blob = new Blob([pageData], {
         type: 'html'
     });
-    var pageFile = await uploadFile('share', 'index.html', blob, ctx);
+    var pageFile = await ctx.uploadFile('share', 'index.html', blob);
     ctx.$set(ctx.$data, 'file', pageFile);
 
     ctx.shareDialogConf.show = true;
@@ -570,9 +553,10 @@ async function openShareDialog() {
 };
 
 /**
- * 填充编辑器,将一个html文件解析填充到三个编辑器
+ * 填充编辑器,将一个10knet标准html文件解析填充到三个编辑器
  */
-function fillEditors(data, ctx) {
+function fillEditors(data) {
+    var ctx = this;
     if (!data) return;
 
     var tempDiv = $('<div></div>');
@@ -676,7 +660,7 @@ function refreshJs(code, key) {
 /**
  * 发送命令要求刷新js预览，从本地缓存读取（本地缓存被coder自动更新）
  */
-function refreshJsMenual(ctx) {
+function refreshJsMenual() {
     sendPreviewCmd('reload', {
         part: 'all',
     });

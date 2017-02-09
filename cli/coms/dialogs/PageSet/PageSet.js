@@ -26,6 +26,7 @@ xsetConf.coderView = {
 };
 
 com.props = {
+    xis:String,
     conf: Object, //{show,pageName,file{name,url,key...}}
 };
 
