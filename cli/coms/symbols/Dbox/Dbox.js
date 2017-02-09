@@ -12,7 +12,7 @@ window.DboxDragMaskArr = [];
 com.props = {
     conf: Object, //所有属性支持动态调整
     xid: String,
-    display:String,
+    display: String,
 };
 
 com.data = function data() {
@@ -81,12 +81,12 @@ function startDrag(evt, tag) {
         'z-index': '1000'
     });
 
-
     mask.mousemove(function (moveEvt) {
         var offsetX = moveEvt.screenX - orgPos.x;
         var offsetY = moveEvt.screenY - orgPos.y;
         orgPos.x = moveEvt.screenX;
         orgPos.y = moveEvt.screenY;
+
 
         if (tag == 'right' || tag == 'left') {
             var wid = jo.width() + offsetX;
