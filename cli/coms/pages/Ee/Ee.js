@@ -82,6 +82,18 @@ com.data = function data() {
         coderView: '',
         _xsetConf: xsetConf, //设置xset的钩子事件
         coderLoaded: false, //控制圆圈是否显示
+        codersDBoxConf: { //动态盒子初始设置
+            width: '50%',
+            useRight: true,
+        },
+        cssDBoxConf: {
+            height: '30%',
+            useBottom: true,
+        },
+        bodyDBoxConf: {
+            height: '30%',
+            useBottom: true,
+        },
         accInfo: undefined, //账号信息
         accPage: undefined, //page信息
         refreshCss, //三个函数将作为数据传给coder编辑器
@@ -387,7 +399,7 @@ async function loadTemplate(temp, force) {
     var ctx = this;
     if (force) { //不提示，直接载入
         $.get(temp.url, function (data) {
-            ctx.fillEditors(data);
+            ctx.fillEditors(data, temp.options);
         });
         return;
     };
@@ -398,7 +410,7 @@ async function loadTemplate(temp, force) {
         type: 'warning'
     }).then(() => {
         $.get(temp.url, function (data) {
-            ctx.fillEditors(data);
+            ctx.fillEditors(data, temp.options);
         });
     }).catch(() => {});
 };
@@ -554,8 +566,10 @@ async function openShareDialog() {
 
 /**
  * 填充编辑器,将一个10knet标准html文件解析填充到三个编辑器
+ * @param {object}   data   标准10knet文件数据
+ * @param {object} option 设置选项{size:{cssCoder:{height:10,width:10}...}}
  */
-function fillEditors(data) {
+function fillEditors(data, options) {
     var ctx = this;
     if (!data) return;
 
@@ -576,6 +590,14 @@ function fillEditors(data) {
     ctx.$set(ctx.$data.cssData, 'code', cssCode);
     ctx.$set(ctx.$data.bodyData, 'code', bodyCode);
     ctx.$set(ctx.$data.jsData, 'code', jsCode);
+
+    //根据option调整编辑器,如{cssCoderBox:{height:'70%'}}
+    if (options) {
+        for (var attrXid in options) {
+            ctx.$xset(attrXid, options[attrXid]);
+        };
+    };
+
 
     //刷新预览
     refreshCss(cssCode);

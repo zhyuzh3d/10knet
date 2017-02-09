@@ -63,6 +63,7 @@ com.watch = {
                         url: ctx.$data.inputUrl,
                         name: 'untitled',
                         desc: 'none',
+                        options: undefined,
                     };
                 };
 

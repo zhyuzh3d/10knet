@@ -1,16 +1,16 @@
 <script src="./Dbox.js"></script>
 
 <template>
-    <div id='Dbox' :xid='xid||"Dbox"' v-bind:style='{width:conf.width,height:conf.height}'>
-        <div v-if='conf.useLeft' class="vbar" @mousedown='startDrag($event,"left")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
+    <div id='Dbox' :xid='xid||"Dbox"' v-bind:style='{width:sizeX,height:sizeY}'>
+        <div v-if='useLeft' class="vbar" @mousedown='startDrag($event,"left")' v-bind:style='{width:barSize+"px"}'></div>
         <div class='box'>
-            <div v-if='conf.useTop' class="hbar" @mousedown='startDrag($event,"top")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
+            <div v-if='useTop' class="hbar" @mousedown='startDrag($event,"top")' v-bind:style='{height:barSize+"px"}'></div>
             <div class='box2'>
                 <slot></slot>
             </div>
-            <div v-if='conf.useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
+            <div v-if='useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' v-bind:style='{height:barSize+"px"}'></div>
         </div>
-        <div v-if='conf.useRight' class="vbar" @mousedown='startDrag($event,"right")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
+        <div v-if='useRight' class="vbar" @mousedown='startDrag($event,"right")' v-bind:style='{width:barSize+"px"}'></div>
     </div>
 </template>
 

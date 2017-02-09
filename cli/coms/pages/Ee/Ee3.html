@@ -125,8 +125,8 @@
                 </div>
                 <div style='height:8px'></div>
             </div>
-            <dbox class="left" :conf='codersDBoxConf' wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
-                <dbox :conf='cssDBoxConf' xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
+            <dbox class="left" wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
+                <dbox xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
                         <small>...载入中...</small>
@@ -142,7 +142,7 @@
                         <el-button class='tagbtn' size='mini' @click='beautifyCode("css")' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
                     </component>
                 </dbox>
-                <dbox :conf='bodyDBoxConf' xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
+                <dbox xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
                         <small>...载入中...</small>
