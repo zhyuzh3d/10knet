@@ -67,6 +67,32 @@ xsetConf.coderView = {
         comCtx.$set(comCtx.$data, 'coderLoaded', true);
     },
 };
+xsetConf.tutorView = {
+    before: async function beforeXsettutorView(name, oldName) {
+        var com;
+        switch (name) {
+            case 'TutorStart':
+                var com = await System.import('../../tutors/Start/Start.html');
+                break;
+            default:
+                var com = await System.import('../../tutors/Start/Start.html');
+                break;
+        };
+        Vue.component(name, com);
+    },
+};
+
+xsetConf.after = async function (keyVal, ctx) {
+    //载入教程
+    if (ctx.$data.tutorBoxDis != 'none' && ctx.$data.tutorView == '') {
+        ctx.$xset(ctx, {
+            tutorView: 'TutorStart',
+        });
+    };
+};
+
+
+
 
 //接收父层传来的tag属性
 com.props = {
@@ -79,11 +105,12 @@ com.data = function data() {
 
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
+        tutorView: '',
         coderView: '',
         _xsetConf: xsetConf, //设置xset的钩子事件
         coderLoaded: false, //控制圆圈是否显示
         codersDBoxConf: { //动态盒子初始设置
-            width: '50%',
+            width: '40%',
             useRight: true,
         },
         cssDBoxConf: {
@@ -93,6 +120,11 @@ com.data = function data() {
         bodyDBoxConf: {
             height: '30%',
             useBottom: true,
+        },
+        tutorDBoxConf: {
+            width: '300px',
+            useRight: true,
+            display: 'none',
         },
         accInfo: undefined, //账号信息
         accPage: undefined, //page信息
@@ -148,6 +180,7 @@ com.data = function data() {
         file: {}, //上传后的临时file文件
         localFiles: {}, //本地存储曾经上传的文件信息
         codersBoxVis: true, //编辑器显示开关
+        tutorBoxDis: 'none', //教程显示开关
     };
 };
 
@@ -165,6 +198,23 @@ com.methods = {
     saveMyExp: saveMyExp,
     autoSaveExp: autoSaveExp,
     fillEditors: fillEditors,
+    refreshCss: refreshCss,
+    refreshBody: refreshBody,
+    refreshJs: refreshJs,
+    refreshJsMenual: refreshJsMenual,
+    xsetCodeBoxVis: function () {
+        var ctx = this;
+        ctx.$xset(ctx.xid, {
+            codersBoxVis: !ctx.$data.codersBoxVis,
+        });
+    },
+    xsetTutorBoxVis: function () {
+        var ctx = this;
+        var val = ctx.$data.tutorBoxDis == 'none' ? 'flex' : 'none';
+        ctx.$xset(ctx.xid, {
+            tutorBoxDis: val,
+        });
+    },
 };
 
 //组件加载后执行
@@ -176,8 +226,16 @@ com.mounted = async function () {
         coderView: 'coder',
     });
 
-    //预先加载beauty
-    if (!Beautify) Beautify = await System.import('js-beautify');
+    //如果没有恢复，证明是第一次使用，那么载入start
+    var xsetKV = ctx.$data._xsetConf.keyVal;
+    if (!xsetKV || !xsetKV.tutorView) {
+        await ctx.$xset(ctx.xid, {
+            tutorView: 'TutorStart',
+        });
+        await ctx.$xset(ctx.xid, {
+            tutorBoxDis: 'flex',
+        });
+    };
 
     previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
 
@@ -194,6 +252,10 @@ com.mounted = async function () {
 
     //启动自动保存经验
     setInterval(ctx.autoSaveExp, ctx.$xglobal.conf.set.expAutoSaveTime);
+
+    //预先加载beauty
+    if (!Beautify) Beautify = await System.import('js-beautify');
+
 };
 
 
@@ -603,7 +665,7 @@ function fillEditors(data, options) {
     refreshCss(cssCode);
     refreshBody(bodyCode);
     refreshJs(jsCode);
-    refreshJsMenual(ctx);
+    refreshJsMenual();
 };
 
 

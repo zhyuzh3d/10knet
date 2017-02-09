@@ -105,7 +105,7 @@ async function xgo(parentXid, dataKeyValObj) {
  * 根据ls存储恢复vuecom的状态，调用xset函数,成功后设置vc.xrestored=true;
  * @param {string} xid 元素的xid
  */
-function xrestore(xid) {
+async function xrestore(xid) {
     //获取本地ls存储的dataKeyValObj
     var lskey = JSON.stringify(['xrouter', xid]);
     var lsval = localStorage.getItem(lskey);
@@ -116,10 +116,10 @@ function xrestore(xid) {
 
     var res;
     if (lsKeyValObj) {
-        var com = xrouter.xset(xid, lsKeyValObj, false);
+        var com = await xrouter.xset(xid, lsKeyValObj, false);
         if (com) {
-            com.xrestored = true;
-            res = true;
+            com.xrestored = lsKeyValObj;
+            res = lsKeyValObj;
         } else {
             res = false;
         }
@@ -152,8 +152,17 @@ async function xset(xid, keyValObj, unsave) {
         console.warn('xrouter:xset:can not find parent component xid [' + xid + '],saved for restore.');
         xrouter.showComs();
     } else {
-        //根据dataKeyValObj为com设置$set每个$data值
         res = ctx;
+
+        //把设置的过程记录到xsetConf，避免xset延迟进程不能被组件restore检测到
+        if (ctx.$data._xsetConf) {
+            ctx.$data._xsetConf.keyVal = keyValObj;
+            if (ctx.$data._xsetConf.before) {
+                await ctx.$data._xsetConf.before(keyValObj);
+            };
+        };
+
+        //根据dataKeyValObj为com设置$set每个$data值
         for (var key in keyValObj) {
             if (ctx.$data[key] != undefined) {
                 //使_xsetConf钩子生效
@@ -164,12 +173,18 @@ async function xset(xid, keyValObj, unsave) {
                 };
 
                 //beforefn->设置data属性->afterfn
-                if (beforefn) await beforefn(keyValObj[key], ctx.$data[key]);
+                if (beforefn) await beforefn(keyValObj[key], ctx.$data[key], ctx);
                 ctx.$set(ctx, key, keyValObj[key]);
-                if (afterfn) await afterfn(keyValObj[key], ctx.$data[key]);
+                if (afterfn) await afterfn(keyValObj[key], ctx.$data[key], ctx);
             } else {
                 console.warn(`'xrouter:xset:can not add property to com:${key}`);
             };
+        };
+        if (ctx.$data._xsetConf) {
+            if (ctx.$data._xsetConf.before) {
+                await ctx.$data._xsetConf.after(keyValObj, ctx);
+            }
+            ctx.$data._xsetConf.state = false;
         };
     };
 

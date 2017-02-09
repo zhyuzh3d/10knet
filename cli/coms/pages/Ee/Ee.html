@@ -105,13 +105,20 @@
 
                 </div>
                 <div class="btnGrp2">
+                    <el-popover ref="tutorBtnPop" placement="right" width="auto" v-model="tutorBtnPopVis" trigger="hover">
+                        <div class="popTitle">显示／隐藏帮助中心</div>
+                    </el-popover>
+                    <el-button class='rbtn' @click='xsetTutorBoxVis' v-popover:tutorBtnPop>
+                        <i class="fa fa-book" v-bind:class='{btnOn:tutorBoxDis!="none",btnOff:tutorBoxDis=="none"}' style='font-weight: bold;'></i>
+                    </el-button>
+
                     <el-popover ref="coderBtnPop" placement="right" width="auto" v-model="coderBtnPopVis" trigger="hover">
                         <div class="popTitle">显示／隐藏代码编辑器</div>
                         <div class="popBody">
                             <div>您也可以手工拉动边框调整编辑器大小</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='codersBoxVis=!codersBoxVis' v-popover:coderBtnPop>
+                    <el-button class='rbtn' @click='xsetCodeBoxVis' v-popover:coderBtnPop>
                         <i class="fa fa-code" v-bind:class='{btnOn:codersBoxVis,btnOff:!codersBoxVis}' style='font-weight: bold;'></i>
                     </el-button>
 
@@ -125,7 +132,14 @@
                 </div>
                 <div style='height:8px'></div>
             </div>
-            <dbox class="left" :conf='codersDBoxConf' wid='50%' useRight='true' hei='100%' barSize='8' xid='codersBox' v-show='codersBoxVis'>
+
+            <dbox id='tutorBox' xid='tutorBox' class="tutorBox" :conf='tutorDBoxConf' :display='tutorBoxDis'>
+                <div class="tutorContent">
+                    <component :is="tutorView" xid='tutorCom'></component>
+                </div>
+            </dbox>
+
+            <dbox class="left" :conf='codersDBoxConf' v-show='codersBoxVis' xid='codersBox' display='flex'>
                 <dbox :conf='cssDBoxConf' xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -142,7 +156,7 @@
                         <el-button class='tagbtn' size='mini' @click='beautifyCode("css")' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
                     </component>
                 </dbox>
-                <dbox :conf='bodyDBoxConf' xid='bodyCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
+                <dbox :conf='bodyDBoxConf' xid='bodyCoderBox' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
                         <small>...载入中...</small>
@@ -194,6 +208,20 @@
     </div>
 </template>
 <style scoped>
+    .tutorBox {
+        min-width: 120px;
+        background: #AAA;
+        border-left: 1px solid #888;
+        margin-right: -1px;
+        max-width: 40%;
+    }
+
+    .tutorContent {
+        margin: 18px 12px 18px 18px;
+        height: 100%;
+        overflow-y: auto;
+    }
+
     .el-message-box {
         -webkit-user-select: none;
     }
@@ -326,6 +354,7 @@
 
     .left {
         flex: initial;
+        min-width: 200px;
         background-color: #888;
         display: flex;
         align-items: stretch;
@@ -333,6 +362,7 @@
     }
 
     .right {
+        min-width: 200px;
         flex: auto;
         background-color: #FFF;
     }

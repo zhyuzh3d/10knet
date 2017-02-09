@@ -12,6 +12,7 @@ window.DboxDragMaskArr = [];
 com.props = {
     conf: Object, //所有属性支持动态调整
     xid: String,
+    display:String,
 };
 
 com.data = function data() {
