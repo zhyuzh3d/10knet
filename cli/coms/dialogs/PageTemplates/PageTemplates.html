@@ -16,7 +16,7 @@
                             <div class="tmpPrev">
                                 <iframe @load='iframeLoad($event)' v-bind:src='v.url' style=""></iframe>
                             </div>
-                            <div class="tmpInfo" @click='seleletTemp(v)'>
+                            <div :id='k' class="tmpInfo" @click='seleletTemp(v)'>
                                 <div class="tmpTitle">{{v.name}}</div>
                                 <div class="tmpDesc">{{v.desc}}</div>
                             </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="btns">
                 <el-button @click='conf.show=false'>取消</el-button>
-                <el-button type='primary' @click='closeDialog'>&nbsp;载&nbsp;入&nbsp;</el-button>
+                <el-button id='loadBtn' type='primary' @click='closeDialog'>&nbsp;载&nbsp;入&nbsp;</el-button>
             </div>
         </el-dialog>
     </div>

@@ -52,7 +52,7 @@
                             <div>然后在模版基础上修改编写</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='pageTempDialogConf.show=true' v-popover:tmpBtnPop><i class="fa fa-th-large"></i></el-button>
+                    <el-button  id='barTempBtn' class='rbtn' @click='pageTempDialogConf.show=true' v-popover:tmpBtnPop><i class="fa fa-th-large"></i></el-button>
 
                     <el-popover ref="setBtnPop" placement="right" width="auto" v-model="setBtnPopVis" trigger="hover">
                         <div class="popTitle">修改页面标题？在这里设置更多！</div>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="btnGrp2">
                     <el-popover ref="tutorBtnPop" placement="right" width="auto" v-model="tutorBtnPopVis" trigger="hover">
-                        <div class="popTitle">显示／隐藏帮助中心</div>
+                        <div class="popTitle">显示／隐藏教程中心</div>
                     </el-popover>
                     <el-button class='rbtn' @click='xsetTutorBoxVis' v-popover:tutorBtnPop>
                         <i class="fa fa-book" v-bind:class='{btnOn:tutorBoxDis!="none",btnOff:tutorBoxDis=="none"}' style='font-weight: bold;'></i>

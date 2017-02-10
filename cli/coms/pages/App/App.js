@@ -22,8 +22,11 @@ com.data = function data() {
         barBg: '', //inherit 透明
         urls: ctx.$xglobal.conf.urls, //全部素材地址
         apis: ctx.$xglobal.conf.apis, //全部api接口路径
+        pageDisabled: true,
     };
 };
+
+com.methods = {};
 
 //加载到页面后执行的方法
 com.mounted = async function () {

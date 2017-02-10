@@ -33,9 +33,17 @@ com.data = function data() {
 com.methods = {
     loadResume: async function () {
         var ctx = this;
-        var temp = ctx.$xglobal.conf.pageTemplates.resume;
-        await ctx.Ee.loadTemplate(temp, true);
-        return;
+        var fns = ctx.$xglobal.fns;
+        fns.showFullMask();
+        fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barTempBtn'), true);
+        await fns.sleep(1500);
+        fns.visualClick($(ctx.$xcoms['PageTemplates'].$el).find('#resume'), true);
+        await fns.sleep(1500);
+        fns.visualClick($(ctx.$xcoms['PageTemplates'].$el).find('#loadBtn'), true);
+        await fns.sleep(1500);
+        fns.visualClick($('.el-message-box__wrapper').find('button:contains("确定")'), true);
+        await fns.sleep(1500);
+        fns.showFullMask(false);
     },
     renameWxm: async function () {
         var ctx = this;
