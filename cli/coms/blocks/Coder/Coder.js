@@ -17,6 +17,8 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/edit/matchtags.js';
+import 'codemirror/addon/search/search.js';
+import 'codemirror/addon/search/searchcursor.js';
 
 var com = {};
 export default com;
@@ -34,6 +36,8 @@ com.data = function () {
 
     return {
         msg: 'Hello from blocks/Coder/Coder.js',
+        editor: undefined,
+        CM: CodeMirror,
         codeData: ctx.data,
         scrollInfo: { //自动保存和恢复卷动位置
             top: 0,
@@ -70,7 +74,10 @@ com.data = function () {
 };
 
 //所有直接使用的方法写在这里
-com.methods = {};
+com.methods = {
+    typeWriter: typeWriter,
+    typeWriterDel: typeWriterDel,
+};
 
 com.props = {
     xid: String,
@@ -111,15 +118,18 @@ com.mounted = function () {
     if (ctx.xid) codejo.attr('xid', ctx.xid);
 
     var editor = this.$refs.myEditor.editor;
+    ctx.$data.editor = editor;
     ctx.data.editor = editor;
 
     //设置自动提示
     var ctx = this;
     editor.on('keydown', function (cm, event) {
-        editorKeydown(cm, event, ctx)
+        editorKeydown(cm, event, ctx);
     });
     editor.on('keyup', function (cm, evt) {
         editorKeyup(cm, evt, ctx);
+        console.log('keyup cm', cm, event);
+        console.log('keyup editor', ctx.$data.editor);
     });
 
     //利用xset自动恢复滚动位置，延迟确保生效
@@ -143,6 +153,53 @@ com.mounted = function () {
 
 
 //---------------functions----------------
+
+/**
+ * 打字机插入字符，动画添加效果
+ * @param {string} str 要添加的字符串
+ */
+async function typeWriter(str) {
+    var ctx = this;
+    var editor = ctx.$data.editor;
+
+    for (var i = 0; i < str.length; i++) {
+        await ctx.$xglobal.fns.sleep(250);
+        try {
+            editor.doc.replaceSelection(str[i]);
+        } catch (err) {
+            console.log('Coder:typeWriterDel:failed:', err);
+        };
+        editorKeyup(editor, {
+            keyCode: str.charCode,
+        }, ctx);
+    };
+    await ctx.$xglobal.fns.sleep(250);
+};
+
+/**
+ * 打字机删除字符，动画删除效果
+ * @param {string} str 要添加的字符串
+ */
+async function typeWriterDel(n) {
+    var ctx = this;
+    var editor = ctx.$data.editor;
+
+    for (var i = 0; i < n; i++) {
+        await ctx.$xglobal.fns.sleep(250);
+        try {
+            editor.execCommand('delCharAfter');
+        } catch (err) {
+            console.log('Coder:typeWriterDel:failed:', err);
+        };
+        editorKeyup(editor, {
+            keyCode: 46, //删除键
+        }, ctx);
+    };
+    await ctx.$xglobal.fns.sleep(250);
+};
+
+
+
 /**
  * watch中实现自动设置页面的文字大小，设置后刷新编辑器
  * @param {number} size 文字大小

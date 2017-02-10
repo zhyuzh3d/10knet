@@ -34,6 +34,7 @@ com.methods = {
     loadResume: async function () {
         var ctx = this;
         var fns = ctx.$xglobal.fns;
+
         fns.showFullMask();
         fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barTempBtn'), true);
         await fns.sleep(1500);
@@ -47,11 +48,36 @@ com.methods = {
     },
     renameWxm: async function () {
         var ctx = this;
-        var code = localStorage.getItem('preview-body');
-        code = code.replace(/王晓明/g, '孙悟空');
-        localStorage.setItem('preview-body', code);
-        ctx.Ee.$set(ctx.Ee.$data.bodyData, 'code', code);
-        ctx.Ee.refreshJsMenual();
+        var fns = ctx.$xglobal.fns;
+        var editor = ctx.$xcoms['bodyCoder'].editor;
+
+        //避免被用户修改过，重载模版
+        await ctx.$data.Ee.loadTemplate(ctx.$xglobal.conf.pageTemplates.resume, true);
+
+        //激活编辑器，显示遮罩
+        fns.visualClick($(ctx.$xcoms['bodyCoder'].$el), true);
+        fns.showFullMask();
+        await fns.sleep(500);
+
+        //动画搜索和替换
+        for (var i = 0; i < 10; i++) {
+            var cursor = editor.getSearchCursor(/王晓明/g);
+            var donext = cursor.findNext();
+            if (!donext) return;
+
+            editor.setCursor(cursor.from());
+            await fns.sleep(500);
+            editor.setSelection(cursor.from(), cursor.to());
+            await fns.sleep(500);
+            editor.setCursor(cursor.from());
+
+            await ctx.$xcoms['bodyCoder'].typeWriterDel(3);
+            await ctx.$xcoms['bodyCoder'].typeWriter('孙悟空');
+        };
+
+        //结束，移除遮罩
+        await fns.sleep(500);
+        fns.showFullMask(false);
     },
 };
 

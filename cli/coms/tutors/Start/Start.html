@@ -3,26 +3,21 @@
 <template>
     <div id='Start' :xid='xid||"Start"'>
         <div>
-            <div class="titleBg">欢迎来到10knet！这里是教程中心。</div>
-            <div class="txt">我们先来熟悉一下左侧栏的工具吧！</div>
+            <div class="titleBg">欢迎来到10knet教程中心！</div>
+            <div class="txt">先跟我一起熟悉一下左侧栏的工具吧！</div>
             <div class="part">
                 <div class="title">Step 1 <i class="fa fa-caret-right"></i> 导入</div>
-                <div class="txt"><i class='fa fa-th-large'></i>&nbsp;&nbsp;是<b>【模版】</b>按钮，可以把代码模版复制到编辑器，请点击这个按钮，然后点击<b>【个人简历】</b>，然后点击<b>【载入】</b>。或者</div>
-                <el-button id='kuaisudaoru' type='primary' size='small' @click='loadResume' class='btn'>自动执行</el-button>
+                <div class="txt">点击<b>【模版】</b>按钮 <i class='fa fa-th-large'></i>&nbsp;&nbsp;，显示模版列表，然后点击第二个模版<b>【个人简历】</b>，然后点击<b>【载入】</b>。或者</div>
+                <el-button id='kuaisudaoru' type='primary' size='small' @click='loadResume' class='btn'>自动演示</el-button>
             </div>
             <div class="part">
                 <div class="title">Step 2 <i class="fa fa-caret-right"></i> 修改</div>
                 <div class="txt">在右侧中间的编辑器中找到<b>【王晓明】</b>，改为您的姓名，共有两处。或者</div>
-                <el-button type='primary' size='small' @click='renameWxm' class='btn'>自动执行</el-button>
+                <el-button type='primary' size='small' @click='renameWxm' class='btn'>自动演示</el-button>
             </div>
             <div class="part">
                 <div class="title">Step 3 <i class="fa fa-caret-right"></i> 分享</div>
                 <div class="txt">在左侧栏点击 <i class='fa fa-share-alt'></i><b> 【分享】</b>按钮，把您编写的简历二维码分享给朋友们吧！
-                </div>
-            </div>
-            <div class="part">
-                <div class="title">Step 4 <i class="fa fa-caret-right"></i> 完成</div>
-                <div class="txt">在左侧栏底部的 <i class='fa fa-book'></i> 按钮关闭帮助中心，再次点击可以打开.
                 </div>
             </div>
         </div>
