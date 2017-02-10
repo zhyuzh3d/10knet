@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='accountDialogConf.show=true' v-popover:accBtnPop>
+                    <el-button id='barAccBtn' class='rbtn' @click='accountDialogConf.show=true' v-popover:accBtnPop>
                         <i class="fa fa-user" v-if='!accInfo'></i>
                         <img v-if='accInfo' v-bind:src='accInfo.avatar' class="avatarMini">
                     </el-button>
@@ -32,11 +32,11 @@
                             <div class="popBody">
                                 <div>点击按钮立即保存</div>
                                 <br>
-                                <el-button type='primary' size='small' @click='setAccPageDialogConf.show=true'>设置保存地址</el-button>
+                                <el-button id='barSaveSetBtn' type='primary' size='small' @click='setAccPageDialogConf.show=true'>设置保存地址</el-button>
                             </div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' v-show='accInfo' @click='saveAccPage' v-popover:saveBtnPop><i class="fa fa-save"></i></el-button>
+                    <el-button id='barSaveBtn' class='rbtn' v-show='accInfo' @click='saveAccPage' v-popover:saveBtnPop><i class="fa fa-save"></i></el-button>
 
                     <el-tooltip v-if=false class="item" effect="light" content="我的文件列表" placement="left-end">
                         <el-button class='rbtn'><i class="fa fa-list-ul"></i></el-button>
@@ -62,7 +62,7 @@
                             <div>点击按钮打开head代码编辑窗口</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='setDialogConf.show=true' v-popover:setBtnPop><i class="fa fa-gear"></i></el-button>
+                    <el-button id='barSetBtn' class='rbtn' @click='setDialogConf.show=true' v-popover:setBtnPop><i class="fa fa-gear"></i></el-button>
 
                     <el-popover ref="picBtnPop" placement="right" width="auto" v-model="picBtnPopVis" trigger="hover">
                         <div class="popTitle">想使用自己的图片？点这里上传！</div>
@@ -74,7 +74,7 @@
                             <div v-if='accInfo'>注册用户每文件最大{{$xglobal.conf.set.accUploadMaxSizeStr}}</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='selectUploadFile' v-popover:picBtnPop><i class="fa fa-photo"></i></el-button>
+                    <el-button id='barPicBtn' class='rbtn' @click='selectUploadFile' v-popover:picBtnPop><i class="fa fa-photo"></i></el-button>
                     <input id='uploadIpt' type='file' accept='image/*' @change='uploadIptChanged($event.target.files[0])' style='display:none' />
 
                     <el-popover ref="lineJokePop2" placement="right" width="auto" v-model="lineJokePop2Vis" trigger="hover">别看我，我只是条无辜的分割线</el-popover>
@@ -88,7 +88,7 @@
                             <div>您也可以直接把链接复制到任何地方打开观看</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='openShareDialog' v-popover:shareBtnPop><i class="fa fa-share-alt"></i></el-button>
+                    <el-button id='barShareBtn' class='rbtn' @click='openShareDialog' v-popover:shareBtnPop><i class="fa fa-share-alt"></i></el-button>
 
 
                     <el-popover ref="qqBtnPop" placement="right" width="auto" v-model="qqBtnPopVis" trigger="hover">
@@ -99,8 +99,8 @@
                             <div>群号：571956473</div>
                         </div>
                     </el-popover>
-                    <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
-                        <el-button class='rbtn' v-popover:qqBtnPop><i class="fa fa-qq"></i></el-button>
+                    <a id='barQQBtn' target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
+                        <el-button  class='rbtn' v-popover:qqBtnPop><i class="fa fa-qq"></i></el-button>
                     </a>
 
                 </div>
@@ -108,7 +108,7 @@
                     <el-popover ref="tutorBtnPop" placement="right" width="auto" v-model="tutorBtnPopVis" trigger="hover">
                         <div class="popTitle">显示／隐藏教程中心</div>
                     </el-popover>
-                    <el-button class='rbtn' @click='xsetTutorBoxVis' v-popover:tutorBtnPop>
+                    <el-button id='barTutorTag' class='rbtn' @click='xsetTutorBoxVis' v-popover:tutorBtnPop>
                         <i class="fa fa-book" v-bind:class='{btnOn:tutorBoxDis!="none",btnOff:tutorBoxDis=="none"}' style='font-weight: bold;'></i>
                     </el-button>
 
@@ -118,7 +118,7 @@
                             <div>您也可以手工拉动边框调整编辑器大小</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='xsetCodeBoxVis' v-popover:coderBtnPop>
+                    <el-button id='barCodersTag' class='rbtn' @click='xsetCodeBoxVis' v-popover:coderBtnPop>
                         <i class="fa fa-code" v-bind:class='{btnOn:codersBoxVis,btnOff:!codersBoxVis}' style='font-weight: bold;'></i>
                     </el-button>
 
@@ -128,7 +128,7 @@
                             <div>欢迎您随时打扰～</div>
                         </div>
                     </el-popover>
-                    <el-button class='rbtn' @click='aboutDialogConf.show=true' v-popover:aboutBtnPop><i class="fa fa-info"></i></el-button>
+                    <el-button id='barAboutTag' class='rbtn' @click='aboutDialogConf.show=true' v-popover:aboutBtnPop><i class="fa fa-info"></i></el-button>
                 </div>
                 <div style='height:8px'></div>
             </div>

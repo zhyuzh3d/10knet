@@ -174,6 +174,7 @@ async function typeWriter(str) {
         }, ctx);
     };
     await ctx.$xglobal.fns.sleep(250);
+    return ctx;
 };
 
 /**
@@ -196,6 +197,7 @@ async function typeWriterDel(n) {
         }, ctx);
     };
     await ctx.$xglobal.fns.sleep(250);
+    return ctx;
 };
 
 

@@ -37,11 +37,11 @@ com.methods = {
 
         fns.showFullMask();
         fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barTempBtn'), true);
-        await fns.sleep(1500);
+        await fns.sleep(1000);
         fns.visualClick($(ctx.$xcoms['PageTemplates'].$el).find('#resume'), true);
-        await fns.sleep(1500);
+        await fns.sleep(1000);
         fns.visualClick($(ctx.$xcoms['PageTemplates'].$el).find('#loadBtn'), true);
-        await fns.sleep(1500);
+        await fns.sleep(1000);
         fns.visualClick($('.el-message-box__wrapper').find('button:contains("确定")'), true);
         await fns.sleep(1500);
         fns.showFullMask(false);
@@ -60,10 +60,14 @@ com.methods = {
         await fns.sleep(500);
 
         //动画搜索和替换
-        for (var i = 0; i < 10; i++) {
+        var donext = true;
+        for (var i = 0; donext; i++) {
             var cursor = editor.getSearchCursor(/王晓明/g);
-            var donext = cursor.findNext();
-            if (!donext) return;
+            var has = cursor.findNext();
+            if (!has) {
+                donext = false;
+                break;
+            };
 
             editor.setCursor(cursor.from());
             await fns.sleep(500);
@@ -73,11 +77,18 @@ com.methods = {
 
             await ctx.$xcoms['bodyCoder'].typeWriterDel(3);
             await ctx.$xcoms['bodyCoder'].typeWriter('孙悟空');
+            editor.setCursor(cursor.from());
         };
 
         //结束，移除遮罩
         await fns.sleep(500);
         fns.showFullMask(false);
+    },
+    showShare: async function showShare() {
+        var ctx = this;
+        var fns = ctx.$xglobal.fns;
+        await fns.sleep(500);
+        fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barShareBtn'), false);
     },
 };
 
