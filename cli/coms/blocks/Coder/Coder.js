@@ -142,7 +142,7 @@ com.mounted = function () {
         var xid = codejo.attr('xid');
         if (xid) {
             ctx.$xrouter.xset(xid, {
-                scrollInfo: editor.getScrollInfo()
+                scrollInfo: editor.getScrollInfo(),
             });
         };
     });
@@ -167,7 +167,7 @@ async function typeWriter(str) {
         try {
             editor.doc.replaceSelection(str[i]);
         } catch (err) {
-            console.log('Coder:typeWriterDel:failed:', err);
+            console.log('Coder:typeWriter:failed:', err);
         };
         editorKeyup(editor, {
             keyCode: str.charCode,
