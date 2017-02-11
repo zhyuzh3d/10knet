@@ -1,10 +1,19 @@
-<script src="./Start.js"></script>
+<script src="./TutorStart.js"></script>
 
 <template>
-    <div id='Start' :xid='xid||"Start"'>
+    <div id='TutorStart' :xid='xid||"TutorStart"' class="tutorCom">
         <div>
-            <div class="titleBg">欢迎来到10knet教程中心！</div>
-            <div class="txt">先跟我一起熟悉一下左侧栏的工具吧！</div>
+            <el-row>
+                <el-col :span='20'>
+                    <div class="titleBg">教程 : 在线简历</div>
+                </el-col>
+                <el-col :span='4' style='text-align:right'>
+                    <el-button type='text' @click='Ee.tutorGo("TutorList")'>
+                        <span style="vertical-align: sub;">
+                        更多 <i class="fa fa-caret-right"></i></span></el-button>
+                </el-col>
+            </el-row>
+            <div class="line"></div>
             <div class="part">
                 <div class="title">Step 1 <i class="fa fa-caret-right"></i> 导入</div>
                 <div class="txt">点击<b>【模版】</b>按钮 <i class='fa fa-th-large'></i>&nbsp;&nbsp;，显示模版列表，然后点击第二个模版<b>【个人简历】</b>，然后点击<b>【载入】</b>。或者</div>
@@ -26,6 +35,20 @@
 </template>
 
 <style scoped>
+    .el-button--text {
+        color: #E91E63;
+    }
+
+    .line {
+        background: #888;
+        height: 1px;
+        margin: 12px 0;
+    }
+
+    .tutorCom {
+        padding: 12px 24px;
+    }
+
     .txt i {
         color: #E91E63;
         font-size: 14px;
@@ -52,7 +75,7 @@
         text-align: justify;
         font-size: 16px;
         font-weight: bold;
-        margin: 8px 0;
+        margin: 8px 0 0 0;
     }
 
     .btn {

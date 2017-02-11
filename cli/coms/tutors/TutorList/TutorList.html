@@ -1,0 +1,72 @@
+<script src="./TutorList.js"></script>
+
+<template>
+    <div id='TutorList' :xid='xid||"TutorList"' class="tutorCom">
+        <el-row>
+            <el-col :span='4' style='text-align:left'>
+                <el-button type='text' @click='Ee.tutorGo("back")'>
+                    <span style="vertical-align: sub;">
+                        <i class="fa fa-caret-left"></i> 返回</span></el-button>
+            </el-col>
+            <el-col :span='20'>
+                <div class="titleBg"  style='text-align:right'>教程列表</div>
+            </el-col>
+        </el-row>
+        <div class="line"></div>
+        <div class="part">
+            <div class="title">Step 1 <i class="fa fa-caret-right"></i> 导入</div>
+            <div class="txt">...</div>
+            <el-button id='kuaisudaoru' type='primary' size='small' @click='loadResume' class='btn'>自动演示</el-button>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+    .el-button--text {
+        color: #E91E63;
+    }
+
+    .line {
+        background: #888;
+        height: 1px;
+        margin: 12px 0;
+    }
+
+    .tutorCom {
+        padding: 12px 24px;
+    }
+
+    .txt i {
+        color: #E91E63;
+        font-size: 14px;
+    }
+
+    .part {
+        margin: 12px 0;
+    }
+
+    .txt {
+        text-align: justify;
+        font-size: 13px;
+        line-height: 22px;
+    }
+
+    .title {
+        text-align: justify;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 8px 0;
+    }
+
+    .titleBg {
+        text-align: justify;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 8px 0 0 0;
+    }
+
+    .btn {
+        margin: 8px 0;
+    }
+
+</style>

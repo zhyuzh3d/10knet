@@ -52,7 +52,7 @@
                             <div>然后在模版基础上修改编写</div>
                         </div>
                     </el-popover>
-                    <el-button  id='barTempBtn' class='rbtn' @click='pageTempDialogConf.show=true' v-popover:tmpBtnPop><i class="fa fa-th-large"></i></el-button>
+                    <el-button id='barTempBtn' class='rbtn' @click='pageTempDialogConf.show=true' v-popover:tmpBtnPop><i class="fa fa-th-large"></i></el-button>
 
                     <el-popover ref="setBtnPop" placement="right" width="auto" v-model="setBtnPopVis" trigger="hover">
                         <div class="popTitle">修改页面标题？在这里设置更多！</div>
@@ -100,7 +100,7 @@
                         </div>
                     </el-popover>
                     <a id='barQQBtn' target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9308aad4f0542e6beea5b367cdbc9a0ec110c884f937110441f688d6ff1d8079">
-                        <el-button  class='rbtn' v-popover:qqBtnPop><i class="fa fa-qq"></i></el-button>
+                        <el-button class='rbtn' v-popover:qqBtnPop><i class="fa fa-qq"></i></el-button>
                     </a>
 
                 </div>
@@ -133,11 +133,11 @@
                 <div style='height:8px'></div>
             </div>
 
-            <dbox xid='tutorBox' class="tutorBox" :conf='tutorDBoxConf' :display='tutorBoxDis'>
+            <div xid='tutorBox' class="tutorBox" :conf='tutorDBoxConf' :display='tutorBoxDis'>
                 <div class="tutorContent">
-                    <component :is="tutorView" xid='tutorCom'></component>
+                    <component :is="tutorView"></component>
                 </div>
-            </dbox>
+            </div>
 
             <dbox class="left" :conf='codersDBoxConf' v-show='codersBoxVis' xid='codersBox' display='flex'>
                 <dbox :conf='cssDBoxConf' xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
@@ -208,16 +208,17 @@
     </div>
 </template>
 <style scoped>
+
+
     .tutorBox {
-        min-width: 120px;
         background: #AAA;
         border-left: 1px solid #888;
         margin-right: -1px;
-        max-width: 40%;
+        min-width: 320px;
+        max-width: 320px;
     }
 
     .tutorContent {
-        margin: 18px 12px 18px 18px;
         height: 100%;
         overflow-y: auto;
     }

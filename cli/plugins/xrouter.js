@@ -36,6 +36,8 @@ xrouter.install = function (Vue, options) {
             this.$xrestore = xrestore;
         },
         mounted: function () {
+            var ctx = this;
+
             //同时兼容props和标记内的xid属性（顶级app没有props）
             var xid = this.xid || ((this.$el && this.$el.getAttribute) ? this.$el.getAttribute('xid') : undefined);
 
@@ -45,12 +47,11 @@ xrouter.install = function (Vue, options) {
                 if (xcoms[xid]) {
                     console.warn('xrouter/mounted/xcoms:duplicate id [' + xid + '],ignored.');
                 } else {
-                    xcoms[xid] = this;
-                }
-            }
-
-            //自动恢复组件状态
-            xrouter.restore(xid);
+                    xcoms[xid] = ctx;
+                };
+                //自动恢复组件状态,可禁用然后改为手工恢复
+                if (!ctx._xrestoreDisabled) xrouter.restore(xid);
+            };
         },
         destroyed: function () {
             //销毁时候清除coms
@@ -109,6 +110,7 @@ async function xrestore(xid) {
     //获取本地ls存储的dataKeyValObj
     var lskey = JSON.stringify(['xrouter', xid]);
     var lsval = localStorage.getItem(lskey);
+
 
     if (!lsval) return false;
 

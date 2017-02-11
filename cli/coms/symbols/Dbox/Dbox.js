@@ -92,6 +92,7 @@ function startDrag(evt, tag) {
             var wid = jo.width() + offsetX;
             wid = (wid < ctx.conf.minWidth) ? ctx.conf.minWidth : wid;
             wid = (wid > ctx.conf.maxWidth) ? ctx.conf.maxWidth : wid;
+            console.log('>>>>dbox', wid, ctx.conf.minWidth, ctx.conf.maxWidth);
 
             ctx.$set(ctx.conf, 'width', wid + 'px');
             if (ctx.xid) {

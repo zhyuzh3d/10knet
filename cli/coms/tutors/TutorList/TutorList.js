@@ -7,9 +7,13 @@ import $ from 'jquery';
 
 import {
     Button,
+    Col,
+    Row,
 }
 from 'element-ui'
 Vue.use(Button);
+Vue.use(Col);
+Vue.use(Row);
 
 let com = {};
 export default com;

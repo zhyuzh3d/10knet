@@ -72,10 +72,13 @@ xsetConf.tutorView = {
         var com;
         switch (name) {
             case 'TutorStart':
-                var com = await System.import('../../tutors/Start/Start.html');
+                var com = await System.import('../../tutors/TutorStart/TutorStart.html');
+                break;
+            case 'TutorList':
+                var com = await System.import('../../tutors/TutorList/TutorList.html');
                 break;
             default:
-                var com = await System.import('../../tutors/Start/Start.html');
+                var com = await System.import('../../tutors/TutorStart/TutorStart.html');
                 break;
         };
         Vue.component(name, com);
@@ -85,7 +88,7 @@ xsetConf.tutorView = {
 xsetConf.after = async function (keyVal, ctx) {
     //载入教程
     if (ctx.$data.tutorBoxDis != 'none' && ctx.$data.tutorView == '') {
-        ctx.$xset(ctx, {
+        ctx.$xgo(ctx.xid, {
             tutorView: 'TutorStart',
         });
     };
@@ -105,7 +108,9 @@ com.data = function data() {
 
     return {
         msg: 'Hello from blocks/Ee/Ee.js',
+        _xrestoreDisabled: true,
         tutorView: '',
+        tutorViewHis: {},
         coderView: '',
         _xsetConf: xsetConf, //设置xset的钩子事件
         coderLoaded: false, //控制圆圈是否显示
@@ -122,7 +127,9 @@ com.data = function data() {
             useBottom: true,
         },
         tutorDBoxConf: {
-            width: '300px',
+            width: '320px',
+            minWidth: 320,
+            maxWidth: 320,
             useRight: true,
             display: 'none',
         },
@@ -215,19 +222,25 @@ com.methods = {
             tutorBoxDis: val,
         });
     },
+    tutorGo: tutorGo,
 };
 
 //组件加载后执行
 com.mounted = async function () {
     var ctx = this;
 
+    //手工恢复
+    await ctx.$xrestore(ctx.xid);
+    var xsetKV = ctx.xrestored;
+
     //载入编辑器
-    ctx.$xset(ctx, {
-        coderView: 'coder',
-    });
+    if (!xsetKV || !xsetKV.coderView) {
+        ctx.$xset(ctx, {
+            coderView: 'coder',
+        });
+    };
 
     //如果没有恢复，证明是第一次使用，那么载入start
-    var xsetKV = ctx.$data._xsetConf.keyVal;
     if (!xsetKV || !xsetKV.tutorView) {
         await ctx.$xset(ctx.xid, {
             tutorView: 'TutorStart',
@@ -260,6 +273,28 @@ com.mounted = async function () {
 
 
 //-----------------functions-------------------------
+
+
+/**
+ * xgo切换教程，同时实现教程的后退方法；由xset自动恢复
+ * 不适用页面初始自动跳转，依赖于地址栏，会和App_mainView冲突
+ * @param {[[Type]]} str 教程组件的名称，留空为TutorStart;'back'为返回
+ */
+async function tutorGo(name) {
+    var ctx = this;
+    if (!name) {
+        name = 'TutorStart';
+    } else if (name == 'back' && ctx.$data.tutorViewHis.back) {
+        name = ctx.$data.tutorViewHis.back;
+    };
+
+    //更新his
+    ctx.$data.tutorViewHis.back = ctx.$data.tutorView;
+
+    ctx.$xgo(ctx.xid, {
+        tutorView: name,
+    });
+};
 
 /**
  * 设定本地存储的用户exp值,空参数+1
