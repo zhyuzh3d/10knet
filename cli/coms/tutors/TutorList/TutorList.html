@@ -13,13 +13,30 @@
             </el-col>
         </el-row>
         <div class="line"></div>
+        <div id='list' v-for='(tor,index) in list'>
+            <div class="torlink" @click='Ee.tutorGo(tor.name)'>
+                <i class="fa fa-book"></i>
+                <span>{{tor.title}}</span>
+            </div>
+        </div>
         <div>
-            正在制作中...
+            <small style="color:#888">更多教程，即将公开!</small>
         </div>
     </div>
 </template>
 
 <style scoped>
+    .torlink:hover {
+        color: #1cbbb4;
+    }
+
+    .torlink {
+        margin: 12px 0;
+        padding: 6px 0;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
     .el-button--text {
         color: #E91E63;
     }
@@ -37,14 +54,6 @@
     .txt i {
         color: #E91E63;
         font-size: 14px;
-    }
-
-    .part {
-        margin: 12px 0;
-        background: #DDD;
-        border-radius: 6px;
-        padding: 6px 19px;
-        border: 1px solid #999;
     }
 
     .txt {

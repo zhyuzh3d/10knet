@@ -30,6 +30,10 @@ com.data = function data() {
     var ctx = this;
     return {
         Ee: ctx.$xcoms['App_mainView'],
+        list: [{
+            name: 'TutorStart',
+            title: '制作我的二维码简历',
+        }]
     };
 };
 

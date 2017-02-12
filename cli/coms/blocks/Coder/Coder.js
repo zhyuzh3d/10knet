@@ -129,8 +129,6 @@ com.mounted = function () {
     });
     editor.on('keyup', function (cm, evt) {
         editorKeyup(cm, evt, ctx);
-        console.log('keyup cm', cm, event);
-        console.log('keyup editor', ctx.$data.editor);
     });
 
     //利用xset自动恢复滚动位置，延迟确保生效
