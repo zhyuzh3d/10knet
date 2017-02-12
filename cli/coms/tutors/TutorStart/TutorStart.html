@@ -2,35 +2,68 @@
 
 <template>
     <div id='TutorStart' :xid='xid||"TutorStart"' class="tutorCom">
-        <div>
-            <el-row>
-                <el-col :span='20'>
-                    <div class="titleBg">教程 : 在线简历</div>
-                </el-col>
-                <el-col :span='4' style='text-align:right'>
-                    <el-button type='text' @click='Ee.tutorGo("TutorList")'>
-                        <span style="vertical-align: sub;">
+        <el-row>
+            <el-col :span='20'>
+                <div class="titleBg">教程 : 制作我的在线简历</div>
+            </el-col>
+            <el-col :span='4' style='text-align:right'>
+                <el-button type='text' @click='Ee.tutorGo("TutorList")'>
+                    <span style="vertical-align: sub;">
                         更多 <i class="fa fa-caret-right"></i></span></el-button>
-                </el-col>
-            </el-row>
-            <div class="line"></div>
+            </el-col>
+        </el-row>
+
+        <div v-if='stage==0'>
             <div class="part">
-                <div class="title">Step 1 <i class="fa fa-caret-right"></i> 导入</div>
+                <div class="title">Step 1 <i class="fa fa-caret-right"></i> 导入模版</div>
                 <div class="txt">点击<b>【模版】</b>按钮 <i class='fa fa-th-large'></i>&nbsp;&nbsp;，显示模版列表，然后点击第二个模版<b>【个人简历】</b>，然后点击<b>【载入】</b>。或者</div>
                 <el-button id='kuaisudaoru' type='primary' size='small' @click='loadResume' class='btn'>自动演示</el-button>
             </div>
             <div class="part">
-                <div class="title">Step 2 <i class="fa fa-caret-right"></i> 修改</div>
+                <div class="title">Step 2 <i class="fa fa-caret-right"></i> 修改代码</div>
                 <div class="txt">在右侧中间的编辑器中找到<b>【王晓明】</b>，改为您的姓名，共有两处。或者</div>
                 <el-button type='primary' size='small' @click='renameWxm' class='btn'>自动演示</el-button>
             </div>
             <div class="part">
-                <div class="title">Step 3 <i class="fa fa-caret-right"></i> 分享</div>
+                <div class="title">Step 3 <i class="fa fa-caret-right"></i> 分享页面</div>
                 <div class="txt">在左侧栏点击 <i class='fa fa-share-alt'></i><b> 【分享】</b>按钮，把您编写的简历二维码分享给朋友们吧！
                 </div>
                 <el-button type='primary' size='small' @click='showShare' class='btn'>自动演示</el-button>
             </div>
+            <el-row>
+                <el-col :span='24' style="text-align:right">
+                    <el-button type='text' @click='setStage(1)'>
+                        <span style="vertical-align: sub;">继续：更换简历照片 <i class="fa fa-caret-right"></i></span></el-button>
+                </el-col>
+            </el-row>
         </div>
+        <div v-if='stage==1'>
+            <div class="part">
+                <div class="title">Step 4 <i class="fa fa-caret-right"></i> 上传图片</div>
+                <div class="txt">点击左侧<b>【图片】</b>按钮 <i class='fa fa-image'></i>&nbsp;&nbsp;，然后选择您的证件照图片，然后点击确定。稍后上传成功的弹出窗口中，复制链接。
+                    <br>或者直接复制下面的链接
+                    <br><small>http://app.10knet.com/HkDFBmnOg/yy.png</small></div>
+                <el-button type='primary' size='small' @click='showUpload' class='btn'>自动演示</el-button>
+
+            </div>
+            <div class="part">
+                <div class="title">Step 5 <i class="fa fa-caret-right"></i> 替换链接</div>
+                <div class="txt">在左侧中间body编辑器中，找到【img】标记，删除src=后面双引号内的文字【http://app.10knet.com/ryBRlcSDg/hxm.png】,然后粘贴您刚才复制的链接</div>
+                <el-button type='primary' size='small' @click='replacePicUrl' class='btn'>自动演示</el-button>
+
+            </div>
+            <div class="part">
+                <div class="title">Step 6 <i class="fa fa-caret-right"></i> 重新分享</div>
+                <el-button type='primary' size='small' @click='showShare' class='btn'>自动演示</el-button>
+            </div>
+            <el-row>
+                <el-col :span='6' style="text-align:left">
+                    <el-button type='text' @click='setStage(0)'>
+                        <span style="vertical-align: sub;"> <i class="fa fa-caret-left"></i> 返回</span></el-button>
+                </el-col>
+            </el-row>
+        </div>
+
     </div>
 </template>
 
@@ -46,7 +79,7 @@
     }
 
     .tutorCom {
-        padding: 12px 24px;
+        padding: 8px 18px;
     }
 
     .txt i {
@@ -56,6 +89,11 @@
 
     .part {
         margin: 12px 0;
+        background: #DDD;
+        border-radius: 6px;
+        padding: 6px 19px;
+        border: 1px solid #999;
+        word-break: break-all;
     }
 
     .txt {

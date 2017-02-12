@@ -544,7 +544,7 @@ async function uploadIptChanged(file) {
 
     var ipt = $(ctx.$el).find('#uploadIpt');
     var res = await ctx.uploadFile('none', file.name, file);
-    ctx.$alert(res.url, '已经存储到云端', {
+    ctx.$alert(res.url, '上传成功，请复制下面的链接', {
         confirmButtonText: '确定'
     });
 };

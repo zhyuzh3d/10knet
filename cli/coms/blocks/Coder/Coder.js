@@ -77,6 +77,7 @@ com.data = function () {
 com.methods = {
     typeWriter: typeWriter,
     typeWriterDel: typeWriterDel,
+    keyUp: keyUp,
 };
 
 com.props = {
@@ -155,6 +156,17 @@ com.mounted = function () {
 //---------------functions----------------
 
 /**
+ * 执行按键升起的动作,并不真的输入字符
+ */
+async function keyUp(str) {
+    var ctx = this;
+    var editor = ctx.$data.editor;
+    editorKeyup(editor, {
+        keyCode: str ? str.charCodeAt(0) : undefined,
+    }, ctx);
+};
+
+/**
  * 打字机插入字符，动画添加效果
  * @param {string} str 要添加的字符串
  */
@@ -170,7 +182,7 @@ async function typeWriter(str) {
             console.log('Coder:typeWriter:failed:', err);
         };
         editorKeyup(editor, {
-            keyCode: str.charCode,
+            keyCode: str.charCodeAt(i),
         }, ctx);
     };
     await ctx.$xglobal.fns.sleep(250);

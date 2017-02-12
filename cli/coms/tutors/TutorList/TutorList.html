@@ -9,14 +9,12 @@
                         <i class="fa fa-caret-left"></i> 返回</span></el-button>
             </el-col>
             <el-col :span='20'>
-                <div class="titleBg"  style='text-align:right'>教程列表</div>
+                <div class="titleBg" style='text-align:right'>教程列表</div>
             </el-col>
         </el-row>
         <div class="line"></div>
-        <div class="part">
-            <div class="title">Step 1 <i class="fa fa-caret-right"></i> 导入</div>
-            <div class="txt">...</div>
-            <el-button id='kuaisudaoru' type='primary' size='small' @click='loadResume' class='btn'>自动演示</el-button>
+        <div>
+            正在制作中...
         </div>
     </div>
 </template>
@@ -33,7 +31,7 @@
     }
 
     .tutorCom {
-        padding: 12px 24px;
+        padding: 8px 18px;
     }
 
     .txt i {
@@ -43,6 +41,10 @@
 
     .part {
         margin: 12px 0;
+        background: #DDD;
+        border-radius: 6px;
+        padding: 6px 19px;
+        border: 1px solid #999;
     }
 
     .txt {

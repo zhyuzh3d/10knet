@@ -133,7 +133,7 @@
                 <div style='height:8px'></div>
             </div>
 
-            <div xid='tutorBox' class="tutorBox" :conf='tutorDBoxConf' :display='tutorBoxDis'>
+            <div xid='tutorBox' class="tutorBox" :conf='tutorDBoxConf' :display='tutorBoxDis' v-if='tutorBoxDis!="none"'>
                 <div class="tutorContent">
                     <component :is="tutorView"></component>
                 </div>
@@ -208,10 +208,8 @@
     </div>
 </template>
 <style scoped>
-
-
     .tutorBox {
-        background: #AAA;
+        background: #BBB;
         border-left: 1px solid #888;
         margin-right: -1px;
         min-width: 320px;
@@ -300,7 +298,7 @@
 
     .sideBar {
         width: 40px;
-        background: #AAA;
+        background: #BBB;
         display: flex;
         flex-direction: column;
     }
@@ -363,9 +361,11 @@
     }
 
     .right {
+        margin-left: -1px;
         min-width: 200px;
         flex: auto;
         background-color: #FFF;
+        border-left: 1px solid #AAA;
     }
 
     .set {

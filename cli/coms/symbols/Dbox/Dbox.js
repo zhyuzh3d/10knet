@@ -46,7 +46,7 @@ com.mounted = function () {
 
     //初始化conf默认数据
     if (!ctx.conf.barSize) ctx.$set(ctx.conf, 'barSize', barSize);
-    if (!ctx.conf.barColor) ctx.$set(ctx.conf, 'barColor', '#AAA');
+    if (!ctx.conf.barColor) ctx.$set(ctx.conf, 'barColor', '#BBB');
     if (!ctx.conf.width) ctx.$set(ctx.conf, 'width', '100%');
     if (!ctx.conf.height) ctx.$set(ctx.conf, 'height', '100%');
     if (!ctx.conf.minWidth) ctx.$set(ctx.conf, 'minWidth', ctx.conf.barSize);
