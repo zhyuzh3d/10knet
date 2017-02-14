@@ -1,12 +1,13 @@
 /**
  * 全局路由函数文件，将被xglobal插件载入到每个component;
  * before创建this.$xrouter；
- * mounted创建分离的方法$xset,$xgo,$xrestore,$xgetcomid，$xgetconf
- * mounted创建数据$xcoms,$xconfs
+ * mounted创建分离的方法:
+ * $xcoms,$xconfs,$xgetConf,$xgetComId,$xset,$xgo,$xrestore,
  * 停用自动恢复_xrestoreDisabled
- * $xcoms列出所有组件comid(xid-id)格式；没有xid的不管理，没有id的仅用xid
+ * $xcoms列出所有组件comid(xid-sid)格式；没有xid的不管理，没有id的仅用xid
  * $xconfs列出所有组件调动的状态，comid索引，{cmd:'xset',value:kv};
  * 本地版本检测，版本升级将清空旧版本的ls数据xrouterSavedKeys所有key，
+ * $xset的钩子需要放在$data._xsetConf[key],before,after函数(newval,oldval,ctx)
  */
 
 /**
@@ -33,15 +34,15 @@ var ver = 0.5;
     localStorage.setItem('xrouterVersion', ver);
 })();
 
+//这些方法都会beforemount时候分别添加到ctx
 var $xrouter = {
     $xcoms,
-    $xgetconf,
-    $xgetcomid,
+    $xconfs,
+    $xgetConf,
+    $xgetComId,
     $xset,
     $xgo,
     $xrestore,
-    $xgetconf,
-    $xconfs,
 };
 export default $xrouter;
 
@@ -60,14 +61,13 @@ $xrouter.install = function (Vue, options) {
     Vue.mixin({
         beforeCreate: function () {
             this.$xrouter = $xrouter;
+            for (var key in $xrouter) {
+                this[key] = $xrouter[key];
+            };
         },
         mounted: function () {
             var ctx = this;
-            var comid = ctx.$xgetcomid();
-
-            //指定到数据中
-            ctx.$data.$xcomid = comid;
-            ctx.$data.$xcoms = $xcoms;
+            var comid = ctx.$xgetComId();
 
             //路由组件管理
             if (comid && ctx.constructor != Vue) { //忽略单例的Vue
@@ -83,24 +83,9 @@ $xrouter.install = function (Vue, options) {
                 if (!ctx.$data._xrestoreDisabled) ctx.$xrestore(comid);
             };
         },
-        data: function () {
-            //mounted时候赋值
-            return {
-                $xcoms: $xcoms,
-                $xconfs: $xconfs,
-                $xcomid: undefined,
-            };
-        },
-        methods: {
-            $xgetcomid,
-            $xgetconf,
-            $xset,
-            $xgo,
-            $xrestore,
-        },
         destroyed: function () {
             var ctx = this;
-            var comid = ctx.$xgetcomid();
+            var comid = ctx.$xgetComId();
 
             if ($xcoms[comid]) {
                 if ($xcoms[comid].constructor == Array) {
@@ -115,32 +100,33 @@ $xrouter.install = function (Vue, options) {
 };
 
 /**
- * 获取一个ctx的comid，格式xid-id
+ * 获取一个ctx的comid，格式xid-sid
  * @param {object} ctx ctx
  */
-function $xgetcomid(ctx) {
+function $xgetComId(ctx) {
     if (!ctx) ctx = this;
 
     //同时兼容props和标记内的xid属性（顶级app没有props）
     var xid = ctx.xid || ((ctx.$el && ctx.$el.getAttribute) ? this.$el.getAttribute('xid') : undefined);
 
-    //获取自身coms的$data/props的id，或者从元素上提取id
-    var sid = ctx.id || ctx.$data.id;
-    if (!sid) sid = ctx.$el.id;
+    //获取自身coms的$data/props的id，或者从元素上提取sid
+    var sid = ctx.sid;
+    if (!sid) sid = ctx.$el ? this.$el.getAttribute('sid') : undefined;
 
     //真实的索引是外部xid加内部的id
     var comid = xid ? (sid ? xid + '-' + sid : xid) : undefined;
+
     return comid;
 };
 
 /**
- * 获取一个ctx的comid，格式xid-id
+ * 获取一个ctx的comid，格式xid-sid
  * @param {object} ctx ctx
  */
-function $xgetconf(ctx) {
+function $xgetConf(ctx) {
     if (!ctx) ctx = this;
 
-    var comid = ctx.$xgetcomid();
+    var comid = ctx.$xgetComId();
     var conf;
     if (comid) conf = $xconfs[comid];
 
@@ -150,7 +136,7 @@ function $xgetconf(ctx) {
 
 /**
  * 跳转函数，实际上是用a标签引发hash变化,然后被hashchange监听触发路由，同时存储到ls
- * @param   {string} comid  vue对象的xid-id拼合格式，可省略
+ * @param   {string} comid  vue对象的xid-sid拼合格式，可省略
  * @param   {object} data 要修改的键值属性,类似{mainView: 'temp'}
  * @returns {object} vuecom对象
  */
@@ -160,7 +146,7 @@ async function $xgo(comid, data) {
     //仅有一个参数的情况
     if (!data) {
         data = comid;
-        comid = ctx.$xgetcomid();
+        comid = ctx.$xgetComId();
     };
 
     if (!comid) {
@@ -193,7 +179,7 @@ async function $xrestore(comid) {
     var ctx = this;
 
     //省略参数情况
-    if (!comid) comid = ctx.$xgetcomid();
+    if (!comid) comid = ctx.$xgetComId();
     if (!comid) {
         console.warn('xrouter:$xgo:comid not defined.');
         return;
@@ -209,10 +195,7 @@ async function $xrestore(comid) {
 
     var res;
     if (lsKeyValObj) {
-        var com = await $xset({
-            comid: comid,
-            $data: lsKeyValObj,
-        });
+        var com = await ctx.$xset(lsKeyValObj, comid);
 
         //记录到xconf[comid]状态
         if (com) {
@@ -234,28 +217,23 @@ async function $xrestore(comid) {
 /**
  * 跨元件执行设置xset函数，是所有跳转路由的基础;
  * 即使找不到父层com也会存储，等待载入时候自动恢复
- * @param   {object} opt  设置选项，包含{comid,unsave,$data:{kv}}
- * @returns {boolean}  成功返回com真失败undefined
+ * @param {boolean} data   需要设置的数据
+ * @param {string} comid  comid,可省略默认使用this的comid
+ * @param {boolean} unsave 是否保存
  */
-async function $xset() {
-    var opt = arguments.length > 0 ? arguments[0] : undefined;
+async function $xset(data, comid, unsave) {
     var ctx = this;
-    if (!opt) {
-        console.warn('xrouter:xset:params is undefined.', opt);
-        return;
-    };
 
-    //如果没有comid,那么尝试获取自身的comid
-    if (!opt.comid) opt.comid = ctx.$xgetcomid();
-    if (!opt.comid) {
+    if (!comid) comid = ctx.$xgetComId();
+    if (!comid) {
         console.warn('xrouter:xset:comid is undefined.');
         return;
     };
 
     //获取目标com对象
-    var tarCtx = $xcoms[opt.comid];
+    var tarCtx = $xcoms[comid];
     if (!tarCtx) {
-        console.warn('xrouter:xset:com is not in xcoms', opt.comid);
+        console.warn('xrouter:xset:com is not in xcoms', comid);
         return;
     };
 
@@ -263,45 +241,58 @@ async function $xset() {
     //数组自身循环处理，对象直接处理
     if (tarCtx.constructor == Array) {
         for (var i = 0; i < tarCtx.length; i++) {
-            await tarCtx[i].$set(opt);
+            await tarCtx[i].$set(data, comid, unsave);
         };
     } else {
-        $xconfs[opt.comid] = {
+        $xconfs[comid] = {
             xset: 1, //正在执行，保护before,after异步线程避免冲突
-            xsetValue: opt,
+            xsetValue: data,
         };
 
         //设置data
-        for (var key in opt.data) {
-            if (ctx.$data[key] != undefined) {
+        for (var key in data) {
+            if (tarCtx.$data[key] != undefined) {
 
                 //使_xsetConf钩子生效,仅限tar对象的第一层
                 var beforefn, afterfn;
-                if (ctx.$data._xsetConf && ctx.$data._xsetConf[key]) {
-                    beforefn = ctx.$data._xsetConf[key].before;
-                    afterfn = ctx.$data._xsetConf[key].after;
+                var xsetConf = tarCtx.$data._xsetConf;
+                if (xsetConf && xsetConf[key]) {
+                    beforefn = xsetConf[key].before;
+                    afterfn = xsetConf[key].after;
                 };
 
                 //三步设置，beforefn->设置data属性->afterfn
-                if (beforefn) await beforefn(opt.$data[key], ctx.$data[key], ctx);
-                tarCtx.$set(tarCtx.$data, key, opt.$data[key]);
-                if (afterfn) await afterfn(opt.$data[key], ctx.$data[key], ctx);
+                if (beforefn) {
+                    await beforefn(data[key], tarCtx.$data[key], tarCtx);
+                };
+
+                //如果这个值是个对象，那么先合并已有字段，否则直接覆盖
+                var val = data[key];
+                if (val && val.constructor == Object && tarCtx[key] && tarCtx[key].constructor == isObject) {
+                    val = Object.assign(val, tarCtx[key]);
+                };
+                tarCtx.$set(tarCtx, key, val);
+
+                //afterfn
+                if (afterfn) {
+                    await afterfn(data[key], tarCtx.$data[key], tarCtx);
+                };
 
             } else {
-                console.warn(`'xrouter:xset:can not add ${key} to ${opt.comid}`);
+                console.warn(`'xrouter:xset:can not add ${key} to ${comid}`);
             };
         };
 
-        if (!opt.unsave) {
+        if (!unsave) {
             //保存到本地缓存,可用于恢复组件状态，单页面应用不用担心路径问题
             //用json化的数组作为键、值,掺入'xrouter'避免和其他插件重复
-            var lskey = JSON.stringify(['xrouter', opt.comid]);
+            var lskey = JSON.stringify(['xrouter', comid]);
 
             //先读取已经存储的对象，然后再合并对象，再存储
             var orgval = localStorage.getItem(lskey);
             orgval = JSON.safeParse(orgval) || {};
 
-            var addval = opt.$data;
+            var addval = data;
             var newval = Object.assign({}, orgval, addval);
             newval = JSON.stringify(newval);
 
@@ -318,9 +309,9 @@ async function $xset() {
         };
 
         //设置结束
-        $xconfs[opt.comid] = {
+        $xconfs[comid] = {
             xset: 0, //执行完毕，挂起状态
-            xsetValue: opt,
+            xsetValue: data,
         };
     };
 
@@ -345,14 +336,9 @@ async function $xset() {
         };
 
         //真正触发路由
-        $xset({
-            comid: xidKVarr[0],
-            $data: xidKVarr[1]
-        });
-
+        $xset(xidKVarr[1], xidKVarr[0]);
         return true;
     };
-
 
     /**
      * 扩展JSON安全parse方法

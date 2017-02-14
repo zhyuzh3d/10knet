@@ -55,7 +55,8 @@ com.props = {
 //所有直接使用的方法写在这里
 com.methods = {
     xgoTab: function () {
-        this.$xset(this.xid, {
+        console.log('ttHomeView', this.$xgetComId());
+        this.$xset({
             activeName: this.$data.activeName
         });
     },

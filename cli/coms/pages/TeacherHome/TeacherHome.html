@@ -1,7 +1,7 @@
 <script src="./TeacherHome.js"></script>
 
 <template>
-    <div id='TeacherHome' xid='xid' style="width:100%">
+    <div sid='TeacherHome' :xid='xid' style="width:100%">
         <el-row type="flex" class="row-bg" justify="center" style='margin-top:12px'>
             <el-col :span="20" :sm="16">
                 <el-tabs v-model="activeName" @tab-click="xgoTab()" style='width:100%'>
