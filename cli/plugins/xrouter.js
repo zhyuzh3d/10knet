@@ -1,22 +1,49 @@
 /**
  * 全局路由函数文件，将被xglobal插件载入到每个component;
- * this.$xrouter及分离的this.$xset,$xgo,$xrestore,$xcoms,
+ * before创建this.$xrouter；
+ * mounted创建分离的方法$xset,$xgo,$xrestore,$xgetcomid，$xgetconf
+ * mounted创建数据$xcoms,$xconfs
  * 停用自动恢复_xrestoreDisabled
- * 分离后的函数可以胜率xid参数，即指向自身xid；$xrouter.xxx不可以省略
- * 每个可路由切换的组件必须有prop属性xid传入或$el上面有xid属性，
- * 类似<top-bar xid='topbar'>,没有xid的将被忽略无法被路由调动
- * 最根本的函数是xset，$set设置其他组件的数据，如果该属性+BeforeXset数据存在那么将异步执行它
+ * $xcoms列出所有组件comid(xid-id)格式；没有xid的不管理，没有id的仅用xid
+ * $xconfs列出所有组件调动的状态，comid索引，{cmd:'xset',value:kv};
+ * 本地版本检测，版本升级将清空旧版本的ls数据xrouterSavedKeys所有key，
  */
 
-let xrouter = {
+/**
+ * 旧版本数据清理
+ */
+var ver = 0.5;
+(function () {
+    var lsver = Number(localStorage.getItem('xrouterVersion')) || 0;
+    if (ver > lsver) {
+        /*清理所有xrouter存储的字段，必要时使用
+        var keysArr = localStorage.getItem('xrouterSavedKeys');
+        keysArr = JSON.safeParse(keysArr);
+        if (keysArr) {
+            if (keysArr.constructor != Array) {
+                localStorage.removeItem('xrouterSavedKeys');
+            } else {
+                keysArr.forEach(function (key) {
+                    localStorage.removeItem(key);
+                });
+            };
+        }
+        */
+    };
+    localStorage.setItem('xrouterVersion', ver);
+})();
+
+var $xrouter = {
     $xcoms,
+    $xgetconf,
     $xgetcomid,
     $xset,
-    $go,
+    $xgo,
     $xrestore,
     $xgetconf,
+    $xconfs,
 };
-export default xrouter;
+export default $xrouter;
 
 var $xcoms = {}; //用于路由的全部具有xid属性的组件
 var $xconfs = {}; //用于路由的全部具有xid属性的组件
@@ -26,15 +53,17 @@ var $xconfs = {}; //用于路由的全部具有xid属性的组件
  * @param {object} Vue
  * @param {object} options
  */
-xrouter.install = function (Vue, options) {
+$xrouter.install = function (Vue, options) {
 
     //向每个组件添加mixin，挂载时候根据ls读取之前的参数设置重新初始化
     //挂载时将组件加入xcoms(xid到vc的映射)，销毁时候清除组件
     Vue.mixin({
-        beforeCreate: function () {},
+        beforeCreate: function () {
+            this.$xrouter = $xrouter;
+        },
         mounted: function () {
             var ctx = this;
-            var comid = $xgetcomid(ctx);
+            var comid = ctx.$xgetcomid();
 
             //指定到数据中
             ctx.$data.$xcomid = comid;
@@ -51,7 +80,7 @@ xrouter.install = function (Vue, options) {
                 };
 
                 //自动恢复组件状态,可禁用然后改为手工恢复
-                if (!ctx.$data._xrestoreDisabled) xrouter.restore(xid);
+                if (!ctx.$data._xrestoreDisabled) ctx.$xrestore(comid);
             };
         },
         data: function () {
@@ -71,7 +100,7 @@ xrouter.install = function (Vue, options) {
         },
         destroyed: function () {
             var ctx = this;
-            var comid = $xgetcomid(ctx);
+            var comid = ctx.$xgetcomid();
 
             if ($xcoms[comid]) {
                 if ($xcoms[comid].constructor == Array) {
@@ -93,11 +122,11 @@ function $xgetcomid(ctx) {
     if (!ctx) ctx = this;
 
     //同时兼容props和标记内的xid属性（顶级app没有props）
-    var xid = this.xid || ((this.$el && this.$el.getAttribute) ? this.$el.getAttribute('xid') : undefined);
+    var xid = ctx.xid || ((ctx.$el && ctx.$el.getAttribute) ? this.$el.getAttribute('xid') : undefined);
 
     //获取自身coms的$data/props的id，或者从元素上提取id
-    var sid = this.id || this.$data.id;
-    if (!sid) sid = this.$el.id;
+    var sid = ctx.id || ctx.$data.id;
+    if (!sid) sid = ctx.$el.id;
 
     //真实的索引是外部xid加内部的id
     var comid = xid ? (sid ? xid + '-' + sid : xid) : undefined;
@@ -131,11 +160,11 @@ async function $xgo(comid, data) {
     //仅有一个参数的情况
     if (!data) {
         data = comid;
-        comid = ctx.$xcomid;
+        comid = ctx.$xgetcomid();
     };
 
     if (!comid) {
-        console.error('xrouter:$xgo:comid not defined.');
+        console.warn('xrouter:$xgo:comid not defined.');
         return;
     };
 
@@ -164,9 +193,9 @@ async function $xrestore(comid) {
     var ctx = this;
 
     //省略参数情况
-    if (!comid) comid = ctx.$xcomid;
+    if (!comid) comid = ctx.$xgetcomid();
     if (!comid) {
-        console.error('xrouter:$xgo:comid not defined.');
+        console.warn('xrouter:$xgo:comid not defined.');
         return;
     };
 
@@ -189,7 +218,7 @@ async function $xrestore(comid) {
         if (com) {
             $xconfs[comid] = {
                 xrestore: 1,
-                value: lsKeyValObj,
+                xrestoreValue: lsKeyValObj,
             };
             res = lsKeyValObj;
         } else {
@@ -209,20 +238,24 @@ async function $xrestore(comid) {
  * @returns {boolean}  成功返回com真失败undefined
  */
 async function $xset() {
-    var opt = arguments;
+    var opt = arguments.length > 0 ? arguments[0] : undefined;
     var ctx = this;
+    if (!opt) {
+        console.warn('xrouter:xset:params is undefined.', opt);
+        return;
+    };
 
     //如果没有comid,那么尝试获取自身的comid
-    if (!opt.comid) opt.comid = ctx.$xcomid();
+    if (!opt.comid) opt.comid = ctx.$xgetcomid();
     if (!opt.comid) {
-        console.error('xrouter:xset:comid is undefined.');
+        console.warn('xrouter:xset:comid is undefined.');
         return;
     };
 
     //获取目标com对象
-    var tarCtx = $xcoms[comid];
+    var tarCtx = $xcoms[opt.comid];
     if (!tarCtx) {
-        console.error('xrouter:xset:com is not in xcoms', comid);
+        console.warn('xrouter:xset:com is not in xcoms', opt.comid);
         return;
     };
 
@@ -235,7 +268,7 @@ async function $xset() {
     } else {
         $xconfs[opt.comid] = {
             xset: 1, //正在执行，保护before,after异步线程避免冲突
-            value: opt,
+            xsetValue: opt,
         };
 
         //设置data
@@ -259,25 +292,35 @@ async function $xset() {
             };
         };
 
-        if (!unsave) {
+        if (!opt.unsave) {
             //保存到本地缓存,可用于恢复组件状态，单页面应用不用担心路径问题
             //用json化的数组作为键、值,掺入'xrouter'避免和其他插件重复
             var lskey = JSON.stringify(['xrouter', opt.comid]);
 
             //先读取已经存储的对象，然后再合并对象，再存储
-            var orgval = localStorage.getItem(lskey) || {};
-            orgval = JSON.safeParse(orgval);
+            var orgval = localStorage.getItem(lskey);
+            orgval = JSON.safeParse(orgval) || {};
 
-            var addval = keyValObj;
+            var addval = opt.$data;
             var newval = Object.assign({}, orgval, addval);
             newval = JSON.stringify(newval);
+
+            //本地存储，同时添加到xrouterSavedKeys
             localStorage.setItem(lskey, newval);
+
+            var skey = 'xrouterSavedKeys';
+            var skeysArr = localStorage.getItem(skey);
+            skeysArr = JSON.safeParse(skeysArr) || [];
+
+            skeysArr.push(lskey);
+            skeysArr = JSON.stringify(skeysArr);
+            localStorage.setItem(skey, skeysArr);
         };
 
         //设置结束
         $xconfs[opt.comid] = {
             xset: 0, //执行完毕，挂起状态
-            value: opt,
+            xsetValue: opt,
         };
     };
 
@@ -297,7 +340,7 @@ async function $xset() {
 
         var xidKVarr = JSON.parse(hash);
         if (!xidKVarr || xidKVarr.constructor != Array || xidKVarr.length < 2) {
-            console.error('xrouter:hashchange:hash format err', xidKVarr);
+            console.warn('xrouter:hashchange:hash format err', xidKVarr);
             return false;
         };
 
