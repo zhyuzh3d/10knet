@@ -55,17 +55,6 @@ com.methods = {};
 com.mounted = function () {
     jo = $(this.$el);
     previewMsgHub = document.querySelector('iframe[preview]').contentWindow;
-
-    //激活顶部导航栏菜单
-    this.$xrouter.xset('NavBar', {
-        activeMenu: 'ee',
-    });
-
-    //使用导航栏背景
-    this.$xrouter.xset('App', {
-        barBg: '',
-    });
-
 };
 
 

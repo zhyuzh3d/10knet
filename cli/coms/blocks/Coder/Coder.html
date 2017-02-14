@@ -2,7 +2,7 @@
 <!--<script src="/node_modules/codemirror/addon/search/search.js"></script>-->
 
 <template>
-    <div id='Coder'>
+    <div sid='Coder' class="Coder">
         <codemirror id='editor' ref="myEditor" :code.sync="codeData.code" :options="options"></codemirror>
         <div class="hud">
             <slot></slot>
@@ -11,7 +11,7 @@
 </template>
 
 <style scoped>
-    #Coder {
+    .Coder {
         width: 100%;
         height: 100%;
         position: relative;

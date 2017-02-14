@@ -1,7 +1,7 @@
 <script src="./Dbox.js"></script>
 
 <template>
-    <div id='Dbox' :xid='xid||"Dbox"' v-bind:style='{width:conf.width,height:conf.height,display:display}'>
+    <div sid='Dbox' class="Dbox" :xid='xid||"Dbox"' v-bind:style='{width:conf.width,height:conf.height,display:display}'>
         <div v-if='conf.useLeft' class="vbar" @mousedown='startDrag($event,"left")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
         <div class='box'>
             <div v-if='conf.useTop' class="hbar" @mousedown='startDrag($event,"top")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
@@ -15,7 +15,7 @@
 </template>
 
 <style scoped>
-    #Dbox {
+    .Dbox {
         display: flex;
         flex-direction: row
     }

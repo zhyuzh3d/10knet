@@ -889,7 +889,7 @@
   width: 420px;
   border-radius: 3px;
   font-size: 16px;
-  -webkit-user-select: initial;
+  -webkit-user-select: none;
   overflow: hidden;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;

@@ -23,13 +23,5 @@ com.beforeCreate = function () {};
 com.mounted = function () {
     jo = $(this.$el);
 
-    //激活顶部导航栏菜单
-    vc.$xrouter.xset('NavBar', {
-        activeMenu: 'welcome'
-    });
 
-    //导航栏不使用背景
-    vc.$xrouter.xset('App', {
-        barBg: 'inherit',
-    });
 };

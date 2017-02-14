@@ -29,7 +29,7 @@ com.props = {
 com.data = function data() {
     var ctx = this;
     return {
-        Ee: ctx.$xcoms['App_mainView'],
+        Ee: ctx.$xcoms['App_mainView-Ee'],
         list: [{
             name: 'TutorStart',
             title: '制作我的二维码简历',

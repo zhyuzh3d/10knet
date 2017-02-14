@@ -140,7 +140,7 @@ com.mounted = function () {
     editor.on('scroll', function (cm, evt) {
         var xid = codejo.attr('xid');
         if (xid) {
-            ctx.$xrouter.xset(xid, {
+            ctx.$xset({
                 scrollInfo: editor.getScrollInfo(),
             });
         };

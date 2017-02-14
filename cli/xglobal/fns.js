@@ -12,6 +12,7 @@ let fns = {
 };
 export default fns;
 
+
 //------------------functions------------
 /**
  * 自动登录，使用token

@@ -35,19 +35,19 @@ var ver = 0.5;
 })();
 
 //这些方法都会beforemount时候分别添加到ctx
+var $xcoms = {}; //用于路由的全部具有xid属性的组件
+var $xconfs = {}; //用于路由的全部具有xid属性的组件
 var $xrouter = {
-    $xcoms,
-    $xconfs,
+    $xcoms: $xcoms,
+    $xconfs: $xconfs,
     $xgetConf,
     $xgetComId,
     $xset,
     $xgo,
     $xrestore,
+    $xisRestored,
 };
 export default $xrouter;
-
-var $xcoms = {}; //用于路由的全部具有xid属性的组件
-var $xconfs = {}; //用于路由的全部具有xid属性的组件
 
 /**
  * 初始化路由，将路由注入到全局，组件内如需使用可以自由添加
@@ -60,9 +60,10 @@ $xrouter.install = function (Vue, options) {
     //挂载时将组件加入xcoms(xid到vc的映射)，销毁时候清除组件
     Vue.mixin({
         beforeCreate: function () {
-            this.$xrouter = $xrouter;
+            var ctx = this;
+            ctx.$xrouter = $xrouter;
             for (var key in $xrouter) {
-                this[key] = $xrouter[key];
+                ctx[key] = $xrouter[key];
             };
         },
         mounted: function () {
@@ -199,10 +200,10 @@ async function $xrestore(comid) {
 
         //记录到xconf[comid]状态
         if (com) {
-            $xconfs[comid] = {
-                xrestore: 1,
-                xrestoreValue: lsKeyValObj,
-            };
+            $xconfs[comid] = $xconfs[comid] || {};
+            $xconfs[comid].xrestore = 1;
+            $xconfs[comid].xrestoreValue = lsKeyValObj;
+
             res = lsKeyValObj;
         } else {
             res = false;
@@ -213,6 +214,32 @@ async function $xrestore(comid) {
 
     return res;
 };
+
+
+
+/**
+ * 检测某个属性是否已经被恢复
+ * @param {[[Type]]} key [[Description]]
+ */
+function $xisRestored(key) {
+    var ctx = this;
+    var conf = ctx.$xgetConf();
+    var res = false;
+
+    if (conf && conf.xrestore) {
+        if (key) {
+            if (conf.xrestoreValue[key] !== undefined) {
+                res = true;
+            };
+        } else {
+            res = true;
+        };
+    };
+    return res;
+};
+
+
+
 
 /**
  * 跨元件执行设置xset函数，是所有跳转路由的基础;
@@ -233,10 +260,10 @@ async function $xset(data, comid, unsave) {
     //获取目标com对象
     var tarCtx = $xcoms[comid];
     if (!tarCtx) {
-        console.warn('xrouter:xset:com is not in xcoms', comid);
+        console.warn('xrouter:xset:com is not in xcoms', data, comid);
+        console.warn('xrouter:xset:show xcoms', $xcoms);
         return;
     };
-
 
     //数组自身循环处理，对象直接处理
     if (tarCtx.constructor == Array) {
@@ -244,9 +271,13 @@ async function $xset(data, comid, unsave) {
             await tarCtx[i].$set(data, comid, unsave);
         };
     } else {
-        $xconfs[comid] = {
-            xset: 1, //正在执行，保护before,after异步线程避免冲突
-            xsetValue: data,
+        $xconfs[comid] = $xconfs[comid] || {};
+        $xconfs[comid].xset = 1;
+        $xconfs[comid].xsetValue = data;
+
+        var xsetConf = tarCtx.$data._xsetConf;
+        if (xsetConf && xsetConf.before) {
+            await tarCtx.$data._xsetConf.before(data, tarCtx);
         };
 
         //设置data
@@ -255,7 +286,6 @@ async function $xset(data, comid, unsave) {
 
                 //使_xsetConf钩子生效,仅限tar对象的第一层
                 var beforefn, afterfn;
-                var xsetConf = tarCtx.$data._xsetConf;
                 if (xsetConf && xsetConf[key]) {
                     beforefn = xsetConf[key].before;
                     afterfn = xsetConf[key].after;
@@ -308,11 +338,13 @@ async function $xset(data, comid, unsave) {
             localStorage.setItem(skey, skeysArr);
         };
 
-        //设置结束
-        $xconfs[comid] = {
-            xset: 0, //执行完毕，挂起状态
-            xsetValue: data,
+        if (xsetConf && xsetConf.after) {
+            await tarCtx.$data._xsetConf.after(data, tarCtx);
         };
+
+        //设置结束
+        $xconfs[comid].xset = 0; //执行完毕，挂起状态
+
     };
 
     return tarCtx;

@@ -44,15 +44,6 @@ com.beforeMount = function () {
 
 com.mounted = function () {
 
-    //激活顶部导航栏菜单
-    vc.$xrouter.xset('NavBar', {
-        activeMenu: 'kk',
-    });
-
-    //使用导航栏背景
-    vc.$xrouter.xset('App', {
-        barBg: '',
-    });
 };
 
 //-------所有函数写在下面,可以直接使用vc，jo；禁止在下面直接运行--------

@@ -33,6 +33,22 @@ a:visited {
     text-decoration: none;
 }
 
+/*修复element-ui遗漏的样式*/
+
+.el-notification__content {
+    font-size: 13px;
+    line-height: 21px;
+    margin: 10px 0 0;
+    color: #8391a5;
+    text-align: justify;
+    font-weight: 200;
+}
+.el-notification__title {
+    font-weight: 400;
+    font-size: 15px;
+    color: #1f2d3d;
+}
+
 /*常用class类选择器*/
 
 

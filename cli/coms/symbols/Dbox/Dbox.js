@@ -66,7 +66,7 @@ function startDrag(evt, tag) {
     var ctx = this;
 
     var tar = $(evt.target);
-    var jo = tar.parents('#Dbox');
+    var jo = tar.parents('.Dbox');
     var mask = $('<div id="DboxDragMask"></div>');
     var orgPos = {
         x: evt.screenX,
@@ -95,7 +95,7 @@ function startDrag(evt, tag) {
 
             ctx.$set(ctx.conf, 'width', wid + 'px');
             if (ctx.xid) {
-                ctx.$xrouter.xset(ctx.xid, {
+                ctx.$xset({
                     width: wid + 'px',
                 });
             };
@@ -106,8 +106,9 @@ function startDrag(evt, tag) {
             hei = (hei < ctx.conf.minHei) ? ctx.conf.minHei : hei;
             hei = (hei > ctx.conf.maxHei) ? ctx.conf.maxHei : hei;
             ctx.$set(ctx.$data, 'height', hei + 'px');
+
             if (ctx.xid) {
-                ctx.$xrouter.xset(ctx.xid, {
+                ctx.$xset({
                     height: hei + 'px',
                 });
             };

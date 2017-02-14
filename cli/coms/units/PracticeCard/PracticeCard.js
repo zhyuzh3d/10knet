@@ -19,11 +19,11 @@ com.props = {
 com.methods = {
     goPacticeDetail: function () {
         //跳转到detail页面
-        this.$xgo('Tt', {
+        this.$xgo({
             practiceDetailId: this.fill.id,
         });
 
-        this.$xgo('Tt', {
+        this.$xgo({
             homeView: 'PracticeDetail',
         });
     },

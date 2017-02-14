@@ -83,7 +83,7 @@ com.mounted = function () {
     var ctx = this;
 
     //载入编辑器
-    ctx.$xset(ctx, {
+    ctx.$xset({
         coderView: 'coder',
     });
 };

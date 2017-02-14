@@ -11,7 +11,7 @@ window.DboxDragMaskArr = [];
 com.components = {};
 
 com.props = {
-    conf:String,
+    conf: String,
     useRight: String,
     useLeft: String,
     useTop: String,
@@ -24,7 +24,7 @@ com.props = {
     maxWid: String,
     maxHei: String,
     xidTag: String,
-    xid:String,
+    xid: String,
 };
 
 com.data = function data() {
@@ -82,7 +82,7 @@ function startDrag(evt, ctx, tag) {
 
             ctx.$set(ctx.$data, 'sizeX', wid + 'px');
             if (ctx.xid) {
-                ctx.$xrouter.xset(ctx.xid, {
+                ctx.$xset({
                     sizeX: wid + 'px',
                 });
             };
@@ -94,7 +94,7 @@ function startDrag(evt, ctx, tag) {
             hei = (hei > ctx.mxHei) ? ctx.mxHei : hei;
             ctx.$set(ctx.$data, 'sizeY', hei + 'px');
             if (ctx.xid) {
-                ctx.$xrouter.xset(ctx.xid, {
+                ctx.$xset({
                     sizeY: hei + 'px',
                 });
             };

@@ -62,6 +62,7 @@ com.beforeCreate = function () {
 var xsetConf = {};
 xsetConf.coderView = {
     before: async function mainViewLoader(name, oldName) {
+        //console.log('>>>>Ee xsetConf before coderview', name);
         var com = await System.import('../../blocks/Coder/Coder.html');
         Vue.component('coder', com);
         comCtx.$set(comCtx.$data, 'coderLoaded', true);
@@ -88,7 +89,7 @@ xsetConf.tutorView = {
 xsetConf.after = async function (keyVal, ctx) {
     //载入教程
     if (ctx.$data.tutorBoxDis != 'none' && ctx.$data.tutorView == '') {
-        ctx.$xgo(ctx.xid, {
+        ctx.$xgo({
             tutorView: 'TutorStart',
         });
     };
@@ -211,14 +212,14 @@ com.methods = {
     refreshJsMenual: refreshJsMenual,
     xsetCodeBoxVis: function () {
         var ctx = this;
-        ctx.$xset(ctx.xid, {
+        ctx.$xset({
             codersBoxVis: !ctx.$data.codersBoxVis,
         });
     },
     xsetTutorBoxVis: function () {
         var ctx = this;
         var val = ctx.$data.tutorBoxDis == 'none' ? 'flex' : 'none';
-        ctx.$xset(ctx.xid, {
+        ctx.$xset({
             tutorBoxDis: val,
         });
     },
@@ -230,22 +231,23 @@ com.mounted = async function () {
     var ctx = this;
 
     //手工恢复
-    await ctx.$xrestore(ctx.xid);
-    var xsetKV = ctx.xrestored;
+    await ctx.$xrestore();
+
+    var restored = ctx.$xisRestored();
 
     //载入编辑器
-    if (!xsetKV || !xsetKV.coderView) {
-        ctx.$xset(ctx, {
+    if (!ctx.$xisRestored('coderView')) {
+        ctx.$xset({
             coderView: 'coder',
         });
     };
 
     //如果没有恢复，证明是第一次使用，那么载入start
-    if (!xsetKV || !xsetKV.tutorView) {
-        await ctx.$xset(ctx.xid, {
+    if (!ctx.$xisRestored('tutorView')) {
+        await ctx.$xset({
             tutorView: 'TutorStart',
         });
-        await ctx.$xset(ctx.xid, {
+        await ctx.$xset({
             tutorBoxDis: 'flex',
         });
     };
@@ -291,7 +293,7 @@ async function tutorGo(name) {
     //更新his
     ctx.$data.tutorViewHis.back = ctx.$data.tutorView;
 
-    ctx.$xgo(ctx.xid, {
+    ctx.$xset({
         tutorView: name,
     });
 };
@@ -691,7 +693,7 @@ function fillEditors(data, options) {
     //根据option调整编辑器,如{cssCoderBox:{height:'70%'}}
     if (options) {
         for (var attrXid in options) {
-            ctx.$xset(attrXid, options[attrXid]);
+            ctx.$xset(options[attrXid], attrXid + '-Coder');
         };
     };
 
