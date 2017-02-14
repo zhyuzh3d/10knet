@@ -26,8 +26,9 @@ autoRefresh();
  */
 function refresh(params) {
     if (!params) return;
-
     var part = params.part;
+
+    console.log('>>>>part',part);
 
     switch (part) {
         case 'css':

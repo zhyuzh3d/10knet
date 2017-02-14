@@ -1,0 +1,57 @@
+<script src="./PracticeCard.js"></script>
+
+<template>
+    <div id='PracticeCard'>
+        <el-row @click='goPacticeDetail' class="card">
+            <el-col :span='20' class='cardLeft'>
+                <div class='ptitle'>{{fill.title}}</div>
+                <p>班级 : {{fill.class.title}}</p>
+                <p>周期 : {{fill.begin}} ~ {{fill.end}}</p>
+            </el-col>
+            <el-col :span='4' class='cardBtn'>
+                <i class="fa fa-chevron-right"></i>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+
+<style scoped>
+    .ptitle {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 8px 0;
+    }
+
+    .cardLeft {
+        margin-left: 12px
+    }
+
+    .cardLeft p {
+        font-size: 13px;
+        color: #666;
+        margin: 4px 0;
+    }
+
+    .cardBtn {
+        text-align: right;
+        margin-right: 12px
+    }
+
+    .cardBtn i {
+        color: #AAA
+    }
+
+    .card {
+        border: 1px solid #AAA;
+        border-radius: 0;
+        padding: 12px;
+        cursor: pointer;
+        align-items: center;
+        display: flex;
+    }
+
+    .card:hover {
+        box-shadow: 0 0 12px #888;
+    }
+
+</style>

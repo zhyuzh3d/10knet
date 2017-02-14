@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<head>
+    <title>10knet | 个人简历</title>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <!--    <script src="../../pub/lib/threejs/three.min.js"></script>-->
+    <script src="../../pub/lib/threejs/aframe.min.js"></script>
+    <!--        <script src="../../pub/lib/threejs/aframe-particle-system-component.js"></script>-->
+    <!--    <script src="../../pub/lib/threejs/SPE.min.js"></script>-->
+    <script src="test.js"></script>
+</head>
+<style 10knet></style>
+
+<body>
+    <script>
+        AFRAME.registerComponent('fwfk', {
+            schema: {},
+            init: function() {
+
+            },
+            update: function(oldData) {
+                this.updatePS();
+            },
+            tick: function(time, dt) {
+
+            },
+            remove: function() {
+                if (!this.PSG) {
+                    return;
+                }
+                this.el.removeObject3D('fwfk');
+            },
+            updatePS: function() {
+                this.PSG = createPS();
+                this.el.setObject3D('fwfk', this.PSG);
+            },
+        });
+
+
+        function createPS() {
+            var particleCount = 100;
+            var particles = new THREE.Geometry();
+            for (var p = 0; p < particleCount; p++) {
+                var x = Math.random() * 400 - 200;
+                var y = Math.random() * 400 - 200;
+                var z = Math.random() * 400 - 200;
+                var particle = new THREE.Vector3(x, y, z);
+                particles.vertices.push(particle);
+            }
+            var particleMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 4,
+                map: THREE.ImageUtils.loadTexture("./particle.png"),
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+            });
+
+            particleSystem = new THREE.Points(particles, particleMaterial);
+            return particleSystem;
+        }
+
+    </script>
+    <a-scene>
+        <a-entity position="0 2.25 -15" fwfk></a-entity>
+        <a-sky color='#000'></a-sky>
+    </a-scene>
+
+</body>

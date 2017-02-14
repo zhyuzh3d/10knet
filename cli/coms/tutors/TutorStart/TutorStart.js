@@ -87,9 +87,10 @@ com.methods = {
                 editor.setCursor(cursorFrom.to());
                 await fns.sleep(2000);
                 ctx.$message('Ctrl+V粘贴刚才复制的链接');
-                await fns.sleep(1000);
+                await fns.sleep(2000);
                 await editor.doc.replaceSelection('http://app.10knet.com/HkDFBmnOg/yy.png');
-                ctx.$xcoms['bodyCoder'].keyUp('a');
+                await fns.sleep(1500);
+                await fns.visualClick($(ctx.Ee.$el).find('#bodyRefreshBtn'));
             } else {
                 codeErr = true;
             };

@@ -153,7 +153,7 @@
                                     <br>点击按钮手工刷新并美化代码格式</div>
                             </div>
                         </el-popover>
-                        <el-button class='tagbtn' size='mini' @click='beautifyCode("css")' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
+                        <el-button id='cssRefreshBtn' class='tagbtn' size='mini' @click='beautifyCode("css")' v-popover:cssHudPop>&nbsp;css&nbsp;</el-button>
                     </component>
                 </dbox>
                 <dbox :conf='bodyDBoxConf' xid='bodyCoderBox' style='position:relative'>
@@ -170,7 +170,7 @@
                             </div>
                         </el-popover>
 
-                        <el-button class='tagbtn' size='mini' @click='beautifyCode("body")' v-popover:bodyHudPop>&nbsp;body&nbsp;</el-button>
+                        <el-button id='bodyRefreshBtn' class='tagbtn' size='mini' @click='beautifyCode("body")' v-popover:bodyHudPop>&nbsp;body&nbsp;</el-button>
                     </component>
                 </dbox>
                 <div class='autoFlex'>
@@ -188,7 +188,7 @@
                                 </div>
                             </el-popover>
 
-                            <el-button class='tagbtn' size='mini' @click='beautifyCode("js")' v-popover:jsHudPop>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
+                            <el-button id='jsRefreshBtn' class='tagbtn' size='mini' @click='beautifyCode("js")' v-popover:jsHudPop>&nbsp;js&nbsp;<i class="fa fa-arrow-right"></i></el-button>
                         </component>
                     </div>
                 </div>

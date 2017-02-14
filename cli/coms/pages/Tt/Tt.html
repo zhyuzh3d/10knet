@@ -4,9 +4,7 @@
 
 </style>
 <template>
-    <div id='Tt' xid='Tt'>
-        <p>{{msg}}!</p>
-        <el-button type='danger'>btn in Tt</el-button>
-        <component id='App_mainView' :is="testView" xid='App_mainView' style='position:absolute;z-index:0'></component>
+    <div id='Tt' xid='xid' style="width:100%;height:100%">
+        <component id='homeView' :is="homeView" xid='ttHomeView' style='position:absolute;z-index:0'></component>
     </div>
 </template>

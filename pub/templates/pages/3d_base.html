@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+<div head 10knet><title>10knet | 3d_base</title>
+<meta charset="utf-8">
+<script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+<script src="https://unpkg.com/aframe-particle-system-component/dist/aframe-particle-system-component.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</div>
+</head>
+<style 10knet>
+</style>
+<body><div body 10knet><a-scene>
+    <a-sphere position="0 1.25 -1" radius="1.25" color="#EF2D5E"></a-sphere>
+    <a-box position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#4CC3D9"></a-box>
+    <a-cylinder position="1 0.75 1" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#000000"></a-sky>
+</a-scene></div></body>
+<script 10knet>window.onload = function() {
+    $('a-scene').append($('<a-entity position="0 2.25 -15" particle-system="color: #FF0000,#BF0000"></a-entity>'));
+}
+document.domain = '10knet.com';</script>
