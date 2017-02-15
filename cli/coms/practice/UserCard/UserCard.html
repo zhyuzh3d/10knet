@@ -1,12 +1,15 @@
-<script src="./ClassCard.js"></script>
+<script src="./UserCard.js"></script>
 
 <template>
-    <div id='PracticeCard' @click='goClassDetail'>
-        <el-row  class="card">
+    <div id='UserCard' @click='goUserDetail'>
+        <el-row class="card">
             <el-col :span='20' class='cardLeft'>
-                <div class='ptitle'>{{fill.title}}</div>
-                <p>成员 : {{fill.memberArr.length}}</p>
-                <p>实训 : {{fill.practiceArr.length}}</p>
+                <img :src='fill.avatar' class='avatar ib' />
+                <div class="ib" style="margin-left:12px">
+                    <div class='ptitle'>{{fill.nick}}</div>
+                    <p>院校 : </p>
+                    <p>成就 : </p>
+                </div>
             </el-col>
             <el-col :span='4' class='cardBtn'>
                 <i class="fa fa-chevron-right"></i>
@@ -16,6 +19,18 @@
 </template>
 
 <style scoped>
+    .ib {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 128px;
+        border: 1px solid #AAA;
+    }
+
     .ptitle {
         font-size: 16px;
         font-weight: bold;
@@ -42,12 +57,12 @@
     }
 
     .card {
-        align-items: center;
-        display: flex;
         border: 1px solid #AAA;
         border-radius: 0;
         padding: 12px;
         cursor: pointer;
+        align-items: center;
+        display: flex;
     }
 
     .card:hover {

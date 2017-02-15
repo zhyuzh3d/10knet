@@ -1,7 +1,7 @@
 var data = {};
 
 data.practiceArr = [{
-    id:'1',
+    id: '1',
     title: '实训项目-1',
     class: {
         title: '2015级软件3班',
@@ -9,7 +9,7 @@ data.practiceArr = [{
     begin: '2017-01-12',
     end: '2017-01-26',
 }, {
-    id:'2',
+    id: '2',
     title: '实训项目-2',
     class: {
         title: '2015级软件3班',
@@ -18,7 +18,7 @@ data.practiceArr = [{
     begin: '2017-01-12',
     end: '2017-01-26',
 }, {
-    id:'3',
+    id: '3',
     title: '实训项目-3',
     class: {
         title: '2015级软件3班',
@@ -30,18 +30,26 @@ data.practiceArr = [{
 
 data.classArr = [{
     title: '2015级软件3班',
+    desc:'软件开发与工程管理系，最有前途的专业，最有前途的童鞋！',
+    school:{
+      title:'苏州大学计算机学院'
+    },
     practiceArr: data.practiceArr,
     memberArr: [{
         name: '韩梅梅',
+        nick: '梅梅',
         avatar: 'http://q.qlogo.cn/qqapp/101297684/6E98DA96970E841BEF5BEF2005EFA21A/100'
     }, {
         name: '李雷',
+        nick: '雷雷',
         avatar: 'http://www.xmgc360.com/files/user/2016/10-31/101106a75178434125.PNG'
     }, {
         name: '王小猫',
+        nick: 'maomao',
         avatar: 'http://q.qlogo.cn/qqapp/101297684/0AE29B1226EB49FBB9DCA37CAB8A3C16/100'
     }, {
         name: '李晓明',
+        nick: 'Ming1234',
         avatar: 'http://q.qlogo.cn/qqapp/101297684/7B0991E6BA277CAF305226893C1FCA02/100'
     }]
 }, {
@@ -62,8 +70,14 @@ data.classArr = [{
     }]
 }];
 
+
+
 data.accInfo = {
     name: '赵鹏方',
+    nick:'PFzhao1209',
+    exp:'1203',
+    brief:'1969年出生于湖北仙桃，小米科技创始人、董事长兼首席执行官；金山软件公司董事长；中国大陆著名天使投资人。 2012年12月，荣获“中国经济年度人物新锐奖”。 雷军曾任两届海淀区政协委员，2012年当选北京市人大代表，2013年2月当选全国人民代表大会代表。',
+    motto:'我就是我，不一样的焰火！',
     avatar: 'http://www.xmgc360.com/files/user/2016/10-31/101106a75178434125.PNG',
     mobile: '13405044454',
     school: {

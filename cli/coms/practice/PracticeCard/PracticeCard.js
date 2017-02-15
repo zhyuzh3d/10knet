@@ -18,10 +18,8 @@ com.props = {
 
 com.methods = {
     goPacticeDetail: function () {
-        console.log('>PracticeCard')
         var ctx = this;
         var tarCtx = ctx.$xcoms['App_mainView-Tt'];
-
 
         //跳转到detail页面
         tarCtx.$xset({
@@ -38,3 +36,4 @@ com.mounted = function () {
     var ctx = this;
     com.Tt = ctx.$xcoms['App_mainView-Tt'];
 };
+

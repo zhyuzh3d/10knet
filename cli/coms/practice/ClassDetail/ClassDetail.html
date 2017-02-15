@@ -1,0 +1,160 @@
+<script src="./ClassDetail.js"></script>
+
+<template>
+    <div sid='ClassDetail' :xid='xid' style="width:100%" class='ttClassDetail'>
+        <el-row type="flex" justify="center" style='margin-top:12px'>
+            <el-col class='nav' :span="20" :sm="16">
+                <span class="link" @click='goBack'><i class="fa fa-caret-left"></i> 返回</span>
+                <span> / </span>
+                <span class="link" @click='goHome'>我的首页</span>
+                <span> / </span>
+                <span>班级详情</span>
+            </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col class='nav' :span="20" :sm="16">
+                <h2 style="margin:8px 0">{{fill.title}}</h2>
+                <p class="txtbtn" @click='showDesc=!showDesc'>
+                    <i class='fa fa-caret-right' v-if='!showDesc'></i>
+                    <i class='fa fa-caret-down' v-if='showDesc'></i>
+                    <span>班级介绍</span>
+                </p>
+                <p class='desc' v-if='showDesc' @click='showDesc=false'>{{fill.desc}}</p>
+            </el-col>
+        </el-row>
+        <el-row id='main' type="flex" justify="center" style='margin-top:12px'>
+            <el-col :span="20" :sm="16">
+                <el-tabs v-model="activeName" @tab-click="xgoTab()" style='width:100%'>
+                    <el-tab-pane label="班级实训" name="practice">
+                        <el-button type='primary' style='width:160px'> <i class='fa fa-plus' style="margin-right:12px"></i> 新 实 训</el-button>
+                        <el-row v-for='(p,n) in practiceArr' style='margin:12px 0'>
+                            <component is="practiceCard" :fill='p' :index='n'></component>
+                        </el-row>
+                    </el-tab-pane>
+                    <el-tab-pane label="班级成员" name="member">
+                        <el-button type='primary' style='width:160px'> <i class='fa fa-plus' style="margin-right:12px"></i> 新 成 员</el-button>
+                        <el-row v-for='(p,n) in fill.memberArr' style='margin:12px 0'>
+                            <component is="userCard" :fill='p' :index='n'></component>
+                        </el-row>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-col>
+        </el-row>
+        <div style="height:120px"></div>
+    </div>
+</template>
+
+
+<style scoped>
+    .txtbtn {
+        cursor: pointer;
+        margin: 4px;
+        user-select: none;
+    }
+
+    .desc {
+        color: #888;
+        font-weight: normal;
+        margin: 4px;
+    }
+
+    .nav {
+        color: #1cbbb4;
+        font-size: 13px;
+    }
+
+    .nav .link {
+        cursor: pointer;
+    }
+
+    .nav .link:hover {
+        color: #178984;
+    }
+
+    #profile .txtrow {
+        text-align: left;
+        width: 100%;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .txtrow div:first-child {
+        color: #888;
+        font-weight: 100;
+        width: 80px;
+        text-align: left;
+        display: inline-block;
+        margin-right: 1%;
+    }
+
+    .txtrow div:last-child {
+        font-weight: bold;
+        width: 49%;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .avatar {
+        width: 128px;
+        height: 128px;
+        border-radius: 128px;
+        border: 1px solid #AAA;
+    }
+
+    .el-tabs__content {
+        overflow: visible
+    }
+
+    .el-col {
+        border-radius: 4px;
+    }
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+
+    .bg-purple {
+        background: #d3dce6;
+    }
+
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+
+</style>
+
+
+
+<style>
+    .ttClassDetail {
+        letter-spacing: 0.2px;
+    }
+
+    .ttClassDetail .el-tabs__header {
+        letter-spacing: 0.05em;
+    }
+
+    .ttClassDetail .el-tabs__header {
+        background: #FAFAFA;
+        border: 0;
+    }
+
+    .ttClassDetail .el-tabs__active-bar {
+        height: 100%;
+    }
+
+    .ttClassDetail .el-tabs__header .is-active {
+        color: #FFF;
+        z-index: 3;
+    }
+
+    .ttClassDetail .el-tabs__item {
+        padding: 0 32px;
+    }
+
+</style>

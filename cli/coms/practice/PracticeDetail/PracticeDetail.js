@@ -7,8 +7,7 @@ com.data = function data() {
     var ctx=this;
 
     return {
-        msg: 'Hello from pages/PracticeDetail/PracticeDetail.js',
-        practiceId:'999',
+        msg: 'Hello from practice/PracticeDetail/PracticeDetail.js',
     };
 };
 

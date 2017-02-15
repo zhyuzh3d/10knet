@@ -1,9 +1,6 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import $ from 'jquery';
-
-
-
-let com = {};
+var com = {};
 export default com;
 
 import {
@@ -28,42 +25,55 @@ Vue.prototype.$notify = notify;
 const confirm = MessageBox.confirm;
 Vue.prototype.$confirm = confirm;
 
-import PracticeCard from '../../practice/PracticeCard/PracticeCard.html';
-import ClassCard from '../../practice/ClassCard/ClassCard.html';
 import Fake from '../_data/fake.js';
+import PracticeCard from '../../practice/PracticeCard/PracticeCard.html';
+import UserCard from '../../practice/UserCard/UserCard.html';
 
 com.components = {
     PracticeCard,
-    ClassCard,
+    UserCard,
 };
 
-//所有数据写在这里
 com.data = function data() {
+    var ctx = this;
+
     return {
-        msg: 'Hello from practice/TeacherHome/TeacherHome.js',
+        msg: 'Hello from pages/ClassDetail/ClassDetail.js',
         activeName: 'practice',
         practiceArr: Fake.practiceArr,
-        classArr: Fake.classArr,
         accInfo: Fake.accInfo,
+        showDesc: false,
     };
 };
 
 com.props = {
-    xid: String
+    xid: {
+        type: String,
+        default: 'ClassDetail'
+    },
+    fill: {
+        type: Object,
+        default: function () {
+            return Fake.classArr[0];
+        },
+    }
 };
 
-//所有直接使用的方法写在这里
 com.methods = {
     xgoTab: function () {
         this.$xset({
             activeName: this.$data.activeName
         });
     },
+    goBack: function () {
+        history.back()
+    },
+    goHome: function () {
+        var ctx = this;
+        var tarCtx = ctx.$xcoms['App_mainView-Tt'];
+
+        tarCtx.$xgo({
+            homeView: 'UserHome',
+        });
+    },
 };
-
-//加载到页面前执行的函数
-com.beforeMount = function () {};
-
-com.mounted = async function () {};
-
-//-------functions--------

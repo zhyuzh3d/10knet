@@ -83,6 +83,7 @@ $xrouter.install = function (Vue, options) {
 
             //路由组件管理
             if (comid && ctx.constructor != Vue) { //忽略单例的Vue
+
                 //如果id重复，将原来的变为数组，把这个新的加入数组，xset的时候也是整个数组循环设置
                 if ($xcoms[comid]) {
                     $xcoms[comid] = [$xcoms[comid]];
@@ -90,9 +91,6 @@ $xrouter.install = function (Vue, options) {
                 } else {
                     $xcoms[comid] = ctx;
                 };
-
-                //从地址栏载入
-                await ctx.$xsetByHash();
 
                 //自动恢复组件状态,可禁用然后改为手工恢复
                 if (!ctx.$data._xrestoreDisabled) {
@@ -308,7 +306,7 @@ async function $xset(data, comid, unsave) {
 
         //设置data
         for (var key in data) {
-            if (tarCtx.$data[key] != undefined) {
+            if (tarCtx.$data.hasOwnProperty(key)) {
 
                 //使_xsetConf钩子生效,仅限tar对象的第一层
                 var beforefn, afterfn;
@@ -383,7 +381,7 @@ async function $xset(data, comid, unsave) {
  */
 async function $xsetByHash() {
     var hash = location.hash;
-    if (hash.length < 2) return false;
+    if (hash.length < 2) return undefined;
     hash = decodeURIComponent(hash.substr(1)); //去除#
 
     var xidKVarr = JSON.safeParse(hash);
@@ -401,8 +399,9 @@ async function $xsetByHash() {
 
     //真正触发路由，保存到本地
     var res = await $xset(data, comid);
+    if (!res) return undefined;
 
-    return res;
+    return data;
 };
 
 
