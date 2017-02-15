@@ -13,26 +13,36 @@
 /**
  * 旧版本数据清理
  */
-var ver = 0.5;
+var ver = 0.6;
+var clearLs = false;
 (function () {
     var lsver = Number(localStorage.getItem('xrouterVersion')) || 0;
     if (ver > lsver) {
-        /*清理所有xrouter存储的字段，必要时使用
-        var keysArr = localStorage.getItem('xrouterSavedKeys');
-        keysArr = JSON.safeParse(keysArr);
-        if (keysArr) {
-            if (keysArr.constructor != Array) {
-                localStorage.removeItem('xrouterSavedKeys');
-            } else {
-                keysArr.forEach(function (key) {
+        if (lsver <= 0.5) {
+            //强力清理0.5版本及以下所有xrouter存储的字段
+            for (var key in localStorage) {
+                if (key.indexOf('xrouter') != -1) {
                     localStorage.removeItem(key);
-                });
+                };
+            };
+        } else if (clearLs) {
+            // 对于0.5版本以上仅clearLs时候清理xrouterSavedKeys列表内的字段
+            var keysArr = localStorage.getItem('xrouterSavedKeys');
+            keysArr = JSON.safeParse(keysArr);
+            if (keysArr) {
+                if (keysArr.constructor != Array) {
+                    localStorage.removeItem('xrouterSavedKeys');
+                } else {
+                    keysArr.forEach(function (key) {
+                        localStorage.removeItem(key);
+                    });
+                };
             };
         }
-        */
     };
     localStorage.setItem('xrouterVersion', ver);
 })();
+
 
 //这些方法都会beforemount时候分别添加到ctx
 var $xcoms = {}; //用于路由的全部具有xid属性的组件
@@ -134,6 +144,14 @@ function $xgetConf(ctx) {
     return conf;
 };
 
+/**
+ * 统一的本地存储键名
+ * @param   {string} comid comid
+ * @returns {string}   key
+ */
+function genXrouterLsKey(comid) {
+    return 'xrouter-' + comid;
+};
 
 /**
  * 跳转函数，实际上是用a标签引发hash变化,然后被hashchange监听触发路由，同时存储到ls
@@ -187,7 +205,8 @@ async function $xrestore(comid) {
     };
 
     //获取本地ls存储的dataKeyValObj
-    var lskey = JSON.stringify(['xrouter', comid]);
+    //var lskey = JSON.stringify(['xrouter', comid]);
+    var lskey = genXrouterLsKey(comid);
     var lsval = localStorage.getItem(lskey);
 
     if (!lsval) return false;
@@ -316,7 +335,8 @@ async function $xset(data, comid, unsave) {
         if (!unsave) {
             //保存到本地缓存,可用于恢复组件状态，单页面应用不用担心路径问题
             //用json化的数组作为键、值,掺入'xrouter'避免和其他插件重复
-            var lskey = JSON.stringify(['xrouter', comid]);
+            //var lskey = JSON.stringify(['xrouter', comid]);
+            var lskey = genXrouterLsKey(comid);
 
             //先读取已经存储的对象，然后再合并对象，再存储
             var orgval = localStorage.getItem(lskey);
