@@ -13,19 +13,19 @@ com.components = {};
 var xsetConf = {};
 xsetConf.homeView = {
     before: async function beforeXsetHomeView(name, oldName, ctx) {
-        console.log('>Tt:xsetConf:homeView:before:', name, oldName, ctx);
         var com;
         switch (name) {
             case 'PracticeDetail':
-                var com = await System.import('../../pages/PracticeDetail/PracticeDetail.html');
+                var com = await System.import('../../practice/PracticeDetail/PracticeDetail.html');
                 break;
-            case 'TeacherHome':
-                var com = await System.import('../../pages/TeacherHome/TeacherHome.html');
+            case 'UserHome':
+                var com = await System.import('../../practice/UserHome/UserHome.html');
                 break;
             default:
-                var com = await System.import('../../pages/TeacherHome/TeacherHome.html');
+                var com = await System.import('../../practice/UserHome/UserHome.html');
                 break;
         };
+
         Vue.component(name, com);
     },
 };
@@ -56,12 +56,14 @@ com.methods = {};
 //加载到页面前执行的函数
 com.mounted = async function () {
     var ctx = this;
-    console.log('>Tt:mounted:$xgetComId', ctx.$xgetComId());
 
-    //??发送请求获取用户身份，根据用户身份加载页面
-    await ctx.$xset({
-        homeView: 'TeacherHome',
-    });
+    //如果地址栏没有跳转，那么自动加载用户首页，首页根据用户身份区别处理
+    var xConfHash = ctx.$xgetConf();
+    if (!xConfHash.xhash || !xConfHash.xhashValue['homeView']) {
+        await ctx.$xgo({
+            homeView: 'UserHome',
+        });
+    };
 };
 
 

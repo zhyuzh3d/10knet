@@ -7,7 +7,7 @@ export default com;
 //所有数据写在这里
 com.data = function data() {
     return {
-        msg: 'Hello from units/PracticeCard/PracticeCard.js'
+        msg: 'Hello from units/PracticeCard/PracticeCard.js',
     };
 };
 
@@ -18,13 +18,23 @@ com.props = {
 
 com.methods = {
     goPacticeDetail: function () {
+        console.log('>PracticeCard')
+        var ctx = this;
+        var tarCtx = ctx.$xcoms['App_mainView-Tt'];
+
+
         //跳转到detail页面
-        this.$xgo({
-            practiceDetailId: this.fill.id,
+        tarCtx.$xset({
+            practiceDetailId: ctx.fill.id,
         });
 
-        this.$xgo({
+        tarCtx.$xgo({
             homeView: 'PracticeDetail',
         });
     },
-}
+};
+
+com.mounted = function () {
+    var ctx = this;
+    com.Tt = ctx.$xcoms['App_mainView-Tt'];
+};

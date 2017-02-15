@@ -1,19 +1,19 @@
-<script src="./TeacherHome.js"></script>
+<script src="./UserHome.js"></script>
 
 <template>
-    <div sid='TeacherHome' :xid='xid' style="width:100%">
-        <el-row type="flex" class="row-bg" justify="center" style='margin-top:12px'>
+    <div sid='UserHome' :xid='xid' style="width:100%" class='ttUserHome'>
+        <el-row id='main' type="flex" justify="center" style='margin-top:12px'>
             <el-col :span="20" :sm="16">
                 <el-tabs v-model="activeName" @tab-click="xgoTab()" style='width:100%'>
                     <el-tab-pane label="我的实训" name="practice">
-                        <el-button type='primary' style='width:160px'> <i class='fa fa-plus' style="margin-right:12px"></i> 新 建</el-button>
+                        <el-button type='primary' style='width:160px'> <i class='fa fa-plus' style="margin-right:12px"></i> 新 实 训</el-button>
                         <el-row v-for='(p,n) in practiceArr' style='margin:12px 0'>
                             <component is="practiceCard" :fill='p' :index='n'></component>
                         </el-row>
                     </el-tab-pane>
 
                     <el-tab-pane label="我的班级" name="class">
-                        <el-button type='success' style='width:160px'> <i class='fa fa-plus' style="margin-right:12px"></i> 新 建</el-button>
+                        <el-button type='primary' style='width:160px'> <i class='fa fa-plus' style="margin-right:12px"></i> 新 班 级</el-button>
                         <el-row v-for='(p,n) in classArr' style='margin:12px 0'>
                             <component is="classCard" :fill='p' :index='n'></component>
                         </el-row>
@@ -47,6 +47,34 @@
     </div>
 </template>
 
+<style>
+    .ttUserHome {
+        letter-spacing: 0.2px;
+    }
+
+    .ttUserHome .el-tabs__header {
+        letter-spacing: 0.05em;
+    }
+
+    .ttUserHome .el-tabs__header {
+        background: #FAFAFA;
+        border: 0;
+    }
+
+    .ttUserHome .el-tabs__active-bar {
+        height: 100%;
+    }
+
+    .ttUserHome .el-tabs__header .is-active {
+        color: #FFF;
+        z-index: 3;
+    }
+
+    .ttUserHome .el-tabs__item {
+        padding: 0 32px;
+    }
+
+</style>
 
 <style scoped>
     #profile .txtrow {

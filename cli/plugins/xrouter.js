@@ -2,7 +2,7 @@
  * 全局路由函数文件，将被xglobal插件载入到每个component;
  * before创建this.$xrouter；
  * mounted创建分离的方法:
- * $xcoms,$xconfs,$xgetConf,$xgetComId,$xset,$xgo,$xrestore,
+ * $xcoms,$xconfs,$xgetConf,$xgetComId,$xset,$xgo,$xrestore,$xisRestored
  * 停用自动恢复_xrestoreDisabled
  * $xcoms列出所有组件comid(xid-sid)格式；没有xid的不管理，没有id的仅用xid
  * $xconfs列出所有组件调动的状态，comid索引，{cmd:'xset',value:kv};
@@ -13,7 +13,7 @@
 /**
  * 旧版本数据清理
  */
-var ver = 0.6;
+var ver = 0.65;
 var clearLs = false;
 (function () {
     var lsver = Number(localStorage.getItem('xrouterVersion')) || 0;
@@ -56,6 +56,7 @@ var $xrouter = {
     $xgo,
     $xrestore,
     $xisRestored,
+    $xsetByHash,
 };
 export default $xrouter;
 
@@ -76,7 +77,7 @@ $xrouter.install = function (Vue, options) {
                 ctx[key] = $xrouter[key];
             };
         },
-        mounted: function () {
+        mounted: async function () {
             var ctx = this;
             var comid = ctx.$xgetComId();
 
@@ -90,8 +91,13 @@ $xrouter.install = function (Vue, options) {
                     $xcoms[comid] = ctx;
                 };
 
+                //从地址栏载入
+                await ctx.$xsetByHash();
+
                 //自动恢复组件状态,可禁用然后改为手工恢复
-                if (!ctx.$data._xrestoreDisabled) ctx.$xrestore(comid);
+                if (!ctx.$data._xrestoreDisabled) {
+                    await ctx.$xrestore(comid);
+                };
             };
         },
         destroyed: function () {
@@ -139,7 +145,7 @@ function $xgetConf(ctx) {
 
     var comid = ctx.$xgetComId();
     var conf;
-    if (comid) conf = $xconfs[comid];
+    if (comid) conf = $xconfs[comid] || {};
 
     return conf;
 };
@@ -280,7 +286,7 @@ async function $xset(data, comid, unsave) {
     var tarCtx = $xcoms[comid];
     if (!tarCtx) {
         console.warn('xrouter:xset:com is not in xcoms', data, comid);
-        console.warn('xrouter:xset:show xcoms', $xcoms);
+        console.info('┖--Valid coms:', $xcoms);
         return;
     };
 
@@ -293,6 +299,7 @@ async function $xset(data, comid, unsave) {
         $xconfs[comid] = $xconfs[comid] || {};
         $xconfs[comid].xset = 1;
         $xconfs[comid].xsetValue = data;
+
 
         var xsetConf = tarCtx.$data._xsetConf;
         if (xsetConf && xsetConf.before) {
@@ -367,41 +374,52 @@ async function $xset(data, comid, unsave) {
 
     };
 
-    return tarCtx;
+    return data;
+};
+
+/**
+ * 通过地址栏跳转
+ * @returns {boolean} [[Description]]
+ */
+async function $xsetByHash() {
+    var hash = location.hash;
+    if (hash.length < 2) return false;
+    hash = decodeURIComponent(hash.substr(1)); //去除#
+
+    var xidKVarr = JSON.safeParse(hash);
+    if (!xidKVarr || xidKVarr.constructor != Array || xidKVarr.length < 2) {
+        console.warn('xrouter:hashchange:hash format err', xidKVarr);
+        return false;
+    };
+
+    var data = xidKVarr[1];
+    var comid = xidKVarr[0];
+
+    $xconfs[comid] = $xconfs[comid] || {};
+    $xconfs[comid].xhash = 1;
+    $xconfs[comid].xhashValue = data;
+
+    //真正触发路由，保存到本地
+    var res = await $xset(data, comid);
+
+    return res;
 };
 
 
-(function () {
-    /**
-     * 监听地址栏导航，执行利用xset实现router路由
-     */
-    //$(window).on('hashchange', function (evt) {
-    window.onhashchange = function (evt) {
-        var hash = location.hash;
-        if (hash.length < 2) return false;
-        hash = decodeURIComponent(hash.substr(1)); //去除#
+/**
+ * 监听地址栏导航，执行利用xset实现router路由
+ */
+window.addEventListener('hashchange', $xsetByHash);
 
-        var xidKVarr = JSON.parse(hash);
-        if (!xidKVarr || xidKVarr.constructor != Array || xidKVarr.length < 2) {
-            console.warn('xrouter:hashchange:hash format err', xidKVarr);
-            return false;
-        };
-
-        //真正触发路由
-        $xset(xidKVarr[1], xidKVarr[0]);
-        return true;
+/**
+ * 扩展JSON安全parse方法
+ * @param   {string} str 字符串
+ * @returns {object} 成功的对象或undefined
+ */
+JSON.safeParse = function (str) {
+    try {
+        return JSON.parse(str);
+    } catch (err) {
+        return undefined;
     };
-
-    /**
-     * 扩展JSON安全parse方法
-     * @param   {string} str 字符串
-     * @returns {object} 成功的对象或undefined
-     */
-    JSON.safeParse = function (str) {
-        try {
-            return JSON.parse(str);
-        } catch (err) {
-            return undefined;
-        };
-    };
-})();
+};

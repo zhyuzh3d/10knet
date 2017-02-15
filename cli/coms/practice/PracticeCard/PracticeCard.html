@@ -1,8 +1,8 @@
 <script src="./PracticeCard.js"></script>
 
 <template>
-    <div id='PracticeCard'>
-        <el-row @click='goPacticeDetail' class="card">
+    <div id='PracticeCard' @click='goPacticeDetail'>
+        <el-row class="card">
             <el-col :span='20' class='cardLeft'>
                 <div class='ptitle'>{{fill.title}}</div>
                 <p>班级 : {{fill.class.title}}</p>

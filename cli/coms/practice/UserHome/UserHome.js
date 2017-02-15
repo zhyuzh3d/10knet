@@ -28,9 +28,9 @@ Vue.prototype.$notify = notify;
 const confirm = MessageBox.confirm;
 Vue.prototype.$confirm = confirm;
 
-import PracticeCard from '../../units/PracticeCard/PracticeCard.html';
-import ClassCard from '../../units/ClassCard/ClassCard.html';
-import Fake from '../../../data/fake.js';
+import PracticeCard from '../../practice/PracticeCard/PracticeCard.html';
+import ClassCard from '../../practice/ClassCard/ClassCard.html';
+import Fake from '../data/fake.js';
 
 com.components = {
     PracticeCard,
@@ -40,7 +40,7 @@ com.components = {
 //所有数据写在这里
 com.data = function data() {
     return {
-        msg: 'Hello from blocks/TeacherHome/TeacherHome.js',
+        msg: 'Hello from practice/TeacherHome/TeacherHome.js',
         activeName: 'profile',
         practiceArr: Fake.practiceArr,
         classArr: Fake.classArr,
@@ -55,7 +55,6 @@ com.props = {
 //所有直接使用的方法写在这里
 com.methods = {
     xgoTab: function () {
-        console.log('ttHomeView', this.$xgetComId());
         this.$xset({
             activeName: this.$data.activeName
         });
