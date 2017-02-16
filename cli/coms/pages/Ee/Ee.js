@@ -516,15 +516,6 @@ async function loadTemplate(temp, force) {
 
 /**
  * 选择一个文件上传
-async function selectUploadFile() {
-    var ctx = this;
-    var iptjo = $(ctx.$el).find('#uploadIpt');
-    iptjo.click();
-};
- */
-
-/**
- * 选择一个文件上传
  */
 async function selectUploadFile() {
     var ctx = this;
@@ -562,7 +553,6 @@ async function uploadIptChanged(evt) {
         return;
     };
 
-    var ipt = $(ctx.$el).find('#uploadIpt');
     var res = await ctx.uploadFile('none', file.name, file);
 
     ctx.$alert(res.url, '上传成功，请复制下面的链接', {
