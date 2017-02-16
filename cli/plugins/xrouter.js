@@ -333,7 +333,7 @@ async function $xset(data, comid, unsave) {
                 };
 
             } else {
-                console.warn(`'xrouter:xset:can not add ${key} to ${comid}`);
+                console.warn(`xrouter:xset:can not add ${key} to ${comid}`);
             };
         };
 

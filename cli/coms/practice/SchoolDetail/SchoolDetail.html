@@ -1,0 +1,117 @@
+<script src="./SchoolDetail.js"></script>
+
+<template>
+    <div sid='SchoolDetail' :xid='xid' style="width:100%" class='ttSchoolDetail'>
+        <el-row type="flex" justify="center" style='margin-top:12px'>
+            <el-col class='nav' :span="20" :sm="16">
+                <span class="link" @click='goBack'><i class="fa fa-caret-left"></i> 返回</span>
+                <span> / </span>
+                <span class="link" @click='goHome'>我的首页</span>
+                <span> / </span>
+                <span>院校首页</span>
+            </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col class='nav' :span="20" :sm="16">
+                <h2 style="margin:8px 0">{{fill.title}}</h2>
+            </el-col>
+        </el-row>
+        <el-row id='main' type="flex" justify="center" style='margin-top:12px'>
+            <el-col :span="20" :sm="16">
+                <div style="text-align:left;margin-top:12px">
+                    <img class="avatar" :src="fill.avatar" />
+                    <p style="text-align:left">{{fill.title}}</p>
+                </div>
+                <div style="border-top:1px solid #DDD;margin:4px 0 24px 0"></div>
+                <div class="txtrow">
+                    <div>院校介绍</div>
+                    <div>{{fill.desc}}</div>
+                </div>
+                <div class="txtrow">
+                    <div>班级总数</div>
+                    <div>{{fill.classArr.length}}</div>
+                </div>
+                <div class="txtrow">
+                    <div>实训总数</div>
+                    <div>{{fill.practiceArr.length}}</div>
+                </div>
+                <div class="txtrow">
+                    <div>教师总数</div>
+                    <div>{{fill.teacherArr.length}}</div>
+                </div>
+                <div class="txtrow">
+                    <div>学生总数</div>
+                    <div>{{fill.teacherArr.length}}</div>
+                </div>
+            </el-col>
+        </el-row>
+        <div style="height:120px"></div>
+    </div>
+</template>
+
+
+<style scoped>
+    .txtbtn {
+        cursor: pointer;
+        margin: 4px;
+        user-select: none;
+    }
+
+    .desc {
+        color: #000;
+        font-weight: bold;
+        margin: 4px 0;
+    }
+
+    .nav {
+        color: #1cbbb4;
+        font-size: 13px;
+    }
+
+    .nav .link {
+        cursor: pointer;
+    }
+
+    .nav .link:hover {
+        color: #178984;
+    }
+
+    .avatar {
+        width: 128px;
+        height: 128px;
+        border-radius: 128px;
+        border: 1px solid #AAA;
+    }
+
+    .txtrow {
+        text-align: left;
+        width: 100%;
+        font-size: 14px;
+        display: flex;
+        margin-top: 12px;
+    }
+
+    .txtrow div {
+        display: inline-block;
+    }
+
+    .txtrow div:first-child {
+        color: #888;
+        font-weight: 100;
+        width: 80px;
+        flex: initial;
+        text-align: left;
+        display: inline-block;
+        margin-right: 1%;
+        vertical-align: top;
+    }
+
+    .txtrow div:last-child {
+        flex: 1;
+        font-weight: bold;
+        text-align: left;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+</style>

@@ -516,20 +516,38 @@ async function loadTemplate(temp, force) {
 
 /**
  * 选择一个文件上传
- */
 async function selectUploadFile() {
     var ctx = this;
     var iptjo = $(ctx.$el).find('#uploadIpt');
     iptjo.click();
 };
+ */
+
+/**
+ * 选择一个文件上传
+ */
+async function selectUploadFile() {
+    var ctx = this;
+    var iptBox = $(ctx.$el).find('#uploadIptBox');
+    iptBox.empty();
+    var iptJo = $('<input type="file" accept="image/*">');
+    iptJo.change(function (evt) {
+        ctx.uploadIptChanged(evt);
+    });
+    iptBox.append(iptJo);
+    iptJo.click();
+};
 
 /**
  * 监听隐身上传按钮，启动上传一个文件
  */
-async function uploadIptChanged(file) {
+async function uploadIptChanged(evt) {
     var ctx = this;
+    var file = evt.target.files[0];
+    if (!file) return;
+
     var confset = ctx.$xglobal.conf.set;
-    var maxSize = ctx.$data.accInfo ? confset.accUploadMaxSizeKb : confset.userUploadMaxSizeKb
+    var maxSize = ctx.$data.accInfo ? confset.accUploadMaxSizeKb : confset.userUploadMaxSizeKb;
 
     //限制上传文件最大1M
     if (file.size / 1024 > maxSize) {
@@ -546,6 +564,7 @@ async function uploadIptChanged(file) {
 
     var ipt = $(ctx.$el).find('#uploadIpt');
     var res = await ctx.uploadFile('none', file.name, file);
+
     ctx.$alert(res.url, '上传成功，请复制下面的链接', {
         confirmButtonText: '确定'
     });

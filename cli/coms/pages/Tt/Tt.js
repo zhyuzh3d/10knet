@@ -18,6 +18,9 @@ xsetConf.homeView = {
             case 'PracticeDetail':
                 var com = await System.import('../../practice/PracticeDetail/PracticeDetail.html');
                 break;
+            case 'SchoolDetail':
+                var com = await System.import('../../practice/SchoolDetail/SchoolDetail.html');
+                break;
             case 'UserDetail':
                 var com = await System.import('../../practice/UserDetail/UserDetail.html');
                 break;
@@ -47,6 +50,7 @@ com.data = function data() {
         practiceDetailId: '', //映射到PracticeDetail页面
         classDetailId: '', //映射到PracticeDetail页面
         userDetailId: '', //映射到userDetail页面
+        schoolDetailId: '', //映射到schoolDetail页面
         _xrestoreDisabled: true, //停用自动恢复
     };
 };

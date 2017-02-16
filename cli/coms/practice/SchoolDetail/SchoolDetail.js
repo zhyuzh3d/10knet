@@ -26,15 +26,8 @@ const confirm = MessageBox.confirm;
 Vue.prototype.$confirm = confirm;
 
 import Fake from '../_data/fake.js';
-import PracticeCard from '../../practice/PracticeCard/PracticeCard.html';
-import UserCard from '../../practice/UserCard/UserCard.html';
-import SchoolCard from '../../practice/SchoolCard/SchoolCard.html';
 
-com.components = {
-    PracticeCard,
-    UserCard,
-    SchoolCard,
-};
+com.components = {};
 
 com.data = function data() {
     var ctx = this;
@@ -42,7 +35,6 @@ com.data = function data() {
     return {
         msg: 'Hello from pages/ClassDetail/ClassDetail.js',
         activeName: 'practice',
-        practiceArr: Fake.practiceArr,
         accInfo: Fake.accInfo,
     };
 };
@@ -55,24 +47,23 @@ com.props = {
     fill: {
         type: Object,
         default: function () {
-            return Fake.classArr[0];
+            var scl = Fake.classArr[0].school;
+            scl.classArr = Fake.classArr;
+            scl.teacherArr = Fake.classArr[0].memberArr;
+            scl.practiceArr = Fake.practiceArr;
+            console.log('>>>school',scl);
+            return scl;
         },
     }
 };
 
 com.methods = {
-    xgoTab: function () {
-        this.$xset({
-            activeName: this.$data.activeName
-        });
-    },
     goBack: function () {
         history.back()
     },
     goHome: function () {
         var ctx = this;
         var tarCtx = ctx.$xcoms['App_mainView-Tt'];
-
         tarCtx.$xgo({
             homeView: 'UserHome',
         });
