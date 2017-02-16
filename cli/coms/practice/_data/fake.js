@@ -18,34 +18,55 @@ data.practiceArr = [{
         mobile: '13223422112',
         avatar: 'http://q.qlogo.cn/qqapp/101297684/6E98DA96970E841BEF5BEF2005EFA21A/100',
     },
+    manager: {
+        name: '谢晓风',
+        qq: '412334343',
+        mobile: '1273333221',
+        avatar: 'http://q.qlogo.cn/qqapp/101297684/7B0991E6BA277CAF305226893C1FCA02/100',
+    },
     desc: '这请同学们务必认真按照每日任务完成进度，观看视频，填写试卷，提交Github项目代码，上传文件图片。苟日新，日日新；一步慢，天天慢。',
     days: [{
-        tasks: [{
+        taskArr: [{
             type: 'url',
             title: '观看视频，熟悉CSS选择器',
             purpose: '记忆以下选择器的基本语法：id选择器，属性选择器，类选择器，标记选择器，伪类选择器 hover／link/visited/before/after等等。',
             url: 'http://www.xmgc360.com//_pages/lesson/lesson.html?courseid=194&lessonid=2219',
+            check:true,
+            pass:true,
         }, {
             type: 'url',
-            title: '阅读官方文档，复习CSS选择器语法',
+            title: '阅读官方文档，练习CSS选择器语法',
             purpose: '通过在线阅读和练习强化各种选择器的语法',
             url: 'http://www.w3school.com.cn/cssref/css_selectors.ASP',
+            check:true,
+            pass:false,
         }, {
             type: 'exam',
             title: '填写试卷，自我评估',
             purpose: '达到80分以上',
             limit: 80,
+            url:'https://github.com/zhyuzh3d/shixunfang',
             exam: {
                 id: 999,
                 title: 'CSS选择器语法测试',
             },
-        },{
+            check:true,
+            pass:false,
+        }, {
             type: 'file',
             title: '用html+css代码实现以下页面效果图的页面',
-            purpose: '通过技术导师的评估',
-            pic:[{
-                url:'',
-            }]
+            purpose: '编写代码，通过技术导师的评估',
+            pic: [{
+                url: 'http://app.10knet.com/S1Pk4kXKx/xgt.png',
+            }],
+            check:false,
+            pass:false,
+        }, {
+            type: 'github',
+            title: '更新你的Github项目，添加新的文件/web/test/3.html',
+            purpose: '编写代码，通过技术导师的评估',
+            check:false,
+            pass:true,
         }]
     }],
     daysDelayCount: 2,

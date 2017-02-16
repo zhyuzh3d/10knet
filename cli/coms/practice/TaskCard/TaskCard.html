@@ -1,0 +1,80 @@
+<script src="./TaskCard.js"></script>
+
+<template>
+    <div sid='TaskCard'>
+        <el-row class="card">
+            <el-col :span='3' :lg='2' class='cardcheck'>
+                <el-button type='text' style='padding:18px' @click='fill.check=!fill.check'>
+                    <el-tooltip v-if='fill.pass' class="item" effect="light" content="已审核通过" placement="right">
+                        <i class="fa fa-check fa-lg" style="color:#1cbbb4"></i>
+                    </el-tooltip>
+                    <el-tooltip v-if='fill.check&&!fill.pass' class="item" effect="light" content="已提交，等待审核通过" placement="right">
+                        <i class="fa fa-dot-circle-o fa-lg" style="color:#000"></i>
+                    </el-tooltip>
+                    <el-tooltip v-if='!fill.check&&!fill.pass' class="item" effect="light" content="已提交，等待审核通过" placement="right">
+                        <i class="fa fa-circle-o fa-lg" style="color:#AAA"></i>
+                    </el-tooltip>
+                </el-button>
+            </el-col>
+            <el-col :span='19' :lg='20' class='cardLeft'>
+                <div class='ptitle'>{{fill.title}}</div>
+                <p>{{fill.purpose}}</p>
+            </el-col>
+            <el-col v-show='fill.url' :span='2' class='cardBtn'>
+                <i class="fa fa-chevron-right"></i>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+
+<style scoped>
+    .cardcheck {
+        text-align: center;
+        cursor: pointer;
+        height: 100%;
+        margin-left: -8px;
+    }
+
+    .curpointer {
+        cursor: pointer;
+    }
+
+    .ptitle {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 8px 0;
+    }
+
+    .cardLeft {
+        padding-left: 18px;
+        border-left: 1px solid #CCC;
+    }
+
+    .cardLeft p {
+        font-size: 13px;
+        color: #666;
+        margin: 4px 0;
+    }
+
+    .cardBtn {
+        text-align: right;
+        margin-right: 12px
+    }
+
+    .cardBtn i {
+        color: #AAA
+    }
+
+    .card {
+        border: 1px solid #AAA;
+        border-radius: 0;
+        padding: 12px;
+        align-items: center;
+        display: flex;
+    }
+
+    .card2:hover {
+        box-shadow: 0 0 12px #888;
+    }
+
+</style>

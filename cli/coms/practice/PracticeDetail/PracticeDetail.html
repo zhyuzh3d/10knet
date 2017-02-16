@@ -20,7 +20,9 @@
             <el-col :span="20" :sm="16">
                 <el-tabs v-model="activeName" @tab-click="xgoTab()" style='width:100%'>
                     <el-tab-pane label="每日任务" name="practice">
-
+                        <el-row v-for='(p,n) in fill.days[0].taskArr' style='margin:12px 0'>
+                            <component is="taskCard" :fill='p' :index='n'></component>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane label="全部日程" name="days" class='days'>
 
@@ -29,6 +31,19 @@
                         <div style="height:12px"></div>
                         <div class="txtrow">
                             <div>实训经理</div>
+                            <div>
+                                <img :src="fill.manager.avatar" class="avatar" style="margin-right:12px;margin-bottom:12px">
+                                <div class='master'>
+                                    <div style="color:#000"><b>{{fill.manager.name}}</b></div>
+                                    <div class='masterinfo'>
+                                        <p>QQ:{{fill.manager.qq}}</p>
+                                        <p>Mobile:{{fill.manager.mobile}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="txtrow">
+                            <div>技术导师</div>
                             <div>
                                 <img :src="fill.master.avatar" class="avatar" style="margin-right:12px;margin-bottom:12px">
                                 <div class='master'>
@@ -73,13 +88,14 @@
     }
 
     .masterinfo {
+        margin-top: 4px;
         color: #344;
-        font-weight: normal;
         font-size: small;
     }
 
     .masterinfo p {
-        margin: 6px 0
+        font-weight: normal;
+        margin: 4px 0
     }
 
     .txtbtn {
@@ -178,6 +194,7 @@
         width: 100%;
         min-width: 480px
     }
+
 </style>
 
 
@@ -216,8 +233,10 @@
     }
 
     .ttPracticeDetail .el-tabs__item {
+        width: 20%;
         padding: 0 12px;
-        width: 120px;
+        min-width: 120px;
+        max-width: 160px;
         text-align: center;
     }
 

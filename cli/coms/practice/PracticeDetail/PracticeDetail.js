@@ -27,9 +27,11 @@ Vue.prototype.$confirm = confirm;
 
 import Fake from '../_data/fake.js';
 import UserCard from '../../practice/PracticeDetail/PracticeDetail.html';
+import TaskCard from '../../practice/TaskCard/TaskCard.html';
 
 com.components = {
     UserCard,
+    TaskCard,
 };
 
 com.data = function data() {
@@ -78,7 +80,7 @@ com.mounted = function () {
     var ctx = this;
     $(document).ready(function () {
         $('.el-tabs__item:contains(全部日程)').html('全部日程<span class="warntag">' + ctx.fill.daysDelayCount + '</span>');
-        $('.el-tabs__item:contains(每日任务)').html('每日任务<span class="warntag">' + ctx.fill.days[0].tasks.length + '</span>');
+        $('.el-tabs__item:contains(每日任务)').html('每日任务<span class="warntag">' + ctx.fill.days[0].taskArr.length + '</span>');
     });
 };
 
