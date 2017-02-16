@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     font-weight: 400;
-    color:#233;
+    color: #233;
 }
 p {
     -webkit-font-smoothing: antialiased;
@@ -37,6 +37,10 @@ a:visited {
 
 /*修复element-ui遗漏的样式*/
 
+.el-message-box__message {
+    -webkit-user-select: initial;
+    user-select: initial;
+}
 .el-notification__content {
     font-size: 13px;
     line-height: 21px;

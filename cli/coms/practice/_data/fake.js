@@ -5,9 +5,50 @@ data.practiceArr = [{
     title: '实训项目-1',
     class: {
         title: '2015级软件3班',
+            memberArr: {
+                length: 12,
+            },
     },
     begin: '2017-01-12',
     end: '2017-01-26',
+    qqGroup: '28981123',
+    master: {
+        name: '赵云鹏',
+        qq: '431223345',
+        mobile: '13223422112',
+        avatar: 'http://q.qlogo.cn/qqapp/101297684/6E98DA96970E841BEF5BEF2005EFA21A/100',
+    },
+    desc: '这请同学们务必认真按照每日任务完成进度，观看视频，填写试卷，提交Github项目代码，上传文件图片。苟日新，日日新；一步慢，天天慢。',
+    days: [{
+        tasks: [{
+            type: 'url',
+            title: '观看视频，熟悉CSS选择器',
+            purpose: '记忆以下选择器的基本语法：id选择器，属性选择器，类选择器，标记选择器，伪类选择器 hover／link/visited/before/after等等。',
+            url: 'http://www.xmgc360.com//_pages/lesson/lesson.html?courseid=194&lessonid=2219',
+        }, {
+            type: 'url',
+            title: '阅读官方文档，复习CSS选择器语法',
+            purpose: '通过在线阅读和练习强化各种选择器的语法',
+            url: 'http://www.w3school.com.cn/cssref/css_selectors.ASP',
+        }, {
+            type: 'exam',
+            title: '填写试卷，自我评估',
+            purpose: '达到80分以上',
+            limit: 80,
+            exam: {
+                id: 999,
+                title: 'CSS选择器语法测试',
+            },
+        },{
+            type: 'file',
+            title: '用html+css代码实现以下页面效果图的页面',
+            purpose: '通过技术导师的评估',
+            pic:[{
+                url:'',
+            }]
+        }]
+    }],
+    daysDelayCount: 2,
 }, {
     id: '2',
     title: '实训项目-2',

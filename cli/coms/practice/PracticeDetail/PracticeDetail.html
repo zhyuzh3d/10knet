@@ -1,10 +1,224 @@
 <script src="./PracticeDetail.js"></script>
-<style scoped>
 
-
-</style>
 <template>
-    <div sid='PracticeDetail' :xid='xid'>
-        <p>{{msg}}!</p>
+    <div sid='PracticeDetail' :xid='xid' class='ttPracticeDetail'>
+        <el-row type="flex" justify="center" style='margin-top:12px'>
+            <el-col class='nav' :span="20" :sm="16">
+                <span class="link" @click='goBack'><i class="fa fa-caret-left"></i> 返回</span>
+                <span> / </span>
+                <span class="link" @click='goHome'>我的首页</span>
+                <span> / </span>
+                <span>实训详情</span>
+            </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col class='nav' :span="20" :sm="16">
+                <h2 style="margin:8px 0">{{fill.title}}</h2>
+            </el-col>
+        </el-row>
+        <el-row id='main' type="flex" justify="center" style='margin-top:12px'>
+            <el-col :span="20" :sm="16">
+                <el-tabs v-model="activeName" @tab-click="xgoTab()" style='width:100%'>
+                    <el-tab-pane label="每日任务" name="practice">
+
+                    </el-tab-pane>
+                    <el-tab-pane label="全部日程" name="days" class='days'>
+
+                    </el-tab-pane>
+                    <el-tab-pane label="实训信息" name="info">
+                        <div style="height:12px"></div>
+                        <div class="txtrow">
+                            <div>实训经理</div>
+                            <div>
+                                <img :src="fill.master.avatar" class="avatar" style="margin-right:12px;margin-bottom:12px">
+                                <div class='master'>
+                                    <div style="color:#000"><b>{{fill.master.name}}</b></div>
+                                    <div class='masterinfo'>
+                                        <p>QQ:{{fill.master.qq}}</p>
+                                        <p>Mobile:{{fill.master.mobile}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="txtrow">
+                            <div>实训QQ群</div>
+                            <div>{{fill.qqGroup}}</div>
+                        </div>
+                        <div class="txtrow">
+                            <div>实训周期</div>
+                            <div>{{fill.begin}}～{{fill.end}} ／ 共{{fill.days.length}}天</div>
+                        </div>
+                        <div class="txtrow">
+                            <div>匹配班级</div>
+                            <div>{{fill.class.title}} / 共{{fill.class.memberArr.length}}人</div>
+                        </div>
+                        <div class="txtrow">
+                            <div>注意事项</div>
+                            <div>{{fill.desc}}</div>
+                        </div>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-col>
+        </el-row>
+        <div style="height:120px"></div>
     </div>
 </template>
+
+
+<style scoped>
+    .master {
+        border-left: 4px solid #CCC;
+        display: inline-block;
+        padding-left: 12px
+    }
+
+    .masterinfo {
+        color: #344;
+        font-weight: normal;
+        font-size: small;
+    }
+
+    .masterinfo p {
+        margin: 6px 0
+    }
+
+    .txtbtn {
+        cursor: pointer;
+        margin: 4px;
+        user-select: none;
+    }
+
+    .desc {
+        margin: 0 0 24px 0;
+        font-size: 14px;
+        padding: 0;
+    }
+
+    .infotitle {
+        color: #888;
+        font-weight: 300;
+        margin: 8px 0;
+        font-size: 14px;
+        padding: 0;
+    }
+
+    .nav {
+        color: #1cbbb4;
+        font-size: 13px;
+    }
+
+    .nav .link {
+        cursor: pointer;
+    }
+
+    .nav .link:hover {
+        color: #178984;
+    }
+
+    .txtrow {
+        text-align: left;
+        width: 100%;
+        font-size: 14px;
+        margin-bottom: 12px;
+        display: flex;
+    }
+
+    .txtrow div:first-child {
+        color: #888;
+        font-weight: 100;
+        width: 80px;
+        text-align: left;
+        display: inline-block;
+        margin-right: 1%;
+        vertical-align: top;
+        flex: initial;
+    }
+
+    .txtrow div:last-child {
+        flex: 1;
+        vertical-align: top;
+        font-weight: bold;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 128px;
+        border: 1px solid #AAA;
+    }
+
+    .el-tabs__content {
+        overflow: visible
+    }
+
+    .el-col {
+        border-radius: 4px;
+    }
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+
+    .bg-purple {
+        background: #d3dce6;
+    }
+
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+
+    .ttPracticeDetail {
+        width: 100%;
+        min-width: 480px
+    }
+</style>
+
+
+
+<style>
+    .ttPracticeDetail .warntag {
+        width: 24px;
+        height: 24px;
+        border-radius: 24px;
+        background: #E91E63;
+        color: #FFF;
+        padding: 0 4px;
+        margin-left: 4px;
+    }
+
+    .ttPracticeDetail {
+        letter-spacing: 0.2px;
+    }
+
+    .ttPracticeDetail .el-tabs__header {
+        letter-spacing: 0.05em;
+    }
+
+    .ttPracticeDetail .el-tabs__header {
+        background: #FAFAFA;
+        border: 0;
+    }
+
+    .ttPracticeDetail .el-tabs__active-bar {
+        height: 100%;
+    }
+
+    .ttPracticeDetail .el-tabs__header .is-active {
+        color: #FFF;
+        z-index: 3;
+    }
+
+    .ttPracticeDetail .el-tabs__item {
+        padding: 0 12px;
+        width: 120px;
+        text-align: center;
+    }
+
+</style>
