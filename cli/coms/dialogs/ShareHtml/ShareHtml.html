@@ -1,8 +1,8 @@
 <script src="./ShareHtml.js"></script>
 
 <template>
-    <div sid='ShareHtml' :xid='xid||"ShareHtml"'>
-        <el-dialog title="分享到:" v-model="conf.show">
+    <div sid='ShareHtml' :xid='xid||"ShareHtml"' class="ShareHtml">
+        <el-dialog title="分享到:" v-model="conf.show" style='min-width:400px'>
             <div class="btns">
                 <a v-bind:href='qzoneUrl' target="_blank">
                     <el-button class='sbtn' size='small'>
@@ -31,6 +31,13 @@
         </el-dialog>
     </div>
 </template>
+
+<style>
+    .ShareHtml .el-dialog--small {
+        min-width: 400px;
+    }
+
+</style>
 
 <style scoped>
     .urlTip {
@@ -74,8 +81,8 @@
     .sbtn:hover {
         padding: 7px 11px;
         border: 1px solid #DDD;
-        flex: 1;
         border-radius: 0px;
         background: #EEE;
     }
+
 </style>
