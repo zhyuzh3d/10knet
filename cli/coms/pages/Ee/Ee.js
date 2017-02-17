@@ -284,7 +284,7 @@ com.mounted = async function () {
  */
 function resizePreview() {
     var mbox = $('.mainBox');
-    var wid = window.innerWidth - 7;
+    var wid = window.innerWidth - 8;
     wid -= $('.sideBar').width();
     wid -= $('.tutorBox')[0] ? $('.tutorBox').width() : 0;
     wid -= $('.left')[0] ? $('.left').width() : 0;

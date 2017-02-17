@@ -11,12 +11,16 @@ import {
     Input,
     Card,
     Notification,
+    Row,
+    Col,
 }
 from 'element-ui'
 Vue.use(Dialog);
 Vue.use(Button);
 Vue.use(Input);
 Vue.use(Card);
+Vue.use(Row);
+Vue.use(Col);
 const notify = Notification
 Vue.prototype.$notify = notify;
 
