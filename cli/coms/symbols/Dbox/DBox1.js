@@ -1,59 +1,72 @@
 /**
  * 可以动态调整四边大小的盒子
+ * conf的属性都可以动态调整
  */
 import $ from 'jquery';
 var com = {};
 export default com;
 
-var barWid = '10';
+var barSize = '6';
 window.DboxDragMaskArr = [];
 
-com.components = {};
-
 com.props = {
-    conf: String,
-    useRight: String,
-    useLeft: String,
-    useTop: String,
-    useBottom: String,
-    wid: String,
-    hei: String,
-    barSize: String,
-    minWid: String,
-    minHei: String,
-    maxWid: String,
-    maxHei: String,
-    xidTag: String,
+    conf: Object, //所有属性支持动态调整
     xid: String,
+    display: String,
 };
 
 com.data = function data() {
+    var ctx = this;
     return {
         rdragging: false,
-        sizeX: this.wid || '100%',
-        sizeY: this.hei || '100%',
-        mnWid: this.minWid || this.barSize || barWid,
-        mxWid: this.maxWid || window.innerWidth,
-        mnHei: this.minHei || this.barSize || barWid,
-        mxHei: this.maxHei || window.innerHeight,
+        width: '100%', //用于restore,支持$xset保存恢复
+        height: '100%', //用于restore,支持$xset保存恢复
     };
 };
 
-com.methods = {
-    startDrag: function (evt, tag) {
-        startDrag(evt, this, tag);
+com.watch = {
+    //这里的属性支持$xset保存恢复
+    width: function (val, oldval) {
+        var ctx = this;
+        ctx.$set(ctx.conf, 'width', val);
     },
+    height: function (val, oldval) {
+        var ctx = this;
+        ctx.$set(ctx.conf, 'height', val);
+    },
+};
+
+com.methods = {
+    startDrag: startDrag,
 };
 
 
 com.mounted = function () {
+    var ctx = this;
 
+    //初始化conf默认数据
+    if (!ctx.conf.barSize) ctx.$set(ctx.conf, 'barSize', barSize);
+    if (!ctx.conf.barColor) ctx.$set(ctx.conf, 'barColor', '#BBB');
+    if (!ctx.conf.width) ctx.$set(ctx.conf, 'width', '100%');
+    if (!ctx.conf.height) ctx.$set(ctx.conf, 'height', '100%');
+    if (!ctx.conf.minWidth) ctx.$set(ctx.conf, 'minWidth', ctx.conf.barSize);
+    if (!ctx.conf.minHeight) ctx.$set(ctx.conf, 'minHeight', ctx.conf.barSize);
+    if (!ctx.conf.maxWidth) ctx.$set(ctx.conf, 'maxWidth', window.innerWidth);
+    if (!ctx.conf.maxHeight) ctx.$set(ctx.conf, 'maxHeight', window.innerWidth);
 };
 
 //------------------------functions-----------------------
-function startDrag(evt, ctx, tag) {
+
+/**
+ * 边框拖动的时候执行事件，调整盒子尺寸
+ * @param {object}   evt evt
+ * @param {string} tag top,right,left,bottom
+ */
+function startDrag(evt, tag) {
+    var ctx = this;
+
     var tar = $(evt.target);
-    var jo = tar.parents('#Dbox');
+    var jo = tar.parents('.Dbox');
     var mask = $('<div id="DboxDragMask"></div>');
     var orgPos = {
         x: evt.screenX,
@@ -68,34 +81,35 @@ function startDrag(evt, ctx, tag) {
         'z-index': '1000'
     });
 
-
     mask.mousemove(function (moveEvt) {
         var offsetX = moveEvt.screenX - orgPos.x;
         var offsetY = moveEvt.screenY - orgPos.y;
         orgPos.x = moveEvt.screenX;
         orgPos.y = moveEvt.screenY;
 
+
         if (tag == 'right' || tag == 'left') {
             var wid = jo.width() + offsetX;
-            wid = (wid < ctx.mnWid) ? ctx.mnWid : wid;
-            wid = (wid > ctx.mxWid) ? ctx.mxWid : wid;
+            wid = (wid < ctx.conf.minWidth) ? ctx.conf.minWidth : wid;
+            wid = (wid > ctx.conf.maxWidth) ? ctx.conf.maxWidth : wid;
 
-            ctx.$set(ctx.$data, 'sizeX', wid + 'px');
+            ctx.$set(ctx.conf, 'width', wid + 'px');
             if (ctx.xid) {
                 ctx.$xset({
-                    sizeX: wid + 'px',
+                    width: wid + 'px',
                 });
             };
         };
 
         if (tag == 'top' || tag == 'bottom') {
             var hei = jo.height() + offsetY;
-            hei = (hei < ctx.mnHei) ? ctx.mnHei : hei;
-            hei = (hei > ctx.mxHei) ? ctx.mxHei : hei;
-            ctx.$set(ctx.$data, 'sizeY', hei + 'px');
+            hei = (hei < ctx.conf.minHei) ? ctx.conf.minHei : hei;
+            hei = (hei > ctx.conf.maxHei) ? ctx.conf.maxHei : hei;
+            ctx.$set(ctx.$data, 'height', hei + 'px');
+
             if (ctx.xid) {
                 ctx.$xset({
-                    sizeY: hei + 'px',
+                    height: hei + 'px',
                 });
             };
         };
@@ -107,6 +121,11 @@ function startDrag(evt, ctx, tag) {
     $('body').append(mask);
 };
 
+
+/**
+ * 遮罩事件，清除自身（mask）
+ * @param {object} evt evt
+ */
 
 function removeMask(evt) {
     window.DboxDragMaskArr.forEach(function (item, i) {

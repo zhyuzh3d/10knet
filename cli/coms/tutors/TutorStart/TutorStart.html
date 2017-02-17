@@ -40,9 +40,7 @@
         <div v-if='stage==1'>
             <div class="part">
                 <div class="title">Step 4 <i class="fa fa-caret-right"></i> 上传图片</div>
-                <div class="txt">点击左侧<b>【图片】</b>按钮 <i class='fa fa-image'></i>&nbsp;&nbsp;，然后选择您的证件照图片，然后点击确定。稍后上传成功的弹出窗口中，复制链接。
-                    <br>或者直接复制下面的链接
-                    <br><small>http://app.10knet.com/HkDFBmnOg/yy.png</small></div>
+                <div class="txt">点击左侧<b>【图片】</b>按钮 <i class='fa fa-image'></i>&nbsp;&nbsp;，然后选择您的证件照图片，然后点击确定。稍后上传成功的弹出窗口中，复制链接。或者直接复制下面的链接<br><small>http://app.10knet.com/HkDFBmnOg/yy.png</small></div>
                 <el-button type='primary' size='small' @click='showUpload' class='btn'>自动演示</el-button>
 
             </div>
@@ -99,6 +97,8 @@
         text-align: justify;
         font-size: 13px;
         line-height: 22px;
+        white-space: pre-wrap;
+        word-break: break-all;
     }
 
     .title {

@@ -1,21 +1,21 @@
 <script src="./Dbox.js"></script>
 
 <template>
-    <div id='Dbox' :xid='xid||"Dbox"' v-bind:style='{width:sizeX,height:sizeY}'>
-        <div v-if='useLeft' class="vbar" @mousedown='startDrag($event,"left")' v-bind:style='{width:barSize+"px"}'></div>
+    <div sid='Dbox' class="Dbox" :xid='xid||"Dbox"' v-bind:style='{width:conf.width,height:conf.height,display:display}'>
+        <div v-if='conf.useLeft' class="vbar" @mousedown='startDrag($event,"left")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
         <div class='box'>
-            <div v-if='useTop' class="hbar" @mousedown='startDrag($event,"top")' v-bind:style='{height:barSize+"px"}'></div>
+            <div v-if='conf.useTop' class="hbar" @mousedown='startDrag($event,"top")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
             <div class='box2'>
                 <slot></slot>
             </div>
-            <div v-if='useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' v-bind:style='{height:barSize+"px"}'></div>
+            <div v-if='conf.useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
         </div>
-        <div v-if='useRight' class="vbar" @mousedown='startDrag($event,"right")' v-bind:style='{width:barSize+"px"}'></div>
+        <div v-if='conf.useRight' class="vbar" @mousedown='startDrag($event,"right")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
     </div>
 </template>
 
 <style scoped>
-    #Dbox {
+    .Dbox {
         display: flex;
         flex-direction: row
     }
@@ -32,13 +32,14 @@
         display: flex;
         overflow: hidden;
         flex-direction: column;
+        background: #272822;
     }
 
     .vbar {
         width: 10px;
         height: 100%;
         flex: none;
-        background: #AAA;
+        background: #BBB;
         cursor: col-resize;
         border-right: 1px solid #CCC;
     }
@@ -47,7 +48,7 @@
         width: 100%;
         height: 10px;
         flex: none;
-        background: #AAA;
+        background: #BBB;
         cursor: row-resize;
         border-top: 1px solid #CCC;
     }

@@ -2,7 +2,7 @@
 <template>
     <div sid='Ee' :xid='xid' class='full'>
         <div class='mainBox'>
-            <div class="sideBar mcol">
+            <div class="sideBar">
                 <div style='height:4px'></div>
                 <div class='btnGrp1'>
                     <el-popover ref="accBtnPop" placement="right" width="auto" v-model="accBtnPopVis" trigger="hover">
@@ -133,14 +133,13 @@
                 <div style='height:8px'></div>
             </div>
 
-            <div xid='tutorBox' class="tutorBox mcol" :conf='tutorDBoxConf' :display='tutorBoxDis' v-if='tutorBoxDis!="none"'>
+            <div xid='tutorBox' class="tutorBox" :conf='tutorDBoxConf' :display='tutorBoxDis' v-if='tutorBoxDis!="none"'>
                 <div class="tutorContent">
                     <component :is="tutorView"></component>
                 </div>
             </div>
 
-            <dbox class="left mcol" :conf='codersDBoxConf' v-show='codersBoxVis' xid='codersBox' display='inline-block' style='height:100vh'>
-                <!--                <div style="background:#FFF;width:100%;height:100px"></div>-->
+            <dbox class="left" :conf='codersDBoxConf' v-show='codersBoxVis' xid='codersBox' display='flex' style='height:100vh'>
                 <dbox :conf='cssDBoxConf' xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -210,52 +209,16 @@
 </template>
 
 <style scoped>
-    .full {
-        margin-top: 0;
-        width: 100%;
-        height: 100%;
-        /*        position: absolute;*/
-        /*        display: flex;*/
-        /*        flex-flow: column nowrap;*/
-        /*        align-items: stretch;*/
-    }
 
     .mainBox {
         position: relative;
-        white-space: nowrap;
-        /*        display: flex;*/
-        /*        flex-flow: row nowrap;*/
-        /*        align-items: stretch;*/
-        /*        flex: 1;*/
-        font-size: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        flex: 1;
     }
 
-    .mcol {
-        /*        */
-        display: inline-block;
-        vertical-align: top;
-        height: 100vh;
-    }
 
-    .sideBar {
-        width: 40px;
-        background: #BBB;
-        /*        display: flex;*/
-        /*        flex-direction: column;*/
-    }
-
-    .sideBar >.btnGrp1 {
-        text-align: center;
-        /*        flex: auto;*/
-        /*        flex-grow: 1;*/
-    }
-
-    .sideBar >.btnGrp2 {
-        text-align: center;
-        /*        flex: initial;*/
-        position: absolute;
-        bottom: 0;
-    }
 
     .tutorBox {
         background: #BBB;
@@ -264,35 +227,6 @@
         min-width: 320px;
         max-width: 320px;
     }
-
-    .left {
-        min-width: 200px;
-        max-width: 80%;
-        background-color: #888;
-        /*        flex: initial;*/
-        /*        display: flex;*/
-        /*        align-items: stretch;*/
-        /*        flex-flow: column nowrap;*/
-    }
-
-    .autoFlex {
-        overflow: auto;
-        height: 100%;
-        /*        flex: 1;*/
-        /*        flex-grow: 1;*/
-    }
-
-    .right {
-        margin-left: 6px;
-        min-width: 200px;
-        background-color: #FFF;
-        border-left: 1px solid #AAA;
-        /*        flex: auto;*/
-        display: inline-block;
-        vertical-align: top;
-        height: 100vh;
-    }
-    /*   -------------    */
 
     .tutorContent {
         height: 100%;
@@ -345,6 +279,17 @@
         color: #666;
     }
 
+    .btnGrp1 {
+        flex: auto;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .btnGrp2 {
+        flex: initial;
+        text-align: center;
+    }
+
     .coderDiv {
         /*border-left: 1px solid #BBB*/
     }
@@ -363,8 +308,14 @@
         color: #FFF;
     }
 
+    .sideBar {
+        width: 40px;
+        background: #BBB;
+        display: flex;
+        flex-direction: column;
+    }
+
     .sideBar .rbtn {
-        display: block;
         border-radius: 4px;
         width: 32px;
         margin: 2px 4px;
@@ -376,9 +327,15 @@
     }
 
     .sideBar .rbtn:hover {
-        margin: -1px 4px;
+        margin: 1px 3px;
         background: #CCC;
         border: 1px solid #999;
+    }
+
+    .autoFlex {
+        flex: 1;
+        flex-grow: 1;
+        overflow: auto;
     }
 
     iframe {
@@ -386,6 +343,34 @@
         width: 100%;
         height: 100vh;
         background-color: #FFF;
+    }
+
+    .full {
+        position: absolute;
+        margin-top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+    }
+
+
+    .left {
+        flex: initial;
+        min-width: 200px;
+        background-color: #888;
+        display: flex;
+        align-items: stretch;
+        flex-flow: column nowrap;
+    }
+
+    .right {
+        margin-left: -1px;
+        min-width: 200px;
+        flex: auto;
+        background-color: #FFF;
+        border-left: 1px solid #AAA;
     }
 
     .set {

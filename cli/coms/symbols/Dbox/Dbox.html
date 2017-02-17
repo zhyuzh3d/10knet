@@ -2,55 +2,66 @@
 
 <template>
     <div sid='Dbox' class="Dbox" :xid='xid||"Dbox"' v-bind:style='{width:conf.width,height:conf.height,display:display}'>
-        <div v-if='conf.useLeft' class="vbar" @mousedown='startDrag($event,"left")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
-        <div class='box'>
-            <div v-if='conf.useTop' class="hbar" @mousedown='startDrag($event,"top")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
-            <div class='box2'>
+        <div v-if='conf.useLeft' class="vbar fleft" @mousedown='startDrag($event,"left")' :style='{width:conf.barSize+"px","background-color":conf.barColor,left:conf.barSize+"px"}'></div>
+<!--        <div class='box'>-->
+            <div v-if='conf.useTop' class="hbar" @mousedown='startDrag($event,"top")' :style='{height:conf.barSize+"px","background-color":conf.barColor,top:conf.barSize+"px"}'></div>
+            <div class='box' :style='conf.useRight?{"margin-right":conf.barSize+"px"}:{}'>
                 <slot></slot>
             </div>
-            <div v-if='conf.useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' :style='{height:conf.barSize+"px","background-color":conf.barColor}'></div>
-        </div>
-        <div v-if='conf.useRight' class="vbar" @mousedown='startDrag($event,"right")' :style='{width:conf.barSize+"px","background-color":conf.barColor}'></div>
+            <div v-if='conf.useBottom' class="hbar" @mousedown='startDrag($event,"bottom")' :style='{height:conf.barSize+"px","background-color":conf.barColor,bottom:conf.barSize+"px"}'></div>
+<!--        </div>-->
+        <div v-if='conf.useRight' class="vbar" @mousedown='startDrag($event,"right")' :style='{width:conf.barSize+"px","background-color":conf.barColor,right:conf.barSize+"px"}'></div>
     </div>
 </template>
 
 <style scoped>
     .Dbox {
-        display: flex;
-        flex-direction: row
+        /*        display: flex;*/
+        /*        flex-direction: row*/
+        position: relative;
     }
 
     .box {
-        flex: auto;
-        display: flex;
         overflow: hidden;
-        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        /*        flex: auto;*/
+        /*        display: flex;*/
+        /*        flex-direction: column;*/
+        display: inline-block;
     }
 
     .box2 {
-        flex: 100;
-        display: flex;
         overflow: hidden;
-        flex-direction: column;
         background: #272822;
+        /*        flex: 100;*/
+        /*        display: flex;*/
+        /*        flex-direction: column;*/
     }
 
     .vbar {
         width: 10px;
         height: 100%;
-        flex: none;
         background: #BBB;
         cursor: col-resize;
         border-right: 1px solid #CCC;
+        /*        flex: none;*/
+        position: relative;
+        display: inline-block;
+        top:0;
+        z-index: 10;
     }
 
     .hbar {
         width: 100%;
         height: 10px;
-        flex: none;
         background: #BBB;
         cursor: row-resize;
         border-top: 1px solid #CCC;
+        /*        flex: none;*/
+        position: relative;
+        left:0;
+        z-index: 10;
     }
 
 </style>

@@ -229,10 +229,6 @@ com.methods = {
 com.mounted = async function () {
     var ctx = this;
 
-    //每秒重新计算预览尺寸
-    resizePreview();
-    setInterval(resizePreview, 3000);
-
     //手工恢复
     await ctx.$xrestore();
 
@@ -278,19 +274,6 @@ com.mounted = async function () {
 
 
 //-----------------functions-------------------------
-
-/**
- * 每秒重新计算预览窗口尺寸
- */
-function resizePreview() {
-    var mbox = $('.mainBox');
-    var wid = window.innerWidth - 7;
-    wid -= $('.sideBar').width();
-    wid -= $('.tutorBox')[0] ? $('.tutorBox').width() : 0;
-    wid -= $('.left')[0] ? $('.left').width() : 0;
-    $('.right').css('width', wid + 'px');
-};
-
 
 
 /**
