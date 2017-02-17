@@ -701,7 +701,7 @@ function fillEditors(data, options) {
     //根据option调整编辑器,如{cssCoderBox:{height:'70%'}}
     if (options) {
         for (var attrXid in options) {
-            ctx.$xset(options[attrXid], attrXid + '-Coder');
+            ctx.$xset(options[attrXid], attrXid + '-Dbox');
         };
     };
 

@@ -284,7 +284,7 @@ async function $xset(data, comid, unsave) {
     var tarCtx = $xcoms[comid];
     if (!tarCtx) {
         console.warn('xrouter:xset:com is not in xcoms', data, comid);
-        console.info('┖--Valid coms:', $xcoms);
+        console.info('└──Valid coms:', $xcoms);
         return;
     };
 
