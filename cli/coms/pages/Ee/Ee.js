@@ -209,7 +209,6 @@ com.methods = {
     refreshCss: refreshCss,
     refreshBody: refreshBody,
     refreshJs: refreshJs,
-    refreshJsMenual: refreshJsMenual,
     xsetCodeBoxVis: function () {
         var ctx = this;
         ctx.$xset({

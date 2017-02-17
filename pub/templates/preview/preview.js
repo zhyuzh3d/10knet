@@ -132,7 +132,7 @@ window.addEventListener('message', function (e) {
     var obj;
 
     try {
-        obj=JSON.parse(e.data);
+        obj = JSON.parse(e.data);
     } catch (err) {
         console.warn('preview/message:JSON parse err.', e.data);
     };
@@ -157,6 +157,3 @@ window.addEventListener('message', function (e) {
     };
     e.ports[0].postMessage('ACK');
 }, false);
-
-
-

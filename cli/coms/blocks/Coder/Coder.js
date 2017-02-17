@@ -130,6 +130,9 @@ com.mounted = function () {
     editor.on('keyup', function (cm, evt) {
         editorKeyup(cm, evt, ctx);
     });
+    editor.on('change', function (cm, evt) {
+        editorKeyup(cm, evt, ctx);
+    });
 
     //利用xset自动恢复滚动位置，延迟确保生效
     setTimeout(function () {

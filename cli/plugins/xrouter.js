@@ -322,7 +322,7 @@ async function $xset(data, comid, unsave) {
 
                 //如果这个值是个对象，那么先合并已有字段，否则直接覆盖
                 var val = data[key];
-                if (val && val.constructor == Object && tarCtx[key] && tarCtx[key].constructor == isObject) {
+                if (val && val.constructor == Object && tarCtx[key] && tarCtx[key].constructor == Object) {
                     val = Object.assign(val, tarCtx[key]);
                 };
                 tarCtx.$set(tarCtx, key, val);

@@ -39,7 +39,6 @@ com.props = {
 com.data = function data() {
     var ctx = this;
     return {
-        Ee: ctx.$xcoms['App_mainView-Ee'],
         stage: 0,
     };
 };
@@ -55,16 +54,16 @@ com.methods = {
     showUpload: async function showUpload() {
         var ctx = this;
         var fns = ctx.$xglobal.fns;
-        fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barPicBtn'), false);
+        fns.visualClick($(ctx.$xcoms['App_mainView-Ee'].$el).find('#barPicBtn'), false);
     },
     replacePicUrl: async function replacePicUrl() {
         var ctx = this;
         var fns = ctx.$xglobal.fns;
-        var editor = ctx.$xcoms['bodyCoder'].editor;
+        var editor = ctx.$xcoms['bodyCoder-Coder'].editor;
 
         //激活编辑器，显示遮罩
         fns.showFullMask(false);
-        fns.visualClick($(ctx.$xcoms['bodyCoder'].$el), true);
+        fns.visualClick($(ctx.$xcoms['bodyCoder-Coder'].$el), true);
         fns.showFullMask();
         await fns.sleep(500);
 
@@ -90,7 +89,7 @@ com.methods = {
                 await fns.sleep(2000);
                 await editor.doc.replaceSelection('http://app.10knet.com/HkDFBmnOg/yy.png');
                 await fns.sleep(1500);
-                await fns.visualClick($(ctx.Ee.$el).find('#bodyRefreshBtn'));
+                await fns.visualClick($(ctx.$xcoms['App_mainView-Ee'].$el).find('#bodyRefreshBtn'));
             } else {
                 codeErr = true;
             };
@@ -103,7 +102,7 @@ com.methods = {
             ctx.$notify({
                 title: '代码出现异常，自动为您重新载入模版'
             });
-            await ctx.$data.Ee.loadTemplate(ctx.$xglobal.conf.pageTemplates.resume, true);
+            await ctx.$xcoms['App_mainView-Ee'].loadTemplate(ctx.$xglobal.conf.pageTemplates.resume, true);
             await fns.sleep(3000);
             ctx.replacePicUrl();
         } else {
@@ -118,11 +117,11 @@ com.methods = {
 
         fns.showFullMask();
         await fns.sleep(1000);
-        fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barTempBtn'), true);
+        fns.visualClick($(ctx.$xcoms['App_mainView-Ee'].$el).find('#barTempBtn'), true);
         await fns.sleep(1500);
-        fns.visualClick($(ctx.$xcoms['PageTemplates'].$el).find('#resume'), true);
+        fns.visualClick($(ctx.$xcoms['PageTemplates-PageTemplates'].$el).find('#resume'), true);
         await fns.sleep(1500);
-        fns.visualClick($(ctx.$xcoms['PageTemplates'].$el).find('#loadBtn'), true);
+        fns.visualClick($(ctx.$xcoms['PageTemplates-PageTemplates'].$el).find('#loadBtn'), true);
         await fns.sleep(1500);
         fns.visualClick($('.el-message-box__wrapper').find('button:contains("确定")'), true);
         await fns.sleep(1500);
@@ -131,14 +130,14 @@ com.methods = {
     renameWxm: async function () {
         var ctx = this;
         var fns = ctx.$xglobal.fns;
-        var editor = ctx.$xcoms['bodyCoder'].editor;
+        var editor = ctx.$xcoms['bodyCoder-Coder'].editor;
 
         //避免被用户修改过，重载模版
-        await ctx.$data.Ee.loadTemplate(ctx.$xglobal.conf.pageTemplates.resume, true);
+        await ctx.$xcoms['App_mainView-Ee'].loadTemplate(ctx.$xglobal.conf.pageTemplates.resume, true);
 
         //激活编辑器，显示遮罩
         fns.showFullMask(false);
-        fns.visualClick($(ctx.$xcoms['bodyCoder'].$el), true);
+        fns.visualClick($(ctx.$xcoms['bodyCoder-Coder'].$el), true);
         fns.showFullMask();
         await fns.sleep(500);
 
@@ -160,8 +159,8 @@ com.methods = {
             await fns.sleep(500);
             editor.setCursor(cursor.from());
 
-            await ctx.$xcoms['bodyCoder'].typeWriterDel(3);
-            await ctx.$xcoms['bodyCoder'].typeWriter(name);
+            await ctx.$xcoms['bodyCoder-Coder'].typeWriterDel(3);
+            await ctx.$xcoms['bodyCoder-Coder'].typeWriter(name);
             editor.setCursor(cursor.from());
         };
 
@@ -173,7 +172,7 @@ com.methods = {
         var ctx = this;
         var fns = ctx.$xglobal.fns;
         await fns.sleep(500);
-        fns.visualClick($(ctx.$xcoms['App_mainView'].$el).find('#barShareBtn'), false);
+        fns.visualClick($(ctx.$xcoms['App_mainView-Ee'].$el).find('#barShareBtn'), false);
     },
 };
 
