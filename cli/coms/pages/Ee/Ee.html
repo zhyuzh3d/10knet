@@ -75,7 +75,7 @@
                         </div>
                     </el-popover>
                     <el-button id='barPicBtn' class='rbtn' @click='selectUploadFile' v-popover:picBtnPop><i class="fa fa-photo"></i></el-button>
-                     <div id='uploadIptBox' style='display:none'></div>
+                    <div id='uploadIptBox' style='display:none'></div>
 
                     <el-popover ref="lineJokePop2" placement="right" width="auto" v-model="lineJokePop2Vis" trigger="hover">别看我，我只是条无辜的分割线</el-popover>
                     <div style="margin:12px 12px;height:1px;background:#666" v-popover:lineJokePop2></div>
@@ -139,7 +139,7 @@
                 </div>
             </div>
 
-            <dbox class="left" :conf='codersDBoxConf' v-show='codersBoxVis' xid='codersBox' display='flex'>
+            <dbox class="left" :conf='codersDBoxConf' v-show='codersBoxVis' xid='codersBox' display='flex' style='height:100vh'>
                 <dbox :conf='cssDBoxConf' xid='cssCoderBox' useBottom='true' hei='30%' barSize='5' style='position:relative'>
                     <div v-if='!coderLoaded' class="hvcenter">
                         <i class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -280,7 +280,7 @@
     }
 
     .coderDiv {
-        border-left: 1px solid #BBB
+        /*border-left: 1px solid #BBB*/
     }
 
     .tagbtn {

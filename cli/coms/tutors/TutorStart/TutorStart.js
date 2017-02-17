@@ -40,6 +40,7 @@ com.data = function data() {
     var ctx = this;
     return {
         stage: 0,
+        Ee: ctx.$xcoms['App_mainView-Ee'],
     };
 };
 

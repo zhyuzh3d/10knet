@@ -13,10 +13,10 @@
                 <div class='cardBox' v-for='(v,k) in templates' v-if='v.show'>
                     <el-card class="card" :body-style="{padding: '0px'}">
                         <div class="cardContent">
-                            <div class="tmpPrev">
+                            <div class="tmpPrev" style="z-index:0">
                                 <iframe @load='iframeLoad($event)' v-bind:src='v.url' style=""></iframe>
                             </div>
-                            <div :id='k' class="tmpInfo" @click='seleletTemp(v)'>
+                            <div :id='k' class="tmpInfo" @click='seleletTemp(v)' style="z-index:10">
                                 <div class="tmpTitle">{{v.name}}</div>
                                 <div class="tmpDesc">{{v.desc}}</div>
                             </div>
@@ -40,13 +40,19 @@
         overflow: hidden;
     }
 
+    .tmpPrev {
+        z-index: 0;
+    }
+
     .tmpInfo {
         opacity: 0.01;
         position: absolute;
+        top: 0;
         overflow-y: scroll;
         background: #FFF;
         padding: 12px;
         height: 124px;
+        z-index: 10;
     }
 
     .tmpInfo:hover {
