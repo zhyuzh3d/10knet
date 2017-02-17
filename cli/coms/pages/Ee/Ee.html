@@ -174,7 +174,7 @@
                         <el-button id='bodyRefreshBtn' class='tagbtn' size='mini' @click='beautifyCode("body")' v-popover:bodyHudPop>&nbsp;body&nbsp;</el-button>
                     </component>
                 </dbox>
-                <div class='autoFlex'>
+                <div class='autoBox'>
                     <div style="height:100%;position:relative;">
                         <div v-if='!coderLoaded' class="hvcenter">
                             <i class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -258,7 +258,7 @@
         background-color: #888;
     }
 
-    .autoFlex {
+    .autoBox {
         overflow: auto;
         height: 100%;
     }

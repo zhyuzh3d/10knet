@@ -217,7 +217,7 @@ com.methods = {
     },
     xsetTutorBoxVis: function () {
         var ctx = this;
-        var val = ctx.$data.tutorBoxDis == 'none' ? 'flex' : 'none';
+        var val = ctx.$data.tutorBoxDis == 'none' ? 'inline-block' : 'none';
         ctx.$xset({
             tutorBoxDis: val,
         });
@@ -251,7 +251,7 @@ com.mounted = async function () {
             tutorView: 'TutorStart',
         });
         await ctx.$xset({
-            tutorBoxDis: 'flex',
+            tutorBoxDis: 'inline-block',
         });
     };
 
